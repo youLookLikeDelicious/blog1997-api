@@ -11,6 +11,25 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (\Illuminate\Http\Request $request) {
     return view('welcome');
+});
+Route::get('/image/{dir}/{name}/{isWebp?}', function (\Illuminate\Http\Request $request, $dir, $name, $isWebp = true) {
+    $ext = strrchr($name, '.');
+    $name = str_replace($ext, '', $name);
+
+    if ($isWebp) {
+        $ext = '.webp';
+    }
+    // 生成文件路径
+    $filePath = "image/{$dir}/{$name}{$ext}";
+    $storagePath = storage_path($filePath);
+
+    if (is_file($storagePath)) {
+        header('Access-Control-Allow-Credentials:true');
+        setcookie('SameSite', 'Secure', 0, '/');
+        return response()->file($storagePath);
+    } else {
+        return view('404');
+    }
 });
