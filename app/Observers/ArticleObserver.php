@@ -112,6 +112,6 @@ class ArticleObserver
      */
     /*public function forceDeleted(Article $article)
     {
-        //
+
     }*/
 }
