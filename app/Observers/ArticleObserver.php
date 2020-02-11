@@ -2,10 +2,14 @@
 
 namespace App\Observers;
 
-use App\Model\Article;
 use App\Model\Topic;
+use App\Model\Article;
+use App\Traits\ArticleObserver\deleteImage;
+
 class ArticleObserver
 {
+    use deleteImage;
+
     /**
      * Handle the article "created" event.
      *
@@ -37,8 +41,6 @@ class ArticleObserver
         $imgUrl = $this->getImgUrl($article->content);
 
         // 计算出不同的url
-        $imgUrl = array_column($imgUrl, 1);
-        $originImgUrl = array_column($originImgUrl, 1);
         $result = array_diff($originImgUrl, $imgUrl);
 
         // 删除图片
@@ -62,37 +64,6 @@ class ArticleObserver
         $this->unlinkImage($imgList);
     }
 
-    /**
-     * 获取富文本图片的src属性
-     * @param $content
-     * @return array
-     */
-    protected function getImgUrl ($content) {
-        $pattern = $pattern = "/<img.*?src=\"([\w\.\-\/:]*?)\".*?>/";
-        preg_match_all($pattern, $content, $imgUrl, PREG_SET_ORDER);
-
-        return $imgUrl;
-    }
-
-    /**
-     * 从服务器上将图片删除
-     * @param Array $imgList 图片列表
-     * @return void
-     */
-    protected function unlinkImage ($imgList) {
-        foreach ($imgList as $v) {
-            $filePath = storage_path(strstr($v, 'image'));
-            if (is_file($filePath)) {
-                unlink($filePath);
-            }
-
-            // 删除webp格式的文件
-            $filePath = str_replace(strrchr($filePath, '.'), '', $filePath) . '.webp';
-            if (is_file($filePath)) {
-                unlink($filePath);
-            }
-        }
-    }
     /**
      * Handle the article "restored" event.
      *

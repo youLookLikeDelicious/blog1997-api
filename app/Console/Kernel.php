@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Schedule\RedisDataToMysql;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,8 +25,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        // 将redis中的数据入库
+//        $schedule->call(new RedisDataToMysql)->dailyAt('3:00');
+        $schedule->call(new RedisDataToMysql)->everyMinute();
     }
 
     /**

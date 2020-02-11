@@ -14,16 +14,21 @@ class TopicController extends Controller
     /**
      * 获取专题列表
      * Method GET
+     * @param Request $request
+     * @param Topic $topic
+     * @return mixed
      */
     public function getTopicList (Request $request, Topic $topic) {
-        $topicList = $topic->select(['id', 'name', 'article_sum', 'created_at'])->get();
+        $topicQuery = $topic->select(['id', 'name', 'article_sum', 'created_at']);
 
-        if ($topicList === false) {
-            return response()->error('数据库连接错误,请联系站长');
+        try{
+            $topicList = \Page::paginate($topicQuery);
+            return response()->success($topicList);
+        } catch (\Exception $e) {
+            return response()->error('异常错误,请联系站长');
         }
-
-        return response()->success($topicList);
     }
+
     /**
      * 验证提交的数据
      * @param $data 需要验证的数据
@@ -43,10 +48,13 @@ class TopicController extends Controller
 
         return $validator;
     }
+
     /**
      * 新建专题
      * Method POST
-     * @param Topic 专题模型
+     * @param Request $request
+     * @param Topic $topic
+     * @return mixed
      */
     public function createTopic (Request $request, Topic $topic) {
         // 获取专题名称和id
@@ -85,24 +93,32 @@ class TopicController extends Controller
     /**
      * 删除专题
      * Method POST
+     * @param Request $request
+     * @return mixed
      */
     public function deleteTopic (Request $request) {
         $id = $request->input('id', 0) + 0;
 
         DB::beginTransaction();
-        // 删除专题
-        $flag = Topic::where('id', $id)->delete();
-        // 删除专题下的文章
-        $flag1 = Article::where('topic_id', $id)->delete();
 
-        if ($flag && is_numeric($flag1)) {
+        try{
+            // 删除专题
+            $flag = Topic::where('id', $id)->delete();
+
+            // 删除专题下的文章
+            $article = Article::where('topic_id', $id)->get();
+
+            foreach ($article as $v) {
+                $v->delete();
+            }
+
             // 删除成功
             DB::commit();
             return response()->success();
-        } else{
+        } catch (\Exception $e) {
             // 删除失败
             DB::rollBack();
-            return response()->error();
+            return response()->error('专题删除失败');
         }
     }
 }

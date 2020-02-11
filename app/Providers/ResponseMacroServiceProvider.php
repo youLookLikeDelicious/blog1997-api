@@ -23,15 +23,15 @@ class ResponseMacroServiceProvider extends ServiceProvider
             ]);
         });
         // 失败的response
-        Response::macro('error', function ($message = 'error') {
+        Response::macro('error', function ($message = 'error', $code = 400) {
             // 处理validator的messageBag对象
             if (is_object($message)) {
-                $message = implode("\n", $message->all());
+                $message = implode("\n", $message->all()) . ' ﾍ(･_|';
             }
             return response([
                 'status'  => 'error',
                 'message' => $message
-            ], 400);
+            ], $code);
         });
     }
 
