@@ -15,15 +15,20 @@ class XyUser extends Migration
     {
         //
         Schema::create('user', function (Blueprint $table) {
-            $table->smallIncrements('id')
+            $table->increments('id')
                 ->comment('主键id');
             $table->string('name', 45)
                 ->nullable(false)
                 ->default('')
                 ->comment('用户名');
-            $table->string('article_sum', 120)
+            $table->string('avatar', 120)
                 ->nullable(false)
+                ->default('')
                 ->comment('头像');
+            $table->mediumInteger('article_sum')
+                ->default(0)
+                ->nullable(false)
+                ->comment('创建文章数量');
             $table->enum('is_author', ['yes', 'no'])
                 ->nullable(false)
                 ->default('no')
@@ -32,6 +37,14 @@ class XyUser extends Migration
                 ->nullable(false)
                 ->default(0)
                 ->comment('创建时间');
+            $table->tinyInteger('type')
+                ->nullable(false)
+                ->default(1)
+                ->comment('第三方登陆的类型：1 微信，2 github 3 qq');
+            $table->unsignedInteger('foreign_id')
+                ->nullable(false)
+                ->default(0)
+                ->comment('第三方平台的id');
             $table->unsignedInteger('updated_at')
                 ->nullable(false)
                 ->default(0)

@@ -1,5 +1,6 @@
 <?php
-
+use App\Schedule\RedisDataToMysql;
+use App\Model\SiteMap;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,8 @@
 Route::get('/', function (\Illuminate\Http\Request $request) {
     return view('welcome');
 });
-Route::get('/image/{dir}/{name}/{isWebp?}', function (\Illuminate\Http\Request $request, $dir, $name, $isWebp = true) {
+
+Route::get('/image/{type}/{dir}/{name}/{isWebp?}', function (\Illuminate\Http\Request $request, $type, $dir, $name, $isWebp = true) {
     $ext = strrchr($name, '.');
     $name = str_replace($ext, '', $name);
 
@@ -22,7 +24,8 @@ Route::get('/image/{dir}/{name}/{isWebp?}', function (\Illuminate\Http\Request $
         $ext = '.webp';
     }
     // 生成文件路径
-    $filePath = "image/{$dir}/{$name}{$ext}";
+    $filePath = "image/{$type}/{$dir}/{$name}{$ext}";
+
     $storagePath = storage_path($filePath);
 
     if (is_file($storagePath)) {

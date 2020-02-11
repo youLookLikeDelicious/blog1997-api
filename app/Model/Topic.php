@@ -11,8 +11,9 @@ class Topic extends Model
     protected $table = 'topic';
     protected $guarded = ['id'];
     protected $appends = ['edit_state'];
+
     /**
-     * 定义额外的值 editState
+     * 定义额外的属性 editState
      */
     public function getEditStateAttribute () {
         return false;

@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use Validator;
+use App\Model\Article;
+use App\Model\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Model\Article;
 
 class ArticleController extends Controller
 {
     /**
      * 获取文章列表
      * Method GET
+     * @param $topicId
+     * @return mixed
      */
     public function getArticleList (Request $request, $topicId) {
         // 获取专题id
@@ -25,6 +28,7 @@ class ArticleController extends Controller
 
     /**
      * 获取文章的内容
+     * Method POST
      * @return mixed
      */
     public function getArticle (Request $request) {
@@ -60,8 +64,8 @@ class ArticleController extends Controller
         unset($data['id']);
 
         // 获取文章的摘要信息
-        $summary = preg_replace('/<[^>]*>/', '', $data['content']);
-        $summary = mb_substr($summary, 0, 300);
+        $summary = preg_replace('/<^((?!pre)|>)*>/', '', $data['content']);
+        $summary = '<pre>'.mb_substr($summary, 0, 300).'...</pre>';
 
         $data['summary'] = $summary;
 
@@ -73,6 +77,9 @@ class ArticleController extends Controller
             $flag = Article::find($id)->update($data);
         } else {
             // 新建操作,会触发observer
+            // 获取gallery_id
+            $galleryId = $this->getGalleryId();
+            $data['gallery_id'] = $galleryId;
             $flag = Article::create($data);
         }
 
@@ -87,6 +94,47 @@ class ArticleController extends Controller
         }
     }
 
+    /**
+     * 删除文章
+     * @param Request $request
+     * @return mixed
+     */
+    public function deleteArticle (Request $request) {
+        // 获取文章的id
+        $id = $request->input('id', 0) + 0;
+
+        // 删除文章
+        $flag = Article::find($id)->delete();
+
+        if ($flag) {
+            return response()->success('', '文章删除成功');
+        } else {
+            return response()->error('文章删除失败');
+        }
+    }
+
+    /**
+     * 上传文章相关的图片
+     * @param Request $request
+     * @return mixed
+     */
+    public function uploadImage (Request $request) {
+        // 获取文件
+        $files = $request->file('upfile');
+        // 获取id
+        $ids = $request->input('id');
+
+        // 开始上传
+        $upload  = \Upload::uploadImage($files, 'article');
+        // 图片验证失败
+        if ($upload->errors()) {
+            return response()->error($upload->errors());
+        }
+
+        $fileList = [];
+        $fileList = $upload->getFileList();
+        return response()->success(array_combine($ids, $fileList), '图片上传成功');
+    }
     /**
      * 验证提交的表单数据
      * @param $data
@@ -122,5 +170,19 @@ class ArticleController extends Controller
 
         $validator = Validator::make($data, $rule, $message);
         return $validator;
+    }
+
+    /**
+     * 获取gallery的id
+     */
+    public function getGalleryId () {
+        $gallery = Gallery::select(DB::raw('count(id) as count'))->first();
+        $article = Article::select('gallery_id')->first();
+
+        if (!$article->gallery_id || $article->gallery_id === $gallery->count) {
+            return 1;
+        }
+
+        return $article->gallery_id + 1;
     }
 }

@@ -1,0 +1,32 @@
+select `id`, `content`, `user_id`, `title`, `gallery_id`, `visited`, `commented`, `keywords`, `liked`, `created_at`, `updated_at` from `xy_article` where `id` = ? limit 1
+select `id`, `name`, `avatar` from `xy_user` where `xy_user`.`id` in (?)
+select `url`, `id` from `xy_gallery` where `xy_gallery`.`id` in (?)
+select count(*) as aggregate from `xy_comment` left join `xy_user` as `xy_u` on `xy_comment`.`user_id` = `xy_u`.`id` where `commentable_id` = ? and `level` = ?
+select `name`, `level`, `content`, `user_id`, `xy_u`.`avatar`, `reply_to`, `commented`, `xy_comment`.`id`, `commentable_id`, `xy_comment`.`created_at` from `xy_comment` left join `xy_user` as `xy_u` on `xy_comment`.`user_id` = `xy_u`.`id` where `commentable_id` = ? and `level` = ? limit 10 offset 0
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `xy_comment`.`id`, `level`, `reply_to_name`, `user_id`, `name`, `content`, `commentable_id`, `root_id`, `reply_to` from `xy_comment` left join `xy_user` as `xy_u` on `xy_u`.`id` = `xy_comment`.`user_id` where `root_id` = ? and `type` != ? limit 3
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `commented` from `xy_article` where `id` = ? limit 1
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select count(`id`) as aggregate from `xy_article`
+select `id`, `title`, `is_origin`, `user_id`, `summary`, `visited`, `gallery_id`, `commented`, `created_at`, `keywords` from `xy_article` limit 10 offset 0
+select `id`, `name`, `avatar` from `xy_user` where `xy_user`.`id` in (?)
+select `url`, `id` from `xy_gallery` where `xy_gallery`.`id` in (?)
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select `id` from `xy_thumb_up` where `thumbable_id` = ? and `thumbable_type` = ? and `user_id` = ?
+select count(*) as aggregate from `xy_article`
+select `id`, `title`, `is_origin`, `user_id`, `summary`, `visited`, `gallery_id`, `commented`, `created_at`, `keywords` from `xy_article` limit 10 offset 0
+select `id`, `name`, `avatar` from `xy_user` where `xy_user`.`id` in (?)
+select `url`, `id` from `xy_gallery` where `xy_gallery`.`id` in (?)
+select `id`, `thumbable_id` from `xy_thumb_up` where `xy_thumb_up`.`thumbable_id` in (2, 3, 4, 5, 6, 7, 8, 9, 10, 11) and `xy_thumb_up`.`thumbable_type` = ? and `user_id` = ?

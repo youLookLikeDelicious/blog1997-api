@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Foundation;
+
 class Page{
     protected $url;						// 请求路径
     protected $limit;					// 每页显示的记录条数
@@ -14,29 +16,48 @@ class Page{
     protected $previous;				// 上一页
     protected $builder;                 // database query bulder
     /*
-     * @builder laravle query builder
+     * @builder laravel query builder
      * @param total 总的记录数
-     * @param limite 一页显示的记录条数
+     * @param limit 一页显示的记录条数
      * @param pages 显示的页数
      * @return ['pagination' => **, 'records' => **]
      */
     public function paginate($builder, $limit = 10, $show_pages = 10, $p = null){
+
         $this->limit = $limit;
-        $this->total = $builder->count();
+
+        // 获取带id的字段
+        $model = $builder->getModel();
+
+        $column = "{$model->getTable()}.{$model->getKeyName()}"; // 表名.主键
+
+        // 计算总的记录数量
+        $this->total = $builder->count($column);
+
         $this->init( $show_pages, $p );
-        return [
+
+        $result = [
             "pagination" => $this->getPageInfo(),
             "records" => $this->getRecords($builder)
         ];
+
+        return $result;
     }
     protected function init($show_pages, $p){
+
         $this->getUri();
+
         $this->pages = (int)ceil($this->total / $this->limit);
+
         $this->setCurPage($p);
+
         // 显示的页数范围不能大于总的页数范围
         $this->show_pages = $show_pages > $this->pages? $this->pages : $show_pages;
+
         $this->setPageRange();
+
         $this->setNext();
+
         $this->setPre();
     }
     // 获取uri
@@ -45,14 +66,19 @@ class Page{
         // 获取请求的地址
         // URI 用来指定要访问的页面。例如 "/index.html" | /index.html?p=2。
         $uri = $_SERVER['REQUEST_URI'] . (strpos($_SERVER['REQUEST_URI'], '?')? '' : '?');
+
         // 判断uri中是否有request请求
         $parse = parse_url($uri);
+
+        // 删除p参数，重构uri
         if(isset($parse['query'])){
-            // 删除p参数，重构uri
             parse_str($parse['query'], $param);
+
             unset($param['p']);
+
             $uri = empty($param)? $parse['path'] . '?' : $parse['path'] . http_build_query($param) . '&';
         }
+
         $this->uri = $uri;
     }
     /*
@@ -74,10 +100,11 @@ class Page{
         }
 
         $p = isset($_GET['p']) && is_numeric($_GET['p'])? $_GET['p'] + 0 : 1;
+
         if(empty($p) || $p < 1){
             $this->cur_p = 1;
         }
-        elseif($p > $this->pages){
+        elseif ($p > $this->pages) {
             $this->cur_p = $this->pages;
         }
         else {
@@ -85,8 +112,10 @@ class Page{
         }
     }
     // 设置首页和第尾页的值
-    protected function setPageRange(){
+    protected function setPageRange () {
+
         $mid = (int)ceil($this->show_pages / 2);
+
         // 当前页 =< 显示页数的一半, 从第一页开始(前半部分)
         if($this->cur_p <= $mid){
             $this->first = 1;
@@ -99,22 +128,28 @@ class Page{
         else{
             $this->first = $this->cur_p - $mid + 1;
         }
+
         $tmp = $this->first + $this->show_pages - 1;
+
         $this->last = $tmp > $this->pages ? $this->pages: $tmp;
     }
     // 获取上一页
-    protected function setPre(){
+    protected function setPre () {
+
         $tmp = $this->cur_p - 1;
+
         $this->previous = $tmp > 0? $tmp : NULL;
     }
     // 获取下一页
-    protected function setNext(){
+    protected function setNext () {
+
         $tmp = $this->cur_p + 1;
+
         $this->next = $tmp <= $this->pages? $tmp : NULL;
     }
     // 获取页数列表
     // return array
-    protected function getPageInfo(){
+    protected function getPageInfo () {
         return [
             'total'   => $this->total,
             'uri'     => $this->uri,
