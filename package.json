@@ -84,7 +84,7 @@
     "@antv/g2": "^4.0.15",
     "@blog1997/animate": "0.0.3-beta",
     "@blog1997/vue-umeditor": "^0.1.9",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "highlight.js": "^10.4.1",
     "marked": "^1.2.7",
     "vue-router": "^3.4.3",
