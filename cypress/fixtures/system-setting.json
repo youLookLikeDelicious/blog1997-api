@@ -1,0 +1,9 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "id": 1,
+        "enable_comment": "yes",
+        "verify_comment": "yes"
+    }
+}

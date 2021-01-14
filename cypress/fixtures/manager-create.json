@@ -1,0 +1,19 @@
+{
+    "comment": "创建管理员的表单数据",
+    "status": "success",
+    "message": "success",
+    "data": [
+        {
+            "id": 3,
+            "name": "Author"
+        },
+        {
+            "id": 1,
+            "name": "Master"
+        },
+        {
+            "id": 2,
+            "name": "\u6ce8\u518c\u7528\u6237"
+        }
+    ]
+}

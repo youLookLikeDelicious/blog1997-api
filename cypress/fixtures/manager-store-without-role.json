@@ -1,0 +1,14 @@
+{
+    "comment": "将用户左右的角色给去掉",
+    "status": "success",
+    "message": "\u7ba1\u7406\u5458\u4fee\u6539\u6210\u529f",
+    "data": {
+        "id": 3,
+        "name": "\u5915\u843d",
+        "avatar": "\/image\/avatar\/2020-10-29\/95a5c0e7e08e4873cefa7b3962a66884",
+        "email": "454948077@qq.com",
+        "article_sum": 1,
+        "gender": "keep_secret",
+        "roles": []
+    }
+}

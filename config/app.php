@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'cn',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'cn',
 
     /*
     |--------------------------------------------------------------------------
@@ -161,7 +161,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
         /*
          * Package Service Providers...
          */
@@ -176,7 +175,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ResponseMacroServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
     ],
 
     /*
@@ -228,7 +229,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Page'  => App\Facades\Page::class,
         'Upload'  => App\Facades\Upload::class,
-        'RedisCache' => App\Facades\RedisCache::class
-    ],
-
+        'SensitiveWord' => App\Facades\SensitiveWord::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+    ]
 ];

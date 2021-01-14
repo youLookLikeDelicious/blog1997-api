@@ -6,9 +6,12 @@ use Exception;
 use DOMDocument;
 use App\Model\SiteMap;
 use App\Model\FailedJobs;
+use DOMXPath;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -40,7 +43,7 @@ class GenerateSiteMap implements ShouldQueue
      * 
      * @var string
      */
-    protected $twoLevelPath;
+    protected $pathLevel;
 
     public $tries = 2;
 
@@ -60,7 +63,7 @@ class GenerateSiteMap implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($requestUrl, $priority, $frequent, $twoLevelPath)
+    public function __construct($requestUrl, $priority, $frequent, $pathLevel)
     {
         $this->requestUrl = ltrim($requestUrl, '/');
 
@@ -68,7 +71,7 @@ class GenerateSiteMap implements ShouldQueue
 
         $this->frequent = $frequent;
 
-        $this->twoLevelPath = $twoLevelPath;
+        $this->pathLevel = $pathLevel;
 
         $this->linkMaxNum = env('SITEMAP_MAX_NUM', 1000);
     }
@@ -81,32 +84,37 @@ class GenerateSiteMap implements ShouldQueue
     public function handle(SiteMap $siteMapModel)
     {
         $appUrl = env('APP_URL', 'http://www.example.com');
+
         // 获取请求的地址
         $requestLink =  $appUrl. '/' .$this->requestUrl;
         $suffix = '';
         
         // 从模型中获取当前的地址
-        $siteMap = $siteMapModel->select('id')->where('sitemap_url', $requestLink)->first();
+        $siteMap = $siteMapModel->select('id', 'sitemap_url')
+            ->where('sitemap_url', $requestLink)
+            ->first();
 
         // 如果当前的地址已经保存，无需任何操作
         if ($siteMap) {
             return;
         }
+        
+        // /api/article 的article部分
+        $urlPatten = $this->pathLevel?: explode('/', $this->requestUrl)[0];
 
-        $urlPatten = $this->twoLevelPath?: explode('/', $this->requestUrl)[0];
         // 获取二级xml相关的数据
         $siteMapLevel2 = $siteMapModel->select(['id', 'sitemap_url', 'link_num', 'created_at'])
-                            ->where('sitemap_url', 'like', "{$appUrl}/sitemap_{$urlPatten}%")
-                            ->first();
-            
+            ->where('sitemap_url', 'like', "{$appUrl}/sitemap_{$urlPatten}%")
+            ->first();
+
         // 如果指定了二级xml的路径，无需自动校准xml的后缀
-        if ($this->twoLevelPath) {
-            $url = "{$appUrl}/sitemap_{$this->twoLevelPath}.xml";
+        if ($this->pathLevel) {
+            $url = "{$appUrl}/sitemap_{$this->pathLevel}.xml";
         } else {
             // 没有指定二级xml，自动验证文件规则
             if ($siteMapLevel2 && $siteMapLevel2->link_num >= $this->linkMaxNum) {
                 $preSuffix = explode('_', rtrim($siteMapLevel2->sitemap_url, '.xml'));
-                $suffix = '_' . end($preSuffix) + 1;
+                $suffix = '_' . (end($preSuffix) + 1);
             } else {
                 $suffix = '_1';
             }
@@ -114,8 +122,8 @@ class GenerateSiteMap implements ShouldQueue
             $url = "{$appUrl}/sitemap_{$urlPatten}{$suffix}.xml";
         }
         
-        DB::beginTransaction();
         try{
+            DB::beginTransaction();
             
             // 如果二级xml地址不存在
             if (!$siteMapLevel2 || ($siteMapLevel2 && $siteMapLevel2->link_num >= $this->linkMaxNum)) {
@@ -128,12 +136,16 @@ class GenerateSiteMap implements ShouldQueue
                 ]);
 
                 // 一级sitemap的数据量+1
-                $siteMapModel->where('level', 1)->increment('link_num');
+                $siteMapModel->where('level', 1)
+                    ->increment('link_num');
 
                 $this->updateSiteMap($url);
             } else {
                 // 如果存在，获取二级sitemap 并将link_num + 1
-                $levelTwoSiteMap = $siteMapModel->select(['id'])->where('sitemap_url', $url)->first();
+                $levelTwoSiteMap = $siteMapModel->select(['id'])
+                    ->where('sitemap_url', $url)
+                    ->first();
+                    
                 $levelTwoSiteMap->increment('link_num');
             }
 
@@ -146,8 +158,7 @@ class GenerateSiteMap implements ShouldQueue
                 'parent_id' => $levelTwoSiteMap->id
             ]);
 
-            $this->updateTwoLevelSiteMap("sitemap_{$urlPatten}{$suffix}.xml", $requestLink);
-
+            $this->updateLeveTwolSiteMap("sitemap_{$urlPatten}{$suffix}.xml", $requestLink);
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -175,8 +186,11 @@ class GenerateSiteMap implements ShouldQueue
      */
     protected function updateSiteMap ($location) {
         
-        $siteMapPath = public_path('sitemap.xml');
+        $siteMapPath = $this->getMapPath('sitemap.xml');
 
+        if (!is_file($siteMapPath)) {
+            Artisan::call('sitemap:init');
+        }
         $dom = new DOMDocument('1.0', 'utf-8');
         $dom->load($siteMapPath);
 
@@ -215,9 +229,9 @@ EOT;
      * @param String $filePath 二级sitemap地址
      * @param String $link 保存的连接
      */
-    public function updateTwoLevelSiteMap ($filePath, $link) {
+    public function updateLeveTwolSiteMap ($filePath, $link) {
 
-        $siteMapPath = public_path($filePath);
+        $siteMapPath = $this->getMapPath($filePath);
         
         if (!is_file($siteMapPath)) {
             $this->createTwoLevelSiteMap($siteMapPath);
@@ -247,4 +261,18 @@ EOT;
         $dom->save($siteMapPath);
     }
 
+    /**
+     * 根据运行的环境，生成sitemap的地址
+     *
+     * @param string $path
+     * @return string
+     */
+    protected function getMapPath ($path)
+    {
+        if (App::runningUnitTests()) {
+            return base_path('tests/' . $path);
+        }
+
+        return public_path($path);
+    }
 }

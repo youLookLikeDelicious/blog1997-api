@@ -3,28 +3,70 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Facades\CustomAuth;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Foundation\Application;
 
 class Authenticate
 {
     /**
+     * Application instance
+     *
+     * @param Type $var
+     */
+    protected $app;
+
+    /**
+     * Create instance
+     *
+     * @param Application $app
+     */
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
+
+    /**
      * Handle an incoming request.
      *
-     * @param  Request  $request
-     * @param Closure $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        $user = CustomAuth::user();
+        $user = auth()->user();
 
         if (!$user) {
-            return response()->error('用户信息异常，请重新登陆', 401);
+            return $this->sendFailedResponse();
         }
 
-        $request->request->add(['user_id' => $user->id]);
+        $user->load('socialAccounts');
+
+        if (!$this->runningUnitTests() && !$user->hasVerifiedEmail() && $user->socialAccounts->isEmpty()) {
+            return response()->error(__('auth.Your email has not verified yet.'), 401);
+        }
 
         return $next($request);
+    }
+
+    /**
+     * Determine if the application is running unit tests.
+     *
+     * @return bool
+     */
+    protected function runningUnitTests()
+    {
+        return $this->app->runningInConsole() && $this->app->runningUnitTests();
+    }
+
+    /**
+     * Send failed response when user not login
+     *
+     * @return mixed
+     */
+    public function sendFailedResponse()
+    {
+        return request()->expectsJson() ?
+            response()->error('~.~', 401)
+            : redirect('/admin/login');
     }
 }

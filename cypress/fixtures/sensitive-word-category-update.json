@@ -1,0 +1,13 @@
+{
+    "status": "success",
+    "message": "\u5206\u7c7b\u4fee\u6539\u6210\u529f",
+    "data": {
+        "id": 15,
+        "name": "\u4e0d\u9ad8\u5174",
+        "rank": 2,
+        "count": 0,
+        "created_at": "1609727159",
+        "updated_at": "1609727255",
+        "editAble": false
+    }
+}

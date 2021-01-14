@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Jobs\GenerateSiteMap;
+use App\Model\SiteMap as Model;
 
 class SiteMap
 {
@@ -20,8 +21,13 @@ class SiteMap
     public function handle($request, Closure $next, $priority = 0.9, $frequent = 'daily', $twoLevelPath = '')
     {
         // $request->path e.g. api/article/1 get参数不会获取
-        GenerateSiteMap::dispatch(str_replace('api', '', $request->path()), $priority, $frequent, $twoLevelPath);
-            // ->delay(now()->addMinutes(0));
+        $url = str_replace('api', '', $request->path());
+        
+        $model = Model::select('id', 'sitemap_url')->where('sitemap_url', env('APP_URL') . $url)->first();
+        
+        if (!$model ) {
+            GenerateSiteMap::dispatch($url, $priority, $frequent, $twoLevelPath);
+        }
 
         return $next($request);
     }

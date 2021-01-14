@@ -1,0 +1,37 @@
+{
+    "cSpell.words": [
+        "Vuex",
+        "antv"
+    ],
+    "compile-hero.disable-compile-files-on-did-save-code": true,
+    "eslint": {
+        "alwaysShowStatus": true
+    },
+    "eslint.validate": [
+        //开启对.vue文件中错误的检查
+        "javascript",
+        "javascriptreact",
+        {
+            "language": "html",
+            "autoFix": true
+        },
+        {
+            "language": "vue",
+            "autoFix": true
+        },{
+            "language": "javascript",
+            "autoFix": true
+        }
+    ],
+    "prettier": {
+        "eslintIntegration": true, //让prettier使用eslint的代码格式进行校验,
+    },
+    "vetur.format.defaultFormatterOptions": {
+        "prettier": {
+            "semi": false,
+            "singleQuote": true
+        },
+        "wrap_attributes": "force-aligned"
+    },
+    "prettier.semi": false, //去掉代码结尾的分号
+}

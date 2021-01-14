@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'image_source' => 'unknown image source',
     'accepted' => 'The :attribute must be accepted.',
     'active_url' => 'The :attribute is not a valid URL.',
     'after' => 'The :attribute must be a date after :date.',
@@ -131,6 +132,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'captcha.captcha' => 'Invalid captcha'
     ],
 
     /*
@@ -145,5 +147,7 @@ return [
     */
 
     'attributes' => [],
-
+    'file_not_exist' => 'Expected file :attribute not exist',
+    'draft_exist' => 'The draft is exist for that file',
+    'invalid' => 'The :attribute is invalid'
 ];

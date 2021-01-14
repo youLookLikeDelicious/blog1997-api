@@ -1,0 +1,43 @@
+{
+    "comment": "标签列表",
+    "status": "success",
+    "message": "success",
+    "data": {
+        "pagination": {
+            "total": 1,
+            "uri": "?",
+            "currentPage": 1,
+            "next": null,
+            "previous": null,
+            "first": 1,
+            "last": 1,
+            "pages": 1
+        },
+        "records": [
+            {
+                "id": 2,
+                "name": "\u524d\u7aef",
+                "cover": "\/image\/tag\/2020-12-22\/201.701749001615fe16b55ab5449.42606432.jpg",
+                "parent_id": 0,
+                "description": "\u597d~",
+                "created_at": "1608608597"
+            },
+            {
+                "id": 3,
+                "name": "Vue",
+                "cover": "\/image\/tag\/2020-12-22\/48.4479190016095fe16dee6d5bc7.92075244.png",
+                "parent_id": 2,
+                "description": "",
+                "created_at": "1608609262"
+            },
+            {
+                "id": 15,
+                "name": "React",
+                "cover": "\/image\/tag\/2020-12-22\/218.413875001615fe1ddaf650e04.83086165.jpg",
+                "parent_id": 2,
+                "description": "",
+                "created_at": "1608637844"
+            }
+        ]
+    }
+}

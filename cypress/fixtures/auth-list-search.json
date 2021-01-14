@@ -1,0 +1,89 @@
+{
+    "comment": "搜索权限列表",
+    "status": "success",
+    "message": "success",
+    "data": {
+        "pagination": {
+            "total": 4,
+            "uri": "?",
+            "currentPage": 1,
+            "next": null,
+            "previous": null,
+            "first": 1,
+            "last": 1,
+            "pages": 1
+        },
+        "records": [
+            {
+                "id": 2,
+                "name": "\u6587\u7ae0\u7ba1\u7406",
+                "parent_id": 1,
+                "auth_path": "1_2_",
+                "route_name": ""
+            },
+            {
+                "id": 6,
+                "name": "\u6dfb\u52a0\u6587\u7ae0",
+                "parent_id": 2,
+                "auth_path": "1_2_6_",
+                "route_name": "article.store"
+            },
+            {
+                "id": 7,
+                "name": "\u4fee\u6539\u6587\u7ae0",
+                "parent_id": 2,
+                "auth_path": "1_2_7_",
+                "route_name": "article.update"
+            },
+            {
+                "id": 8,
+                "name": "\u5220\u9664\u6587\u7ae0",
+                "parent_id": 2,
+                "auth_path": "1_2_8_",
+                "route_name": "article.destroy"
+            }
+        ],
+        "topAuth": [
+            {
+                "id": "",
+                "name": "--\u6240\u6709\u6743\u9650--"
+            },
+            {
+                "id": 1,
+                "name": "\u535a\u5ba2\u7ba1\u7406"
+            },
+            {
+                "id": 18,
+                "name": "\u5de5\u4f5c\u53f0"
+            },
+            {
+                "id": 20,
+                "name": "\u6388\u6743\u7ba1\u7406"
+            },
+            {
+                "id": 36,
+                "name": "\u753b\u5eca\u7ba1\u7406"
+            },
+            {
+                "id": 39,
+                "name": "\u53cb\u94fe\u7ba1\u7406"
+            },
+            {
+                "id": 44,
+                "name": "\u654f\u611f\u8bcd\u6c47\u7ba1\u7406"
+            },
+            {
+                "id": 56,
+                "name": "\u7cfb\u7edf\u7ba1\u7406"
+            },
+            {
+                "id": 59,
+                "name": "\u6d88\u606f\u7ba1\u7406"
+            },
+            {
+                "id": 76,
+                "name": "\u8d26\u53f7\u8bbe\u7f6e"
+            }
+        ]
+    }
+}

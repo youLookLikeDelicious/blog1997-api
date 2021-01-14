@@ -1,0 +1,25 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "pagination": {
+            "total": 1,
+            "uri": "?",
+            "currentPage": 1,
+            "next": null,
+            "previous": null,
+            "first": 1,
+            "last": 1,
+            "pages": 1
+        },
+        "records": [
+            {
+                "id": 16,
+                "name": "\u4e0d\u9ad8\u5174",
+                "count": 0,
+                "rank": 2,
+                "editAble": 0
+            }
+        ]
+    }
+}

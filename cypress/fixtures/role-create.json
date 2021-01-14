@@ -1,0 +1,461 @@
+{
+    "comment": "创建角色需要的表单数据",
+    "status": "success",
+    "message": "success",
+    "data": [
+        {
+            "id": 0,
+            "name": "--\u9876\u7ea7\u6743\u9650--"
+        },
+        {
+            "id": 1,
+            "name": "\u535a\u5ba2\u7ba1\u7406",
+            "auth_path": "1_",
+            "parent_id": 0
+        },
+        {
+            "id": 13,
+            "name": "\u4e13\u9898\u7ba1\u7406",
+            "auth_path": "1_13_",
+            "parent_id": 1
+        },
+        {
+            "id": 14,
+            "name": "\u67e5\u770b\u4e13\u9898",
+            "auth_path": "1_13_14_",
+            "parent_id": 13
+        },
+        {
+            "id": 15,
+            "name": "\u521b\u5efa\u4e13\u9898",
+            "auth_path": "1_13_15_",
+            "parent_id": 13
+        },
+        {
+            "id": 16,
+            "name": "\u4fee\u6539\u4e13\u9898",
+            "auth_path": "1_13_16_",
+            "parent_id": 13
+        },
+        {
+            "id": 17,
+            "name": "\u5220\u9664\u4e13\u9898",
+            "auth_path": "1_13_17_",
+            "parent_id": 13
+        },
+        {
+            "id": 2,
+            "name": "\u6587\u7ae0\u7ba1\u7406",
+            "auth_path": "1_2_",
+            "parent_id": 1
+        },
+        {
+            "id": 6,
+            "name": "\u6dfb\u52a0\u6587\u7ae0",
+            "auth_path": "1_2_6_",
+            "parent_id": 2
+        },
+        {
+            "id": 7,
+            "name": "\u4fee\u6539\u6587\u7ae0",
+            "auth_path": "1_2_7_",
+            "parent_id": 2
+        },
+        {
+            "id": 8,
+            "name": "\u5220\u9664\u6587\u7ae0",
+            "auth_path": "1_2_8_",
+            "parent_id": 2
+        },
+        {
+            "id": 9,
+            "name": "\u67e5\u770b\u5217\u8868",
+            "auth_path": "1_2_9_",
+            "parent_id": 2
+        },
+        {
+            "id": 4,
+            "name": "\u6807\u7b7e\u7ba1\u7406",
+            "auth_path": "1_4_",
+            "parent_id": 1
+        },
+        {
+            "id": 10,
+            "name": "\u67e5\u770b\u6807\u7b7e",
+            "auth_path": "1_4_10_",
+            "parent_id": 4
+        },
+        {
+            "id": 11,
+            "name": "\u66f4\u65b0\u6807\u7b7e",
+            "auth_path": "1_4_11_",
+            "parent_id": 4
+        },
+        {
+            "id": 12,
+            "name": "\u5220\u9664\u6807\u7b7e",
+            "auth_path": "1_4_12_",
+            "parent_id": 4
+        },
+        {
+            "id": 5,
+            "name": "\u6dfb\u52a0\u6807\u7b7e",
+            "auth_path": "1_4_5_",
+            "parent_id": 4
+        },
+        {
+            "id": 18,
+            "name": "\u5de5\u4f5c\u53f0",
+            "auth_path": "18_",
+            "parent_id": 0
+        },
+        {
+            "id": 19,
+            "name": "\u4eea\u8868\u76d8",
+            "auth_path": "18_19_",
+            "parent_id": 18
+        },
+        {
+            "id": 20,
+            "name": "\u6388\u6743\u7ba1\u7406",
+            "auth_path": "20_",
+            "parent_id": 0
+        },
+        {
+            "id": 21,
+            "name": "\u6743\u9650\u7ba1\u7406",
+            "auth_path": "20_21_",
+            "parent_id": 20
+        },
+        {
+            "id": 22,
+            "name": "\u67e5\u770b\u6743\u9650",
+            "auth_path": "20_21_22_",
+            "parent_id": 21
+        },
+        {
+            "id": 23,
+            "name": "\u6dfb\u52a0\u6743\u9650",
+            "auth_path": "20_21_23_",
+            "parent_id": 21
+        },
+        {
+            "id": 24,
+            "name": "\u66f4\u6539\u6743\u9650",
+            "auth_path": "20_21_24_",
+            "parent_id": 21
+        },
+        {
+            "id": 25,
+            "name": "\u5220\u9664\u6743\u9650",
+            "auth_path": "20_21_25_",
+            "parent_id": 21
+        },
+        {
+            "id": 26,
+            "name": "\u89d2\u8272\u7ba1\u7406",
+            "auth_path": "20_26_",
+            "parent_id": 20
+        },
+        {
+            "id": 27,
+            "name": "\u67e5\u770b\u89d2\u8272",
+            "auth_path": "20_26_27_",
+            "parent_id": 26
+        },
+        {
+            "id": 28,
+            "name": "\u6dfb\u52a0\u89d2\u8272",
+            "auth_path": "20_26_28_",
+            "parent_id": 26
+        },
+        {
+            "id": 29,
+            "name": "\u4fee\u6539\u89d2\u8272",
+            "auth_path": "20_26_29_",
+            "parent_id": 26
+        },
+        {
+            "id": 30,
+            "name": "\u5220\u9664\u89d2\u8272",
+            "auth_path": "20_26_30_",
+            "parent_id": 26
+        },
+        {
+            "id": 31,
+            "name": "\u7ba1\u7406\u5458\u7ba1\u7406",
+            "auth_path": "20_31_",
+            "parent_id": 20
+        },
+        {
+            "id": 32,
+            "name": "\u6dfb\u52a0\u7ba1\u7406\u5458",
+            "auth_path": "20_31_32_",
+            "parent_id": 31
+        },
+        {
+            "id": 33,
+            "name": "\u67e5\u770b\u7ba1\u7406\u5458",
+            "auth_path": "20_31_33_",
+            "parent_id": 31
+        },
+        {
+            "id": 34,
+            "name": "\u5220\u9664\u7ba1\u7406\u5458",
+            "auth_path": "20_31_34_",
+            "parent_id": 31
+        },
+        {
+            "id": 35,
+            "name": "\u4fee\u6539\u7ba1\u7406\u5458",
+            "auth_path": "20_31_35_",
+            "parent_id": 31
+        },
+        {
+            "id": 36,
+            "name": "\u753b\u5eca\u7ba1\u7406",
+            "auth_path": "36_",
+            "parent_id": 0
+        },
+        {
+            "id": 37,
+            "name": "\u67e5\u770b\u56fe\u7247",
+            "auth_path": "36_37_",
+            "parent_id": 36
+        },
+        {
+            "id": 38,
+            "name": "\u4e0a\u4f20\u56fe\u7247",
+            "auth_path": "36_38_",
+            "parent_id": 36
+        },
+        {
+            "id": 39,
+            "name": "\u53cb\u94fe\u7ba1\u7406",
+            "auth_path": "39_",
+            "parent_id": 0
+        },
+        {
+            "id": 40,
+            "name": "\u6dfb\u52a0\u53cb\u94fe",
+            "auth_path": "39_40_",
+            "parent_id": 39
+        },
+        {
+            "id": 41,
+            "name": "\u67e5\u770b\u53cb\u94fe",
+            "auth_path": "39_41_",
+            "parent_id": 39
+        },
+        {
+            "id": 42,
+            "name": "\u4fee\u6539\u53cb\u94fe",
+            "auth_path": "39_42_",
+            "parent_id": 39
+        },
+        {
+            "id": 43,
+            "name": "\u5220\u9664\u53cb\u94fe",
+            "auth_path": "39_43_",
+            "parent_id": 39
+        },
+        {
+            "id": 44,
+            "name": "\u654f\u611f\u8bcd\u6c47\u7ba1\u7406",
+            "auth_path": "44_",
+            "parent_id": 0
+        },
+        {
+            "id": 45,
+            "name": "\u5206\u7c7b\u7ba1\u7406",
+            "auth_path": "44_45_",
+            "parent_id": 44
+        },
+        {
+            "id": 46,
+            "name": "\u67e5\u770b\u5206\u7c7b",
+            "auth_path": "44_45_46_",
+            "parent_id": 45
+        },
+        {
+            "id": 47,
+            "name": "\u5220\u9664\u5206\u7c7b",
+            "auth_path": "44_45_47_",
+            "parent_id": 45
+        },
+        {
+            "id": 48,
+            "name": "\u6dfb\u52a0\u5206\u7c7b",
+            "auth_path": "44_45_48_",
+            "parent_id": 45
+        },
+        {
+            "id": 49,
+            "name": "\u4fee\u6539\u5206\u7c7b",
+            "auth_path": "44_45_49_",
+            "parent_id": 45
+        },
+        {
+            "id": 50,
+            "name": "\u8bcd\u6c47\u7ba1\u7406",
+            "auth_path": "44_50_",
+            "parent_id": 44
+        },
+        {
+            "id": 51,
+            "name": "\u6dfb\u52a0\u8bcd\u6c47",
+            "auth_path": "44_50_51_",
+            "parent_id": 50
+        },
+        {
+            "id": 52,
+            "name": "\u67e5\u770b\u8bcd\u6c47",
+            "auth_path": "44_50_52_",
+            "parent_id": 50
+        },
+        {
+            "id": 53,
+            "name": "\u4fee\u6539\u8bcd\u6c47",
+            "auth_path": "44_50_53_",
+            "parent_id": 50
+        },
+        {
+            "id": 54,
+            "name": "\u5220\u9664\u8bcd\u6c47",
+            "auth_path": "44_50_54_",
+            "parent_id": 50
+        },
+        {
+            "id": 56,
+            "name": "\u7cfb\u7edf\u7ba1\u7406",
+            "auth_path": "56_",
+            "parent_id": 0
+        },
+        {
+            "id": 68,
+            "name": "\u7cfb\u7edf\u65e5\u5fd7",
+            "auth_path": "56_68_",
+            "parent_id": 56
+        },
+        {
+            "id": 70,
+            "name": "\u67e5\u770b\u65e5\u5fd7",
+            "auth_path": "56_68_70_",
+            "parent_id": 68
+        },
+        {
+            "id": 69,
+            "name": "\u7cfb\u7edf\u8bbe\u7f6e",
+            "auth_path": "56_69_",
+            "parent_id": 56
+        },
+        {
+            "id": 74,
+            "name": "\u67e5\u770b\u7cfb\u7edf\u8bbe\u7f6e",
+            "auth_path": "56_69_74_",
+            "parent_id": 69
+        },
+        {
+            "id": 75,
+            "name": "\u66f4\u65b0\u7cfb\u7edf\u8bbe\u7f6e",
+            "auth_path": "56_69_75_",
+            "parent_id": 69
+        },
+        {
+            "id": 59,
+            "name": "\u6d88\u606f\u7ba1\u7406",
+            "auth_path": "59_",
+            "parent_id": 0
+        },
+        {
+            "id": 60,
+            "name": "\u4e3e\u62a5\u4fe1\u606f\u7ba1\u7406",
+            "auth_path": "59_60_",
+            "parent_id": 59
+        },
+        {
+            "id": 61,
+            "name": "\u67e5\u770b\u4e3e\u62a5\u4fe1\u606f",
+            "auth_path": "59_60_61_",
+            "parent_id": 60
+        },
+        {
+            "id": 62,
+            "name": "\u5220\u9664\u88ab\u4e3e\u62a5\u7684\u5185\u5bb9",
+            "auth_path": "59_60_62_",
+            "parent_id": 60
+        },
+        {
+            "id": 63,
+            "name": "\u5ffd\u7565\u4e3e\u62a5\u7684\u5185\u5bb9",
+            "auth_path": "59_60_63_",
+            "parent_id": 60
+        },
+        {
+            "id": 64,
+            "name": "\u5f85\u5ba1\u6838\u8bc4\u8bba\u7ba1\u7406",
+            "auth_path": "59_64_",
+            "parent_id": 59
+        },
+        {
+            "id": 65,
+            "name": "\u6279\u51c6\u8bc4\u8bba",
+            "auth_path": "59_64_65_",
+            "parent_id": 64
+        },
+        {
+            "id": 66,
+            "name": "\u67e5\u770b\u5f85\u5ba1\u6838\u8bc4\u8bba",
+            "auth_path": "59_64_66_",
+            "parent_id": 64
+        },
+        {
+            "id": 67,
+            "name": "\u9a73\u56de\u8bc4\u8bba",
+            "auth_path": "59_64_67_",
+            "parent_id": 64
+        },
+        {
+            "id": 73,
+            "name": "\u901a\u77e5",
+            "auth_path": "59_73_",
+            "parent_id": 59
+        },
+        {
+            "id": 76,
+            "name": "\u8d26\u53f7\u8bbe\u7f6e",
+            "auth_path": "76_",
+            "parent_id": 0
+        },
+        {
+            "id": 77,
+            "name": "\u67e5\u770b\u8d26\u53f7\u4fe1\u606f",
+            "auth_path": "76_77_",
+            "parent_id": 76
+        },
+        {
+            "id": 78,
+            "name": "\u7ed1\u5b9a\u793e\u4ea4\u8d26\u53f7",
+            "auth_path": "76_78_",
+            "parent_id": 76
+        },
+        {
+            "id": 79,
+            "name": "\u53d6\u6d88\u7ed1\u5b9a",
+            "auth_path": "76_79_",
+            "parent_id": 76
+        },
+        {
+            "id": 80,
+            "name": "\u91cd\u65b0\u7ed1\u5b9a\u793e\u4ea4\u8d26\u53f7",
+            "auth_path": "76_80_",
+            "parent_id": 76
+        },
+        {
+            "id": 81,
+            "name": "\u4fee\u6539\u57fa\u672c\u4fe1\u606f",
+            "auth_path": "76_81_",
+            "parent_id": 76
+        }
+    ]
+}

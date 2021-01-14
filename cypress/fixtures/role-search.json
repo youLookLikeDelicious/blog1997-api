@@ -1,0 +1,25 @@
+{
+    "comment": "搜索角色",
+    "status": "success",
+    "message": "success",
+    "data": {
+        "pagination": {
+            "total": 1,
+            "uri": "?",
+            "currentPage": 1,
+            "next": null,
+            "previous": null,
+            "first": 1,
+            "last": 1,
+            "pages": 1
+        },
+        "records": [
+            {
+                "id": 2,
+                "name": "\u6ce8\u518c\u7528\u6237",
+                "remark": "\u4f7f\u7528\u7b2c\u4e09\u65b9\u8d26\u53f7\u767b\u9646\u7684\u7528\u6237",
+                "authorities": []
+            }
+        ]
+    }
+}

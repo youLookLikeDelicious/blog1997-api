@@ -2,7 +2,8 @@
 
 namespace App\Console;
 
-use App\Schedule\RedisDataToMysql;
+use App\Schedule\MigrateArticleCache;
+use App\Schedule\MigrateCommentCache;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -26,8 +27,16 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // 将redis中的数据入库
-//        $schedule->call(new RedisDataToMysql)->dailyAt('3:00');
-        $schedule->call(new RedisDataToMysql)->everyMinute();
+        //  $schedule->call(new MigrateCacheData)->dailyAt('3:00');
+        $schedule->call(new MigrateCommentCache)
+            ->everyMinute()
+            ->name('migrateRedisData')
+            ->withoutOverlapping();
+
+        $schedule->call(new MigrateArticleCache)
+            ->everyMinute()
+            ->name('migrateRedisData')
+            ->withoutOverlapping();
     }
 
     /**

@@ -38,7 +38,7 @@ class XyFriendLink extends Migration
             $table->charset = 'utf8mb4';
         });
 
-        DB::statement('ALTER TABLE `xy_friend_link` COMMENT = "友链信息表"');
+        DB::statement('ALTER TABLE ' .DB::getTablePrefix(). 'friend_link COMMENT = "友链信息表"');
     }
 
     /**
@@ -49,6 +49,6 @@ class XyFriendLink extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('xy_friend_link');
+        Schema::dropIfExists('friend_link');
     }
 }

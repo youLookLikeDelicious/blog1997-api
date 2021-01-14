@@ -2,120 +2,56 @@
 
 namespace App\Http\Controllers\Home;
 
-use Validator;
 use App\Model\ThumbUp;
-use Illuminate\Http\Request;
-use App\Foundation\RedisCache;
-use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ThumbUpRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redis;
 
 class ThumbUpController extends Controller
 {
+    protected $thumbUp;
+
+    public function __construct(ThumbUp $thumbUp)
+    {
+        $this->thumbUp = $thumbUp;
+    }
     /**
      * 点赞操作
      * Method POST
-     * @param Request $request
-     * @param $action
+     * 
+     * @param App\Http\Requests\ThumbUpRequest $request
      * @return mixed
      */
-    public function thumbUp (Request $request, $action) {
-
-        // 获取表单数据
-        $data = $request->only(['id', 'category', 'user_id']);
-
+    public function store (ThumbUpRequest $request) {
         // 验证表单数据
-        $validator = $this->validator($data);
+        $data = $request->validated();
 
-        // 验证失败
-        if ($validator->fails()) {
-            return response()->error($validator->errors());
-        }
-
-        // 获取当前用户id
-        $userId = $data['user_id'];
-        $result = Redis::setnx("thumb-up-{$data['category']}-{$data['id']}-{$userId}", 1);
-
-        if (!$result) {
-            return response()->error('操作过于频繁');
-        }
-
-        DB::beginTransaction();
+        $to = (new $data['able_type'])::select('user_id')->findOrFail($data['able_id']);
+        
+        $this->beginTransition();
 
         try {
+
+            $data['to'] = $to->user_id;
+
             // 入库操作
-            if ($action === 'decrement') {
+            $thumbUp = $this->thumbUp->where($data)->first();
 
-                $message = '取消点赞';
-
-                $this->decrementThumb($data);
+            if ($thumbUp) {
+                $thumbUp->update([
+                    'content' => $thumbUp->content + 1
+                ]);
             } else {
-
-                $message = '点赞';
-
-                $this->incrementThumb($data);
+                $this->thumbUp->create($data);
             }
 
-            DB::commit();
+            $this->commit();
 
-            return response()->success(null, $message . '成功');
+            return response()->success('', '点赞成功');
         } catch (\Exception $e) {
 
-            DB::rollBack();
+            $this->rollBack();
 
-            return response()->error($e->getMessage());
-        } finally {
-            Redis::del("thumb-up-{$data['category']}-{$data['id']}-{$userId}");
+            return response()->error('点赞失败');
         }
-    }
-
-    /**
-     * 验证表单数据
-     * @param $data
-     * @return mixed
-     */
-    protected function validator ($data) {
-        $rules = [
-            'id' => 'required|numeric',
-            'category' => 'required|in:article,comment'
-        ];
-
-        $message = [
-            'id' => '未知的id',
-            'category' => '未知的类型',
-        ];
-
-        $validator = Validator::make($data, $rules, $message);
-
-        return $validator;
-    }
-
-    /**
-     * 增加点赞数
-     * @param $data
-     */
-    protected function incrementThumb ($data) {
-
-        $thumbUpData = [
-            'user_id' => $data['user_id'],
-            'thumbable_id' => $data['id'],
-            'thumbable_type' => $data['category'] === 'article' ? 'App\Model\Article' : 'App\Model\Comment'
-        ];
-
-        \RedisCache::{"incr{$data['category']}Liked"}($data['id']);
-
-        ThumbUp::create($thumbUpData);
-    }
-
-    /**
-     * 减少点赞数
-     * @param $data
-     */
-    protected function decrementThumb ($data) {
-        \RedisCache::{"decr{$data['category']}Liked"}($data['id']);
-
-        ThumbUp::where('user_id', $data['user_id'])
-            ->where('thumbable_id', $data['id'])
-            ->delete();
     }
 }

@@ -2,54 +2,66 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Gallery;
-use Illuminate\Http\Request;
+use App\Facades\Upload;
+use App\Contract\Repository\Gallery;
 use App\Http\Controllers\Controller;
+use App\Model\Gallery as ModelGallery;
+use App\Http\Requests\UploadImageRequest;
+use App\Service\UrlConvertToGalleryService;
 
 class GalleryController extends Controller
 {
     /**
-     * 上传图片
-     * Method POST
-     * @param Request $request
-     * @return mixed
+     * 获取图片列表
+     * 
+     * Method GET
+     * @return \Illuminate\Http\Response
      */
-    public function upload (Request $request) {
-        // 获取文件
-        $files = $request->file('upfile');
-
-        // 开始上传
-        $upload = \Upload::uploadImage($files, 'gallery', 820);
-
-        if ($upload->errors()) {
-            return response()->error($upload->errors());
-        }
-
-        // 获得返回的结果,将数据的键值改为url
-        $files = $upload->getFileList();
-        $files = array_combine(array_fill(0, count($files), 'url'), $files);
-
-        // 入库操作
-        $result = Gallery::insert($files);
-
-        if ($result) {
-            return response()->success(null, '图片上传成功');
-        } else {
-            // 上传失败，需要删除相关文件
-            return response()->error('图片上传失败');
-        }
+    public function index (Gallery $gallery)
+    {
+        $result = $gallery->all();
+        
+        return response()->success($result);
     }
 
     /**
-     * 获取图片列表
-     * Method GET
-     * @param Request $request
-     * @return mixed
+     * 上传图片
+     *
+     * @param UploadImageRequest $request
+     * @return \Illuminate\Http\Response
      */
-    public function getList (Request $request) {
-        $galleryQuery = Gallery::select('id', 'url', 'created_at');
-        $result = \Page::paginate($galleryQuery);
+    public function store(UploadImageRequest $request)
+    {
+        // 获取文件
+        $data = $request->validated();
+        
+        // 开始上传
+        $upload = Upload::uploadImage($data['files'], 'gallery')
+            ->createThumbnail('240');
 
-        return response()->success($result);
+        $result = $upload->getFileList();
+
+        $files = (new UrlConvertToGalleryService())->make($result);
+
+        $galleries = [];
+
+        foreach($files as $file) {
+            $galleries[] = ModelGallery::create($file);
+        }
+
+        return response()->success($galleries, '图片上传成功');
+    }
+
+    /**
+     * Delete gallery image
+     *
+     * @param ModelGallery $gallery
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(ModelGallery $gallery)
+    {
+        $gallery->delete();
+
+        return response()->success('', '图片删除成功');
     }
 }

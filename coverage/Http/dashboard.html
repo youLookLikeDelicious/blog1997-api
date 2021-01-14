@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/example.com/app/Http</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../.css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../.css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="../.css/style.css" rel="stylesheet" type="text/css">
+  <link href="../.css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">/var/www/example.com/app</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Http</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Requests/Auth/ManagerRequest.php.html#7">App\Http\Requests\Auth\ManagerRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/LoginByProviderRequest.php.html#7">App\Http\Requests\LoginByProviderRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#16">App\Http\Controllers\UserController</a></td><td class="text-right">36%</td></tr>
+       <tr><td><a href="Resources/User.php.html#7">App\Http\Resources\User</a></td><td class="text-right">64%</td></tr>
+       <tr><td><a href="Controllers/ImageController.php.html#9">App\Http\Controllers\ImageController</a></td><td class="text-right">68%</td></tr>
+       <tr><td><a href="Requests/Admin/Article.php.html#15">App\Http\Requests\Admin\Article</a></td><td class="text-right">79%</td></tr>
+       <tr><td><a href="Requests/Admin/AuthRequest.php.html#8">App\Http\Requests\Admin\AuthRequest</a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Requests/Admin/ManagerRequest.php.html#7">App\Http\Requests\Admin\ManagerRequest</a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Controllers/Home/ThumbUpController.php.html#9">App\Http\Controllers\Home\ThumbUpController</a></td><td class="text-right">81%</td></tr>
+       <tr><td><a href="Requests/Admin/EmailConfigRequest.php.html#7">App\Http\Requests\Admin\EmailConfigRequest</a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="Controllers/Admin/AuthController.php.html#13">App\Http\Controllers\Admin\AuthController</a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Requests/Admin/Article.php.html#15">App\Http\Requests\Admin\Article</a></td><td class="text-right">29</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#16">App\Http\Controllers\UserController</a></td><td class="text-right">24</td></tr>
+       <tr><td><a href="Controllers/ImageController.php.html#9">App\Http\Controllers\ImageController</a></td><td class="text-right">13</td></tr>
+       <tr><td><a href="Requests/Auth/ManagerRequest.php.html#7">App\Http\Requests\Auth\ManagerRequest</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Requests/Admin/AuthRequest.php.html#8">App\Http\Requests\Admin\AuthRequest</a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="Requests/Admin/ManagerRequest.php.html#7">App\Http\Requests\Admin\ManagerRequest</a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Requests/Admin/EmailConfigRequest.php.html#7">App\Http\Requests\Admin\EmailConfigRequest</a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Resources/User.php.html#7">App\Http\Resources\User</a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Controllers/Home/ThumbUpController.php.html#9">App\Http\Controllers\Home\ThumbUpController</a></td><td class="text-right">4</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controllers/UserController.php.html#93"><abbr title="App\Http\Controllers\UserController::profile">profile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/Admin/Article.php.html#187"><abbr title="App\Http\Requests\Admin\Article::getGalleryId">getGalleryId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/AuthController.php.html#32"><abbr title="App\Http\Controllers\Admin\AuthController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/LoginByProviderRequest.php.html#24"><abbr title="App\Http\Requests\LoginByProviderRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/LoginByProviderRequest.php.html#14"><abbr title="App\Http\Requests\LoginByProviderRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/Admin/Article.php.html#205"><abbr title="App\Http\Requests\Admin\Article::createTopic">createTopic</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#49"><abbr title="App\Http\Controllers\UserController::bind">bind</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#63"><abbr title="App\Http\Controllers\UserController::rebind">rebind</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#77"><abbr title="App\Http\Controllers\UserController::unbind">unbind</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/Auth/ManagerRequest.php.html#14"><abbr title="App\Http\Requests\Auth\ManagerRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#109"><abbr title="App\Http\Controllers\UserController::sendResetLinkResponse">sendResetLinkResponse</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/Auth/ManagerRequest.php.html#24"><abbr title="App\Http\Requests\Auth\ManagerRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/ArticleController.php.html#171"><abbr title="App\Http\Controllers\Admin\ArticleController::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/Admin/ManagerRequest.php.html#44"><abbr title="App\Http\Requests\Admin\ManagerRequest::validated">validated</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Controllers/ImageController.php.html#48"><abbr title="App\Http\Controllers\ImageController::getFileName">getFileName</abbr></a></td><td class="text-right">64%</td></tr>
+       <tr><td><a href="Resources/User.php.html#15"><abbr title="App\Http\Resources\User::toArray">toArray</abbr></a></td><td class="text-right">64%</td></tr>
+       <tr><td><a href="Controllers/ImageController.php.html#22"><abbr title="App\Http\Controllers\ImageController::find">find</abbr></a></td><td class="text-right">72%</td></tr>
+       <tr><td><a href="Requests/Admin/AuthRequest.php.html#40"><abbr title="App\Http\Requests\Admin\AuthRequest::withValidator">withValidator</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Requests/Admin/AuthRequest.php.html#54"><abbr title="App\Http\Requests\Admin\AuthRequest::validated">validated</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Requests/Admin/EmailConfigRequest.php.html#42"><abbr title="App\Http\Requests\Admin\EmailConfigRequest::validationData">validationData</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Requests/Admin/TagRequest.php.html#26"><abbr title="App\Http\Requests\Admin\TagRequest::validationData">validationData</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Controllers/Home/ThumbUpController.php.html#24"><abbr title="App\Http\Controllers\Home\ThumbUpController::store">store</abbr></a></td><td class="text-right">78%</td></tr>
+       <tr><td><a href="Controllers/Admin/ArticleController.php.html#135"><abbr title="App\Http\Controllers\Admin\ArticleController::destroy">destroy</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Requests/Admin/UserUpdateRequest.php.html#24"><abbr title="App\Http\Requests\Admin\UserUpdateRequest::rules">rules</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Controllers/Admin/EmailConfigController.php.html#37"><abbr title="App\Http\Controllers\Admin\EmailConfigController::store">store</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Controllers/Controller.php.html#40"><abbr title="App\Http\Controllers\Controller::beginTransition">beginTransition</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="Requests/Admin/TagRequest.php.html#71"><abbr title="App\Http\Requests\Admin\TagRequest::withValidator">withValidator</abbr></a></td><td class="text-right">84%</td></tr>
+       <tr><td><a href="Requests/Admin/Article.php.html#120"><abbr title="App\Http\Requests\Admin\Article::withValidator">withValidator</abbr></a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="Requests/Admin/Article.php.html#77"><abbr title="App\Http\Requests\Admin\Article::validated">validated</abbr></a></td><td class="text-right">88%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Requests/Admin/Article.php.html#77"><abbr title="App\Http\Requests\Admin\Article::validated">validated</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="Controllers/ImageController.php.html#48"><abbr title="App\Http\Controllers\ImageController::getFileName">getFileName</abbr></a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="Requests/Admin/TagRequest.php.html#71"><abbr title="App\Http\Requests\Admin\TagRequest::withValidator">withValidator</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Requests/Auth/ManagerRequest.php.html#14"><abbr title="App\Http\Requests\Auth\ManagerRequest::authorize">authorize</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controllers/UserController.php.html#77"><abbr title="App\Http\Controllers\UserController::unbind">unbind</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Requests/Admin/Article.php.html#120"><abbr title="App\Http\Requests\Admin\Article::withValidator">withValidator</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Resources/User.php.html#15"><abbr title="App\Http\Resources\User::toArray">toArray</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Controllers/ImageController.php.html#22"><abbr title="App\Http\Controllers\ImageController::find">find</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Controllers/Controller.php.html#40"><abbr title="App\Http\Controllers\Controller::beginTransition">beginTransition</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Requests/Admin/TagRequest.php.html#26"><abbr title="App\Http\Requests\Admin\TagRequest::validationData">validationData</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Requests/Admin/AuthRequest.php.html#40"><abbr title="App\Http\Requests\Admin\AuthRequest::withValidator">withValidator</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Requests/Admin/EmailConfigRequest.php.html#42"><abbr title="App\Http\Requests\Admin\EmailConfigRequest::validationData">validationData</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Controllers/Home/ThumbUpController.php.html#24"><abbr title="App\Http\Controllers\Home\ThumbUpController::store">store</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Requests/Admin/ManagerRequest.php.html#44"><abbr title="App\Http\Requests\Admin\ManagerRequest::validated">validated</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Requests/Admin/AuthRequest.php.html#54"><abbr title="App\Http\Requests\Admin\AuthRequest::validated">validated</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Controllers/Admin/EmailConfigController.php.html#37"><abbr title="App\Http\Controllers\Admin\EmailConfigController::store">store</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Requests/Admin/UserUpdateRequest.php.html#24"><abbr title="App\Http\Requests\Admin\UserUpdateRequest::rules">rules</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Controllers/Admin/ArticleController.php.html#135"><abbr title="App\Http\Controllers\Admin\ArticleController::destroy">destroy</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 6.1.4</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.24</a> with <a href="https://xdebug.org/">Xdebug 2.8.1</a> and <a href="https://phpunit.de/">PHPUnit 7.5.20</a> at Thu Jan 14 21:28:21 CST 2021.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../.js/jquery.min.js" type="text/javascript"></script>
+  <script src="../.js/d3.min.js" type="text/javascript"></script>
+  <script src="../.js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([2,0,0,0,1,0,0,2,1,5,5,35], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([13,0,0,0,0,0,0,3,6,7,1,137], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[90.69767441860465,15,"<a href=\"Controllers\/Admin\/ArticleController.php.html#16\">App\\Http\\Controllers\\Admin\\ArticleController<\/a>"],[87.5,5,"<a href=\"Controllers\/Admin\/AuthController.php.html#13\">App\\Http\\Controllers\\Admin\\AuthController<\/a>"],[100,5,"<a href=\"Controllers\/Admin\/CommentController.php.html#12\">App\\Http\\Controllers\\Admin\\CommentController<\/a>"],[94.11764705882352,7,"<a href=\"Controllers\/Admin\/EmailConfigController.php.html#9\">App\\Http\\Controllers\\Admin\\EmailConfigController<\/a>"],[100,4,"<a href=\"Controllers\/Admin\/FriendLinkController.php.html#11\">App\\Http\\Controllers\\Admin\\FriendLinkController<\/a>"],[100,4,"<a href=\"Controllers\/Admin\/GalleryController.php.html#12\">App\\Http\\Controllers\\Admin\\GalleryController<\/a>"],[100,2,"<a href=\"Controllers\/Admin\/IndexController.php.html#12\">App\\Http\\Controllers\\Admin\\IndexController<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/LogController.php.html#10\">App\\Http\\Controllers\\Admin\\LogController<\/a>"],[100,5,"<a href=\"Controllers\/Admin\/ManagerController.php.html#13\">App\\Http\\Controllers\\Admin\\ManagerController<\/a>"],[100,6,"<a href=\"Controllers\/Admin\/MessageBoxController.php.html#11\">App\\Http\\Controllers\\Admin\\MessageBoxController<\/a>"],[100,4,"<a href=\"Controllers\/Admin\/RoleController.php.html#12\">App\\Http\\Controllers\\Admin\\RoleController<\/a>"],[100,4,"<a href=\"Controllers\/Admin\/SensitiveWordCategoryController.php.html#16\">App\\Http\\Controllers\\Admin\\SensitiveWordCategoryController<\/a>"],[100,7,"<a href=\"Controllers\/Admin\/SensitiveWordController.php.html#17\">App\\Http\\Controllers\\Admin\\SensitiveWordController<\/a>"],[100,2,"<a href=\"Controllers\/Admin\/SystemSettingController.php.html#11\">App\\Http\\Controllers\\Admin\\SystemSettingController<\/a>"],[100,6,"<a href=\"Controllers\/Admin\/TagController.php.html#13\">App\\Http\\Controllers\\Admin\\TagController<\/a>"],[100,4,"<a href=\"Controllers\/Admin\/TopicController.php.html#12\">App\\Http\\Controllers\\Admin\\TopicController<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/UploadController.php.html#9\">App\\Http\\Controllers\\Admin\\UploadController<\/a>"],[94.73684210526315,13,"<a href=\"Controllers\/Controller.php.html#12\">App\\Http\\Controllers\\Controller<\/a>"],[100,5,"<a href=\"Controllers\/Home\/ArticleController.php.html#10\">App\\Http\\Controllers\\Home\\ArticleController<\/a>"],[100,3,"<a href=\"Controllers\/Home\/CommentController.php.html#13\">App\\Http\\Controllers\\Home\\CommentController<\/a>"],[100,2,"<a href=\"Controllers\/Home\/IndexController.php.html#12\">App\\Http\\Controllers\\Home\\IndexController<\/a>"],[100,1,"<a href=\"Controllers\/Home\/LeaveMessageController.php.html#9\">App\\Http\\Controllers\\Home\\LeaveMessageController<\/a>"],[100,2,"<a href=\"Controllers\/Home\/ReportIllegalInfoController.php.html#10\">App\\Http\\Controllers\\Home\\ReportIllegalInfoController<\/a>"],[81.25,4,"<a href=\"Controllers\/Home\/ThumbUpController.php.html#9\">App\\Http\\Controllers\\Home\\ThumbUpController<\/a>"],[68,10,"<a href=\"Controllers\/ImageController.php.html#9\">App\\Http\\Controllers\\ImageController<\/a>"],[36.84210526315789,8,"<a href=\"Controllers\/UserController.php.html#16\">App\\Http\\Controllers\\UserController<\/a>"],[100,0,"<a href=\"Kernel.php.html#8\">App\\Http\\Kernel<\/a>"],[79.36507936507937,24,"<a href=\"Requests\/Admin\/Article.php.html#15\">App\\Http\\Requests\\Admin\\Article<\/a>"],[80,7,"<a href=\"Requests\/Admin\/AuthRequest.php.html#8\">App\\Http\\Requests\\Admin\\AuthRequest<\/a>"],[100,2,"<a href=\"Requests\/Admin\/BatchDeleteRequest.php.html#7\">App\\Http\\Requests\\Admin\\BatchDeleteRequest<\/a>"],[83.33333333333334,5,"<a href=\"Requests\/Admin\/EmailConfigRequest.php.html#7\">App\\Http\\Requests\\Admin\\EmailConfigRequest<\/a>"],[80,5,"<a href=\"Requests\/Admin\/ManagerRequest.php.html#7\">App\\Http\\Requests\\Admin\\ManagerRequest<\/a>"],[100,2,"<a href=\"Requests\/Admin\/RoleRequest.php.html#7\">App\\Http\\Requests\\Admin\\RoleRequest<\/a>"],[100,2,"<a href=\"Requests\/Admin\/SensitiveCategoryRequest.php.html#8\">App\\Http\\Requests\\Admin\\SensitiveCategoryRequest<\/a>"],[100,3,"<a href=\"Requests\/Admin\/SensitiveWordImportRequest.php.html#7\">App\\Http\\Requests\\Admin\\SensitiveWordImportRequest<\/a>"],[100,2,"<a href=\"Requests\/Admin\/SensitiveWordRequest.php.html#7\">App\\Http\\Requests\\Admin\\SensitiveWordRequest<\/a>"],[100,2,"<a href=\"Requests\/Admin\/SystemSettingRequest.php.html#7\">App\\Http\\Requests\\Admin\\SystemSettingRequest<\/a>"],[90.625,19,"<a href=\"Requests\/Admin\/TagRequest.php.html#9\">App\\Http\\Requests\\Admin\\TagRequest<\/a>"],[100,3,"<a href=\"Requests\/Admin\/TopicRequest.php.html#8\">App\\Http\\Requests\\Admin\\TopicRequest<\/a>"],[92.85714285714286,7,"<a href=\"Requests\/Admin\/UserUpdateRequest.php.html#7\">App\\Http\\Requests\\Admin\\UserUpdateRequest<\/a>"],[0,3,"<a href=\"Requests\/Auth\/ManagerRequest.php.html#7\">App\\Http\\Requests\\Auth\\ManagerRequest<\/a>"],[100,2,"<a href=\"Requests\/BatchRequest.php.html#7\">App\\Http\\Requests\\BatchRequest<\/a>"],[100,14,"<a href=\"Requests\/CommentPost.php.html#13\">App\\Http\\Requests\\CommentPost<\/a>"],[100,2,"<a href=\"Requests\/FriendLinkRequest.php.html#7\">App\\Http\\Requests\\FriendLinkRequest<\/a>"],[0,2,"<a href=\"Requests\/LoginByProviderRequest.php.html#7\">App\\Http\\Requests\\LoginByProviderRequest<\/a>"],[100,7,"<a href=\"Requests\/ReportIllegalInfo.php.html#9\">App\\Http\\Requests\\ReportIllegalInfo<\/a>"],[100,4,"<a href=\"Requests\/ThumbUpRequest.php.html#8\">App\\Http\\Requests\\ThumbUpRequest<\/a>"],[100,4,"<a href=\"Requests\/UploadImageRequest.php.html#7\">App\\Http\\Requests\\UploadImageRequest<\/a>"],[64.70588235294117,4,"<a href=\"Resources\/User.php.html#7\">App\\Http\\Resources\\User<\/a>"],[100,3,"<a href=\"Requests\/Traits\/DecodeParam.php.html#4\">DecodeParam<\/a>"],[100,1,"<a href=\"Requests\/Traits\/FailedValidation.php.html#7\">FailedValidation<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Controllers\/Admin\/ArticleController.php.html#25\">App\\Http\\Controllers\\Admin\\ArticleController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/ArticleController.php.html#39\">App\\Http\\Controllers\\Admin\\ArticleController::index<\/a>"],[100,2,"<a href=\"Controllers\/Admin\/ArticleController.php.html#50\">App\\Http\\Controllers\\Admin\\ArticleController::show<\/a>"],[100,3,"<a href=\"Controllers\/Admin\/ArticleController.php.html#61\">App\\Http\\Controllers\\Admin\\ArticleController::store<\/a>"],[100,4,"<a href=\"Controllers\/Admin\/ArticleController.php.html#97\">App\\Http\\Controllers\\Admin\\ArticleController::update<\/a>"],[80,2,"<a href=\"Controllers\/Admin\/ArticleController.php.html#135\">App\\Http\\Controllers\\Admin\\ArticleController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/ArticleController.php.html#156\">App\\Http\\Controllers\\Admin\\ArticleController::create<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/ArticleController.php.html#171\">App\\Http\\Controllers\\Admin\\ArticleController::restore<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/AuthController.php.html#20\">App\\Http\\Controllers\\Admin\\AuthController::index<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/AuthController.php.html#32\">App\\Http\\Controllers\\Admin\\AuthController::create<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/AuthController.php.html#45\">App\\Http\\Controllers\\Admin\\AuthController::store<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/AuthController.php.html#66\">App\\Http\\Controllers\\Admin\\AuthController::update<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/AuthController.php.html#83\">App\\Http\\Controllers\\Admin\\AuthController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/CommentController.php.html#19\">App\\Http\\Controllers\\Admin\\CommentController::index<\/a>"],[100,2,"<a href=\"Controllers\/Admin\/CommentController.php.html#31\">App\\Http\\Controllers\\Admin\\CommentController::approve<\/a>"],[100,2,"<a href=\"Controllers\/Admin\/CommentController.php.html#53\">App\\Http\\Controllers\\Admin\\CommentController::reject<\/a>"],[100,3,"<a href=\"Controllers\/Admin\/EmailConfigController.php.html#16\">App\\Http\\Controllers\\Admin\\EmailConfigController::index<\/a>"],[80,2,"<a href=\"Controllers\/Admin\/EmailConfigController.php.html#37\">App\\Http\\Controllers\\Admin\\EmailConfigController::store<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/EmailConfigController.php.html#55\">App\\Http\\Controllers\\Admin\\EmailConfigController::update<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/EmailConfigController.php.html#71\">App\\Http\\Controllers\\Admin\\EmailConfigController::forgotCache<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/FriendLinkController.php.html#19\">App\\Http\\Controllers\\Admin\\FriendLinkController::index<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/FriendLinkController.php.html#33\">App\\Http\\Controllers\\Admin\\FriendLinkController::store<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/FriendLinkController.php.html#50\">App\\Http\\Controllers\\Admin\\FriendLinkController::update<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/FriendLinkController.php.html#67\">App\\Http\\Controllers\\Admin\\FriendLinkController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/GalleryController.php.html#20\">App\\Http\\Controllers\\Admin\\GalleryController::index<\/a>"],[100,2,"<a href=\"Controllers\/Admin\/GalleryController.php.html#33\">App\\Http\\Controllers\\Admin\\GalleryController::store<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/GalleryController.php.html#61\">App\\Http\\Controllers\\Admin\\GalleryController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/IndexController.php.html#56\">App\\Http\\Controllers\\Admin\\IndexController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/IndexController.php.html#67\">App\\Http\\Controllers\\Admin\\IndexController::index<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/LogController.php.html#20\">App\\Http\\Controllers\\Admin\\LogController::index<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/ManagerController.php.html#20\">App\\Http\\Controllers\\Admin\\ManagerController::index<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/ManagerController.php.html#32\">App\\Http\\Controllers\\Admin\\ManagerController::create<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/ManagerController.php.html#46\">App\\Http\\Controllers\\Admin\\ManagerController::update<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/ManagerController.php.html#68\">App\\Http\\Controllers\\Admin\\ManagerController::user<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/ManagerController.php.html#80\">App\\Http\\Controllers\\Admin\\ManagerController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/MessageBoxController.php.html#20\">App\\Http\\Controllers\\Admin\\MessageBoxController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/MessageBoxController.php.html#30\">App\\Http\\Controllers\\Admin\\MessageBoxController::index<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/MessageBoxController.php.html#45\">App\\Http\\Controllers\\Admin\\MessageBoxController::approve<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/MessageBoxController.php.html#68\">App\\Http\\Controllers\\Admin\\MessageBoxController::ignore<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/MessageBoxController.php.html#89\">App\\Http\\Controllers\\Admin\\MessageBoxController::getNotification<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/MessageBoxController.php.html#103\">App\\Http\\Controllers\\Admin\\MessageBoxController::getCommentAbleComments<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/RoleController.php.html#19\">App\\Http\\Controllers\\Admin\\RoleController::index<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/RoleController.php.html#32\">App\\Http\\Controllers\\Admin\\RoleController::store<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/RoleController.php.html#56\">App\\Http\\Controllers\\Admin\\RoleController::update<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/RoleController.php.html#77\">App\\Http\\Controllers\\Admin\\RoleController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/SensitiveWordCategoryController.php.html#24\">App\\Http\\Controllers\\Admin\\SensitiveWordCategoryController::index<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/SensitiveWordCategoryController.php.html#37\">App\\Http\\Controllers\\Admin\\SensitiveWordCategoryController::store<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/SensitiveWordCategoryController.php.html#60\">App\\Http\\Controllers\\Admin\\SensitiveWordCategoryController::update<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/SensitiveWordCategoryController.php.html#76\">App\\Http\\Controllers\\Admin\\SensitiveWordCategoryController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/SensitiveWordController.php.html#26\">App\\Http\\Controllers\\Admin\\SensitiveWordController::index<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/SensitiveWordController.php.html#40\">App\\Http\\Controllers\\Admin\\SensitiveWordController::store<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/SensitiveWordController.php.html#64\">App\\Http\\Controllers\\Admin\\SensitiveWordController::update<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/SensitiveWordController.php.html#81\">App\\Http\\Controllers\\Admin\\SensitiveWordController::destroy<\/a>"],[100,2,"<a href=\"Controllers\/Admin\/SensitiveWordController.php.html#98\">App\\Http\\Controllers\\Admin\\SensitiveWordController::batchDestroy<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/SensitiveWordController.php.html#122\">App\\Http\\Controllers\\Admin\\SensitiveWordController::import<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/SystemSettingController.php.html#18\">App\\Http\\Controllers\\Admin\\SystemSettingController::index<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/SystemSettingController.php.html#30\">App\\Http\\Controllers\\Admin\\SystemSettingController::update<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/TagController.php.html#20\">App\\Http\\Controllers\\Admin\\TagController::index<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/TagController.php.html#31\">App\\Http\\Controllers\\Admin\\TagController::create<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/TagController.php.html#44\">App\\Http\\Controllers\\Admin\\TagController::store<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/TagController.php.html#61\">App\\Http\\Controllers\\Admin\\TagController::show<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/TagController.php.html#75\">App\\Http\\Controllers\\Admin\\TagController::update<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/TagController.php.html#90\">App\\Http\\Controllers\\Admin\\TagController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/TopicController.php.html#21\">App\\Http\\Controllers\\Admin\\TopicController::index<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/TopicController.php.html#34\">App\\Http\\Controllers\\Admin\\TopicController::store<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/TopicController.php.html#50\">App\\Http\\Controllers\\Admin\\TopicController::update<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/TopicController.php.html#69\">App\\Http\\Controllers\\Admin\\TopicController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/UploadController.php.html#18\">App\\Http\\Controllers\\Admin\\UploadController::uploadImage<\/a>"],[100,1,"<a href=\"Controllers\/Controller.php.html#31\">App\\Http\\Controllers\\Controller::__construct<\/a>"],[83.33333333333334,4,"<a href=\"Controllers\/Controller.php.html#40\">App\\Http\\Controllers\\Controller::beginTransition<\/a>"],[100,3,"<a href=\"Controllers\/Controller.php.html#58\">App\\Http\\Controllers\\Controller::rollBack<\/a>"],[100,3,"<a href=\"Controllers\/Controller.php.html#72\">App\\Http\\Controllers\\Controller::commit<\/a>"],[100,1,"<a href=\"Controllers\/Controller.php.html#86\">App\\Http\\Controllers\\Controller::isUsingRedisCacheDriver<\/a>"],[100,1,"<a href=\"Controllers\/Controller.php.html#97\">App\\Http\\Controllers\\Controller::setCacheDriver<\/a>"],[100,1,"<a href=\"Controllers\/Home\/ArticleController.php.html#19\">App\\Http\\Controllers\\Home\\ArticleController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/Home\/ArticleController.php.html#30\">App\\Http\\Controllers\\Home\\ArticleController::find<\/a>"],[100,1,"<a href=\"Controllers\/Home\/ArticleController.php.html#43\">App\\Http\\Controllers\\Home\\ArticleController::comments<\/a>"],[100,1,"<a href=\"Controllers\/Home\/ArticleController.php.html#59\">App\\Http\\Controllers\\Home\\ArticleController::all<\/a>"],[100,1,"<a href=\"Controllers\/Home\/ArticleController.php.html#72\">App\\Http\\Controllers\\Home\\ArticleController::tags<\/a>"],[100,1,"<a href=\"Controllers\/Home\/CommentController.php.html#22\">App\\Http\\Controllers\\Home\\CommentController::store<\/a>"],[100,1,"<a href=\"Controllers\/Home\/CommentController.php.html#48\">App\\Http\\Controllers\\Home\\CommentController::getReply<\/a>"],[100,1,"<a href=\"Controllers\/Home\/CommentController.php.html#63\">App\\Http\\Controllers\\Home\\CommentController::destroy<\/a>"],[100,1,"<a href=\"Controllers\/Home\/IndexController.php.html#22\">App\\Http\\Controllers\\Home\\IndexController::index<\/a>"],[100,1,"<a href=\"Controllers\/Home\/IndexController.php.html#46\">App\\Http\\Controllers\\Home\\IndexController::getFriendLink<\/a>"],[100,1,"<a href=\"Controllers\/Home\/LeaveMessageController.php.html#18\">App\\Http\\Controllers\\Home\\LeaveMessageController::index<\/a>"],[100,2,"<a href=\"Controllers\/Home\/ReportIllegalInfoController.php.html#18\">App\\Http\\Controllers\\Home\\ReportIllegalInfoController::store<\/a>"],[100,1,"<a href=\"Controllers\/Home\/ThumbUpController.php.html#13\">App\\Http\\Controllers\\Home\\ThumbUpController::__construct<\/a>"],[78.57142857142857,3,"<a href=\"Controllers\/Home\/ThumbUpController.php.html#24\">App\\Http\\Controllers\\Home\\ThumbUpController::store<\/a>"],[72.72727272727273,4,"<a href=\"Controllers\/ImageController.php.html#22\">App\\Http\\Controllers\\ImageController::find<\/a>"],[64.28571428571429,6,"<a href=\"Controllers\/ImageController.php.html#48\">App\\Http\\Controllers\\ImageController::getFileName<\/a>"],[100,2,"<a href=\"Controllers\/UserController.php.html#27\">App\\Http\\Controllers\\UserController::update<\/a>"],[0,1,"<a href=\"Controllers\/UserController.php.html#49\">App\\Http\\Controllers\\UserController::bind<\/a>"],[0,1,"<a href=\"Controllers\/UserController.php.html#63\">App\\Http\\Controllers\\UserController::rebind<\/a>"],[0,2,"<a href=\"Controllers\/UserController.php.html#77\">App\\Http\\Controllers\\UserController::unbind<\/a>"],[0,1,"<a href=\"Controllers\/UserController.php.html#93\">App\\Http\\Controllers\\UserController::profile<\/a>"],[0,1,"<a href=\"Controllers\/UserController.php.html#109\">App\\Http\\Controllers\\UserController::sendResetLinkResponse<\/a>"],[100,1,"<a href=\"Requests\/Admin\/Article.php.html#29\">App\\Http\\Requests\\Admin\\Article::authorize<\/a>"],[91.66666666666666,4,"<a href=\"Requests\/Admin\/Article.php.html#39\">App\\Http\\Requests\\Admin\\Article::rules<\/a>"],[88.88888888888889,8,"<a href=\"Requests\/Admin\/Article.php.html#77\">App\\Http\\Requests\\Admin\\Article::validated<\/a>"],[87.5,5,"<a href=\"Requests\/Admin\/Article.php.html#120\">App\\Http\\Requests\\Admin\\Article::withValidator<\/a>"],[100,3,"<a href=\"Requests\/Admin\/Article.php.html#143\">App\\Http\\Requests\\Admin\\Article::dealWithTags<\/a>"],[100,1,"<a href=\"Requests\/Admin\/Article.php.html#166\">App\\Http\\Requests\\Admin\\Article::createNewTag<\/a>"],[0,1,"<a href=\"Requests\/Admin\/Article.php.html#187\">App\\Http\\Requests\\Admin\\Article::getGalleryId<\/a>"],[0,1,"<a href=\"Requests\/Admin\/Article.php.html#205\">App\\Http\\Requests\\Admin\\Article::createTopic<\/a>"],[100,1,"<a href=\"Requests\/Admin\/AuthRequest.php.html#15\">App\\Http\\Requests\\Admin\\AuthRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/Admin\/AuthRequest.php.html#25\">App\\Http\\Requests\\Admin\\AuthRequest::rules<\/a>"],[75,3,"<a href=\"Requests\/Admin\/AuthRequest.php.html#40\">App\\Http\\Requests\\Admin\\AuthRequest::withValidator<\/a>"],[75,2,"<a href=\"Requests\/Admin\/AuthRequest.php.html#54\">App\\Http\\Requests\\Admin\\AuthRequest::validated<\/a>"],[100,1,"<a href=\"Requests\/Admin\/BatchDeleteRequest.php.html#14\">App\\Http\\Requests\\Admin\\BatchDeleteRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/Admin\/BatchDeleteRequest.php.html#24\">App\\Http\\Requests\\Admin\\BatchDeleteRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/Admin\/EmailConfigRequest.php.html#14\">App\\Http\\Requests\\Admin\\EmailConfigRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/Admin\/EmailConfigRequest.php.html#24\">App\\Http\\Requests\\Admin\\EmailConfigRequest::rules<\/a>"],[75,3,"<a href=\"Requests\/Admin\/EmailConfigRequest.php.html#42\">App\\Http\\Requests\\Admin\\EmailConfigRequest::validationData<\/a>"],[100,1,"<a href=\"Requests\/Admin\/ManagerRequest.php.html#14\">App\\Http\\Requests\\Admin\\ManagerRequest::authorize<\/a>"],[100,2,"<a href=\"Requests\/Admin\/ManagerRequest.php.html#24\">App\\Http\\Requests\\Admin\\ManagerRequest::rules<\/a>"],[60,2,"<a href=\"Requests\/Admin\/ManagerRequest.php.html#44\">App\\Http\\Requests\\Admin\\ManagerRequest::validated<\/a>"],[100,1,"<a href=\"Requests\/Admin\/RoleRequest.php.html#14\">App\\Http\\Requests\\Admin\\RoleRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/Admin\/RoleRequest.php.html#24\">App\\Http\\Requests\\Admin\\RoleRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/Admin\/SensitiveCategoryRequest.php.html#15\">App\\Http\\Requests\\Admin\\SensitiveCategoryRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/Admin\/SensitiveCategoryRequest.php.html#25\">App\\Http\\Requests\\Admin\\SensitiveCategoryRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/Admin\/SensitiveWordImportRequest.php.html#14\">App\\Http\\Requests\\Admin\\SensitiveWordImportRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/Admin\/SensitiveWordImportRequest.php.html#24\">App\\Http\\Requests\\Admin\\SensitiveWordImportRequest::validationData<\/a>"],[100,1,"<a href=\"Requests\/Admin\/SensitiveWordImportRequest.php.html#38\">App\\Http\\Requests\\Admin\\SensitiveWordImportRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/Admin\/SensitiveWordRequest.php.html#14\">App\\Http\\Requests\\Admin\\SensitiveWordRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/Admin\/SensitiveWordRequest.php.html#24\">App\\Http\\Requests\\Admin\\SensitiveWordRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/Admin\/SystemSettingRequest.php.html#14\">App\\Http\\Requests\\Admin\\SystemSettingRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/Admin\/SystemSettingRequest.php.html#24\">App\\Http\\Requests\\Admin\\SystemSettingRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/Admin\/TagRequest.php.html#16\">App\\Http\\Requests\\Admin\\TagRequest::authorize<\/a>"],[75,3,"<a href=\"Requests\/Admin\/TagRequest.php.html#26\">App\\Http\\Requests\\Admin\\TagRequest::validationData<\/a>"],[100,4,"<a href=\"Requests\/Admin\/TagRequest.php.html#43\">App\\Http\\Requests\\Admin\\TagRequest::rules<\/a>"],[84.61538461538461,6,"<a href=\"Requests\/Admin\/TagRequest.php.html#71\">App\\Http\\Requests\\Admin\\TagRequest::withValidator<\/a>"],[100,3,"<a href=\"Requests\/Admin\/TagRequest.php.html#103\">App\\Http\\Requests\\Admin\\TagRequest::validated<\/a>"],[100,2,"<a href=\"Requests\/Admin\/TagRequest.php.html#123\">App\\Http\\Requests\\Admin\\TagRequest::coverIsFile<\/a>"],[100,1,"<a href=\"Requests\/Admin\/TopicRequest.php.html#15\">App\\Http\\Requests\\Admin\\TopicRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/Admin\/TopicRequest.php.html#25\">App\\Http\\Requests\\Admin\\TopicRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/Admin\/TopicRequest.php.html#49\">App\\Http\\Requests\\Admin\\TopicRequest::validated<\/a>"],[100,1,"<a href=\"Requests\/Admin\/UserUpdateRequest.php.html#14\">App\\Http\\Requests\\Admin\\UserUpdateRequest::authorize<\/a>"],[80,2,"<a href=\"Requests\/Admin\/UserUpdateRequest.php.html#24\">App\\Http\\Requests\\Admin\\UserUpdateRequest::rules<\/a>"],[100,2,"<a href=\"Requests\/Admin\/UserUpdateRequest.php.html#46\">App\\Http\\Requests\\Admin\\UserUpdateRequest::validationData<\/a>"],[100,2,"<a href=\"Requests\/Admin\/UserUpdateRequest.php.html#62\">App\\Http\\Requests\\Admin\\UserUpdateRequest::validated<\/a>"],[0,2,"<a href=\"Requests\/Auth\/ManagerRequest.php.html#14\">App\\Http\\Requests\\Auth\\ManagerRequest::authorize<\/a>"],[0,1,"<a href=\"Requests\/Auth\/ManagerRequest.php.html#24\">App\\Http\\Requests\\Auth\\ManagerRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/BatchRequest.php.html#14\">App\\Http\\Requests\\BatchRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/BatchRequest.php.html#24\">App\\Http\\Requests\\BatchRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/CommentPost.php.html#39\">App\\Http\\Requests\\CommentPost::__construct<\/a>"],[100,1,"<a href=\"Requests\/CommentPost.php.html#51\">App\\Http\\Requests\\CommentPost::authorize<\/a>"],[100,3,"<a href=\"Requests\/CommentPost.php.html#61\">App\\Http\\Requests\\CommentPost::rules<\/a>"],[100,3,"<a href=\"Requests\/CommentPost.php.html#85\">App\\Http\\Requests\\CommentPost::withValidator<\/a>"],[100,4,"<a href=\"Requests\/CommentPost.php.html#108\">App\\Http\\Requests\\CommentPost::validated<\/a>"],[100,2,"<a href=\"Requests\/CommentPost.php.html#147\">App\\Http\\Requests\\CommentPost::getReplyPerson<\/a>"],[100,1,"<a href=\"Requests\/FriendLinkRequest.php.html#14\">App\\Http\\Requests\\FriendLinkRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/FriendLinkRequest.php.html#24\">App\\Http\\Requests\\FriendLinkRequest::rules<\/a>"],[0,1,"<a href=\"Requests\/LoginByProviderRequest.php.html#14\">App\\Http\\Requests\\LoginByProviderRequest::authorize<\/a>"],[0,1,"<a href=\"Requests\/LoginByProviderRequest.php.html#24\">App\\Http\\Requests\\LoginByProviderRequest::rules<\/a>"],[100,1,"<a href=\"Requests\/ReportIllegalInfo.php.html#23\">App\\Http\\Requests\\ReportIllegalInfo::authorize<\/a>"],[100,3,"<a href=\"Requests\/ReportIllegalInfo.php.html#33\">App\\Http\\Requests\\ReportIllegalInfo::rules<\/a>"],[100,2,"<a href=\"Requests\/ReportIllegalInfo.php.html#58\">App\\Http\\Requests\\ReportIllegalInfo::validationData<\/a>"],[100,1,"<a href=\"Requests\/ReportIllegalInfo.php.html#75\">App\\Http\\Requests\\ReportIllegalInfo::validated<\/a>"],[100,1,"<a href=\"Requests\/ThumbUpRequest.php.html#17\">App\\Http\\Requests\\ThumbUpRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/ThumbUpRequest.php.html#27\">App\\Http\\Requests\\ThumbUpRequest::rules<\/a>"],[100,2,"<a href=\"Requests\/ThumbUpRequest.php.html#35\">App\\Http\\Requests\\ThumbUpRequest::validated<\/a>"],[100,1,"<a href=\"Requests\/UploadImageRequest.php.html#14\">App\\Http\\Requests\\UploadImageRequest::authorize<\/a>"],[100,1,"<a href=\"Requests\/UploadImageRequest.php.html#24\">App\\Http\\Requests\\UploadImageRequest::rules<\/a>"],[100,2,"<a href=\"Requests\/UploadImageRequest.php.html#37\">App\\Http\\Requests\\UploadImageRequest::validationData<\/a>"],[64.70588235294117,4,"<a href=\"Resources\/User.php.html#15\">App\\Http\\Resources\\User::toArray<\/a>"],[100,3,"<a href=\"Requests\/Traits\/DecodeParam.php.html#18\">DecodeParam::validationData<\/a>"],[100,1,"<a href=\"Requests\/Traits\/FailedValidation.php.html#17\">FailedValidation::failedValidation<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

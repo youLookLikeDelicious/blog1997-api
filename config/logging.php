@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    'default' => env('LOG_CHANNEL', 'custom'),
 
     /*
     |--------------------------------------------------------------------------
@@ -89,6 +89,16 @@ return [
             'driver' => 'errorlog',
             'level' => 'debug',
         ],
+        'register' => [
+            'driver' => 'register',
+            'path' => storage_path('logs/register/register.log'),
+            'level' => 'debug',
+            'days' => 14
+        ],
+        'custom' => [
+            'driver' => 'custom',
+            'via' => App\Logging\Logger::class
+        ]
     ],
 
 ];

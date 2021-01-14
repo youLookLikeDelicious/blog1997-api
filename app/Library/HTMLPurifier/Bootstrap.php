@@ -27,6 +27,9 @@ if (!defined('PHP_EOL')) {
  * @note
  *      This class may be used without any other files from HTML Purifier.
  */
+if (class_exists('HTMLPurifier_Bootstrap')) {
+    return;
+}
 class HTMLPurifier_Bootstrap
 {
 
@@ -84,7 +87,7 @@ class HTMLPurifier_Bootstrap
         } elseif (function_exists('spl_autoload_unregister')) {
             if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
                 // prepend flag exists, no need for shenanigans
-                spl_autoload_register($autoload, true, true);
+                spl_autoload_register($autoload, false, true);
             } else {
                 $buggy  = version_compare(PHP_VERSION, '5.2.11', '<');
                 $compat = version_compare(PHP_VERSION, '5.1.2', '<=') &&

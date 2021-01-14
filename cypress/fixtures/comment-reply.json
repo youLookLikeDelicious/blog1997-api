@@ -1,0 +1,21 @@
+{
+    "comment": "回复评论的返回数据",
+    "status": "success",
+    "message": "\u8bc4\u8bba\u6210\u529f",
+    "data": {
+        "able_id": "29",
+        "able_type": "App\\Model\\Comment",
+        "content": "<img src=\"http://img.baidu.com/hi/jx2/j_0001.gif\"/>少林功夫好啊~",
+        "root_id": 29,
+        "level": 2,
+        "reply_to": 3,
+        "user_id": 2,
+        "verified": "no",
+        "article_id": 85,
+        "updated_at": "1609641635",
+        "created_at": "1609641635",
+        "id": 31,
+        "replies": [],
+        "thumbs": 0
+    }
+}

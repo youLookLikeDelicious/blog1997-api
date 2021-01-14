@@ -1,0 +1,14 @@
+{
+    "comment": "新建标签",
+    "status": "success",
+    "message": "\u6807\u7b7e\u6dfb\u52a0\u6210\u529f",
+    "data": {
+        "name": "New Tag",
+        "cover": "\/image\/tag\/2020-12-22\/218.413875001615fe1ddaf650e04.83086165.jpg",
+        "parent_id": 2,
+        "description": "New tag description",
+        "updated_at": "1609401366",
+        "created_at": "1609401366",
+        "id": 16
+    }
+}

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -39,7 +40,7 @@ class XySitemapInfo extends Migration
             $table->index('level');
         });
 
-        DB::statement('ALTER TABLE `xy_sitemap_info` COMMENT = "网站地图信息"');
+        DB::statement('ALTER TABLE ' .DB::getTablePrefix(). 'sitemap_info COMMENT = "网站地图信息"');
     }
 
     /**
@@ -50,6 +51,6 @@ class XySitemapInfo extends Migration
     public function down()
     {
         //
-        Schema::drop('xy_sitemap_info');
+        Schema::drop('sitemap_info');
     }
 }

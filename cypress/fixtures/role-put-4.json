@@ -1,0 +1,30 @@
+{
+    "comment": "更新权限",
+    "status": "success",
+    "message": "\u89d2\u8272\u66f4\u65b0\u6210\u529f",
+    "data": {
+        "id": 4,
+        "name": "Auditor",
+        "remark": "\u5ba1\u6838\u8bc4\u8bba\u548c\u4e3e\u62a5\u4fe1\u606f",
+        "created_at": "1609664736",
+        "updated_at": "1609664736",
+        "authorities": [
+            {
+                "id": 18,
+                "name": "\u5de5\u4f5c\u53f0",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 18
+                }
+            },
+            {
+                "id": 19,
+                "name": "\u4eea\u8868\u76d8",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 19
+                }
+            }
+        ]
+    }
+}

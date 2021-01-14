@@ -1,0 +1,1382 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "id": 2,
+        "name": "\u4f60\u597d\u50cf\u5f88\u597d\u5403",
+        "avatar": "\/image\/avatar\/2020-11-08\/550.70846900165fa7a810acf834.76505998.jpg",
+        "email": "blog1997@qq.com",
+        "article_sum": -3945,
+        "created_at": {
+            "date": "2020-10-16 18:47:43.000000",
+            "timezone_type": 3,
+            "timezone": "Asia\/Shanghai"
+        },
+        "roles": [
+            {
+                "id": 1,
+                "name": "Master",
+                "pivot": {
+                    "user_id": 2,
+                    "role_id": 1,
+                    "created_at": "2020-12-01 16:19:35",
+                    "updated_at": "2020-12-01 16:19:35"
+                },
+                "authorities": [
+                    {
+                        "id": 1,
+                        "name": "\u535a\u5ba2\u7ba1\u7406",
+                        "route_name": "blog.manage",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 1
+                        }
+                    },
+                    {
+                        "id": 13,
+                        "name": "\u4e13\u9898\u7ba1\u7406",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 13
+                        }
+                    },
+                    {
+                        "id": 14,
+                        "name": "\u67e5\u770b\u4e13\u9898",
+                        "route_name": "topic.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 14
+                        }
+                    },
+                    {
+                        "id": 15,
+                        "name": "\u521b\u5efa\u4e13\u9898",
+                        "route_name": "topic.store",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 15
+                        }
+                    },
+                    {
+                        "id": 16,
+                        "name": "\u4fee\u6539\u4e13\u9898",
+                        "route_name": "topic.update",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 16
+                        }
+                    },
+                    {
+                        "id": 17,
+                        "name": "\u5220\u9664\u4e13\u9898",
+                        "route_name": "topic.destroy",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 17
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "name": "\u6587\u7ae0\u7ba1\u7406",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 2
+                        }
+                    },
+                    {
+                        "id": 6,
+                        "name": "\u6dfb\u52a0\u6587\u7ae0",
+                        "route_name": "article.store",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 6
+                        }
+                    },
+                    {
+                        "id": 7,
+                        "name": "\u4fee\u6539\u6587\u7ae0",
+                        "route_name": "article.update",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 7
+                        }
+                    },
+                    {
+                        "id": 8,
+                        "name": "\u5220\u9664\u6587\u7ae0",
+                        "route_name": "article.destroy",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 8
+                        }
+                    },
+                    {
+                        "id": 9,
+                        "name": "\u67e5\u770b\u5217\u8868",
+                        "route_name": "article.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 9
+                        }
+                    },
+                    {
+                        "id": 4,
+                        "name": "\u6807\u7b7e\u7ba1\u7406",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 4
+                        }
+                    },
+                    {
+                        "id": 10,
+                        "name": "\u67e5\u770b\u6807\u7b7e",
+                        "route_name": "tag.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 10
+                        }
+                    },
+                    {
+                        "id": 11,
+                        "name": "\u66f4\u65b0\u6807\u7b7e",
+                        "route_name": "tag.update",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 11
+                        }
+                    },
+                    {
+                        "id": 12,
+                        "name": "\u5220\u9664\u6807\u7b7e",
+                        "route_name": "tag.destroy",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 12
+                        }
+                    },
+                    {
+                        "id": 5,
+                        "name": "\u6dfb\u52a0\u6807\u7b7e",
+                        "route_name": "tag.store",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 5
+                        }
+                    },
+                    {
+                        "id": 18,
+                        "name": "\u5de5\u4f5c\u53f0",
+                        "route_name": "workbench",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 18
+                        }
+                    },
+                    {
+                        "id": 19,
+                        "name": "\u4eea\u8868\u76d8",
+                        "route_name": "admin.dashboard",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 19
+                        }
+                    },
+                    {
+                        "id": 36,
+                        "name": "\u753b\u5eca\u7ba1\u7406",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 36
+                        }
+                    },
+                    {
+                        "id": 37,
+                        "name": "\u67e5\u770b\u56fe\u7247",
+                        "route_name": "gallery.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 37
+                        }
+                    },
+                    {
+                        "id": 38,
+                        "name": "\u4e0a\u4f20\u56fe\u7247",
+                        "route_name": "gallery.store",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 38
+                        }
+                    },
+                    {
+                        "id": 39,
+                        "name": "\u53cb\u94fe\u7ba1\u7406",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 39
+                        }
+                    },
+                    {
+                        "id": 40,
+                        "name": "\u6dfb\u52a0\u53cb\u94fe",
+                        "route_name": "friend-link.store",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 40
+                        }
+                    },
+                    {
+                        "id": 41,
+                        "name": "\u67e5\u770b\u53cb\u94fe",
+                        "route_name": "friend-link.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 41
+                        }
+                    },
+                    {
+                        "id": 42,
+                        "name": "\u4fee\u6539\u53cb\u94fe",
+                        "route_name": "friend-link.update",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 42
+                        }
+                    },
+                    {
+                        "id": 43,
+                        "name": "\u5220\u9664\u53cb\u94fe",
+                        "route_name": "friend-link.destroy",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 43
+                        }
+                    },
+                    {
+                        "id": 44,
+                        "name": "\u654f\u611f\u8bcd\u6c47\u7ba1\u7406",
+                        "route_name": "sensitive-word.manage",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 44
+                        }
+                    },
+                    {
+                        "id": 45,
+                        "name": "\u5206\u7c7b\u7ba1\u7406",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 45
+                        }
+                    },
+                    {
+                        "id": 46,
+                        "name": "\u67e5\u770b\u5206\u7c7b",
+                        "route_name": "sensitive-word-category.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 46
+                        }
+                    },
+                    {
+                        "id": 47,
+                        "name": "\u5220\u9664\u5206\u7c7b",
+                        "route_name": "sensitive-word-category.destroy",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 47
+                        }
+                    },
+                    {
+                        "id": 48,
+                        "name": "\u6dfb\u52a0\u5206\u7c7b",
+                        "route_name": "sensitive-word-category.store",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 48
+                        }
+                    },
+                    {
+                        "id": 49,
+                        "name": "\u4fee\u6539\u5206\u7c7b",
+                        "route_name": "sensitive-word-category.update",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 49
+                        }
+                    },
+                    {
+                        "id": 50,
+                        "name": "\u8bcd\u6c47\u7ba1\u7406",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 50
+                        }
+                    },
+                    {
+                        "id": 51,
+                        "name": "\u6dfb\u52a0\u8bcd\u6c47",
+                        "route_name": "sensitive-word.store",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 51
+                        }
+                    },
+                    {
+                        "id": 52,
+                        "name": "\u67e5\u770b\u8bcd\u6c47",
+                        "route_name": "sensitive-word.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 52
+                        }
+                    },
+                    {
+                        "id": 53,
+                        "name": "\u4fee\u6539\u8bcd\u6c47",
+                        "route_name": "sensitive-word.update",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 53
+                        }
+                    },
+                    {
+                        "id": 54,
+                        "name": "\u5220\u9664\u8bcd\u6c47",
+                        "route_name": "sensitive-word.destroy",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 54
+                        }
+                    },
+                    {
+                        "id": 56,
+                        "name": "\u7cfb\u7edf\u7ba1\u7406",
+                        "route_name": "system.manage",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 56
+                        }
+                    },
+                    {
+                        "id": 68,
+                        "name": "\u7cfb\u7edf\u65e5\u5fd7",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 68
+                        }
+                    },
+                    {
+                        "id": 70,
+                        "name": "\u67e5\u770b\u65e5\u5fd7",
+                        "route_name": "system.log",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 70
+                        }
+                    },
+                    {
+                        "id": 69,
+                        "name": "\u7cfb\u7edf\u8bbe\u7f6e",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 69
+                        }
+                    },
+                    {
+                        "id": 74,
+                        "name": "\u67e5\u770b\u7cfb\u7edf\u8bbe\u7f6e",
+                        "route_name": "system-setting.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 74
+                        }
+                    },
+                    {
+                        "id": 75,
+                        "name": "\u66f4\u65b0\u7cfb\u7edf\u8bbe\u7f6e",
+                        "route_name": "system-setting.update",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 75
+                        }
+                    },
+                    {
+                        "id": 64,
+                        "name": "\u5f85\u5ba1\u6838\u8bc4\u8bba\u7ba1\u7406",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 64
+                        }
+                    },
+                    {
+                        "id": 65,
+                        "name": "\u6279\u51c6\u8bc4\u8bba",
+                        "route_name": "comment.approve",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 65
+                        }
+                    },
+                    {
+                        "id": 66,
+                        "name": "\u67e5\u770b\u5f85\u5ba1\u6838\u8bc4\u8bba",
+                        "route_name": "comment.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 66
+                        }
+                    },
+                    {
+                        "id": 67,
+                        "name": "\u9a73\u56de\u8bc4\u8bba",
+                        "route_name": "comment.reject",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 67
+                        }
+                    },
+                    {
+                        "id": 73,
+                        "name": "\u901a\u77e5",
+                        "route_name": "notification.index,notification.comments",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 73
+                        }
+                    },
+                    {
+                        "id": 76,
+                        "name": "\u8d26\u53f7\u8bbe\u7f6e",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 76
+                        }
+                    },
+                    {
+                        "id": 77,
+                        "name": "\u67e5\u770b\u8d26\u53f7\u4fe1\u606f",
+                        "route_name": "user.profile",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 77
+                        }
+                    },
+                    {
+                        "id": 78,
+                        "name": "\u7ed1\u5b9a\u793e\u4ea4\u8d26\u53f7",
+                        "route_name": "user.bind",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 78
+                        }
+                    },
+                    {
+                        "id": 79,
+                        "name": "\u53d6\u6d88\u7ed1\u5b9a",
+                        "route_name": "user.unbind",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 79
+                        }
+                    },
+                    {
+                        "id": 80,
+                        "name": "\u91cd\u65b0\u7ed1\u5b9a\u793e\u4ea4\u8d26\u53f7",
+                        "route_name": "user.rebind",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 80
+                        }
+                    },
+                    {
+                        "id": 81,
+                        "name": "\u4fee\u6539\u57fa\u672c\u4fe1\u606f",
+                        "route_name": "user.update",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 81
+                        }
+                    },
+                    {
+                        "id": 61,
+                        "name": "\u67e5\u770b\u4e3e\u62a5\u4fe1\u606f",
+                        "route_name": "illegal-info.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 61
+                        }
+                    },
+                    {
+                        "id": 62,
+                        "name": "\u5220\u9664\u88ab\u4e3e\u62a5\u7684\u5185\u5bb9",
+                        "route_name": "illegal-info.approve",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 62
+                        }
+                    },
+                    {
+                        "id": 63,
+                        "name": "\u5ffd\u7565\u4e3e\u62a5\u7684\u5185\u5bb9",
+                        "route_name": "illegal-info.ignore",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 63
+                        }
+                    },
+                    {
+                        "id": 60,
+                        "name": "\u4e3e\u62a5\u4fe1\u606f\u7ba1\u7406",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 60
+                        }
+                    },
+                    {
+                        "id": 22,
+                        "name": "\u67e5\u770b\u6743\u9650",
+                        "route_name": "auth.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 22
+                        }
+                    },
+                    {
+                        "id": 26,
+                        "name": "\u89d2\u8272\u7ba1\u7406",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 26
+                        }
+                    },
+                    {
+                        "id": 27,
+                        "name": "\u67e5\u770b\u89d2\u8272",
+                        "route_name": "role.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 27
+                        }
+                    },
+                    {
+                        "id": 28,
+                        "name": "\u6dfb\u52a0\u89d2\u8272",
+                        "route_name": "role.store",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 28
+                        }
+                    },
+                    {
+                        "id": 29,
+                        "name": "\u4fee\u6539\u89d2\u8272",
+                        "route_name": "role.update",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 29
+                        }
+                    },
+                    {
+                        "id": 30,
+                        "name": "\u5220\u9664\u89d2\u8272",
+                        "route_name": "role.destroy",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 30
+                        }
+                    },
+                    {
+                        "id": 21,
+                        "name": "\u6743\u9650\u7ba1\u7406",
+                        "route_name": "auth.manage",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 21
+                        }
+                    },
+                    {
+                        "id": 23,
+                        "name": "\u6dfb\u52a0\u6743\u9650",
+                        "route_name": "auth.store",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 23
+                        }
+                    },
+                    {
+                        "id": 24,
+                        "name": "\u66f4\u6539\u6743\u9650",
+                        "route_name": "auth.update",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 24
+                        }
+                    },
+                    {
+                        "id": 25,
+                        "name": "\u5220\u9664\u6743\u9650",
+                        "route_name": "auth.destroy",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 25
+                        }
+                    },
+                    {
+                        "id": 31,
+                        "name": "\u7ba1\u7406\u5458\u7ba1\u7406",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 31
+                        }
+                    },
+                    {
+                        "id": 32,
+                        "name": "\u6dfb\u52a0\u7ba1\u7406\u5458",
+                        "route_name": "manager.create",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 32
+                        }
+                    },
+                    {
+                        "id": 33,
+                        "name": "\u67e5\u770b\u7ba1\u7406\u5458",
+                        "route_name": "manager.index",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 33
+                        }
+                    },
+                    {
+                        "id": 34,
+                        "name": "\u5220\u9664\u7ba1\u7406\u5458",
+                        "route_name": "manager.destroy",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 34
+                        }
+                    },
+                    {
+                        "id": 35,
+                        "name": "\u4fee\u6539\u7ba1\u7406\u5458",
+                        "route_name": "manager.uddate",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 35
+                        }
+                    },
+                    {
+                        "id": 20,
+                        "name": "\u6388\u6743\u7ba1\u7406",
+                        "route_name": "authorize.manage",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 20
+                        }
+                    },
+                    {
+                        "id": 59,
+                        "name": "\u6d88\u606f\u7ba1\u7406",
+                        "route_name": "",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 59
+                        }
+                    }
+                ]
+            }
+        ],
+        "authorities": [
+            {
+                "id": 1,
+                "name": "\u535a\u5ba2\u7ba1\u7406",
+                "route_name": "blog.manage",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 1
+                }
+            },
+            {
+                "id": 13,
+                "name": "\u4e13\u9898\u7ba1\u7406",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 13
+                }
+            },
+            {
+                "id": 14,
+                "name": "\u67e5\u770b\u4e13\u9898",
+                "route_name": "topic.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 14
+                }
+            },
+            {
+                "id": 15,
+                "name": "\u521b\u5efa\u4e13\u9898",
+                "route_name": "topic.store",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 15
+                }
+            },
+            {
+                "id": 16,
+                "name": "\u4fee\u6539\u4e13\u9898",
+                "route_name": "topic.update",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 16
+                }
+            },
+            {
+                "id": 17,
+                "name": "\u5220\u9664\u4e13\u9898",
+                "route_name": "topic.destroy",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 17
+                }
+            },
+            {
+                "id": 2,
+                "name": "\u6587\u7ae0\u7ba1\u7406",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 2
+                }
+            },
+            {
+                "id": 6,
+                "name": "\u6dfb\u52a0\u6587\u7ae0",
+                "route_name": "article.store",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 6
+                }
+            },
+            {
+                "id": 7,
+                "name": "\u4fee\u6539\u6587\u7ae0",
+                "route_name": "article.update",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 7
+                }
+            },
+            {
+                "id": 8,
+                "name": "\u5220\u9664\u6587\u7ae0",
+                "route_name": "article.destroy",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 8
+                }
+            },
+            {
+                "id": 9,
+                "name": "\u67e5\u770b\u5217\u8868",
+                "route_name": "article.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 9
+                }
+            },
+            {
+                "id": 4,
+                "name": "\u6807\u7b7e\u7ba1\u7406",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 4
+                }
+            },
+            {
+                "id": 10,
+                "name": "\u67e5\u770b\u6807\u7b7e",
+                "route_name": "tag.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 10
+                }
+            },
+            {
+                "id": 11,
+                "name": "\u66f4\u65b0\u6807\u7b7e",
+                "route_name": "tag.update",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 11
+                }
+            },
+            {
+                "id": 12,
+                "name": "\u5220\u9664\u6807\u7b7e",
+                "route_name": "tag.destroy",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 12
+                }
+            },
+            {
+                "id": 5,
+                "name": "\u6dfb\u52a0\u6807\u7b7e",
+                "route_name": "tag.store",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 5
+                }
+            },
+            {
+                "id": 18,
+                "name": "\u5de5\u4f5c\u53f0",
+                "route_name": "workbench",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 18
+                }
+            },
+            {
+                "id": 19,
+                "name": "\u4eea\u8868\u76d8",
+                "route_name": "admin.dashboard",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 19
+                }
+            },
+            {
+                "id": 36,
+                "name": "\u753b\u5eca\u7ba1\u7406",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 36
+                }
+            },
+            {
+                "id": 37,
+                "name": "\u67e5\u770b\u56fe\u7247",
+                "route_name": "gallery.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 37
+                }
+            },
+            {
+                "id": 38,
+                "name": "\u4e0a\u4f20\u56fe\u7247",
+                "route_name": "gallery.store",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 38
+                }
+            },
+            {
+                "id": 39,
+                "name": "\u53cb\u94fe\u7ba1\u7406",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 39
+                }
+            },
+            {
+                "id": 40,
+                "name": "\u6dfb\u52a0\u53cb\u94fe",
+                "route_name": "friend-link.store",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 40
+                }
+            },
+            {
+                "id": 41,
+                "name": "\u67e5\u770b\u53cb\u94fe",
+                "route_name": "friend-link.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 41
+                }
+            },
+            {
+                "id": 42,
+                "name": "\u4fee\u6539\u53cb\u94fe",
+                "route_name": "friend-link.update",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 42
+                }
+            },
+            {
+                "id": 43,
+                "name": "\u5220\u9664\u53cb\u94fe",
+                "route_name": "friend-link.destroy",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 43
+                }
+            },
+            {
+                "id": 44,
+                "name": "\u654f\u611f\u8bcd\u6c47\u7ba1\u7406",
+                "route_name": "sensitive-word.manage",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 44
+                }
+            },
+            {
+                "id": 45,
+                "name": "\u5206\u7c7b\u7ba1\u7406",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 45
+                }
+            },
+            {
+                "id": 46,
+                "name": "\u67e5\u770b\u5206\u7c7b",
+                "route_name": "sensitive-word-category.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 46
+                }
+            },
+            {
+                "id": 47,
+                "name": "\u5220\u9664\u5206\u7c7b",
+                "route_name": "sensitive-word-category.destroy",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 47
+                }
+            },
+            {
+                "id": 48,
+                "name": "\u6dfb\u52a0\u5206\u7c7b",
+                "route_name": "sensitive-word-category.store",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 48
+                }
+            },
+            {
+                "id": 49,
+                "name": "\u4fee\u6539\u5206\u7c7b",
+                "route_name": "sensitive-word-category.update",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 49
+                }
+            },
+            {
+                "id": 50,
+                "name": "\u8bcd\u6c47\u7ba1\u7406",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 50
+                }
+            },
+            {
+                "id": 51,
+                "name": "\u6dfb\u52a0\u8bcd\u6c47",
+                "route_name": "sensitive-word.store",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 51
+                }
+            },
+            {
+                "id": 52,
+                "name": "\u67e5\u770b\u8bcd\u6c47",
+                "route_name": "sensitive-word.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 52
+                }
+            },
+            {
+                "id": 53,
+                "name": "\u4fee\u6539\u8bcd\u6c47",
+                "route_name": "sensitive-word.update",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 53
+                }
+            },
+            {
+                "id": 54,
+                "name": "\u5220\u9664\u8bcd\u6c47",
+                "route_name": "sensitive-word.destroy",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 54
+                }
+            },
+            {
+                "id": 56,
+                "name": "\u7cfb\u7edf\u7ba1\u7406",
+                "route_name": "system.manage",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 56
+                }
+            },
+            {
+                "id": 68,
+                "name": "\u7cfb\u7edf\u65e5\u5fd7",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 68
+                }
+            },
+            {
+                "id": 70,
+                "name": "\u67e5\u770b\u65e5\u5fd7",
+                "route_name": "system.log",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 70
+                }
+            },
+            {
+                "id": 69,
+                "name": "\u7cfb\u7edf\u8bbe\u7f6e",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 69
+                }
+            },
+            {
+                "id": 74,
+                "name": "\u67e5\u770b\u7cfb\u7edf\u8bbe\u7f6e",
+                "route_name": "system-setting.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 74
+                }
+            },
+            {
+                "id": 75,
+                "name": "\u66f4\u65b0\u7cfb\u7edf\u8bbe\u7f6e",
+                "route_name": "system-setting.update",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 75
+                }
+            },
+            {
+                "id": 64,
+                "name": "\u5f85\u5ba1\u6838\u8bc4\u8bba\u7ba1\u7406",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 64
+                }
+            },
+            {
+                "id": 65,
+                "name": "\u6279\u51c6\u8bc4\u8bba",
+                "route_name": "comment.approve",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 65
+                }
+            },
+            {
+                "id": 66,
+                "name": "\u67e5\u770b\u5f85\u5ba1\u6838\u8bc4\u8bba",
+                "route_name": "comment.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 66
+                }
+            },
+            {
+                "id": 67,
+                "name": "\u9a73\u56de\u8bc4\u8bba",
+                "route_name": "comment.reject",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 67
+                }
+            },
+            {
+                "id": 73,
+                "name": "\u901a\u77e5",
+                "route_name": "notification.index,notification.comments",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 73
+                }
+            },
+            {
+                "id": 76,
+                "name": "\u8d26\u53f7\u8bbe\u7f6e",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 76
+                }
+            },
+            {
+                "id": 77,
+                "name": "\u67e5\u770b\u8d26\u53f7\u4fe1\u606f",
+                "route_name": "user.profile",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 77
+                }
+            },
+            {
+                "id": 78,
+                "name": "\u7ed1\u5b9a\u793e\u4ea4\u8d26\u53f7",
+                "route_name": "user.bind",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 78
+                }
+            },
+            {
+                "id": 79,
+                "name": "\u53d6\u6d88\u7ed1\u5b9a",
+                "route_name": "user.unbind",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 79
+                }
+            },
+            {
+                "id": 80,
+                "name": "\u91cd\u65b0\u7ed1\u5b9a\u793e\u4ea4\u8d26\u53f7",
+                "route_name": "user.rebind",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 80
+                }
+            },
+            {
+                "id": 81,
+                "name": "\u4fee\u6539\u57fa\u672c\u4fe1\u606f",
+                "route_name": "user.update",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 81
+                }
+            },
+            {
+                "id": 61,
+                "name": "\u67e5\u770b\u4e3e\u62a5\u4fe1\u606f",
+                "route_name": "illegal-info.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 61
+                }
+            },
+            {
+                "id": 62,
+                "name": "\u5220\u9664\u88ab\u4e3e\u62a5\u7684\u5185\u5bb9",
+                "route_name": "illegal-info.approve",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 62
+                }
+            },
+            {
+                "id": 63,
+                "name": "\u5ffd\u7565\u4e3e\u62a5\u7684\u5185\u5bb9",
+                "route_name": "illegal-info.ignore",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 63
+                }
+            },
+            {
+                "id": 60,
+                "name": "\u4e3e\u62a5\u4fe1\u606f\u7ba1\u7406",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 60
+                }
+            },
+            {
+                "id": 22,
+                "name": "\u67e5\u770b\u6743\u9650",
+                "route_name": "auth.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 22
+                }
+            },
+            {
+                "id": 26,
+                "name": "\u89d2\u8272\u7ba1\u7406",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 26
+                }
+            },
+            {
+                "id": 27,
+                "name": "\u67e5\u770b\u89d2\u8272",
+                "route_name": "role.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 27
+                }
+            },
+            {
+                "id": 28,
+                "name": "\u6dfb\u52a0\u89d2\u8272",
+                "route_name": "role.store",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 28
+                }
+            },
+            {
+                "id": 29,
+                "name": "\u4fee\u6539\u89d2\u8272",
+                "route_name": "role.update",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 29
+                }
+            },
+            {
+                "id": 30,
+                "name": "\u5220\u9664\u89d2\u8272",
+                "route_name": "role.destroy",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 30
+                }
+            },
+            {
+                "id": 21,
+                "name": "\u6743\u9650\u7ba1\u7406",
+                "route_name": "auth.manage",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 21
+                }
+            },
+            {
+                "id": 23,
+                "name": "\u6dfb\u52a0\u6743\u9650",
+                "route_name": "auth.store",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 23
+                }
+            },
+            {
+                "id": 24,
+                "name": "\u66f4\u6539\u6743\u9650",
+                "route_name": "auth.update",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 24
+                }
+            },
+            {
+                "id": 25,
+                "name": "\u5220\u9664\u6743\u9650",
+                "route_name": "auth.destroy",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 25
+                }
+            },
+            {
+                "id": 31,
+                "name": "\u7ba1\u7406\u5458\u7ba1\u7406",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 31
+                }
+            },
+            {
+                "id": 32,
+                "name": "\u6dfb\u52a0\u7ba1\u7406\u5458",
+                "route_name": "manager.create",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 32
+                }
+            },
+            {
+                "id": 33,
+                "name": "\u67e5\u770b\u7ba1\u7406\u5458",
+                "route_name": "manager.index",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 33
+                }
+            },
+            {
+                "id": 34,
+                "name": "\u5220\u9664\u7ba1\u7406\u5458",
+                "route_name": "manager.destroy",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 34
+                }
+            },
+            {
+                "id": 35,
+                "name": "\u4fee\u6539\u7ba1\u7406\u5458",
+                "route_name": "manager.uddate",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 35
+                }
+            },
+            {
+                "id": 20,
+                "name": "\u6388\u6743\u7ba1\u7406",
+                "route_name": "authorize.manage",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 20
+                }
+            },
+            {
+                "id": 59,
+                "name": "\u6d88\u606f\u7ba1\u7406",
+                "route_name": "",
+                "pivot": {
+                    "role_id": 1,
+                    "auth_id": 59
+                }
+            }
+        ]
+    }
+}

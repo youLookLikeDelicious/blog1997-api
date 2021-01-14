@@ -1,0 +1,13 @@
+{
+  "baseUrl": null,
+  "video": true,
+  "videoCompression": false,
+  "experimentalRunEvents": true,
+  "responseTimeout": 10000,
+  "requestTimeout": 10000,
+  "port": 1997,
+  "chromeWebSecurity": false,
+  "viewportHeight": 1000,
+  "viewportWidth": 1600,
+  "projectId": "wahuwk"
+}

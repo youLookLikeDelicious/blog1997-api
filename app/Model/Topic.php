@@ -2,20 +2,18 @@
 
 namespace App\Model;
 
+use App\Model\Traits\EditAble;
 use Illuminate\Database\Eloquent\Model;
 
 class Topic extends Model
 {
-    //
+    use EditAble;
+    
     public $dateFormat = 'U';
-    protected $table = 'topic';
-    protected $guarded = ['id'];
-    protected $appends = ['edit_state'];
 
-    /**
-     * 定义额外的属性 editState
-     */
-    public function getEditStateAttribute () {
-        return false;
-    }
+    protected $table = 'topic';
+
+    protected $guarded = [];
+
+    // protected $keyType = 'string';
 }

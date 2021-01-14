@@ -1,0 +1,14 @@
+{
+    "comment": "修改专题",
+    "status": "success",
+    "message": "修改专题成功",
+    "data": {
+        "id": 25,
+        "name": "Updated Topic",
+        "article_sum": 0,
+        "user_id": 2,
+        "created_at": "1609391507",
+        "updated_at": "1609391601",
+        "editAble": false
+    }
+}

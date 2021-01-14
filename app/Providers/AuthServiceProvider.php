@@ -2,8 +2,15 @@
 
 namespace App\Providers;
 
+use App\Auth\SessionGuard;
+use App\Model\ArticleBase as Article;
+use App\Model\Tag;
+use App\Policies\ArticlePolicy;
+use App\Policies\TagPolicy;
+use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,18 +20,39 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        Tag::class => TagPolicy::class,
+        Article::class => ArticlePolicy::class
     ];
 
     /**
-     * Register any authentication / authorization services.
+     * Register any application authentication / authorization services.
      *
      * @return void
      */
     public function boot()
     {
         $this->registerPolicies();
+        Auth::extend('x-session', function ($app, $name, array $config) {
+            $provider = new EloquentUserProvider($this->app['hash'], $app['config']['auth.providers.' . $config['provider'] . '.model']);
 
-        //
+            $guard = new SessionGuard($name, $provider, $this->app['session.store']);
+
+            // When using the remember me functionality of the authentication services we
+            // will need to be set the encryption instance of the guard, which allows
+            // secure, encrypted cookie values to get generated for those cookies.
+            if (method_exists($guard, 'setCookieJar')) {
+                $guard->setCookieJar($this->app['cookie']);
+            }
+
+            if (method_exists($guard, 'setDispatcher')) {
+                $guard->setDispatcher($this->app['events']);
+            }
+
+            if (method_exists($guard, 'setRequest')) {
+                $guard->setRequest($this->app->refresh('request', $guard, 'setRequest'));
+            }
+
+            return $guard;
+        });
     }
 }

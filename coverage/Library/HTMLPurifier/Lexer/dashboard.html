@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/example.com/app/Library/HTMLPurifier/Lexer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../../../.css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../../../.css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="../../../.css/style.css" rel="stylesheet" type="text/css">
+  <link href="../../../.css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../../../index.html">/var/www/example.com/app</a></li>
+         <li class="breadcrumb-item"><a href="../../index.html">Library</a></li>
+         <li class="breadcrumb-item"><a href="../index.html">HTMLPurifier</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Lexer</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="PH5P.php.html#13">HTMLPurifier_Lexer_PH5P</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DirectLex.php.html#13">HTMLPurifier_Lexer_DirectLex</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#70">HTML5</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1577">HTML5TreeConstructer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DOMLex.php.html#27">HTMLPurifier_Lexer_DOMLex</a></td><td class="text-right">81%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="PH5P.php.html#1577">HTML5TreeConstructer</a></td><td class="text-right">326612</td></tr>
+       <tr><td><a href="PH5P.php.html#70">HTML5</a></td><td class="text-right">21756</td></tr>
+       <tr><td><a href="DirectLex.php.html#13">HTMLPurifier_Lexer_DirectLex</a></td><td class="text-right">5550</td></tr>
+       <tr><td><a href="DOMLex.php.html#27">HTMLPurifier_Lexer_DOMLex</a></td><td class="text-right">78</td></tr>
+       <tr><td><a href="PH5P.php.html#13">HTMLPurifier_Lexer_PH5P</a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="PH5P.php.html#4784"><abbr title="HTML5TreeConstructer::save">save</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1978"><abbr title="HTML5TreeConstructer::inHead">inHead</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#3685"><abbr title="HTML5TreeConstructer::inTableBody">inTableBody</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#3623"><abbr title="HTML5TreeConstructer::inColumnGroup">inColumnGroup</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#3528"><abbr title="HTML5TreeConstructer::inCaption">inCaption</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#3316"><abbr title="HTML5TreeConstructer::inTable">inTable</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#2176"><abbr title="HTML5TreeConstructer::inBody">inBody</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#2113"><abbr title="HTML5TreeConstructer::afterHead">afterHead</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1917"><abbr title="HTML5TreeConstructer::beforeHead">beforeHead</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#3882"><abbr title="HTML5TreeConstructer::inCell">inCell</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1836"><abbr title="HTML5TreeConstructer::mainPhase">mainPhase</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1786"><abbr title="HTML5TreeConstructer::rootElementPhase">rootElementPhase</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1731"><abbr title="HTML5TreeConstructer::initPhase">initPhase</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1713"><abbr title="HTML5TreeConstructer::emitToken">emitToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1700"><abbr title="HTML5TreeConstructer::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1566"><abbr title="HTML5::EOF">EOF</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1554"><abbr title="HTML5::emitToken">emitToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#3784"><abbr title="HTML5TreeConstructer::inRow">inRow</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4021"><abbr title="HTML5TreeConstructer::inSelect">inSelect</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1442"><abbr title="HTML5::bogusDoctypeState">bogusDoctypeState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4526"><abbr title="HTML5TreeConstructer::reconstructActiveFormattingElements">reconstructActiveFormattingElements</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4766"><abbr title="HTML5TreeConstructer::closeCell">closeCell</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4667"><abbr title="HTML5TreeConstructer::resetInsertionMode">resetInsertionMode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4649"><abbr title="HTML5TreeConstructer::clearStackToTableContext">clearStackToTableContext</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4635"><abbr title="HTML5TreeConstructer::getElementCategory">getElementCategory</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4620"><abbr title="HTML5TreeConstructer::generateImpliedEndTags">generateImpliedEndTags</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4598"><abbr title="HTML5TreeConstructer::clearTheActiveFormattingElementsUpToTheLastMarker">clearTheActiveFormattingElementsUpToTheLastMarker</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4466"><abbr title="HTML5TreeConstructer::elementInScope">elementInScope</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4202"><abbr title="HTML5TreeConstructer::afterBody">afterBody</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4435"><abbr title="HTML5TreeConstructer::appendToRealParent">appendToRealParent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4429"><abbr title="HTML5TreeConstructer::insertComment">insertComment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4423"><abbr title="HTML5TreeConstructer::insertText">insertText</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4394"><abbr title="HTML5TreeConstructer::insertElement">insertElement</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4351"><abbr title="HTML5TreeConstructer::trailingEndPhase">trailingEndPhase</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4312"><abbr title="HTML5TreeConstructer::afterFrameset">afterFrameset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#4243"><abbr title="HTML5TreeConstructer::inFrameset">inFrameset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1462"><abbr title="HTML5::entity">entity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1418"><abbr title="HTML5::afterDoctypeNameState">afterDoctypeNameState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#635"><abbr title="HTML5::tagOpenState">tagOpenState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#727"><abbr title="HTML5::closeTagOpenState">closeTagOpenState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DOMLex.php.html#298"><abbr title="HTMLPurifier_Lexer_DOMLex::callbackArmorCommentEntities">callbackArmorCommentEntities</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DirectLex.php.html#31"><abbr title="HTMLPurifier_Lexer_DirectLex::scriptCallback">scriptCallback</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DirectLex.php.html#42"><abbr title="HTMLPurifier_Lexer_DirectLex::tokenizeHTML">tokenizeHTML</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DirectLex.php.html#354"><abbr title="HTMLPurifier_Lexer_DirectLex::substrCount">substrCount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DirectLex.php.html#376"><abbr title="HTMLPurifier_Lexer_DirectLex::parseAttributeString">parseAttributeString</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#21"><abbr title="HTMLPurifier_Lexer_PH5P::tokenizeHTML">tokenizeHTML</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#461"><abbr title="HTML5::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#476"><abbr title="HTML5::save">save</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#481"><abbr title="HTML5::char">char</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#488"><abbr title="HTML5::character">character</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#499"><abbr title="HTML5::characters">characters</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#504"><abbr title="HTML5::dataState">dataState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#616"><abbr title="HTML5::entityDataState">entityDataState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1388"><abbr title="HTML5::doctypeNameState">doctypeNameState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#808"><abbr title="HTML5::tagNameState">tagNameState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DOMLex.php.html#287"><abbr title="HTMLPurifier_Lexer_DOMLex::callbackUndoCommentSubst">callbackUndoCommentSubst</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1184"><abbr title="HTML5::bogusCommentState">bogusCommentState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1336"><abbr title="HTML5::beforeDoctypeNameState">beforeDoctypeNameState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1321"><abbr title="HTML5::doctypeState">doctypeState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1297"><abbr title="HTML5::commentEndState">commentEndState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1269"><abbr title="HTML5::commentDashState">commentDashState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1242"><abbr title="HTML5::commentState">commentState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1213"><abbr title="HTML5::markupDeclarationOpenState">markupDeclarationOpenState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1168"><abbr title="HTML5::entityInAttributeValueState">entityInAttributeValueState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#853"><abbr title="HTML5::beforeAttributeNameState">beforeAttributeNameState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1131"><abbr title="HTML5::attributeValueUnquotedState">attributeValueUnquotedState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1095"><abbr title="HTML5::attributeValueSingleQuotedState">attributeValueSingleQuotedState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1059"><abbr title="HTML5::attributeValueDoubleQuotedState">attributeValueDoubleQuotedState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#1010"><abbr title="HTML5::beforeAttributeValueState">beforeAttributeValueState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#955"><abbr title="HTML5::afterAttributeNameState">afterAttributeNameState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="PH5P.php.html#903"><abbr title="HTML5::attributeNameState">attributeNameState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DOMLex.php.html#161"><abbr title="HTMLPurifier_Lexer_DOMLex::getData">getData</abbr></a></td><td class="text-right">28%</td></tr>
+       <tr><td><a href="DOMLex.php.html#144"><abbr title="HTMLPurifier_Lexer_DOMLex::getTagName">getTagName</abbr></a></td><td class="text-right">28%</td></tr>
+       <tr><td><a href="DOMLex.php.html#183"><abbr title="HTMLPurifier_Lexer_DOMLex::createStartNode">createStartNode</abbr></a></td><td class="text-right">78%</td></tr>
+       <tr><td><a href="DOMLex.php.html#257"><abbr title="HTMLPurifier_Lexer_DOMLex::transformAttrToAssoc">transformAttrToAssoc</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="DOMLex.php.html#48"><abbr title="HTMLPurifier_Lexer_DOMLex::tokenizeHTML">tokenizeHTML</abbr></a></td><td class="text-right">86%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="PH5P.php.html#2176"><abbr title="HTML5TreeConstructer::inBody">inBody</abbr></a></td><td class="text-right">54056</td></tr>
+       <tr><td><a href="DirectLex.php.html#42"><abbr title="HTMLPurifier_Lexer_DirectLex::tokenizeHTML">tokenizeHTML</abbr></a></td><td class="text-right">1722</td></tr>
+       <tr><td><a href="PH5P.php.html#3316"><abbr title="HTML5TreeConstructer::inTable">inTable</abbr></a></td><td class="text-right">1056</td></tr>
+       <tr><td><a href="DirectLex.php.html#376"><abbr title="HTMLPurifier_Lexer_DirectLex::parseAttributeString">parseAttributeString</abbr></a></td><td class="text-right">870</td></tr>
+       <tr><td><a href="PH5P.php.html#4021"><abbr title="HTML5TreeConstructer::inSelect">inSelect</abbr></a></td><td class="text-right">812</td></tr>
+       <tr><td><a href="PH5P.php.html#1978"><abbr title="HTML5TreeConstructer::inHead">inHead</abbr></a></td><td class="text-right">756</td></tr>
+       <tr><td><a href="PH5P.php.html#1836"><abbr title="HTML5TreeConstructer::mainPhase">mainPhase</abbr></a></td><td class="text-right">506</td></tr>
+       <tr><td><a href="PH5P.php.html#504"><abbr title="HTML5::dataState">dataState</abbr></a></td><td class="text-right">506</td></tr>
+       <tr><td><a href="PH5P.php.html#3882"><abbr title="HTML5TreeConstructer::inCell">inCell</abbr></a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="PH5P.php.html#4667"><abbr title="HTML5TreeConstructer::resetInsertionMode">resetInsertionMode</abbr></a></td><td class="text-right">306</td></tr>
+       <tr><td><a href="PH5P.php.html#3685"><abbr title="HTML5TreeConstructer::inTableBody">inTableBody</abbr></a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="PH5P.php.html#3784"><abbr title="HTML5TreeConstructer::inRow">inRow</abbr></a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="PH5P.php.html#1731"><abbr title="HTML5TreeConstructer::initPhase">initPhase</abbr></a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="PH5P.php.html#4243"><abbr title="HTML5TreeConstructer::inFrameset">inFrameset</abbr></a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="PH5P.php.html#1917"><abbr title="HTML5TreeConstructer::beforeHead">beforeHead</abbr></a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="PH5P.php.html#4526"><abbr title="HTML5TreeConstructer::reconstructActiveFormattingElements">reconstructActiveFormattingElements</abbr></a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="PH5P.php.html#3528"><abbr title="HTML5TreeConstructer::inCaption">inCaption</abbr></a></td><td class="text-right">156</td></tr>
+       <tr><td><a href="PH5P.php.html#3623"><abbr title="HTML5TreeConstructer::inColumnGroup">inColumnGroup</abbr></a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="PH5P.php.html#727"><abbr title="HTML5::closeTagOpenState">closeTagOpenState</abbr></a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="PH5P.php.html#1462"><abbr title="HTML5::entity">entity</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="PH5P.php.html#2113"><abbr title="HTML5TreeConstructer::afterHead">afterHead</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="PH5P.php.html#1786"><abbr title="HTML5TreeConstructer::rootElementPhase">rootElementPhase</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="PH5P.php.html#4466"><abbr title="HTML5TreeConstructer::elementInScope">elementInScope</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="PH5P.php.html#4351"><abbr title="HTML5TreeConstructer::trailingEndPhase">trailingEndPhase</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="PH5P.php.html#635"><abbr title="HTML5::tagOpenState">tagOpenState</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="PH5P.php.html#4435"><abbr title="HTML5TreeConstructer::appendToRealParent">appendToRealParent</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="PH5P.php.html#4312"><abbr title="HTML5TreeConstructer::afterFrameset">afterFrameset</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="PH5P.php.html#903"><abbr title="HTML5::attributeNameState">attributeNameState</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="PH5P.php.html#955"><abbr title="HTML5::afterAttributeNameState">afterAttributeNameState</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="PH5P.php.html#1388"><abbr title="HTML5::doctypeNameState">doctypeNameState</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="PH5P.php.html#4202"><abbr title="HTML5TreeConstructer::afterBody">afterBody</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="PH5P.php.html#1010"><abbr title="HTML5::beforeAttributeValueState">beforeAttributeValueState</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="PH5P.php.html#1336"><abbr title="HTML5::beforeDoctypeNameState">beforeDoctypeNameState</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="PH5P.php.html#4394"><abbr title="HTML5TreeConstructer::insertElement">insertElement</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="PH5P.php.html#808"><abbr title="HTML5::tagNameState">tagNameState</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="PH5P.php.html#853"><abbr title="HTML5::beforeAttributeNameState">beforeAttributeNameState</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="PH5P.php.html#1713"><abbr title="HTML5TreeConstructer::emitToken">emitToken</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="PH5P.php.html#1418"><abbr title="HTML5::afterDoctypeNameState">afterDoctypeNameState</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="PH5P.php.html#1297"><abbr title="HTML5::commentEndState">commentEndState</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="PH5P.php.html#1095"><abbr title="HTML5::attributeValueSingleQuotedState">attributeValueSingleQuotedState</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="PH5P.php.html#1059"><abbr title="HTML5::attributeValueDoubleQuotedState">attributeValueDoubleQuotedState</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="PH5P.php.html#4635"><abbr title="HTML5TreeConstructer::getElementCategory">getElementCategory</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="PH5P.php.html#1131"><abbr title="HTML5::attributeValueUnquotedState">attributeValueUnquotedState</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="DOMLex.php.html#183"><abbr title="HTMLPurifier_Lexer_DOMLex::createStartNode">createStartNode</abbr></a></td><td class="text-right">18</td></tr>
+       <tr><td><a href="PH5P.php.html#4598"><abbr title="HTML5TreeConstructer::clearTheActiveFormattingElementsUpToTheLastMarker">clearTheActiveFormattingElementsUpToTheLastMarker</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="PH5P.php.html#4649"><abbr title="HTML5TreeConstructer::clearStackToTableContext">clearStackToTableContext</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="PH5P.php.html#4766"><abbr title="HTML5TreeConstructer::closeCell">closeCell</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="PH5P.php.html#1554"><abbr title="HTML5::emitToken">emitToken</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="PH5P.php.html#1442"><abbr title="HTML5::bogusDoctypeState">bogusDoctypeState</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="PH5P.php.html#1269"><abbr title="HTML5::commentDashState">commentDashState</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="PH5P.php.html#1242"><abbr title="HTML5::commentState">commentState</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="PH5P.php.html#1213"><abbr title="HTML5::markupDeclarationOpenState">markupDeclarationOpenState</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="DirectLex.php.html#354"><abbr title="HTMLPurifier_Lexer_DirectLex::substrCount">substrCount</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="PH5P.php.html#488"><abbr title="HTML5::character">character</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="DOMLex.php.html#144"><abbr title="HTMLPurifier_Lexer_DOMLex::getTagName">getTagName</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="DOMLex.php.html#161"><abbr title="HTMLPurifier_Lexer_DOMLex::getData">getData</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="DOMLex.php.html#48"><abbr title="HTMLPurifier_Lexer_DOMLex::tokenizeHTML">tokenizeHTML</abbr></a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="PH5P.php.html#1168"><abbr title="HTML5::entityInAttributeValueState">entityInAttributeValueState</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="PH5P.php.html#481"><abbr title="HTML5::char">char</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="PH5P.php.html#461"><abbr title="HTML5::__construct">__construct</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="PH5P.php.html#21"><abbr title="HTMLPurifier_Lexer_PH5P::tokenizeHTML">tokenizeHTML</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="PH5P.php.html#4620"><abbr title="HTML5TreeConstructer::generateImpliedEndTags">generateImpliedEndTags</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="PH5P.php.html#1184"><abbr title="HTML5::bogusCommentState">bogusCommentState</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="PH5P.php.html#1321"><abbr title="HTML5::doctypeState">doctypeState</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="PH5P.php.html#616"><abbr title="HTML5::entityDataState">entityDataState</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="DOMLex.php.html#257"><abbr title="HTMLPurifier_Lexer_DOMLex::transformAttrToAssoc">transformAttrToAssoc</abbr></a></td><td class="text-right">3</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 6.1.4</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.24</a> with <a href="https://xdebug.org/">Xdebug 2.8.1</a> and <a href="https://phpunit.de/">PHPUnit 7.5.20</a> at Tue Sep 15 11:24:34 CST 2020.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../../../.js/jquery.min.js" type="text/javascript"></script>
+  <script src="../../../.js/d3.min.js" type="text/javascript"></script>
+  <script src="../../../.js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([4,0,0,0,0,0,0,0,0,1,0,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([71,0,0,2,0,0,0,0,1,2,0,5], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[81.10236220472441,57,"<a href=\"DOMLex.php.html#27\">HTMLPurifier_Lexer_DOMLex<\/a>"],[0,74,"<a href=\"DirectLex.php.html#13\">HTMLPurifier_Lexer_DirectLex<\/a>"],[0,2,"<a href=\"PH5P.php.html#13\">HTMLPurifier_Lexer_PH5P<\/a>"],[0,147,"<a href=\"PH5P.php.html#70\">HTML5<\/a>"],[0,571,"<a href=\"PH5P.php.html#1577\">HTML5TreeConstructer<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"DOMLex.php.html#35\">HTMLPurifier_Lexer_DOMLex::__construct<\/a>"],[86.20689655172413,7,"<a href=\"DOMLex.php.html#48\">HTMLPurifier_Lexer_DOMLex::tokenizeHTML<\/a>"],[100,11,"<a href=\"DOMLex.php.html#109\">HTMLPurifier_Lexer_DOMLex::tokenizeDOM<\/a>"],[28.57142857142857,4,"<a href=\"DOMLex.php.html#144\">HTMLPurifier_Lexer_DOMLex::getTagName<\/a>"],[28.57142857142857,4,"<a href=\"DOMLex.php.html#161\">HTMLPurifier_Lexer_DOMLex::getData<\/a>"],[78.125,16,"<a href=\"DOMLex.php.html#183\">HTMLPurifier_Lexer_DOMLex::createStartNode<\/a>"],[100,1,"<a href=\"DOMLex.php.html#245\">HTMLPurifier_Lexer_DOMLex::createEndNode<\/a>"],[83.33333333333334,3,"<a href=\"DOMLex.php.html#257\">HTMLPurifier_Lexer_DOMLex::transformAttrToAssoc<\/a>"],[100,1,"<a href=\"DOMLex.php.html#277\">HTMLPurifier_Lexer_DOMLex::muteErrorHandler<\/a>"],[0,1,"<a href=\"DOMLex.php.html#287\">HTMLPurifier_Lexer_DOMLex::callbackUndoCommentSubst<\/a>"],[0,1,"<a href=\"DOMLex.php.html#298\">HTMLPurifier_Lexer_DOMLex::callbackArmorCommentEntities<\/a>"],[100,7,"<a href=\"DOMLex.php.html#310\">HTMLPurifier_Lexer_DOMLex::wrapHTML<\/a>"],[0,1,"<a href=\"DirectLex.php.html#31\">HTMLPurifier_Lexer_DirectLex::scriptCallback<\/a>"],[0,41,"<a href=\"DirectLex.php.html#42\">HTMLPurifier_Lexer_DirectLex::tokenizeHTML<\/a>"],[0,3,"<a href=\"DirectLex.php.html#354\">HTMLPurifier_Lexer_DirectLex::substrCount<\/a>"],[0,29,"<a href=\"DirectLex.php.html#376\">HTMLPurifier_Lexer_DirectLex::parseAttributeString<\/a>"],[0,2,"<a href=\"PH5P.php.html#21\">HTMLPurifier_Lexer_PH5P::tokenizeHTML<\/a>"],[0,2,"<a href=\"PH5P.php.html#461\">HTML5::__construct<\/a>"],[0,1,"<a href=\"PH5P.php.html#476\">HTML5::save<\/a>"],[0,2,"<a href=\"PH5P.php.html#481\">HTML5::char<\/a>"],[0,3,"<a href=\"PH5P.php.html#488\">HTML5::character<\/a>"],[0,1,"<a href=\"PH5P.php.html#499\">HTML5::characters<\/a>"],[0,22,"<a href=\"PH5P.php.html#504\">HTML5::dataState<\/a>"],[0,2,"<a href=\"PH5P.php.html#616\">HTML5::entityDataState<\/a>"],[0,10,"<a href=\"PH5P.php.html#635\">HTML5::tagOpenState<\/a>"],[0,11,"<a href=\"PH5P.php.html#727\">HTML5::closeTagOpenState<\/a>"],[0,5,"<a href=\"PH5P.php.html#808\">HTML5::tagNameState<\/a>"],[0,5,"<a href=\"PH5P.php.html#853\">HTML5::beforeAttributeNameState<\/a>"],[0,7,"<a href=\"PH5P.php.html#903\">HTML5::attributeNameState<\/a>"],[0,7,"<a href=\"PH5P.php.html#955\">HTML5::afterAttributeNameState<\/a>"],[0,6,"<a href=\"PH5P.php.html#1010\">HTML5::beforeAttributeValueState<\/a>"],[0,4,"<a href=\"PH5P.php.html#1059\">HTML5::attributeValueDoubleQuotedState<\/a>"],[0,4,"<a href=\"PH5P.php.html#1095\">HTML5::attributeValueSingleQuotedState<\/a>"],[0,4,"<a href=\"PH5P.php.html#1131\">HTML5::attributeValueUnquotedState<\/a>"],[0,2,"<a href=\"PH5P.php.html#1168\">HTML5::entityInAttributeValueState<\/a>"],[0,2,"<a href=\"PH5P.php.html#1184\">HTML5::bogusCommentState<\/a>"],[0,3,"<a href=\"PH5P.php.html#1213\">HTML5::markupDeclarationOpenState<\/a>"],[0,3,"<a href=\"PH5P.php.html#1242\">HTML5::commentState<\/a>"],[0,3,"<a href=\"PH5P.php.html#1269\">HTML5::commentDashState<\/a>"],[0,4,"<a href=\"PH5P.php.html#1297\">HTML5::commentEndState<\/a>"],[0,2,"<a href=\"PH5P.php.html#1321\">HTML5::doctypeState<\/a>"],[0,5,"<a href=\"PH5P.php.html#1336\">HTML5::beforeDoctypeNameState<\/a>"],[0,6,"<a href=\"PH5P.php.html#1388\">HTML5::doctypeNameState<\/a>"],[0,4,"<a href=\"PH5P.php.html#1418\">HTML5::afterDoctypeNameState<\/a>"],[0,3,"<a href=\"PH5P.php.html#1442\">HTML5::bogusDoctypeState<\/a>"],[0,10,"<a href=\"PH5P.php.html#1462\">HTML5::entity<\/a>"],[0,3,"<a href=\"PH5P.php.html#1554\">HTML5::emitToken<\/a>"],[0,1,"<a href=\"PH5P.php.html#1566\">HTML5::EOF<\/a>"],[0,1,"<a href=\"PH5P.php.html#1700\">HTML5TreeConstructer::__construct<\/a>"],[0,5,"<a href=\"PH5P.php.html#1713\">HTML5TreeConstructer::emitToken<\/a>"],[0,14,"<a href=\"PH5P.php.html#1731\">HTML5TreeConstructer::initPhase<\/a>"],[0,10,"<a href=\"PH5P.php.html#1786\">HTML5TreeConstructer::rootElementPhase<\/a>"],[0,22,"<a href=\"PH5P.php.html#1836\">HTML5TreeConstructer::mainPhase<\/a>"],[0,12,"<a href=\"PH5P.php.html#1917\">HTML5TreeConstructer::beforeHead<\/a>"],[0,27,"<a href=\"PH5P.php.html#1978\">HTML5TreeConstructer::inHead<\/a>"],[0,10,"<a href=\"PH5P.php.html#2113\">HTML5TreeConstructer::afterHead<\/a>"],[0,232,"<a href=\"PH5P.php.html#2176\">HTML5TreeConstructer::inBody<\/a>"],[0,32,"<a href=\"PH5P.php.html#3316\">HTML5TreeConstructer::inTable<\/a>"],[0,12,"<a href=\"PH5P.php.html#3528\">HTML5TreeConstructer::inCaption<\/a>"],[0,11,"<a href=\"PH5P.php.html#3623\">HTML5TreeConstructer::inColumnGroup<\/a>"],[0,16,"<a href=\"PH5P.php.html#3685\">HTML5TreeConstructer::inTableBody<\/a>"],[0,14,"<a href=\"PH5P.php.html#3784\">HTML5TreeConstructer::inRow<\/a>"],[0,18,"<a href=\"PH5P.php.html#3882\">HTML5TreeConstructer::inCell<\/a>"],[0,28,"<a href=\"PH5P.php.html#4021\">HTML5TreeConstructer::inSelect<\/a>"],[0,6,"<a href=\"PH5P.php.html#4202\">HTML5TreeConstructer::afterBody<\/a>"],[0,13,"<a href=\"PH5P.php.html#4243\">HTML5TreeConstructer::inFrameset<\/a>"],[0,8,"<a href=\"PH5P.php.html#4312\">HTML5TreeConstructer::afterFrameset<\/a>"],[0,10,"<a href=\"PH5P.php.html#4351\">HTML5TreeConstructer::trailingEndPhase<\/a>"],[0,5,"<a href=\"PH5P.php.html#4394\">HTML5TreeConstructer::insertElement<\/a>"],[0,1,"<a href=\"PH5P.php.html#4423\">HTML5TreeConstructer::insertText<\/a>"],[0,1,"<a href=\"PH5P.php.html#4429\">HTML5TreeConstructer::insertComment<\/a>"],[0,8,"<a href=\"PH5P.php.html#4435\">HTML5TreeConstructer::appendToRealParent<\/a>"],[0,10,"<a href=\"PH5P.php.html#4466\">HTML5TreeConstructer::elementInScope<\/a>"],[0,12,"<a href=\"PH5P.php.html#4526\">HTML5TreeConstructer::reconstructActiveFormattingElements<\/a>"],[0,3,"<a href=\"PH5P.php.html#4598\">HTML5TreeConstructer::clearTheActiveFormattingElementsUpToTheLastMarker<\/a>"],[0,2,"<a href=\"PH5P.php.html#4620\">HTML5TreeConstructer::generateImpliedEndTags<\/a>"],[0,4,"<a href=\"PH5P.php.html#4635\">HTML5TreeConstructer::getElementCategory<\/a>"],[0,3,"<a href=\"PH5P.php.html#4649\">HTML5TreeConstructer::clearStackToTableContext<\/a>"],[0,17,"<a href=\"PH5P.php.html#4667\">HTML5TreeConstructer::resetInsertionMode<\/a>"],[0,3,"<a href=\"PH5P.php.html#4766\">HTML5TreeConstructer::closeCell<\/a>"],[0,1,"<a href=\"PH5P.php.html#4784\">HTML5TreeConstructer::save<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

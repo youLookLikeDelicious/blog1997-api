@@ -3,10 +3,16 @@
 /storage/*.key
 /vendor
 .env
+.env.product
+.env.example
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
 /storage/image/
+www.blog1997.com.key
+www.blog1997.com.crt
 /public/sitemap*
+/reports/*
+coverage.xml

@@ -2,25 +2,44 @@
 
 namespace App\Model;
 
-use App\Facades\CustomAuth;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class Article extends Model
+class Article extends ArticleBase
 {
     //
     public $dateFormat = 'U';
+
     protected $table = 'article';
+
     protected $guarded = [];
-    public $timestamps = true;
-    protected $keyType = 'string';
-    
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'topic_id' => 'int'
+    ];
+
+    /**
+     * 定义和作者的一对一关系
+     */
+    public function author()
+    {
+        return $this->hasOne('App\Model\User', 'id', 'user_id')->withDefault([
+            'name' => '该用户已注销',
+            'avatar' => ''
+        ]);
+    }
+
     /**
      * 定义和作者的一对一关系
      */
     public function user()
     {
-        return $this->hasOne('App\Model\User', 'id', 'user_id');
+        return $this->author();
     }
 
     /**
@@ -37,25 +56,31 @@ class Article extends Model
      */
     public function thumbs()
     {
-        return $this->morphMany('App\Model\ThumbUp', 'thumbable');
+        return $this->morphMany('App\Model\ThumbUp', 'thumbable', 'able_type', 'able_id');
+    }
+
+    /**
+     * 定义和专题的一对多关系
+     * @return MorphMany
+     */
+    public function topic()
+    {
+        return $this->belongsTo('App\Model\Topic', 'topic_id');
     }
 
     /**
      * 返回文章关系的query
      * @return Article|Builder
      */
-    public function relations()
+    public function withAuthorAndGalleryAndThumbs()
     {
-        $with = [
-            'user' => function ($query) {
-                $query->select(['id', 'name', 'avatar']);
-            },
-            'gallery' => function ($query) {
-                $query->select('url', 'id');
-            },
-            'thumbs' => function ($query) {
-                $query->select('id', 'thumbable_id')->where('user_id', CustomAuth::id());
-            }];
+        $with = ['author:id,name,avatar', 'gallery:id,url,thumbnail'];
+
+        if (Auth::id()) {
+            $with['thumbs'] = function ($query) {
+                $query->select('id', 'able_id')->where('user_id', Auth::id());
+            };
+        }
 
         $query = self::with($with);
 
@@ -63,43 +88,63 @@ class Article extends Model
     }
 
     /**
-     * 分页获取文章内容
-     * @param int $limit // 每页显示的记录数
-     * @param string $where 查询条件
-     * @param String $orderBy 排序的条件
-     * @return
+     * Define many to many relations with tag
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function getArticleList($where = null, $orderBy = null)
+    public function tags()
     {
-        // 获取文章的内容
-        $articleQuery = $this->relations()->selectRaw('to_base64(id) as id, title, is_origin, user_id, summary, visited, gallery_id, commented, created_at, updated_at, keywords');
+        return $this->belongsToMany('App\Model\Tag', 'article_tag');
+    }
 
-        if ($where) {
-            $articleQuery = $articleQuery->whereRaw($where);
-        }
+    /**
+     * eager load author
+     * 
+     * @return Builder
+     */
+    public function withAuthorAndGallery()
+    {
+        return $this->with([
+            'author' => function ($query) {
+                $query->select(['id', 'name', 'avatar']);
+            },
+            'gallery' => function ($query) {
+                $query->select(['id', 'url', 'thumbnail']);
+            }
+        ]);
+    }
 
-        switch ($orderBy) {
-            case 'visit':
-                $articleQuery = $articleQuery->orderBy('visited', 'DESC');
-            break;
-            case 'commented': 
-                $articleQuery = $articleQuery->orderBy('commented', 'DESC');
-            break;
-            case 'new': 
-                $articleQuery = $articleQuery->orderBy('created_at', 'DESC');
-            break;
-            case 'mixed': 
-                $articleQuery = $articleQuery->orderBy('created_at', 'DESC')
-                                    ->orderBy('commented', 'DESC')
-                                    ->orderBy('visited', 'DESC');
-            default:
-                $articleQuery = $articleQuery->orderBy('created_at', 'DESC')
-                                    ->orderBy('updated_at', 'DESC');
-            break;
-        }
+    /**
+     * Define relation with comments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->morphMany('App\Model\Comment', 'able');
+    }
 
-        $article = \Page::paginate($articleQuery);
+    /**
+     * Scope a query to draft article.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDraft($query, $articleId)
+    {
+        return $query->where('is_draft', 'yes')
+            ->where('user_id', auth()->id())
+            ->where('article_id', $articleId);
+    }
 
-        return $article;
+    /**
+     * Check current article is draft
+     *
+     * @return boolean
+     */
+    public function isDraft()
+    {
+        return $this->is_draft === 'yes';
     }
 }

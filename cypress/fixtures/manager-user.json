@@ -1,0 +1,11 @@
+{
+    "comment": "获取用户的相关信息",
+    "status": "success",
+    "message": "success",
+    "data": {
+        "id": 3,
+        "name": "\u5915\u843d",
+        "avatar": "\/image\/avatar\/2020-10-29\/95a5c0e7e08e4873cefa7b3962a66884",
+        "roles": []
+    }
+}

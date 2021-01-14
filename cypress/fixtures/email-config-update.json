@@ -1,0 +1,16 @@
+{
+    "status": "success",
+    "message": "\u90ae\u7bb1\u914d\u7f6e\u4fee\u6539\u6210\u529f",
+    "data": {
+        "id": 4,
+        "driver": "smtp",
+        "email_server": "smtp.163.com",
+        "email_addr": "blog_1997@163.coms",
+        "port": 465,
+        "encryption": "ssl",
+        "sender": "Blog1997",
+        "password": "SLKZGPYATMZAOEVN",
+        "created_at": "1603533986",
+        "updated_at": "1609764533"
+    }
+}

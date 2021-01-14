@@ -1,0 +1,11 @@
+{
+    "comment": "创建标签,需要的表单数据",
+    "status": "success",
+    "message": "success",
+    "data": [
+        {
+            "id": 2,
+            "name": "\u524d\u7aef"
+        }
+    ]
+}
