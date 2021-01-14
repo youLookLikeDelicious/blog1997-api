@@ -16,4 +16,5 @@ www.blog1997.com.crt
 /public/sitemap*
 /reports/*
 coverage.xml
+/coverage/*
 /build/*
