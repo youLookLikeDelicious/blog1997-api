@@ -3,7 +3,7 @@
 /storage/*.key
 /vendor
 .env
-.env.product
+.env.testing
 .env.example
 .phpunit.result.cache
 Homestead.json
@@ -16,3 +16,4 @@ www.blog1997.com.crt
 /public/sitemap*
 /reports/*
 coverage.xml
+/build/*
