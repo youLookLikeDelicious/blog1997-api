@@ -1,0 +1,59 @@
+{
+    "comment": "搜索管理员",
+    "status": "success",
+    "message": "success",
+    "data": {
+        "pagination": {
+            "total": 1,
+            "uri": "?",
+            "currentPage": 1,
+            "next": null,
+            "previous": null,
+            "first": 1,
+            "last": 1,
+            "pages": 1
+        },
+        "records": [
+            {
+                "id": 3,
+                "name": "\u5915\u843d",
+                "avatar": "\/image\/avatar\/2020-10-29\/95a5c0e7e08e4873cefa7b3962a66884",
+                "email": "454948077@qq.com",
+                "deleted_at": 0,
+                "created_at": "1603947584",
+                "email_verified_at": 0,
+                "editAble": 1,
+                "roles": [
+                    {
+                        "id": 3,
+                        "name": "Author",
+                        "pivot": {
+                            "user_id": 3,
+                            "role_id": 3,
+                            "created_at": "2021-01-03 22:34:02",
+                            "updated_at": "2021-01-03 22:34:02"
+                        }
+                    }
+                ]
+            }
+        ],
+        "roles": [
+            {
+                "id": 0,
+                "name": "--\u6240\u6709\u89d2\u8272--"
+            },
+            {
+                "id": 3,
+                "name": "Author"
+            },
+            {
+                "id": 1,
+                "name": "Master"
+            },
+            {
+                "id": 2,
+                "name": "\u6ce8\u518c\u7528\u6237"
+            }
+        ]
+    }
+}

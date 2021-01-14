@@ -1,0 +1,13 @@
+{
+    "comment": "新建专题",
+    "status": "success",
+    "message": "\u4e13\u9898\u521b\u5efa\u6210\u529f",
+    "data": {
+        "name": "newTopic",
+        "user_id": 2,
+        "updated_at": "1609391507",
+        "created_at": "1609391507",
+        "id": 25,
+        "editAble": false
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "comment": "修改标签",
+    "status": "success",
+    "message": "\u6807\u7b7e\u4fee\u6539\u6210\u529f",
+    "data": {
+        "id": 16,
+        "name": "vue3.0",
+        "cover": "\/image\/tag\/2020-12-22\/48.4479190016095fe16dee6d5bc7.92075244.png",
+        "parent_id": 2,
+        "description": "vue3.0 up up up",
+        "user_id": 0,
+        "created_at": "1609401366",
+        "updated_at": "1609402589"
+    }
+}

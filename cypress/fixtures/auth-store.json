@@ -1,0 +1,14 @@
+{
+    "comment": "新建auth",
+    "status": "success",
+    "message": "\u6743\u9650\u6dfb\u52a0\u6210\u529f",
+    "data": {
+        "name": "\u6dfb\u52a0\u8bc4\u8bba",
+        "parent_id": 4,
+        "route_name": "comment.store",
+        "updated_at": "1609649692",
+        "created_at": "1609649692",
+        "id": 82,
+        "auth_path": "1_4_82_"
+    }
+}

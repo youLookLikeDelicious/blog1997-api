@@ -23,15 +23,23 @@ class XyThumbUp extends Migration
                 ->default(0)
                 ->comment('用户id');
 
-            $table->unsignedInteger('thumbable_id')
+            $table->unsignedInteger('able_id')
                 ->nullable(false)
                 ->default(0)
                 ->comment('被评论的id');
 
-            $table->string('thumbable_type', 36)
-                ->nullable(false)
-                ->default('')
+            $table->string('title', 1)
+                ->default('');
+
+            $table->unsignedSmallInteger('content')
+                ->default(1)
+                ->comment('被点赞的次数');
+                
+            $table->enum('able_type', [addslashes('App\Model\Article'), addslashes('App\Model\Comment')])
                 ->comment('被评论的的模型');
+
+            $table->integer('to')
+                ->comment('收到赞的用户');
 
             $table->unsignedInteger('created_at')
                 ->nullable(false)
@@ -44,14 +52,15 @@ class XyThumbUp extends Migration
                 ->comment('更新时间');
 
             $table->index('user_id');
-            $table->index('thumbable_id');
+            $table->index('to');
+            $table->index('able_id');
 
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
 
         });
 
-        DB::statement('ALTER TABLE `xy_thumb_up` COMMENT = "点赞记录"');
+        DB::statement('ALTER TABLE ' .DB::getTablePrefix(). 'thumb_up COMMENT = "点赞记录"');
     }
 
     /**
@@ -62,6 +71,6 @@ class XyThumbUp extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('xy_thumb_up');
+        Schema::dropIfExists('thumb_up');
     }
 }

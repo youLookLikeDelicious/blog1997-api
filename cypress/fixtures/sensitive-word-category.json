@@ -1,0 +1,60 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "pagination": {
+            "total": 6,
+            "uri": "?",
+            "currentPage": 1,
+            "next": null,
+            "previous": null,
+            "first": 1,
+            "last": 1,
+            "pages": 1
+        },
+        "records": [
+            {
+                "id": 5,
+                "name": "\u654f\u611f\u8bcd",
+                "count": 0,
+                "rank": 2,
+                "editAble": 0
+            },
+            {
+                "id": 10,
+                "name": "\u8d2a\u8150\u8bcd\u6c47",
+                "count": 0,
+                "rank": 1,
+                "editAble": 0
+            },
+            {
+                "id": 11,
+                "name": "\u653f\u6cbb",
+                "count": 1,
+                "rank": 1,
+                "editAble": 0
+            },
+            {
+                "id": 12,
+                "name": "\u5e7f\u544a",
+                "count": 566,
+                "rank": 1,
+                "editAble": 0
+            },
+            {
+                "id": 13,
+                "name": "\u975e\u6cd5\u94fe\u63a5",
+                "count": 1,
+                "rank": 1,
+                "editAble": 0
+            },
+            {
+                "id": 14,
+                "name": "\u8272\u60c5",
+                "count": 0,
+                "rank": 1,
+                "editAble": 0
+            }
+        ]
+    }
+}

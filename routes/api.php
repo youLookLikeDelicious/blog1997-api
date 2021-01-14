@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Facades\CacheModel;
+use App\Model\User;
+use Intervention\Image\ImageManagerStatic as Image;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,59 +15,180 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// 登录登出接口
+Route::group(['namespace' => 'Auth'], function () {
+    Route::post('/oauth/authorize', 'LoginController@loginByProvider');  // 登录
+    Route::post('/auth/login', 'LoginController@login');  // 登录
+    Route::any('/oauth/currentUser', 'AuthorizeController@currentUser');
+    Route::post('/oauth/logout', 'LoginController@logout');
+    Route::put('/auth/manager/{manager}', 'ManagerRegisterController@update')
+        ->name('manager.inti.password');
+    Route::post('/oauth/sign-up', 'SignUpController@store');
 });
-Route::group([], function () {
-    // 权限相关
-    Route::get('/oauth/authorize', 'Auth\AuthorizeController@auth');
-    Route::get('/oauth/authorize-wechat', 'Auth\AuthorizeController@auth');
-    Route::get('/oauth/authorize-qq', 'Auth\AuthorizeController@auth');
-    Route::get('/oauth/curUser', 'Auth\AuthorizeController@curUser');
-    Route::post('/oauth/logout', 'Auth\AuthorizeController@logout');
+
+/**
+ * Send reset password link
+ */
+Route::post('/user/password/reset', 'UserController@sendResetLinkEmail')
+    ->name('password.reset.send-email')
+    ->middleware('throttle:2,1');
+
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+    // master权限的接口
+    Route::group(['middleware' => 'auth'], function () {
+        // 敏感词汇
+        Route::post('/sensitive-word/import', 'SensitiveWordController@import');
+
+        // 敏感词api
+        Route::delete('/sensitive-word/batch-delete', 'SensitiveWordController@batchDestroy');
+        Route::resource('sensitive-word', 'SensitiveWordController')
+            ->only(['index', 'store', 'update', 'destroy'])
+            ->parameters([
+                'sensitive-word' => 'word'
+            ]);
+
+        // 添加敏感词分类
+        Route::resource('sensitive-word-category', 'SensitiveWordCategoryController')
+            ->only(['index', 'store', 'destroy', 'update'])
+            ->parameters([
+                'sensitive-word-category' => 'category'
+            ]);
+
+        // 获取举报的信息
+        Route::get('/illegal-info', 'MessageBoxController@index')
+            ->name('illegal-info.index');
+        Route::post('/illegal-info/approve/{id}', 'MessageBoxController@approve')
+            ->name('illegal-info.approve');
+        Route::post('/illegal-info/ignore/{id}', 'MessageBoxController@ignore')
+            ->name('illegal-info.ignore');
+
+        // 相册的相关操作
+        Route::resource('gallery', 'GalleryController')
+            ->only(['index', 'store', 'destroy']);
+
+        // 友链相关的操作
+        Route::resource('friend-link', 'FriendLinkController')
+            ->only(['index', 'destroy', 'update', 'store']);
+
+        Route::resource('auth', 'AuthController')
+            ->only(['store', 'update', 'destroy', 'index', 'create']);
+
+        Route::resource('role', 'RoleController')
+            ->only(['store', 'update', 'destroy', 'index']);
+
+        Route::get('/manager/user/{email}', 'ManagerController@user')
+            ->name('manager.get.user');
+        Route::resource('manager', 'ManagerController')
+            ->only(['update', 'create', 'destroy', 'index']);
+
+        Route::post('/comment/approve', 'CommentController@approve')
+            ->name('comment.approve');
+
+        Route::delete('/comment/reject', 'CommentController@reject')
+            ->name('comment.reject');
+
+        Route::resource('comment', 'CommentController')
+            ->only(['index']);
+
+        Route::resource('system-setting', 'SystemSettingController')
+            ->only(['index', 'update']);
+
+        Route::resource('email-config', 'EmailConfigController')
+            ->only(['index', 'update', 'store']);
+
+        Route::resource('tag', 'TagController')
+            ->only(['index', 'update', 'store', 'destroy', 'show', 'create']);
+            
+        Route::get('/log/{type?}', 'LogController@index')
+            ->name('system.log');
+    });
+
+    // 后台需要管理员权限的接口
+    Route::group(['middleware' => 'auth'], function () {
+        // 首页
+        Route::get('/dashboard', 'IndexController@index')
+            ->name('admin.dashboard');
+
+        // 上传图片
+        Route::post('/upload/image/{category}', 'UploadController@uploadImage');
+
+        Route::resource('topic', 'TopicController')
+            ->only(['index', 'store', 'update', 'destroy'])
+            ->parameters([
+                'topic' => 'id'
+            ]);
+
+        Route::post('/article/restore/{article}', 'ArticleController@restore')
+            ->name('article.restore');
+        Route::resource('article', 'ArticleController')
+            ->only(['index', 'store', 'update', 'destroy', 'show', 'create']);
+
+        Route::get('/notification', 'MessageBoxController@getNotification')
+            ->name('notification.index');
+        Route::get('/notification/commentable-comments/{id}', 'MessageBoxController@getCommentAbleComments')
+            ->name('notification.comments');
+    });
 });
-// 需要用户权限的接口
-Route::group(['middleware' => ['custom-auth']], function () {
-    // 上传文件相关操作
-    Route::post('/upload/upload-image', 'Upload\UploadController@uploadImage');
-    // 专题相关操作
-    Route::post('/admin/create-topic', 'Admin\TopicController@createTopic');
-    Route::get('/admin/topic-list', 'Admin\TopicController@getTopicList');
-    Route::post('/admin/topic-delete', 'Admin\TopicController@deleteTopic');
-    // 文章相关操作
-    Route::get('/admin/article-list/{topicId}', 'Admin\ArticleController@getArticleList');
-    Route::post('/admin/article-create', 'Admin\ArticleController@createArticle');
-    Route::post('/admin/article-get', 'Admin\ArticleController@getArticle');
-    Route::post('/admin/article-delete', 'Admin\ArticleController@deleteArticle');
-    Route::post('/admin/article-upload-image', 'Admin\ArticleController@uploadImage');
-    // 友链相关的操作
-    Route::get('/admin/friend-link-list', 'Admin\FriendLinkController@getList');
-    Route::post('/admin/friend-link-create', 'Admin\FriendLinkController@createFriendLink');
-    Route::post('/admin/friend-link-delete', 'Admin\FriendLinkController@deleteFriendLink');
-    // 相册的相关操作
-    Route::post('/admin/gallery-upload', 'Admin\GalleryController@upload');
-    Route::get('/admin/gallery-get', 'Admin\GalleryController@getList');
-    // 评论相关操作
-    Route::post('/comment/create', 'Home\CommentController@create');
-    Route::post('/comment/delete', 'Home\CommentController@delete');
-    // 点赞或取消点赞
-    Route::post('/thumb-up/{action}', 'Home\ThumbUpController@thumbUp');
+
+// 更新账号信息
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/user/update/{user}', 'UserController@update')
+        ->name('user.update');
+    Route::post('/user/bind', 'UserController@bind')
+        ->name('user.bind');
+    Route::post('/user/unbind/{account}', 'UserController@unbind')
+        ->name('user.unbind');
+    Route::post('/user/rebind', 'UserController@rebind')
+        ->name('user.rebind');
+    Route::get('/user/profile', 'UserController@profile')
+        ->name('user.profile');
+    Route::post('/admin/password/update', 'Auth\ResetPasswordsController@reset')
+        ->name('password.update'); 
 });
-// 前台接口
-Route::group(['middleware' => ['home', 'session']], function () {
-    Route::get('/', 'Home\IndexController@index')
-            ->middleware('sitemap:1,weekly,1'); // 首页
-    Route::get('/friend-link', 'Home\IndexController@getFriendLink');
-        //     ->middleware('sitemap:0.8,monthly,1'); // 获取友链
-    Route::get('/topic/{topicId?}', 'Home\TopicController@index')
-            ->middleware('sitemap:0.9,weekly'); // 专题列表
-    Route::get('/article/{id}', 'Home\ArticleController@index')
-            ->middleware('sitemap:1,weekly'); // 文章详情
-    Route::get('/article-get-list', 'Home\ArticleController@getList'); // 获取文章列表
-    Route::get('/comment/get/{id}/{type}', 'Home\CommentController@get'); // 获取评论列表
-    Route::get('/comment/get-reply/{rootId}/{offset}', 'Home\CommentController@getReply'); // 获取评论的回复
-    Route::get('/leave-message/index', 'Home\LeaveMessageController@index')
-            ->middleware('sitemap:0.8,weekly,1'); // 获取博客留言
-    // 搜索的接口
-    Route::get('/search/{content}/{orderBy?}', 'Home\SearchController@index');
+
+Route::group(['namespace' => 'Home'], function () {
+    // 需要用户权限的接口
+    Route::group(['middleware' => 'auth'], function () {
+        Route::resource('comment', 'CommentController')
+            ->only(['destroy', 'store']);
+
+        // 点赞
+        Route::post('/thumb-up', 'ThumbUpController@store');
+
+        // 举报
+        Route::post('/report-illegal-info', 'ReportIllegalInfoController@store');
+    });
+
+    // 前台接口
+    Route::group(['middleware' => ['home']], function () {
+        // 首页
+        Route::get('/', 'IndexController@index')
+            ->middleware('sitemap:1,weekly,1');
+
+        // 获取友链
+        Route::get('/friend-link', 'IndexController@getFriendLink');
+        //     ->middleware('sitemap:0.8,monthly,1'); 
+
+        // 专题列表
+        Route::get('/article/tags', 'ArticleController@tags')
+            ->middleware('sitemap:0.9,weekly');
+
+        // 获取评论
+        // 评论相关操作
+        Route::get('/comment/reply/{rootId}/{offset}', 'CommentController@getReply');
+        Route::post('/article/comments/{articleId}', 'ArticleController@comments');
+
+        // 获取文章列表
+        Route::match(['post'], '/article/search', 'ArticleController@all');
+
+        // 文章详情
+        Route::get('/article/{articleId}', 'ArticleController@find')
+            ->middleware('sitemap:1,weekly');
+            
+        Route::get('/article', 'ArticleController@all');
+        
+        // 获取博客留言
+        Route::get('/leave-message', 'LeaveMessageController@index')
+            ->middleware('sitemap:0.8,weekly,1');
+    });
 });

@@ -1,0 +1,13 @@
+{
+    "comment": "创建友链",
+    "status": "success",
+    "message": "\u53cb\u94fe\u6dfb\u52a0\u6210\u529f",
+    "data": {
+        "name": "Friend Link",
+        "url": "https:\/\/www.blog1997.com",
+        "updated_at": "1609723407",
+        "created_at": "1609723407",
+        "id": 11,
+        "editAble": false
+    }
+}

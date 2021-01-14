@@ -1,0 +1,51 @@
+{
+    "comment": "为用户分配角色",
+    "status": "success",
+    "message": "\u7ba1\u7406\u5458\u4fee\u6539\u6210\u529f",
+    "data": {
+        "id": 3,
+        "name": "\u5915\u843d",
+        "avatar": "\/image\/avatar\/2020-10-29\/95a5c0e7e08e4873cefa7b3962a66884",
+        "email": "454948077@qq.com",
+        "article_sum": 1,
+        "gender": "keep_secret",
+        "remember_token": "jHeFNlCvIgOntLUwerjtjiE8kOvq1zhnicrt0sLOFkmZasWPjdMmJMULJT7Z",
+        "password": "",
+        "email_verified_at": 0,
+        "deleted_at": 0,
+        "created_at": "1603947584",
+        "updated_at": "1608966996",
+        "roles": [
+            {
+                "id": 2,
+                "name": "\u6ce8\u518c\u7528\u6237",
+                "pivot": {
+                    "user_id": 3,
+                    "role_id": 2,
+                    "created_at": "2021-01-03 22:02:19",
+                    "updated_at": "2021-01-03 22:02:19"
+                }
+            },
+            {
+                "id": 1,
+                "name": "Master",
+                "pivot": {
+                    "user_id": 3,
+                    "role_id": 1,
+                    "created_at": "2021-01-03 22:02:19",
+                    "updated_at": "2021-01-03 22:02:19"
+                }
+            },
+            {
+                "id": 3,
+                "name": "Author",
+                "pivot": {
+                    "user_id": 3,
+                    "role_id": 3,
+                    "created_at": "2021-01-03 22:02:19",
+                    "updated_at": "2021-01-03 22:02:19"
+                }
+            }
+        ]
+    }
+}

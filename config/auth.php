@@ -37,7 +37,7 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
+            'driver' => 'x-session',
             'provider' => 'users',
         ],
 
@@ -99,4 +99,7 @@ return [
         ],
     ],
 
+    'verification' => [
+        'expire' => 120
+    ]
 ];

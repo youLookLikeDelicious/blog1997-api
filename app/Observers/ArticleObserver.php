@@ -2,13 +2,33 @@
 
 namespace App\Observers;
 
+use App\Model\User;
 use App\Model\Topic;
 use App\Model\Article;
-use App\Traits\ArticleObserver\deleteImage;
+use App\Model\ArticleBackUp;
+use App\Events\UpdateArticleEvent;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ArticleObserver
 {
-    use deleteImage;
+    /**
+     * Handle the article "creating" event.
+     *
+     * @param  \App\Model\Article  $article
+     * @return void
+     */
+    public function creating(Article $article)
+    {
+        if ($article->isDraft()) {
+            Log::info('草稿保存成功', ['operate' => 'create', 'result' => 'success']);
+            return;
+        }
+        
+        $this->incrementCounter($article);
+
+        Log::info('文章创建成功', ['operate' => 'create', 'result' => 'success']);
+    }
 
     /**
      * Handle the article "created" event.
@@ -18,9 +38,11 @@ class ArticleObserver
      */
     public function created(Article $article)
     {
-        // 获取专题di
-        $topicId = $article->topic_id;
-        Topic::where('id', $topicId)->increment('article_sum');
+        if ($article->isDraft()) {
+            Article::where('id', $article->id)->limit(1)->update([
+                'article_id' => $article->id
+            ]);
+        }
     }
 
     /**
@@ -31,20 +53,42 @@ class ArticleObserver
      */
     public function updating(Article $article)
     {
-        // 如果更改了content字段，判断图片是否有删除，如果有，从硬盘中删除图片
-        if (!$article->isDirty('content')) {
-            return true;
+        $message = '文章保存成功';
+
+        $this->deleteDraft($article);
+
+        if ($article->isDirty('is_draft')) {
+
+
+            // 将已有的文章，保存为草稿
+            // 删除该文章对应的草稿
+            // 创建一个草稿
+            if ($article->isDraft()) {
+                $message = '草稿保存成功';
+                $this->createDraft($article);
+                return false;
+            }
+
+            // 将草稿发布为文章
+            // 删除文章以及对应的草稿
+            $message = '草稿发布成功';
+            $this->deleteArticle($article);
+            $newArticle = $article->toArray();
+            Article::insert(array_merge($newArticle, ['id' => $article->article_id]));
+            
+            if ($article->id === $article->article_id + 0) {
+                $this->incrementCounter($article);
+            }
         }
+        
 
-        // 获取图片的url
-        $originImgUrl = $this->getImgUrl($article->getOriginal('content'));
-        $imgUrl = $this->getImgUrl($article->content);
-
-        // 计算出不同的url
-        $result = array_diff($originImgUrl, $imgUrl);
-
-        // 删除图片
-        $this->unlinkImage($result);
+        // 如果更改了content字段，判断图片是否有删除，如果有，从硬盘中删除图片
+        if ($article->isDirty('content')) {
+            event(new UpdateArticleEvent($article));
+        }
+        
+        // 处理相关的图片
+        Log::info($message, ['operate' => 'update', 'result' => 'success']);        
     }
 
     /**
@@ -55,34 +99,88 @@ class ArticleObserver
      */
     public function deleting(Article $article)
     {
-        // 获取专题id
+        // 专题数 -1 
         $topicId = $article->topic_id;
+
+        $article->delete_role = 'user';
+
         Topic::where('id', $topicId)->decrement('article_sum');
 
-        // 获取文章图片地址
-        $imgList = $this->getImgUrl($article->content);
-        $this->unlinkImage($imgList);
+        User::find(Auth::id())->decrement('article_sum');
+
+        // 删除草稿
+        Article::draft($article->id)->delete();
+
+        // 将文章移到备份表中
+        $article->deleted_at = time();
+
+        ArticleBackUp::create($article->makeHidden(['is_draft', 'article_id'])->toArray());
+
+        Log::info('文章删除成功', ['operate' => 'delete', 'result' => 'success']);
     }
 
     /**
-     * Handle the article "restored" event.
+     * 更新草稿时,删除之前的草稿
      *
-     * @param  \App\Model\Article  $article
+     * @param Article $article
      * @return void
      */
-    /*public function restored(Article $article)
+    protected function deleteDraft(Article $article)
     {
-        //
-    }*/
+        $deleteId = $article->isDraft() ?
+            $article->article_id
+            : $article->id;
+
+        if (!$deleteId) {
+            return;
+        }
+        
+        Article::where('user_id', auth()->id())
+            ->where('article_id', $deleteId)
+            ->where('is_draft', 'yes')
+            ->delete();
+    }
 
     /**
-     * Handle the article "force deleted" event.
+     * 删除文章的原稿
      *
-     * @param  \App\Model\Article  $article
+     * @param Article $article
      * @return void
      */
-    /*public function forceDeleted(Article $article)
+    protected function deleteArticle($article)
     {
+        Article::where('id', $article->article_id)
+            ->limit(1)
+            ->delete();
+    }
 
-    }*/
+    /**
+     * 创建文章后，相关的计数器 + 1
+     *
+     * @param Article $article
+     * @return void
+     */
+    protected function incrementCounter($article)
+    {
+        Topic::where('id', $article->topic_id)->increment('article_sum');
+
+        User::find(Auth::id())->increment('article_sum');
+    }
+
+    /**
+     * Create a draft for article
+     *
+     * @param Article $article
+     * @return void
+     */
+    public function createDraft(Article $article)
+    {
+        $draftArticle = $article->toArray();
+
+        $draftArticle['article_id'] = $article->id;
+
+        unset($draftArticle['id']);
+
+        Article::insert($draftArticle);
+    }
 }

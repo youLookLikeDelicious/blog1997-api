@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -19,6 +20,9 @@ class XyComment extends Migration
             $table->increments('id')
                 ->comment('主键');
 
+            $table->string('title', 1)
+                ->default('');
+                
             $table->string('content', 2100)
                 ->nullable(false)
                 ->comment('评论内容');
@@ -28,12 +32,12 @@ class XyComment extends Migration
                 ->default(0)
                 ->comment('一级评论的id');
 
-            $table->unsignedInteger('commentable_id')
+            $table->unsignedInteger('able_id')
                 ->nullable(false)
                 ->default(0)
                 ->comment('被评论的id');
 
-            $table->string('commentable_type', 45)
+            $table->string('able_type', 45)
                 ->comment('被回复的模型');
 
             $table->unsignedMediumInteger('commented')
@@ -42,9 +46,12 @@ class XyComment extends Migration
                 ->comment('回复的数量');
 
             $table->unsignedInteger('liked')
-                ->nullable(false)
                 ->default('0')
                 ->comment('点赞数');
+
+            $table->unsignedInteger('article_id')
+                ->default(0)
+                ->comment('如果是文章的评论，对应文章的id');
 
             $table->unsignedMediumInteger('user_id')
                 ->nullable(false)
@@ -56,10 +63,9 @@ class XyComment extends Migration
                 ->default(0)
                 ->comment('被回复用户的id,三级评论需要');
 
-            $table->string('reply_to_name', 45)
-                ->nullable(false)
-                ->default('')
-                ->comment('被回复人的名称');
+            $table->enum('verified', ['yes', 'no'])
+                ->default('yes')
+                ->comment('审核是否通过');
 
             $table->unsignedTinyInteger('level')
                 ->nullable(false)
@@ -76,16 +82,18 @@ class XyComment extends Migration
                 ->default(0)
                 ->comment('更新时间');
 
-            $table->index('commentable_id');
-            $table->index('commentable_type');
+            $table->index('able_id');
+            $table->index('able_type');
             $table->index('root_id');
             $table->index('liked');
+            $table->index('article_id');
+            $table->index(['verified', 'created_at']);
 
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
         });
 
-        DB::statement('ALTER TABLE `xy_comment` COMMENT = "评论表"');
+        DB::statement('ALTER TABLE ' .DB::getTablePrefix(). 'comment COMMENT = "评论表"');
     }
 
     /**
@@ -96,6 +104,6 @@ class XyComment extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('xy_comment');
+        Schema::dropIfExists('comment');
     }
 }

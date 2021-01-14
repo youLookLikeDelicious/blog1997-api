@@ -1,6 +1,6 @@
 <?php
-use App\Schedule\RedisDataToMysql;
-use App\Model\SiteMap;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,27 +12,34 @@ use App\Model\SiteMap;
 |
 */
 
-Route::get('/', function (\Illuminate\Http\Request $request) {
+Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/image/{type}/{dir}/{name}/{isWebp?}', function (\Illuminate\Http\Request $request, $type, $dir, $name, $isWebp = true) {
-    $ext = strrchr($name, '.');
-    $name = str_replace($ext, '', $name);
+Route::get('/image/{type}/{dir}/{name}/{isWebp?}', 'ImageController@find')->middleware('cors');
 
-    if ($isWebp) {
-        $ext = '.webp';
-    }
-    // 生成文件路径
-    $filePath = "image/{$type}/{$dir}/{$name}{$ext}";
+Route::group(['middleware' => 'x-session'], function () {
+    Route::get('/admin/manager/register', 'Auth\ManagerRegisterController@create')
+        ->name('manager.register');
 
-    $storagePath = storage_path($filePath);
-
-    if (is_file($storagePath)) {
-        header('Access-Control-Allow-Credentials:true');
-        setcookie('SameSite', 'Secure', 0, '/');
-        return response()->file($storagePath);
-    } else {
-        return view('404');
-    }
+    Route::get('/admin/captcha', function () {
+        return captcha();
+    });
 });
+
+Route::get('/admin/verify', 'Auth\SignUpController@verify')
+    ->name('user.verify');
+
+Route::get('/admin/login', 'Admin\VueController@login')
+    ->name('admin.login');
+
+Route::get('/admin/login/{any}', 'Admin\VueController@login')->where('any', '.*');
+
+Route::get('/admin/password/reset', 'Auth\ResetPasswordsController@showResetForm')
+    ->name('password.reset');   
+
+Route::get('/admin/{any?}', 'Admin\VueController@index')
+    ->where('any', '.*')
+    ->name('admin.index');
+
+Route::get('/home', 'HomeController@index')->name('home');

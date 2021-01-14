@@ -14,12 +14,22 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\Model\User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => Str::random(10),
+        'name' => $faker->name . uniqid(),
+        'avatar' => '',
+        'article_sum' => '0',
+        'gender' => 'boy',
+        'email' => $faker->email . uniqid(),
+        'created_at' => time(),
+        'updated_at' => time()
     ];
 });
+
+$factory->state(App\Model\User::class, 'author', [
+    // 'role' => 'author'
+]);
+
+$factory->state(App\Model\User::class, 'master', [
+    // 'role' => 'master'
+]);

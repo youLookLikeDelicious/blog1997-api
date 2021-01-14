@@ -1,0 +1,14 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "id": 4,
+        "driver": "smtp",
+        "email_server": "smtp.163.com",
+        "email_addr": "test@163.com",
+        "port": 465,
+        "encryption": "ssl",
+        "sender": "Blog1997",
+        "password": "SLKZGPYATMZAOEVN"
+    }
+}

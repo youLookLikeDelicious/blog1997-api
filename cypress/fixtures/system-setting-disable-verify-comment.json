@@ -1,0 +1,11 @@
+{
+    "status": "success",
+    "message": "\u914d\u7f6e\u4fee\u6539\u6210\u529f",
+    "data": {
+        "id": 1,
+        "enable_comment": "yes",
+        "verify_comment": "no",
+        "created_at": "1603457744",
+        "updated_at": "1609760870"
+    }
+}

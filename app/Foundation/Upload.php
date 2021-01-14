@@ -1,106 +1,136 @@
 <?php
 
 namespace App\Foundation;
-use Validator;
+
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class Upload
 {
-    protected $errors = null; // 错误信息
-    protected $fileList = []; // 上传成功的文件列表
+    /**
+     * 上传的文件列表
+     *
+     * @var array
+     */
+    protected $fileList = [];
+
+    /**
+     * 对应的文件的尺寸
+     */
+    protected $fileSize = [];
 
     /**
      * 上传图片
-     * @param $files 上传的文件列表
-     * @param $type article|gallry
+     * 
+     * @param Illuminate\Http\UploadedFile|array $files 上传的文件列表
+     * @param string $type article|gallery
      * @param int $width
      * @param int $height
-     * @return Array
+     * @param boolean $withWaterMark 是否添加水印
+     * @return this
      */
-    public function uploadImage ($files, $type, $width = 0, $height = 0) {
+    public function uploadImage($files, $type, $width = 0, $height = 0, $withWaterMark = true)
+    {
         $filePath = []; // 保存图片全路径的的地址
-        $host = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}/";
-
-        if (!$files) {
-            return response()->error('暂无图片上传');
-        }
-
-        // 验证图片
-        $validator = $this->validator($files);
-        if ($validator->fails()) {
-            $this->errors = $validator->errors();
-            return $this;
-        }
+        $fileSize = [];
 
         // 生成存储的位置
-        $storagePath = $this->makeDir($type);
+        $storagePath = $this->createStorageDirectory($type);
+
+        if (!is_array($files)) {
+            $files = [$files];
+        }
 
         // 处理图片
         // 将图片转为webp格式，给图片添加水印
-        foreach ($files as $key => $v) {
+        foreach ($files as $v) {
             $img = Image::make($v->getRealPath());
 
-            // 添加水印
-            $this->addWaterMark($img);
-
-            // 获取文件的扩展类型
-            $ext = $v->getClientOriginalExtension();
-
             // 生成文件的名字
-            $prefix = str_replace(' ', '', microtime()) + mt_rand(1, 1000);
-            $fileName = uniqid($prefix, true);
+            $fileFullName= $this->generateFileFullPath($storagePath) . '.' . $v->getClientOriginalExtension();
 
-            $fileFullPath = $storagePath.$fileName;
-
-            // 保存图片，同时生成一份webp格式的文件
-            $savePath = storage_path($fileFullPath);
+            $filePath[] = '/' . $fileFullName;
+            $fileSize[] = $this->getImageSize($img);
 
             // 重置图片大小
             if ($width || $height) {
                 $this->resize($img, $width, $height);
             }
 
-            $img->save($savePath.'.'.$ext, 40, $ext);
-            $img->save($savePath.'.webp', 20, 'webp');
+            // 添加水印
+            if ($withWaterMark) {
+                $this->addWaterMark($img);
+            }
 
-            $filePath[] = $host . str_replace(storage_path(), '', $fileFullPath).'.'.$ext;
+            $this->putImageToStorage($img, $fileFullName);
+
+            $img->destroy();
         }
 
-        $this->fileList = $filePath;
+        $this->setFileList($filePath, $fileSize);
 
         return $this;
     }
 
     /**
-     * 验证图片的大小和格式
-     * @param $data
-     * @return
+     * set file list
+     *
+     * @param array $list
+     * @return void
      */
-    protected function validator ($data) {
-        $message = [
-            'files.*.required' => '暂无图片上传',
-            'files.*.image' => '未识别的图片格式',
-            'files.*.max' => '图片文件不能超过:maxKB'
-        ];
-        $rule = [
-            'files.*' => 'required|image|max:3072' // 文件最大为3M
-        ];
-        $validator = Validator::make($data, $rule, $message);
+    protected function setFileList($list, $fileSize)
+    {
+        $this->fileList = $list;
+        $this->fileSize = $fileSize;
+    }
 
-        return $validator;
+    /**
+     * 获取上传后的文件列表
+     * 
+     * @param boolean $withSize
+     * @return array
+     */
+    public function getFileList($withSize = false)
+    {
+        if (!$withSize) {
+            return $this->fileList;
+        }
+
+        return array_map(function ($imageName, $sizeInfo) {
+            return $imageName . '?' . $sizeInfo;
+        }, $this->fileList, $this->fileSize);
+    }
+
+    /**
+     * Generate file full path
+     *
+     * @param string $storagePath
+     * @return string
+     */
+    protected function generateFileFullPath($storagePath)
+    {
+        $prefix = str_replace(' ', '', microtime()) + mt_rand(1, 1000);
+
+        $fileName = uniqid($prefix, true);
+
+        $fileFullPath = $storagePath . $fileName;
+
+        return $fileFullPath;
     }
 
     /**
      * 为图片添加水印
-     * @param $img
+     * @param \Intervention\Image\Image $img
+     * @return void
      */
-    protected function addWaterMark ($img) {
+    protected function addWaterMark($img)
+    {
         $height = $img->height();
-        $fontSize = ceil($height / 40);
+        $fontSize = ceil($height / 30);
         $x = 30;
-        $y = $height > $fontSize? $height - $fontSize / 2 : $height;
+        $y = $height > $fontSize ? $height - $fontSize / 2 : $height;
 
-        $img->text('www.blog1997.com', $x, $y, function ($font) use ($fontSize) {
+        $img->text('©www.blog1997.com', $x, $y, function ($font) use ($fontSize) {
             $font->file(public_path('GenJyuuGothic-Normal.ttf'));
             $font->size($fontSize);
             $font->color('#ffffff');
@@ -109,31 +139,16 @@ class Upload
 
     /**
      * 创建存储文件的文件夹
-     * @param $type
+     * 
+     * @param string $type
      * @return string
      */
-    protected function makeDir ($type) {
+    protected function createStorageDirectory($type)
+    {
         $date = date('Y-m-d');
-        $storagePath = ("image/{$type}/{$date}/");
-        if (!is_dir(storage_path($storagePath))) {
-            mkdir(storage_path($storagePath), 0777, true);
-        }
+        $storagePath = "image/{$type}/{$date}/";
 
         return $storagePath;
-    }
-    /**
-     * 验证是否通过
-     */
-    public function errors () {
-        return $this->errors;
-    }
-
-    /**
-     * 获取上传后的文件列表
-     * @return array
-     */
-    public function getFileList () {
-        return $this->fileList;
     }
 
     /**
@@ -142,7 +157,8 @@ class Upload
      * @param $width
      * @param $height
      */
-    protected function resize ($img, $width, $height) {
+    protected function resize($img, $width, $height)
+    {
         if ($width && !$height) {
             $img->resize($width, null, function ($constraint) {
                 $constraint->aspectRatio();
@@ -152,7 +168,67 @@ class Upload
                 $constraint->aspectRatio();
             });
         } else if ($width && $height) {
-            $img->resize($width, $height);
+            $img->fit($width, $height, function ($constraint) {
+                // $constraint->upsize();
+            });
         }
+    }
+
+    /**
+     * 备份一个缩略图
+     *
+     * @param string $width
+     * @param string $height
+     * @return this
+     */
+    public function createThumbnail($width = '450', $height = '')
+    {
+        $fileList = $this->getFileList();
+
+        foreach ($fileList as $file) {
+
+            $image = Image::make(storage_path($file));
+
+            $this->resize($image, $width, $height);
+
+            $ext = strrchr($file, '.');
+            $thumbnailFile = str_replace($ext, '.min' . $ext, $file);
+            $webpThumbnailFile = str_replace($ext, '.min.webp', $file);
+
+            Storage::put($thumbnailFile, (string) $image->encode());
+            Storage::put($webpThumbnailFile, (string) $image->encode('webp'));
+
+            $image->destroy();
+        }
+
+        return $this;
+    }
+
+    /**
+     * 获取图片尺寸信息
+     *
+     * @param \Intervention\Image\Image $image
+     * @return string
+     */
+    protected function getImageSize($image)
+    {
+        return "width={$image->width()}&height={$image->height()}";
+    }
+
+    /**
+     * Put file to storage
+     * and back up a webp version
+     *
+     * @param \Intervention\Image\Image $image
+     * @param string $imageFullName
+     * @return void
+     */
+    protected function putImageToStorage($image, $imageFullName)
+    {
+        Storage::put($imageFullName, (string) $image->encode());
+
+        $webpFullName = str_replace(strrchr($imageFullName, '.'), '.webp', $imageFullName);
+        
+        Storage::put($webpFullName, (string) $image->encode('webp'));
     }
 }

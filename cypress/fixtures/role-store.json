@@ -1,0 +1,142 @@
+{
+    "comment": "新建role",
+    "status": "success",
+    "message": "\u89d2\u8272\u6dfb\u52a0\u6210\u529f",
+    "data": {
+        "name": "Auditor",
+        "remark": "\u5ba1\u6838\u8bc4\u8bba\u548c\u4e3e\u62a5\u4fe1\u606f",
+        "updated_at": "1609664736",
+        "created_at": "1609664736",
+        "id": 4,
+        "authorities": [
+            {
+                "id": 1,
+                "name": "\u535a\u5ba2\u7ba1\u7406",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 1
+                }
+            },
+            {
+                "id": 13,
+                "name": "\u4e13\u9898\u7ba1\u7406",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 13
+                }
+            },
+            {
+                "id": 14,
+                "name": "\u67e5\u770b\u4e13\u9898",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 14
+                }
+            },
+            {
+                "id": 15,
+                "name": "\u521b\u5efa\u4e13\u9898",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 15
+                }
+            },
+            {
+                "id": 16,
+                "name": "\u4fee\u6539\u4e13\u9898",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 16
+                }
+            },
+            {
+                "id": 17,
+                "name": "\u5220\u9664\u4e13\u9898",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 17
+                }
+            },
+            {
+                "id": 2,
+                "name": "\u6587\u7ae0\u7ba1\u7406",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 2
+                }
+            },
+            {
+                "id": 6,
+                "name": "\u6dfb\u52a0\u6587\u7ae0",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 6
+                }
+            },
+            {
+                "id": 7,
+                "name": "\u4fee\u6539\u6587\u7ae0",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 7
+                }
+            },
+            {
+                "id": 8,
+                "name": "\u5220\u9664\u6587\u7ae0",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 8
+                }
+            },
+            {
+                "id": 9,
+                "name": "\u67e5\u770b\u5217\u8868",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 9
+                }
+            },
+            {
+                "id": 4,
+                "name": "\u6807\u7b7e\u7ba1\u7406",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 4
+                }
+            },
+            {
+                "id": 10,
+                "name": "\u67e5\u770b\u6807\u7b7e",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 10
+                }
+            },
+            {
+                "id": 11,
+                "name": "\u66f4\u65b0\u6807\u7b7e",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 11
+                }
+            },
+            {
+                "id": 12,
+                "name": "\u5220\u9664\u6807\u7b7e",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 12
+                }
+            },
+            {
+                "id": 5,
+                "name": "\u6dfb\u52a0\u6807\u7b7e",
+                "pivot": {
+                    "role_id": 4,
+                    "auth_id": 5
+                }
+            }
+        ]
+    }
+}

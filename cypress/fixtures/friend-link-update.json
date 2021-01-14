@@ -1,0 +1,13 @@
+{
+    "comment": "更新友链",
+    "status": "success",
+    "message": "\u53cb\u94fe\u4fee\u6539\u6210\u529f",
+    "data": {
+        "id": 11,
+        "name": "new name",
+        "url": "https:\/\/www.chaosxy.com",
+        "created_at": "1609723407",
+        "updated_at": "1609723756",
+        "editAble": false
+    }
+}

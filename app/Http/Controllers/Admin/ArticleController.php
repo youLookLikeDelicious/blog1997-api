@@ -2,28 +2,44 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Validator;
-use App\Model\Article;
-use App\Model\Gallery;
 use Illuminate\Http\Request;
+use App\Model\ArticleBackUp;
+use App\Contract\Repository\Tag;
+use App\Contract\Repository\Topic;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Model\ArticleBase as Article;
+use App\Model\Article as ModelArticle;
+use App\Http\Requests\Admin\Article as ArticleRequest;
+use App\Contract\Repository\Article as ArticleRepository;
 
 class ArticleController extends Controller
 {
     /**
+     * repository
+     *
+     * @var /App\Contract\Repository\Article
+     */
+    protected $articleRepository;
+
+    public function __construct(ArticleRepository $articleRepository)
+    {
+        $this->articleRepository = $articleRepository;
+
+        $this->authorizeResource(Article::class, 'article');
+    }
+    
+    /**
      * 获取文章列表
      * Method GET
+     * 
      * @param $topicId
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
-    public function getArticleList (Request $request, $topicId) {
-        // 获取专题id
-        $topicId = $topicId + 0;
-        $list = Article::select(['id', 'title', 'is_origin', 'visited', 'commented'])
-            ->where('topic_id', $topicId);
+    public function index (Request $request) {
+        $data = $this->articleRepository->all($request);
 
-        return response()->success(\Page::paginate($list));
+        return response()->success($data);
     }
 
     /**
@@ -31,158 +47,132 @@ class ArticleController extends Controller
      * Method POST
      * @return mixed
      */
-    public function getArticle (Request $request) {
-        // 获取文章的id
-        $id = $request->input('id', 0) + 0;
-
-        $article = Article::select(['id', 'title', 'is_origin', 'topic_id', 'keywords', 'description', 'content', 'order_by'])
-            ->find($id);
-
-        if ($article) {
-            return response()->success($article->toArray());
-        } else {
-            return response()->error('暂无该文章相关信息');
-        }
+    public function show (?Article $article) {
+        
+        return response()->success($article);
     }
 
     /**
-     * 新建 | 更新文章
+     * 新建 文章
      * Method POST
+     * 
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function createArticle (Request $request) {
+    public function store (ArticleRequest $request, ModelArticle $article) {
+
         // 获取表单数据
-        $data = $request->only(['id', 'title', 'user_id', 'topic_id', 'is_origin', 'order_by', 'keywords', 'description', 'content']);
+        $data = $request->validated(); 
+        
+        $tags = $data['tags'] ?? [];
 
-        // 验证表单数据
-        $validator = $this->validator($data);
-        if ($validator->fails()) {
-            return response()->error($validator->errors());
+        if ($tags) {
+            unset($data['tags']);
         }
 
-        // 删除id属性
-        $id = $data['id'];
-        unset($data['id']);
+        $articleRecord = '';
 
-        // 获取文章的摘要信息
-        $summary = preg_replace('/<^((?!pre)|>)*>/', '', $data['content']);
-        $summary = '<pre>'.mb_substr($summary, 0, 300).'...</pre>';
+        DB::transaction(function () use ($article, $data, &$articleRecord, $tags) {
+            
+            $articleRecord = $article->create($data);
 
-        $data['summary'] = $summary;
+            // 添加多对多的关系
+            $articleRecord->tags()->sync($tags);
+        });
+        
+        $message = $articleRecord->is_draft === 'yes' ? '草稿保存成功' : '文章创建成功';
 
-        // 因为使用observer，索引使用事务
-        DB::beginTransaction();
+        $articleRecord->load('tags:id,name');
+        
+        return response()->success($articleRecord, $message);
+    }
 
-        if ($id) {
-            // 修改操作,会触发observer
-            $flag = Article::find($id)->update($data);
-        } else {
-            // 新建操作,会触发observer
-            // 获取gallery_id
-            $galleryId = $this->getGalleryId();
-            $data['gallery_id'] = $galleryId;
-            $flag = Article::create($data);
+    /**
+     * 更新文章 | 发布草稿
+     * Method PUT
+     *
+     * @param ArticleRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(ArticleRequest $request, Article $article)
+    {
+        // 修改操作,会触发observer
+        $data = $request->validated();
+
+        $tags = [];
+
+        if (isset($data['tags'])) {
+            $tags = $data['tags'];
+            unset($data['tags']);
+        }
+        
+        DB::transaction(function () use(&$article, $data, $tags) {
+            // 将原稿保存为草稿后，返回草稿
+            if (!$article->update($data)) {
+                return;
+            }
+
+            // 添加多对多的关系
+            $article->tags()->sync($tags);
+        });
+
+        $message = '文章发布成功';
+
+        if ($article->isDraft()) {
+            $article = $this->articleRepository->findDraft($article);
+            $message = '草稿保存成功';
         }
 
-        if ($flag) {
-            // 操作成功
-            DB::commit();
-            return response()->success();
-        } else {
-            // 操作失败
-            DB::rollBack();
-            return response()->error();
-        }
+        return response()->success($article, $message);
     }
 
     /**
      * 删除文章
+     * Method POST
      * @param Request $request
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
-    public function deleteArticle (Request $request) {
-        // 获取文章的id
-        $id = $request->input('id', 0) + 0;
-
-        // 删除文章
-        $flag = Article::find($id)->delete();
-
-        if ($flag) {
-            return response()->success('', '文章删除成功');
+    public function destroy (Article $article)
+    {
+        if ($article->is_draft === 'yes') {
+            // 删除草稿不需要执行Observer
+            ModelArticle::where('id', $article->id)->delete();
         } else {
-            return response()->error('文章删除失败');
+            DB::transaction(function () use ($article) {
+                $article->delete();
+            });
         }
+
+        return response()->success('', '文章删除成功');
     }
 
     /**
-     * 上传文章相关的图片
-     * @param Request $request
-     * @return mixed
+     * Get topics and tags
+     *
+     * @param Topic $topic
+     * @param Tag $tag
+     * @return \Illuminate\Http\Response
      */
-    public function uploadImage (Request $request) {
-        // 获取文件
-        $files = $request->file('upfile');
-        // 获取id
-        $ids = $request->input('id');
+    public function create(Topic $topic, Tag $tag)
+    {
+        $result = [];
+        $result['topics'] = $topic->all();
+        $result['tags'] = $tag->flatted();
 
-        // 开始上传
-        $upload  = \Upload::uploadImage($files, 'article');
-        // 图片验证失败
-        if ($upload->errors()) {
-            return response()->error($upload->errors());
-        }
-
-        $fileList = [];
-        $fileList = $upload->getFileList();
-        return response()->success(array_combine($ids, $fileList), '图片上传成功');
-    }
-    /**
-     * 验证提交的表单数据
-     * @param $data
-     * @return mixed
-     */
-    protected function validator ($data) {
-        $rule = [
-            'id' => 'nullable|integer',
-            'user_id' => 'required',
-            'title' => 'required|max:25',
-            'topic_id' => 'required',
-            'is_origin' => 'required|in:yes,no',
-            'order_by' => 'required|integer',
-            'keywords' => 'required|max:210',
-            'description' => 'required|max:330',
-            'content' => 'required|max:30000'
-        ];
-        $message = [
-            'user_id.required' => '非法的用户',
-            'title.required' => '标题不能为空',
-            'title.max' => '标题最大长度为:max',
-            'topic_id.required' => '专题不能为空',
-            'is_origin.required'  => '是否原创必填',
-            'order_by.required'   => '排序不能为空',
-            'order_by.integer'   => '排序字段必须为整数',
-            'content.required'  => '内容不能为空',
-            'content.max'   => '超过文章最大字数限制:max',
-            'keywords.required'  => '关键字必填',
-            'keywords.max'  => '关键超过最大字符限制 :max',
-            'description.required' => '描述必填',
-            'description.max' => '描述超过最大字符限制 ：max',
-        ];
-
-        $validator = Validator::make($data, $rule, $message);
-        return $validator;
+        return response()->success($result);
     }
 
     /**
-     * 获取gallery的id
+     * Restore deleted article
+     *
+     * @param Article $article
+     * @return \Illuminate\Http\Response
      */
-    public function getGalleryId () {
-        $gallery = Gallery::select(DB::raw('count(id) as count'))->first();
-        $article = Article::select('gallery_id')->first();
+    public function restore(Article $article)
+    {
+        ModelArticle::create($article->toArray());
+        ArticleBackUp::where('id', $article->id)->delete();
 
-        if (!$article->gallery_id || $article->gallery_id === $gallery->count) {
-            return 1;
-        }
-
-        return $article->gallery_id + 1;
+        return response()->success('', '文章已从回收站恢复');
     }
 }
