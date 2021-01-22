@@ -83,7 +83,8 @@ class Kernel extends HttpKernel
         'session' => \Illuminate\Session\Middleware\StartSession::class,
         'home' => \App\Http\Middleware\HomeMiddleware::class,
         'sitemap' => \App\Http\Middleware\SiteMap::class,
-        'cors' => \App\Http\Middleware\CorsMiddleware::class
+        'cors' => \App\Http\Middleware\CorsMiddleware::class,
+        'rbac' => \App\Http\Middleware\RoleBaseAccessControl::class
     ];
 
     /**

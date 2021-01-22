@@ -30,6 +30,7 @@ Blog1997是一个前后端分离的博客系统。前端使用Nuxt，实现vue�
 - 比较全面的Feature测试和Unit测试
 - 将上传的图片备份一个webp格式，并添加水印。
 - 支持微信和GITHUB第三方登陆，也可以将第三方账号绑定到邮箱账号。
+- 通过高德api获取用户IP所在的地理位置,以便记录LOG。
 
 ### 部署示例
 ![](https://img.wenhairu.com/images/2021/01/09/DSPp3.png)
