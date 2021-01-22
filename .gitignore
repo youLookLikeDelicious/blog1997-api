@@ -4,7 +4,6 @@
 /vendor
 .env
 .env.testing
-.env.example
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -18,4 +17,4 @@ www.blog1997.com.crt
 coverage.xml
 /coverage/*
 /build/*
-/dist/*
+./dist/*
