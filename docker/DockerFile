@@ -45,8 +45,8 @@ RUN crontab /etc/cron.d/laravel-schedule
 
 # Config supervisor to manager queue job
 RUN touch /var/log/supervisor.log
-RUN touch /var/run/supervisor.sock
 COPY ./docker/laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
+RUN touch /var/run/supervisor.sock && chmod 777 /var/run/supervisor.sock
 RUN supervisord -c /etc/supervisor/supervisord.conf
 
 USER www

@@ -110,7 +110,7 @@ class SignUpController
     }
 
     /**
-     * Redirect response
+     * Redirect response to sign up page
      *
      * @return redirect
      */

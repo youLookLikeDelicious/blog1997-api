@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use App\Model\Role;
 use App\Notifications\ManagerCreateNotification;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +18,7 @@ class MasterCreate extends Command
      *
      * @var string
      */
-    protected $signature = 'master:create {email : Input your email}';
+    protected $signature = 'master:create {email : Input your email} {password : Input your password}';
 
     /**
      * The console command description.
@@ -46,7 +47,7 @@ class MasterCreate extends Command
         $data = $this->validated();
 
         if ($this->hasMaster()) {
-            $this->error('There is already one master!');
+            $this->error('There is already a master!');
             return;
         }
 
@@ -57,12 +58,14 @@ class MasterCreate extends Command
 
         $manager = '';
 
+        $data['password'] = Hash::make($data['password']);
+
+        $data['name'] = 'Master';
+
         DB::transaction(function () use (&$manager, $data, $role) {
             $manager = User::create($data);
             $manager->roles()->attach($role->id);
         });
-
-        $manager->sendEmailVerificationNotification();
 
         $this->line('Email has been send, please checkout!');
     }
@@ -77,11 +80,13 @@ class MasterCreate extends Command
     {
         $data = [
             'email' => $this->argument('email'),
-            'name' => 'Master'
+            'name' => 'Master',
+            'password' => $this->argument('password')
         ];
 
         $validator = Validator::make($data, [
-            'email' => 'required|email|unique:user'
+            'email' => 'required|email|unique:user',
+            'password' => 'required'
         ]);
 
         if ($validator->fails()) {
