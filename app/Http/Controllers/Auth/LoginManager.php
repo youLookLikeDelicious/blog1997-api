@@ -18,8 +18,8 @@ class LoginManager extends Manager implements Factory
     protected function createGithubDriver()
     {
         $config = [
-            'CLIENT_ID' => env('GIT_CLIENT_ID'),
-            'SECRET' => env('GIT_SECRET')
+            'CLIENT_ID' => config('app.git_client_id'),
+            'SECRET' => config('app.git_secret')
         ];
 
         return $this->buildProvider(
@@ -35,8 +35,8 @@ class LoginManager extends Manager implements Factory
     protected function createWechatDriver()
     {
         $config = [
-            'APP_ID' => env('WECHAT_APP_ID'),
-            'SECRET' => env('WECHAT_SECRET')
+            'APP_ID' => config('app.wechat_app_id'),
+            'SECRET' => config('app.wechat_secret')
         ];
 
         return $this->buildProvider(

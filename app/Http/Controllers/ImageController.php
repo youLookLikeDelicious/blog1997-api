@@ -21,7 +21,7 @@ class ImageController extends Controller
      */
     public function find(Request $request, $type, $dir, $name)
     {
-        $cookie = Cookie::get(env('APP_NAME') . '_session');
+        $cookie = Cookie::get(config('app.name') . '_session');
 
         if (!$cookie && !App::runningUnitTests()) {
             abort(404);

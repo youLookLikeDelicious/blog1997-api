@@ -64,7 +64,7 @@ class ChaosSEO extends Command
         $this->sitemapXSL2 =  include(__DIR__ . '/stubs/sitemap.xsl.2.stub.php');
         
         $this->sitemapXML = file_get_contents(__DIR__ . '/stubs/sitemap.xml.stub'); 
-        $this->sitemapXML = str_replace('APP_URL', env('APP_URL'), $this->sitemapXML);
+        $this->sitemapXML = str_replace('APP_URL', config('app.url'), $this->sitemapXML);
     }
 
     /**
@@ -79,7 +79,7 @@ class ChaosSEO extends Command
         $this->attemptUpdateGitIgnore();
 
         // 向SiteMap模型中插入sitemap.xml的记录
-        $url = env('APP_URL') . '/sitemap.xml';
+        $url = config('app.url') . '/sitemap.xml';
 
         // 判断模型中是否有记录
         $count = SiteMap::selectRaw('count(id) as count')->first()->count;

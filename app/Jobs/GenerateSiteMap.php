@@ -73,7 +73,7 @@ class GenerateSiteMap implements ShouldQueue
 
         $this->pathLevel = $pathLevel;
 
-        $this->linkMaxNum = env('SITEMAP_MAX_NUM', 1000);
+        $this->linkMaxNum = config('app.sitemap_max_num');
     }
     
     /**
@@ -83,7 +83,7 @@ class GenerateSiteMap implements ShouldQueue
      */
     public function handle(SiteMap $siteMapModel)
     {
-        $appUrl = env('APP_URL', 'http://www.example.com');
+        $appUrl = config('app.url');
 
         // 获取请求的地址
         $requestLink =  $appUrl. '/' .$this->requestUrl;
@@ -213,7 +213,7 @@ class GenerateSiteMap implements ShouldQueue
      * 创建二级sitemap
      */
     public function createTwoLevelSiteMap ($path) {
-        $appUrl = env('APP_URL', 'http://www.example.com');
+        $appUrl = config('app.url');
 
         $content = <<< EOT
 <?xml version="1.0" encoding="utf-8"?>

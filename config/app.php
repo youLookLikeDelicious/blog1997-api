@@ -231,5 +231,12 @@ return [
         'Upload'  => App\Facades\Upload::class,
         'SensitiveWord' => App\Facades\SensitiveWord::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
-    ]
+    ],
+    'git_client_id' => env('GIT_CLIENT_ID'),
+    'git_secret' => env('GIT_SECRET'),
+    'wechat_app_id' => env('WECHAT_APP_ID'),
+    'wechat_secret' => env('WECHAT_SECRET'),
+    'sitemap_max_num' => env('SITEMAP_MAX_NUM', 1000),
+    // 高德地图密钥
+    'gmap_key' => env('GMAP_KEY')
 ];

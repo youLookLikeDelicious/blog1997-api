@@ -40,7 +40,7 @@ class Article extends FormRequest
     {
         $rules = [
             'title' => 'sometimes|required|max:72',
-            'topic_id' => 'required|integer',
+            'topic_id' => 'required',
             'is_origin' => 'sometimes|required|in:yes,no',
             'order_by' => 'sometimes|sometimes|integer',
             'content' => 'required|max:30000',
