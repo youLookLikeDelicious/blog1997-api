@@ -8,6 +8,7 @@ use App\Model\Article;
 use App\Model\ArticleBackUp;
 use App\Events\UpdateArticleEvent;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class ArticleObserver
@@ -80,14 +81,15 @@ class ArticleObserver
                 $this->incrementCounter($article);
             }
         }
-        
 
         // 如果更改了content字段，判断图片是否有删除，如果有，从硬盘中删除图片
         if ($article->isDirty('content')) {
             event(new UpdateArticleEvent($article));
         }
+
+        // 清除缓存
+        Cache::forget('article-' . $article->id);
         
-        // 处理相关的图片
         Log::info($message, ['operate' => 'update', 'result' => 'success']);        
     }
 

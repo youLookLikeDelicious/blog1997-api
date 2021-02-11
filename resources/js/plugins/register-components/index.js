@@ -20,6 +20,10 @@ Vue.use(umeditor)
 
 Vue.use({
     install(Vue) {
+        window.UMEDITOR_CONFIG.whiteList.script = ['src', 'onload']
+        window.UMEDITOR_CONFIG.whiteList.div.push(...['v-for', ':key'])
+        window.UMEDITOR_CONFIG.whiteList['transition-group'] = ['name', 'tag', 'class']
+        window.UMEDITOR_CONFIG.whiteList.button = ['v-on:click']
         Vue.component('prompt-message', promptMessage)
         Vue.component('waiting', waiting)
         Vue.component('pagination', pagination)

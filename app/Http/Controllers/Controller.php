@@ -30,8 +30,9 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        $this->cacheDriver = env('CACHE_DRIVER');
+        $this->cacheDriver = config('cache.default');
     }
+    
     /**
      * 数据库开始事务
      *

@@ -140,7 +140,6 @@
 </template>
 
 <script>
-import { initMap } from '@blog1997/vue-umeditor'
 import marked from '~/components/global/marked/marked'
 const defaultArticleModel = {
   title: '',
@@ -380,8 +379,6 @@ export default {
       // 提取标签的id
       this.articleModel = { ...article, tags: [...tags] }
       this.articleOriginModel = { ...article, tags: [...tags] }
-
-      initMap()
     },
     /**
      * 获取所有专题列表
@@ -535,6 +532,7 @@ export default {
   .edui-body-container {
     min-height: 0 !important;
     @extend %scroll-bar;
+    line-height: 3rem;
   }
   // 富文本相关样式 --end
   .create-article-table {
@@ -611,10 +609,13 @@ export default {
     pre {
       line-height: 2.6rem;
       word-break: break-all;
-      white-space: normal;
     }
     textarea {
       height: 100% !important;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
     }
   }
   header {

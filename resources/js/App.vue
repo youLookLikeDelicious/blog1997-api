@@ -77,7 +77,6 @@ export default {
           for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
               this.$lazy()
-              this.$initFormula()
             }
           }
         }

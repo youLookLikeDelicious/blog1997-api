@@ -77,7 +77,7 @@ class LoggerFormat extends NormalizerFormatter
      */
     protected function getLocationByIp ($ip)
     {
-        if (!filter_var($ip, FILTER_VALIDATE_IP) || !env('GMAP_KEY')) {
+        if (!filter_var($ip, FILTER_VALIDATE_IP) || !config('app.gmap_key')) {
             return '未识别的ip';
         }
 

@@ -105,10 +105,6 @@ abstract class ProviderAbstract
             return $this->sendLockoutResponse($this->request);
         }
 
-        if ($this->isRequestToAdmin() && !Gate::forUser($user)->allows('visit-admin')) {
-            return $this->sendFailedLoginResponse();
-        }
-
         $this->clearLoginAttempts($this->request);
 
         return $this->sendLoginResponse($user);
@@ -202,7 +198,7 @@ abstract class ProviderAbstract
             $user = UserModel::create([
                 'name' => $vendorInfo['name'],
                 'avatar' => $vendorInfo['avatar'],
-                'email' => $socialAccount->foreign_id . '@' . $socialAccount->type . 'com'
+                'email' => $socialAccount->foreign_id . '@' . $socialAccount->type . '.com'
             ]);
 
             $socialAccount->user()->associate($user);
