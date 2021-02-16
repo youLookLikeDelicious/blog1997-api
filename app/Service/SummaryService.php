@@ -19,7 +19,7 @@ class SummaryService
         preg_match('/<!\-\-\s*more\s*\-\->/', $content, $match);
 
         if ($match) {
-            $morePosition = strpos($content, $match[0]);
+            $morePosition = mb_strpos($content, $match[0]);
             return mb_substr($content, 0, $morePosition);
         }
 

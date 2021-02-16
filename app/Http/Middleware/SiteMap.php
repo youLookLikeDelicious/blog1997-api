@@ -23,7 +23,7 @@ class SiteMap
         // $request->path e.g. api/article/1 get参数不会获取
         $url = str_replace('api', '', $request->path());
         
-        $model = Model::select('id', 'sitemap_url')->where('sitemap_url', config('app.url') . $url)->first();
+        $model = Model::select('id', 'sitemap_url')->where('sitemap_url', config('app.url') . '/' . $url)->first();
         
         if (!$model ) {
             GenerateSiteMap::dispatch($url, $priority, $frequent, $twoLevelPath);
