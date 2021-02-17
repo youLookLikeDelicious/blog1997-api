@@ -81,7 +81,7 @@ class LoggerFormat extends NormalizerFormatter
             return '未识别的ip';
         }
 
-        $result = CurlService::make('https://restapi.amap.com/v3/ip?ip='. $ip .'&output=json&key=');
+        $result = CurlService::make('https://restapi.amap.com/v3/ip?ip='. $ip .'&output=json&key=' . config('app.gmap_key'));
         
         $result = json_decode($result);
 
