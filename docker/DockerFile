@@ -56,5 +56,4 @@ USER www
 #
 FROM nginx:stable-alpine as nginx
 
-COPY . /var/www
-COPY --from=vendor /app/vendor/ /var/www/vendor/
+COPY ./public/ /var/www/public/
