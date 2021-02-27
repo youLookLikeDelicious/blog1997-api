@@ -22,7 +22,7 @@ class MigrateArticleCache
         $GLOBALS['startTime'] = microtime(true);
 
         foreach($ids as $id) {
-            $key = "article-{$id}";
+            $key = "article-{$id}-cache";
 
             if (!Cache::has($key)) {
                 continue;

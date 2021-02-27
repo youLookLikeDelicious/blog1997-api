@@ -103,7 +103,7 @@ class CacheModel
      */
     protected function getCacheKey($type, $id)
     {
-        return "{$type}-{$id}";
+        return "{$type}-{$id}-cache";
     }
 
     /**

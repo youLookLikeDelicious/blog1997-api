@@ -44,6 +44,7 @@ RUN chmod 0644 /etc/cron.d/laravel-schedule
 RUN crontab /etc/cron.d/laravel-schedule
 
 RUN chmod -R 0777 /var/www/bootstrap/
+RUN chmod -R 0777 /var/www/public/
 
 # Config supervisor to manager queue job
 RUN touch /var/log/supervisor.log
