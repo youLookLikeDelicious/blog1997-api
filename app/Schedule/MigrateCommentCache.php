@@ -20,7 +20,7 @@ class MigrateCommentCache
         }
 
         foreach($ids as $id) {
-            $key = "comment-{$id}";
+            $key = "comment-{$id}-cache";
 
             if (!Cache::has($key)) {
                 continue;
