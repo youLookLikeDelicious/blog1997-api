@@ -161,7 +161,6 @@ export default {
      */
     setOriginModel(origin) {
       this.originModel = { ...origin }
-      console.log(this.originModel)
     },
     /**
      * 获取Email的配置信息

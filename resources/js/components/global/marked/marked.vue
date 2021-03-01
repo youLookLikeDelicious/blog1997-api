@@ -83,14 +83,11 @@ export default {
      * @param {array} images
      */
     appendImageContent(images) {
-      console.log(images)
       let content = '\n'
 
       images.forEach((image) => {
         content += `![](${image})\n`
       })
-
-      console.log(content)
 
       this.content += content
     },

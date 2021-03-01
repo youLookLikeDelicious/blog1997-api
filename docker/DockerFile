@@ -39,7 +39,7 @@ COPY --from=vendor /app/vendor/ /var/www/vendor/
 
 # Add laravel schedule job
 COPY ./docker/laravel-schedule /etc/cron.d/laravel-schedule
-RUN chmod 0644 /etc/cron.d/laravel-schedule
+RUN chmod 0777 /etc/cron.d/laravel-schedule
 # Apply cron job
 RUN crontab /etc/cron.d/laravel-schedule
 

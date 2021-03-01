@@ -54,7 +54,7 @@
                   @click="clickCheckBox($event, index)"
                 />
               </td>
-              <td>{{ (data.pagination.currentPage - 1) * 20 + index + 1 }}</td>
+              <td>{{ index | filterListNumber(data.pagination.currentPage) }}</td>
               <td class="text-align-left">
                 <avatar :user="item.user" />
               </td>

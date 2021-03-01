@@ -35,7 +35,7 @@
             <th>操作</th>
           </tr>
           <tr v-for="(manager, index) in data.records" :key="index">
-            <td>{{ index + 1 }}</td>
+            <td>{{ index | filterListNumber(data.pagination.currentPage) }}</td>
             <td>{{ manager.name }}</td>
             <td>{{ manager.email }}</td>
             <td class="manager-role-wrapper">
@@ -100,7 +100,6 @@ export default {
      */
     selectedModel() {
       if (this.selectedIndex === "" || !this.records.length) {
-        console.log(this.selectedIndex)
         return {};
       }
 

@@ -90,7 +90,6 @@ export default {
     this.observe()
   },
   beforeDestroy() {
-    console.log('destroy')
     this.observer.disconnect()
     this.observer = ''
   },

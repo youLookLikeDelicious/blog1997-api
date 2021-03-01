@@ -26,7 +26,7 @@
           </tr>
           <tr v-for="(item, index) in data.records" :key="item.id">
             <template v-if="!item.editAble">
-              <td class="relative-position">{{ (data.pagination.currentPage - 1) * 20 + index + 1 }}</td>
+              <td class="relative-position">{{ index | filterListNumber(data.pagination.currentPage) }}</td>
               <td>
                 <a :href="item.url" target="_blank">{{ item.name }}</a>
               </td>

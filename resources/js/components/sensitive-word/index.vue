@@ -91,7 +91,7 @@
                   @click="clickCheckBox($event, index)"
                 />
               </td>
-              <td>{{ index + 1 }}</td>
+              <td>{{ index | filterListNumber(data.pagination.currentPage) }}</td>
               <td>{{ sensitiveWord.word }}</td>
               <td>
                 {{
@@ -170,7 +170,6 @@ export default {
       if (categeoryId === this.filter.category_id) {
         this.$children[0].reload()
       } else {
-        console.log('search')
         this.filter.category_id = categeoryId
         this.search()
       }

@@ -38,7 +38,7 @@
               </td>
             </template>
             <template v-else>
-              <td class="relative-position">{{ (data.pagination.currentPage - 1) * 20 + index + 1 }}</td>
+              <td class="relative-position">{{ index | filterListNumber(data.pagination.currentPage) }}</td>
               <td>
                 <div class="editable-wrapper">
                   <router-link :to="'/article/' + item.id">{{
