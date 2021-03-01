@@ -30,10 +30,14 @@ class ResetPasswordsController extends Controller
      */
     public function showResetForm(Request $request, $token = null)
     {
+        if (!$request->hasValidSignature()) {
+            abort(401);
+        }
+        
         if (!$request->input('email')) {
             abort(404);
         }
-
+        
         return view('auth.auth');
     }
 

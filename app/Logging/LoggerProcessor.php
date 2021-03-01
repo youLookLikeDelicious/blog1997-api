@@ -17,7 +17,7 @@ class LoggerProcessor
         $record['extra'] = [
             'created_at' => time(),
             'user_id' => Auth::id() ?? 0,
-            'ip' => $request->ip(),
+            'ip' => $_SERVER["HTTP_CF_CONNECTING_IP"] ?? $request->ip(),
             'port' => $request->server('REMOTE_POST') ?: '',
             'origin' => $request->headers->get('origin') ?: '',
             'user_agent' => $request->server('HTTP_USER_AGENT') ?: '',
