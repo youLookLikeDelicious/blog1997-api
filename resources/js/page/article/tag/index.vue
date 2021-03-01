@@ -45,7 +45,7 @@
                   href="/"
                   >▼</a
                 >
-                <span>&nbsp;&nbsp; {{ index + 1 }} </span></span
+                <span>&nbsp;&nbsp; {{ index | filterListNumber(data.pagination.currentPage) }} </span></span
               >
               <span>
                 {{ tag.name }}

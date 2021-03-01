@@ -44,7 +44,7 @@
             <tr v-for="(item, index) in data.records" :key="index">
               <template v-if="!item.editAble">
                 <td class="relative-position">
-                  {{ (data.pagination.currentPage - 1) * 20 + index + 1 }}
+                  {{ index | filterListNumber(data.pagination.currentPage) }}
                 </td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.rank | sensitiveWordRank }}</td>

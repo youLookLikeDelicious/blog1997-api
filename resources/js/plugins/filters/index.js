@@ -56,10 +56,20 @@ function mailboxType (type) {
 function dateFormat (unixTimestamp) {
   return new Date(unixTimestamp * 1000).toLocaleString()
 }
+
+function filterListNumber (index, currentPage) {
+  if (currentPage < 1) {
+    currentPage = 1
+  }
+  
+  return (currentPage - 1) * 20 + index + 1
+}
+
 Vue.use({
   install(vue) {
     vue.filter('mailboxType', mailboxType)
     vue.filter('sensitiveWordRank', sensitiveWordRank)
     vue.filter('dateFormat', dateFormat)
+    vue.filter('filterListNumber', filterListNumber )
   }
 })

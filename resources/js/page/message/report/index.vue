@@ -73,7 +73,7 @@
             <td class="text-no-wrap">操作</td>
           </tr>
           <tr v-for="(item, index) in data.records" :key="item.id">
-            <td class="text-no-wrap">{{ index + 1 }}</td>
+            <td class="text-no-wrap">{{ index | filterListNumber(data.pagination.currentPage) }}</td>
             <td class="text-no-wrap">
               <i
                 :class="[

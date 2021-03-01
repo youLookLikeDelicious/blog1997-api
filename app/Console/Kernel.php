@@ -29,12 +29,12 @@ class Kernel extends ConsoleKernel
         // 将redis中的数据入库
         //  $schedule->call(new MigrateCacheData)->dailyAt('3:00');
         $schedule->call(new MigrateCommentCache)
-            ->dailyAt('01:00')
+            ->dailyAt('1:00')
             ->name('migrateCommentRedisData')
             ->withoutOverlapping();
 
         $schedule->call(new MigrateArticleCache)
-            ->dailyAt('01:00')
+            ->dailyAt('1:00')
             ->name('migrateArticleRedisData')
             ->withoutOverlapping();
     }

@@ -25,7 +25,7 @@
             <th>操作</th>
           </tr>
           <tr v-for="(role, index) in data.records" :key="index">
-            <td>{{ index + 1 }}</td>
+            <td>{{ index | filterListNumber(data.pagination.currentPage) }}</td>
             <td>{{ role.name }}</td>
             <td>{{ role.remark }}</td>
             <td>
