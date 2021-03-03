@@ -54,7 +54,7 @@ class Article implements RepositoryArticle
     {
         $id = $this->decodeArticleId($id);
         
-        $articleRecord = Cache::remember('article-' . $id, (5 * 60 * 60 + mt_rand(0, 500)), function () use ($id) {
+        $articleRecord = Cache::remember('article-' . $id, (3 * 60 * 60 + mt_rand(0, 100)), function () use ($id) {
             return $this->article
                 ->withAuthorAndGalleryAndThumbs()
                 ->with('tags:id,name')

@@ -38,10 +38,11 @@ COPY --chown=www:www . /var/www
 COPY --from=vendor /app/vendor/ /var/www/vendor/
 
 # Add laravel schedule job
+COPY ./docker/laravel.sh /root/laravel.sh
 COPY ./docker/laravel-schedule /etc/cron.d/laravel-schedule
-RUN chmod 0777 /etc/cron.d/laravel-schedule
-# Apply cron job
-RUN crontab /etc/cron.d/laravel-schedule
+RUN chmod 0777 /etc/cron.d/laravel-schedule && \
+    chmod 0755 /root/laravel.sh && \
+    crontab /etc/cron.d/laravel-schedule
 
 RUN chmod -R 0777 /var/www/bootstrap/
 RUN chmod -R 0777 /var/www/public/
