@@ -73,6 +73,11 @@ class Article implements RepositoryArticle
             $articleRecord['liked'] += $cachedLiked;
         }
 
+        // 获取访问量
+        if ($cachedVisited = CacheModel::getArticleVisited($id)) {
+            $articleRecord['visited'] += $cachedVisited;
+        }
+
         // 获取评论的数量
         if ($cachedCommented = CacheModel::getArticleCommented($id)) {
             $articleRecord['commented'] += $cachedCommented;
@@ -229,7 +234,7 @@ class Article implements RepositoryArticle
      */
     public function getTopTen(): array
     {
-        $popArticle = $this->article->selectRaw('to_base64(id) as id, title, visited, created_at')
+        $popArticle = $this->article->selectRaw('to_base64(id) as identity, title, visited, created_at')
             ->orderBy('visited', 'DESC')
             ->limit(7)
             ->get();
