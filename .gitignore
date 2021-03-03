@@ -2,6 +2,7 @@
 /public/hot
 /storage/*.key
 /vendor
+.VSCodeCounter/
 .env
 .env.testing
 .phpunit.result.cache

@@ -21,7 +21,7 @@ class IndexController extends Controller
      */
     public function index(Request $request, Article $article, Comment $comment)
     {
-        $result = Cache::remember('home.list', (6 * 60 * 60 + mt_rand(0, 500)), function () use ($request, $article) {
+        $result = Cache::remember('home.list', (2 * 60 * 60 + mt_rand(0, 100)), function () use ($request, $article) {
             return $article->all($request);
         }); 
 

@@ -10,12 +10,6 @@
       @blur="blurInput($event)"
       @focus="focus($event)"
     />
-    <!-- <span
-      v-if="this.type === 'password'"
-      class="icofont-eye eye-btn"
-      @mousedown="currentType = 'text'"
-      @mouseup="currentType = type"
-    ></span> -->
     <div class="hr-wrap">
       <hr />
     </div>
