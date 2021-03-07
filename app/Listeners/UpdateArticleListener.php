@@ -34,7 +34,7 @@ class UpdateArticleListener implements ShouldQueue
 
     /**
      * Handle the event.
-     * 删除更新后，移除的图片
+     * 删除 更新后移除的图片
      *
      * @param  object  $event
      * @return void

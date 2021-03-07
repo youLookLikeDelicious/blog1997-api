@@ -49,6 +49,7 @@
     </div>
     <div class="editor-setting">
       <a href="/" @click.prevent>. . .</a>
+      <span class="letter-counter">{{ articleModel.content.length }}字</span>
     </div>
     <!-- 发布文章对话框 --begin -->
     <v-dialog
@@ -331,7 +332,7 @@ export default {
 
       // 更新文章操作
       if (this.articleModel.id) {
-        requestUrl += this.articleModel.id
+        requestUrl += this.articleModel.article_id || this.articleModel.id
         this.articleModel._method = 'PUT'
       }
 
@@ -659,6 +660,11 @@ export default {
     color: #fff;
     font-weight: bolder;
     padding-left: 2rem;
+    .letter-counter{
+      font-size: 1.3rem;
+      font-weight: normal;
+      margin-left: 2rem;
+    }
   }
   .upload-articke-cover {
     margin-right: 0.7rem;
