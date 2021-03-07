@@ -56,11 +56,12 @@ class ArticleObserver
     {
         $message = '文章保存成功';
 
-        $this->deleteDraft($article);
+        // 如果是没有发布的草稿,不进行删除
+        if (!(!$article->isDirty('is_draft') && $article->isDraft())) {
+            $this->deleteDraft($article);
+        }
 
         if ($article->isDirty('is_draft')) {
-
-
             // 将已有的文章，保存为草稿
             // 删除该文章对应的草稿
             // 创建一个草稿
@@ -129,16 +130,8 @@ class ArticleObserver
      */
     protected function deleteDraft(Article $article)
     {
-        $deleteId = $article->isDraft() ?
-            $article->article_id
-            : $article->id;
-
-        if (!$deleteId) {
-            return;
-        }
-        
         Article::where('user_id', auth()->id())
-            ->where('article_id', $deleteId)
+            ->where('article_id', $article->article_id)
             ->where('is_draft', 'yes')
             ->delete();
     }

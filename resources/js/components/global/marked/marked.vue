@@ -5,7 +5,7 @@
     @drop.prevent
     @drop="dropImage"
   >
-    <textarea ref="textarea" v-model="content" name="" spellcheck="false" @scroll="syncScroll"></textarea>
+    <textarea ref="textarea" v-model="content" name="" spellcheck="false" @scroll="syncScroll" @paste="paste"></textarea>
     <div ref="preview" class="marked-content" v-html="markedContent"></div>
   </div>
 </template>
@@ -114,6 +114,17 @@ export default {
         top: scrollTop,
         behavior: 'smooth'
       })
+    },
+    /**
+     * 处理粘贴事件
+     * 
+     * @param {Event} event
+     */
+    paste (event) {
+      const clipboardData  = event.clipboardData || window.clipboardData
+      if (clipboardData.files.length) {
+        this.uploadImage(clipboardData.files)
+      }
     }
   },
 }
@@ -134,15 +145,20 @@ export default {
   }
   textarea {
     padding: 1rem 2rem !important;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     @extend %scroll-bar;
+    line-height: 3rem;
   }
 }
 .marked-content {
   box-sizing: border-box;
-  padding: 1rem 2rem;
+  padding: 1rem 3rem 5rem 3rem;
   font-size: 1.6rem;
   overflow: auto;
+  line-height: 3rem;
+  h1, h2, h3, h4, h5, h6 {
+    margin: 1.2rem 0;
+  }
   @extend %scroll-bar;
   img {
     max-width: 100%;
