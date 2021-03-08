@@ -84,7 +84,7 @@ class Article extends FormRequest
         }
 
         if (!empty($result['cover']) && is_uploaded_file($result['cover'])) {
-            // 将封面上传大服务器上
+            // 将封面上传到服务器上
             $result['gallery_id'] = $this->getGalleryId($result['cover']);
         } else if (!isset($this->route()->parameters()['article'])) {
             // 如果没有gallery id,自动从相册中生成一个封面

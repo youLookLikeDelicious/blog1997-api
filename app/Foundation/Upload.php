@@ -181,7 +181,7 @@ class Upload
      * @param string $height
      * @return this
      */
-    public function createThumbnail($width = '450', $height = '')
+    public function createThumbnail($width = '100', $height = '')
     {
         $fileList = $this->getFileList();
 

@@ -21,7 +21,8 @@ class UploadController extends Controller
         $data = $request->validated();
         
         // 开始上传
-        $upload  = Upload::uploadImage($data['files'], $category);
+        $upload  = Upload::uploadImage($data['files'], $category)
+            ->createThumbnail();
 
         $result = $upload->getFileList($request->input('with-size') == 1);
 
