@@ -139,8 +139,8 @@ class Article implements RepositoryArticle
      */
     public function find($id)
     {
-        $article = $this->model->select(['id', 'title', 'is_origin', 'topic_id', 'is_markdown', 'content', 'order_by', 'article_id', 'user_id', 'is_draft'])
-            ->with('tags:id')
+        $article = $this->model->select(['id', 'title', 'gallery_id', 'is_origin', 'topic_id', 'is_markdown', 'content', 'order_by', 'article_id', 'user_id', 'is_draft'])
+            ->with(['tags:id', 'gallery:id,url'])
             ->findOrFail($id)
             ->toArray();
 

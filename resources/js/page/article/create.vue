@@ -103,7 +103,7 @@
           <td>封面:</td>
           <td>
             <img
-              v-if="articleModel.cover"
+              v-if="coverSrc"
               class="article-cover"
               :src="coverSrc"
               alt="封面"
@@ -167,6 +167,7 @@ export default {
       },
       tags: [],
       editorVisibility: false,
+      coverSrc: ''
     }
   },
   components: {
@@ -220,17 +221,7 @@ export default {
     },
     routeId() {
       return this.$route.params.id
-    },
-    coverSrc() {
-      if (!this.articleModel.cover) {
-        return ''
-      }
-      if ('string' === typeof this.articleModel.cover) {
-        return this.articleModel.cover
-      }
-
-      return URL.createObjectURL(this.articleModel.cover)
-    },
+    }
   },
   created() {
     this.getFormData().then(this.createdCallBack)
@@ -364,6 +355,8 @@ export default {
           this.initArticle(article)
           // 配置面包屑的状态
           this.setBreadInfo(article)
+          // 设置封面
+          this.setCoverSrc(article.gallery.url)
         })
     },
     /**
@@ -427,6 +420,7 @@ export default {
         return
       }
       this.articleModel.cover = cover
+      this.setCoverSrc(cover)
     },
     /**
      * 切换编辑器的状态
@@ -482,6 +476,20 @@ export default {
           name: topic.name,
         })
       }
+    },
+    /**
+     * 设置封面的地址
+     */
+    setCoverSrc(cover) {
+      if (!cover) {
+        return
+      }
+      
+      if ('string' === typeof cover) {
+        return this.coverSrc = cover + '?t=origin'
+      }
+
+      this.coverSrc = URL.createObjectURL(cover)
     },
   },
 }

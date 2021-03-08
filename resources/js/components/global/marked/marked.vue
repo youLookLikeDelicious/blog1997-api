@@ -52,10 +52,6 @@ export default {
         }
       }
 
-      if (!images.length) {
-        return
-      }
-
       this.uploadImage(images)
     },
     /**
@@ -65,7 +61,10 @@ export default {
      * @return {void}
      */
     uploadImage(images) {
-      let content = '\n'
+      if (!images.length) {
+        return
+      }
+
       const formData = new FormData()
 
       images.forEach((image) => {
@@ -123,7 +122,7 @@ export default {
     paste (event) {
       const clipboardData  = event.clipboardData || window.clipboardData
       if (clipboardData.files.length) {
-        this.uploadImage(clipboardData.files)
+        this.uploadImage(Array.prototype.slice.call(clipboardData.files, 0).filter(file => /^image\/[a-zA-Z]*/.test(file.type)))
       }
     }
   },

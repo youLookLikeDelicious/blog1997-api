@@ -58,13 +58,8 @@ class ImageController extends Controller
             $ext = $preExit;
         }
 
-        switch ($request->input('t', $type === 'article' ? 'thumbnail' : '')) {
-            case 'min':
-                $name .= '.min';
-                break;
-            case 'thumbnail':
-                $ext = '.thumbnail';
-                break;
+        if (!$request->input('t') && $type !== 'avatar') {
+            $name .= '.min';
         }
 
         // 生成文件路径
