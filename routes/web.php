@@ -45,5 +45,5 @@ Route::get('/admin/{any?}', 'Admin\VueController@index')
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/{sitemap}', function ($sitemap) {
-    return response()->file(public_path($sitemap));
+    return response()->file(storage_path("sitemap/{$sitemap}"));
 })->where('sitemap', 'sitemap.*');

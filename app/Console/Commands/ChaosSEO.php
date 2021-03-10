@@ -73,10 +73,12 @@ class ChaosSEO extends Command
      * @return mixed
      */
     public function handle()
-    {        
+    {
+        if (!is_dir(storage_path('sitemap'))) {
+            mkdir(storage_path('sitemap'), 0777, true);
+        }
+        
         $this->initXMLFile();
-
-        $this->attemptUpdateGitIgnore();
 
         // 向SiteMap模型中插入sitemap.xml的记录
         $url = config('app.url') . '/sitemap.xml';
@@ -106,14 +108,14 @@ class ChaosSEO extends Command
      */
     public function initXMLFile () {
         // 获取public下的文件列表
-        $fileList = scandir(public_path());
+        $fileList = scandir(storage_path('sitemap'));
         $fileList = array_filter($fileList, function ($v) {
             return strpos($v, 'sitemap') === 0;
         });
 
         if ($fileList) {
             array_map(function ($v) {
-                unlink(public_path($v));
+                unlink($this->getFile($v));
             }, $fileList);
         }
 
@@ -129,22 +131,6 @@ class ChaosSEO extends Command
     }
 
     /**
-     * 更新 .gitignore文件 
-     * 
-     * @return void
-     */
-    public function attemptUpdateGitIgnore () {
-        $gitIgnoreFilePath = base_path('.gitignore');
-        if (is_file($gitIgnoreFilePath)) {
-            $gitIgnoreContent = file_get_contents($gitIgnoreFilePath);
-            $appendContent = '/public/sitemap*';
-            if (strpos($gitIgnoreContent, $appendContent) === false) {
-                file_put_contents($gitIgnoreFilePath, "\n" . $appendContent, FILE_APPEND);
-            }
-        }
-    }
-
-    /**
      * 获取网站地图相关的文件
      */
     public function getFile ($fileName) {
@@ -154,7 +140,7 @@ class ChaosSEO extends Command
 
         return $this->runningUnitTests()
             ? base_path("tests/{$fileName}")
-            : public_path($fileName);
+            : storage_path("sitemap/{$fileName}");
     }
 
     /**
