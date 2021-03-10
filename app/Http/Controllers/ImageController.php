@@ -58,7 +58,9 @@ class ImageController extends Controller
             $ext = $preExit;
         }
 
-        if (!$request->input('t') && $type !== 'avatar') {
+        $t = $request->input('t');
+
+        if ((!$t  && $type === 'article') || $t === 'min') {
             $name .= '.min';
         }
 

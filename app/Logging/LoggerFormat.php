@@ -13,7 +13,7 @@ class LoggerFormat extends NormalizerFormatter
      * @var array
      */
     protected $operate_list = [
-        'log','update','delete','create','login','logout','register'
+        'log','update','delete','create','login','logout','register', 'queue', 'schedule'
     ];
 
     /**

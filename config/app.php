@@ -238,5 +238,7 @@ return [
     'wechat_secret' => env('WECHAT_SECRET'),
     'sitemap_max_num' => env('SITEMAP_MAX_NUM', 1000),
     // 高德地图密钥
-    'gmap_key' => env('GMAP_KEY')
+    'gmap_key' => env('GMAP_KEY'),
+    // 百度api推送token
+    'baiduToken' => env('BAIDU_TOKEN', '')
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Events\pushArticleByApi;
 use App\Model\User;
 use App\Model\Topic;
 use App\Model\Article;
@@ -43,6 +44,8 @@ class ArticleObserver
             Article::where('id', $article->id)->limit(1)->update([
                 'article_id' => $article->id
             ]);
+        } else {
+            event(new pushArticleByApi($article));
         }
     }
 
