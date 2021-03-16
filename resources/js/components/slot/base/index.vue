@@ -250,7 +250,7 @@ export default {
       model.append('_method', 'PUT')
 
       return this.$axios
-        .post(`${this.requestApi}/${id}`, model)
+        .post(`${this.getBaseUrl()}/${id}`, model)
         .then((response) => {
           // 没有找到元素，追加之
           if (index === -1) {

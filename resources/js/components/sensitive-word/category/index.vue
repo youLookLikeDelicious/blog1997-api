@@ -32,7 +32,7 @@
     <template v-slot:default="{ data, deleteRecord, update, edit }">
       <div>
         <!-- 分类列表开始 -->
-        <div v-if="data.records.length" class="sub-container">
+        <div class="sub-container">
           <table class="sensitive-word-category data-list">
             <tr>
               <th>#</th>

@@ -88,7 +88,13 @@ export default {
         content += `![](${image})\n`
       })
 
-      this.content += content
+      const [selectionStart, selectionEnd] = [this.$refs.textarea.selectionStart, this.$refs.textarea.selectionEnd]
+
+      if (selectionStart || selectionStart == 0) {
+        this.content = this.content.slice(0, selectionStart) + content + this.content.substring(selectionEnd)
+      } else {
+        this.content += content
+      }
     },
     /**
      * 同步textarea的值

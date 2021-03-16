@@ -1,5 +1,5 @@
 <template>
-  <base-component :request-api="requestApi" :showCreate="true">
+  <base-component :request-api="requestApi" :showCreate="true" :forceRenderContent="true">
     <!-- 搜索部分 begin -->
     <template v-slot:search="{ data, batchDelete, selectedCheckboxNum }">
       <v-input theme="box" v-model="filter.word" placeholder="敏感词"></v-input>
@@ -66,7 +66,7 @@
         </ul>
       </div>
       <!-- 数据列表部分 -->
-      <div v-if="data.records.length" class="sub-container">
+      <div class="sub-container" v-if="data.records && data.records.length">
         <table class="sensitive-word-list data-list">
           <tr>
             <th>

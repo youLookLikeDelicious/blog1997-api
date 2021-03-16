@@ -273,6 +273,6 @@ EOT;
             return base_path('tests/' . $path);
         }
 
-        return public_path($path);
+        return storage_path('sitemap/' . $path);
     }
 }
