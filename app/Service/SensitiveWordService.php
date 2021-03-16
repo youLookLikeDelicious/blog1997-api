@@ -9,22 +9,23 @@ class SensitiveWordService
 
     public function __construct(SensitiveWord $sensitiveWord)
     {
-        $this->wordList = $sensitiveWord->getWordList();
+        $wordList = $sensitiveWord->getWordList();
 
-        $this->mapWord();
+        $this->wordList = $this->mapWord($wordList);
     }
 
     /**
      * 将敏感词建成树的结构
      * 
-     * @param  array $wordList
+     * @param array $wordList
+     * @return array
      */
-    protected function mapWord () {
+    protected function mapWord ($wordList) {
         
         $mappedWord = [];
         
         // 遍历敏感词，生成一棵树
-        foreach($this->wordList as $v) {
+        foreach($wordList as $v) {
 
             // 如果该单词为空，略过
             if (!$v) {
@@ -45,7 +46,7 @@ class SensitiveWordService
             }
         }
 
-        $this->wordList = $mappedWord;
+        return $mappedWord;
     }
 
     /**
@@ -67,13 +68,13 @@ class SensitiveWordService
         // 遍历字符串数组
         foreach($strStack as $key => $v) {
 
-            if (!array_key_exists($v, $this->wordList)) {
+            if (!array_key_exists($v, $this->wordList) || !$strStack[$key] || $strStack[$key] === '*') {
                 continue;
             }
             
             // 匹配敏感词的分支
             $i = $reservedI = $key;
-            
+
             $tmpSensitiveWord = $this->wordList[$strStack[$i]];
 
             while(true) {

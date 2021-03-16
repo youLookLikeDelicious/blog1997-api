@@ -23,7 +23,8 @@ class ExtractSensitiveWordService
 
         // 读取文件中的内容
         $sensitiveWords = $request['file']->get();
-        
+
+        $sensitiveWords = strtr($sensitiveWords, ["\r" => "\n"]);
         $sensitiveWords = explode("\n", $sensitiveWords);
 
         // 移除重复的值
