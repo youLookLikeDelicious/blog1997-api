@@ -19,7 +19,7 @@ Welcome to the generated API reference.
 
 <!-- END_INFO -->
 ### Blog1997接口文档
-Blog1997是一个前后端分离的博客系统。前端使用Nuxt，实现vue的服务端渲染（ssr）,后端使用Laravel + mysql + redis。
+Blog1997是一个前后端分离的博客系统。前端使用Nuxt，实现vue的服务端渲染（ssr）,后端使用Laravel + mysql + redis进行开发。
 
 
 #Admin dashboard
@@ -121,7 +121,7 @@ print_r(json_decode((string) $body));
 
 文章管理
 <!-- START_4d5c7350ec672e48b09a66d7c114a534 -->
-## restore
+## Restore article from recycle bin
 
 还原删除的文章
 restore deleted article
@@ -130,7 +130,7 @@ restore deleted article
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/article/restore/reiciendis"
+    "https://www.blog1997.com/api/admin/article/restore/delectus"
 );
 
 let headers = {
@@ -150,7 +150,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->post(
-    'https://www.blog1997.com/api/admin/article/restore/reiciendis',
+    'https://www.blog1997.com/api/admin/article/restore/delectus',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -193,9 +193,9 @@ const url = new URL(
 );
 
 let params = {
-    "topicId": "qui",
-    "type": "a",
-    "order-by": "voluptatum",
+    "topicId": "laudantium",
+    "type": "est",
+    "order-by": "excepturi",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -224,9 +224,9 @@ $response = $client->get(
             'Accept' => 'application/json',
         ],
         'query' => [
-            'topicId'=> 'qui',
-            'type'=> 'a',
-            'order-by'=> 'voluptatum',
+            'topicId'=> 'laudantium',
+            'type'=> 'est',
+            'order-by'=> 'excepturi',
         ],
     ]
 );
@@ -457,14 +457,14 @@ let headers = {
 
 let body = {
     "tags": [
-        "qui"
+        "rerum"
     ],
-    "title": "alias",
-    "content": "qui",
-    "is_draft": "itaque",
-    "topic_id": "dolorem",
-    "is_markdown": "qui",
-    "cover": "ducimus"
+    "title": "et",
+    "content": "illo",
+    "is_draft": "soluta",
+    "topic_id": "animi",
+    "is_markdown": "voluptatum",
+    "cover": "aut"
 }
 
 fetch(url, {
@@ -488,14 +488,14 @@ $response = $client->post(
         ],
         'json' => [
             'tags' => [
-                'qui',
+                'rerum',
             ],
-            'title' => 'alias',
-            'content' => 'qui',
-            'is_draft' => 'itaque',
-            'topic_id' => 'dolorem',
-            'is_markdown' => 'qui',
-            'cover' => 'ducimus',
+            'title' => 'et',
+            'content' => 'illo',
+            'is_draft' => 'soluta',
+            'topic_id' => 'animi',
+            'is_markdown' => 'voluptatum',
+            'cover' => 'aut',
         ],
     ]
 );
@@ -559,7 +559,7 @@ Parameter | Type | Status | Description
         `is_draft` | string |  required  | 是否是草稿,例如yes,no
         `topic_id` | string|int |  required  | 专题id或专题名称,当该值不为int类型时,会创建一个专题
         `is_markdown` | string |  required  | 是否是markdown格式
-        `cover` | image|string |  optional  | required当该值为image的时候,自动上传图片,然后返回图片url
+        `cover` | image|string |  optional  | required当该值为image的时候,自动上传图片,然后使用图片URL替换
     
 <!-- END_cfa8b14ac76694abe891a11ba1e05358 -->
 
@@ -567,13 +567,13 @@ Parameter | Type | Status | Description
 ## Show the specific article when update
 
 获取文章的内容
-如果文章不属于当前用户,无法获取文章详情(超级管理员也不行)
+如果文章不属于当前用户,无法获取文章详情
 
 > Example request:
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/article/quibusdam"
+    "https://www.blog1997.com/api/admin/article/reiciendis"
 );
 
 let headers = {
@@ -593,7 +593,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->get(
-    'https://www.blog1997.com/api/admin/article/quibusdam',
+    'https://www.blog1997.com/api/admin/article/reiciendis',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -656,14 +656,15 @@ Parameter | Status | Description
 ## Update the specific article
 
 更新文章|草稿,发布草稿
+
 用户只能修改自己的文章
-如果文章的图片被移除,尝试从本地移除该图片
+如果文章包含的图片被移除,尝试从本地存储中移除该图片
 
 > Example request:
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/article/veritatis"
+    "https://www.blog1997.com/api/admin/article/possimus"
 );
 
 let headers = {
@@ -673,14 +674,14 @@ let headers = {
 
 let body = {
     "tags": [
-        "consequatur"
+        "iste"
     ],
     "title": "earum",
-    "content": "quam",
-    "is_draft": "autem",
-    "topic_id": "minima",
-    "is_markdown": "beatae",
-    "cover": "velit"
+    "content": "repudiandae",
+    "is_draft": "officiis",
+    "topic_id": "ut",
+    "is_markdown": "ut",
+    "cover": "animi"
 }
 
 fetch(url, {
@@ -696,7 +697,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->put(
-    'https://www.blog1997.com/api/admin/article/veritatis',
+    'https://www.blog1997.com/api/admin/article/possimus',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -704,14 +705,14 @@ $response = $client->put(
         ],
         'json' => [
             'tags' => [
-                'consequatur',
+                'iste',
             ],
             'title' => 'earum',
-            'content' => 'quam',
-            'is_draft' => 'autem',
-            'topic_id' => 'minima',
-            'is_markdown' => 'beatae',
-            'cover' => 'velit',
+            'content' => 'repudiandae',
+            'is_draft' => 'officiis',
+            'topic_id' => 'ut',
+            'is_markdown' => 'ut',
+            'cover' => 'animi',
         ],
     ]
 );
@@ -768,7 +769,7 @@ Parameter | Type | Status | Description
         `is_draft` | string |  required  | 是否是草稿,例如yes,no
         `topic_id` | string|int |  required  | 专题id或专题名称,当该值不为int类型时,会创建一个专题
         `is_markdown` | string |  required  | 是否是markdown格式
-        `cover` | image|string |  optional  | required当该值为image的时候,自动上传图片,然后返回图片url
+        `cover` | image|string |  optional  | required当该值为image的时候,自动上传图片,然后使用图片URL替换
     
 <!-- END_3677bccdd0c5b6f0a0c7c4239ed66bb0 -->
 
@@ -783,7 +784,7 @@ Parameter | Type | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/article/ipsam"
+    "https://www.blog1997.com/api/admin/article/rerum"
 );
 
 let headers = {
@@ -803,7 +804,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->delete(
-    'https://www.blog1997.com/api/admin/article/ipsam',
+    'https://www.blog1997.com/api/admin/article/rerum',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -846,8 +847,8 @@ const url = new URL(
 );
 
 let params = {
-    "tag_id": "numquam",
-    "p": "facilis",
+    "tag_id": "eaque",
+    "p": "sit",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -876,8 +877,8 @@ $response = $client->get(
             'Accept' => 'application/json',
         ],
         'query' => [
-            'tag_id'=> 'numquam',
-            'p'=> 'facilis',
+            'tag_id'=> 'eaque',
+            'p'=> 'sit',
         ],
     ]
 );
@@ -968,11 +969,11 @@ Parameter | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/article/comments/eaque"
+    "https://www.blog1997.com/api/article/comments/nemo"
 );
 
 let params = {
-    "p": "amet",
+    "p": "consequatur",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -994,14 +995,14 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->post(
-    'https://www.blog1997.com/api/article/comments/eaque',
+    'https://www.blog1997.com/api/article/comments/nemo',
     [
         'headers' => [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ],
         'query' => [
-            'p'=> 'amet',
+            'p'=> 'consequatur',
         ],
     ]
 );
@@ -1093,10 +1094,10 @@ const url = new URL(
 );
 
 let params = {
-    "order_by": "qui",
-    "tag_id": "libero",
-    "keyword": "consequuntur",
-    "p": "corrupti",
+    "order_by": "nemo",
+    "tag_id": "officiis",
+    "keyword": "a",
+    "p": "cupiditate",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -1125,10 +1126,10 @@ $response = $client->post(
             'Accept' => 'application/json',
         ],
         'query' => [
-            'order_by'=> 'qui',
-            'tag_id'=> 'libero',
-            'keyword'=> 'consequuntur',
-            'p'=> 'corrupti',
+            'order_by'=> 'nemo',
+            'tag_id'=> 'officiis',
+            'keyword'=> 'a',
+            'p'=> 'cupiditate',
         ],
     ]
 );
@@ -1243,7 +1244,7 @@ Parameter | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/article/illo"
+    "https://www.blog1997.com/api/article/aut"
 );
 
 let headers = {
@@ -1263,7 +1264,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->get(
-    'https://www.blog1997.com/api/article/illo',
+    'https://www.blog1997.com/api/article/aut',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -1334,8 +1335,248 @@ Parameter | Status | Description
 
 <!-- END_b745a3237360fdd02c18c4da9305a174 -->
 
-#Comment Management
+#Comment management
 
+
+评论管理
+<!-- START_ec795c34741d7b05102699cf4fc1150a -->
+## Approve submit comment
+
+评论通过审核
+Set comment be verified .
+
+> Example request:
+
+```javascript
+const url = new URL(
+    "https://www.blog1997.com/api/admin/comment/approve"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "ids": [
+        16
+    ]
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post(
+    'https://www.blog1997.com/api/admin/comment/approve',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ],
+        'json' => [
+            'ids' => [
+                16,
+            ],
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": "success",
+    "message": "操作成功,1条记录通过审批",
+    "data": ""
+}
+```
+
+### HTTP Request
+`POST api/admin/comment/approve`
+
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `ids` | array |  required  | 评论id列表
+        `ids.*` | integer |  required  | 评论id
+    
+<!-- END_ec795c34741d7b05102699cf4fc1150a -->
+
+<!-- START_9a24e518beaa4249aef33adcd8333229 -->
+## Reject submit comment
+
+回绝评论,不予以显示该评论
+Batch reject comments
+
+> Example request:
+
+```javascript
+const url = new URL(
+    "https://www.blog1997.com/api/admin/comment/reject"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "ids": [
+        6
+    ]
+}
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->delete(
+    'https://www.blog1997.com/api/admin/comment/reject',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ],
+        'json' => [
+            'ids' => [
+                6,
+            ],
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": "success",
+    "message": "删除成功,1条记录被删除",
+    "data": ""
+}
+```
+
+### HTTP Request
+`DELETE api/admin/comment/reject`
+
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `ids` | array |  required  | 评论id列表
+        `ids.*` | integer |  required  | 评论id
+    
+<!-- END_9a24e518beaa4249aef33adcd8333229 -->
+
+<!-- START_14c0fdfd977651cd5ad410c61cad0b92 -->
+## Get unverified comments
+
+获取未审核的所有评论
+Display a listing of the resource.
+
+> Example request:
+
+```javascript
+const url = new URL(
+    "https://www.blog1997.com/api/admin/comment"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get(
+    'https://www.blog1997.com/api/admin/comment',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "pagination": {
+            "total": 1,
+            "uri": "?",
+            "currentPage": 1,
+            "next": null,
+            "previous": null,
+            "first": 1,
+            "last": 1,
+            "pages": 1
+        },
+        "records": [
+            {
+                "id": 77,
+                "content": "<p><img class=\"lazy\" data-src=\"http:\/\/img.baidu.com\/hi\/jx2\/j_0040.gif\" alt=\"j_0040.gif\" \/><\/p>",
+                "able_id": 137,
+                "able_type": "App\\Model\\Article",
+                "user_id": 2,
+                "created_at": "1618726336",
+                "verified": "no",
+                "thumbs": 0,
+                "user": {
+                    "id": 2,
+                    "name": "不高兴",
+                    "avatar": "\/image\/avatar\/2021-01-04\/792.071792001615ff318151187d1.11539176.jpg"
+                }
+            }
+        ]
+    }
+}
+```
+
+### HTTP Request
+`GET api/admin/comment`
+
+
+<!-- END_14c0fdfd977651cd5ad410c61cad0b92 -->
 
 <!-- START_e795fade4d25e2473e7fd22cababfe99 -->
 ## Store newly create comment
@@ -1356,9 +1597,9 @@ let headers = {
 };
 
 let body = {
-    "able_id": "ratione",
-    "able_type": "illum",
-    "content": "alias"
+    "able_id": "reiciendis",
+    "able_type": "ea",
+    "content": "distinctio"
 }
 
 fetch(url, {
@@ -1381,9 +1622,9 @@ $response = $client->post(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'able_id' => 'ratione',
-            'able_type' => 'illum',
-            'content' => 'alias',
+            'able_id' => 'reiciendis',
+            'able_type' => 'ea',
+            'content' => 'distinctio',
         ],
     ]
 );
@@ -1444,7 +1685,7 @@ Parameter | Type | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/comment/et"
+    "https://www.blog1997.com/api/comment/corrupti"
 );
 
 let headers = {
@@ -1464,7 +1705,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->delete(
-    'https://www.blog1997.com/api/comment/et',
+    'https://www.blog1997.com/api/comment/corrupti',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -1606,249 +1847,6 @@ Parameter | Status | Description
 
 <!-- END_5b5311d6597f9a2198d903b9cd0d363b -->
 
-#Comment management
-
-
-评论管理
-<!-- START_ec795c34741d7b05102699cf4fc1150a -->
-## Approve submit comment
-
-评论通过审核
-Set comment be verified .
-
-> Example request:
-
-```javascript
-const url = new URL(
-    "https://www.blog1997.com/api/admin/comment/approve"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "ids": [
-        9
-    ]
-}
-
-fetch(url, {
-    method: "POST",
-    headers: headers,
-    body: body
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-```php
-
-$client = new \GuzzleHttp\Client();
-$response = $client->post(
-    'https://www.blog1997.com/api/admin/comment/approve',
-    [
-        'headers' => [
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
-        ],
-        'json' => [
-            'ids' => [
-                9,
-            ],
-        ],
-    ]
-);
-$body = $response->getBody();
-print_r(json_decode((string) $body));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "status": "success",
-    "message": "操作成功,1条记录通过审批",
-    "data": ""
-}
-```
-
-### HTTP Request
-`POST api/admin/comment/approve`
-
-#### Body Parameters
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-    `ids` | array |  required  | 评论id列表
-        `ids.*` | integer |  required  | 评论id
-    
-<!-- END_ec795c34741d7b05102699cf4fc1150a -->
-
-<!-- START_9a24e518beaa4249aef33adcd8333229 -->
-## Reject submit comment
-
-回绝评论,不予以显示该评论
-Batch reject comments
-
-> Example request:
-
-```javascript
-const url = new URL(
-    "https://www.blog1997.com/api/admin/comment/reject"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "ids": [
-        12
-    ]
-}
-
-fetch(url, {
-    method: "DELETE",
-    headers: headers,
-    body: body
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-```php
-
-$client = new \GuzzleHttp\Client();
-$response = $client->delete(
-    'https://www.blog1997.com/api/admin/comment/reject',
-    [
-        'headers' => [
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
-        ],
-        'json' => [
-            'ids' => [
-                12,
-            ],
-        ],
-    ]
-);
-$body = $response->getBody();
-print_r(json_decode((string) $body));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "status": "success",
-    "message": "删除成功,1条记录被删除",
-    "data": ""
-}
-```
-
-### HTTP Request
-`DELETE api/admin/comment/reject`
-
-#### Body Parameters
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-    `ids` | array |  required  | 评论id列表
-        `ids.*` | integer |  required  | 评论id
-    
-<!-- END_9a24e518beaa4249aef33adcd8333229 -->
-
-<!-- START_14c0fdfd977651cd5ad410c61cad0b92 -->
-## Get unverified comments
-
-获取未审核的所有评论
-Display a listing of the resource.
-
-> Example request:
-
-```javascript
-const url = new URL(
-    "https://www.blog1997.com/api/admin/comment"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers: headers,
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-```php
-
-$client = new \GuzzleHttp\Client();
-$response = $client->get(
-    'https://www.blog1997.com/api/admin/comment',
-    [
-        'headers' => [
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
-        ],
-    ]
-);
-$body = $response->getBody();
-print_r(json_decode((string) $body));
-```
-
-
-> Example response (200):
-
-```json
-{
-    "status": "success",
-    "message": "success",
-    "data": {
-        "pagination": {
-            "total": 1,
-            "uri": "?",
-            "currentPage": 1,
-            "next": null,
-            "previous": null,
-            "first": 1,
-            "last": 1,
-            "pages": 1
-        },
-        "records": [
-            {
-                "id": 77,
-                "content": "<p><img class=\"lazy\" data-src=\"http:\/\/img.baidu.com\/hi\/jx2\/j_0040.gif\" alt=\"j_0040.gif\" \/><\/p>",
-                "able_id": 137,
-                "able_type": "App\\Model\\Article",
-                "user_id": 2,
-                "created_at": "1618726336",
-                "verified": "no",
-                "thumbs": 0,
-                "user": {
-                    "id": 2,
-                    "name": "不高兴",
-                    "avatar": "\/image\/avatar\/2021-01-04\/792.071792001615ff318151187d1.11539176.jpg"
-                }
-            }
-        ]
-    }
-}
-```
-
-### HTTP Request
-`GET api/admin/comment`
-
-
-<!-- END_14c0fdfd977651cd5ad410c61cad0b92 -->
-
 #Email config management
 
 
@@ -1857,7 +1855,6 @@ print_r(json_decode((string) $body));
 ## Get email config record
 
 显示邮箱的配置,永远不会显示真实的授权码
-Display a listing of the resource.
 
 > Example request:
 
@@ -1925,7 +1922,6 @@ print_r(json_decode((string) $body));
 ## Store newly created records
 
 添加邮箱配置
-Store email config to database
 
 > Example request:
 
@@ -1940,12 +1936,12 @@ let headers = {
 };
 
 let body = {
-    "email_server": "cum",
-    "port": 70.18,
-    "email_addr": "eum",
-    "encryption": "non",
-    "sender": "beatae",
-    "password": "alias"
+    "email_server": "inventore",
+    "port": 136.128595,
+    "email_addr": "placeat",
+    "encryption": "eligendi",
+    "sender": "qui",
+    "password": "impedit"
 }
 
 fetch(url, {
@@ -1968,12 +1964,12 @@ $response = $client->post(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'email_server' => 'cum',
-            'port' => 70.18,
-            'email_addr' => 'eum',
-            'encryption' => 'non',
-            'sender' => 'beatae',
-            'password' => 'alias',
+            'email_server' => 'inventore',
+            'port' => 136.128595,
+            'email_addr' => 'placeat',
+            'encryption' => 'eligendi',
+            'sender' => 'qui',
+            'password' => 'impedit',
         ],
     ]
 );
@@ -2036,12 +2032,12 @@ let headers = {
 };
 
 let body = {
-    "email_server": "cum",
-    "port": 564075.307,
-    "email_addr": "provident",
-    "encryption": "dolore",
-    "sender": "exercitationem",
-    "password": "est"
+    "email_server": "facilis",
+    "port": 1025492.0690162537,
+    "email_addr": "corporis",
+    "encryption": "consectetur",
+    "sender": "eos",
+    "password": "commodi"
 }
 
 fetch(url, {
@@ -2064,12 +2060,12 @@ $response = $client->put(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'email_server' => 'cum',
-            'port' => 564075.307,
-            'email_addr' => 'provident',
-            'encryption' => 'dolore',
-            'sender' => 'exercitationem',
-            'password' => 'est',
+            'email_server' => 'facilis',
+            'port' => 1025492.0690162537,
+            'email_addr' => 'corporis',
+            'encryption' => 'consectetur',
+            'sender' => 'eos',
+            'password' => 'commodi',
         ],
     ]
 );
@@ -2222,8 +2218,8 @@ let headers = {
 };
 
 let body = {
-    "name": "repellat",
-    "url": "deleniti"
+    "name": "est",
+    "url": "dolorem"
 }
 
 fetch(url, {
@@ -2246,8 +2242,8 @@ $response = $client->post(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'name' => 'repellat',
-            'url' => 'deleniti',
+            'name' => 'est',
+            'url' => 'dolorem',
         ],
     ]
 );
@@ -2302,8 +2298,8 @@ let headers = {
 };
 
 let body = {
-    "name": "non",
-    "url": "laborum"
+    "name": "sed",
+    "url": "voluptatem"
 }
 
 fetch(url, {
@@ -2326,8 +2322,8 @@ $response = $client->put(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'name' => 'non',
-            'url' => 'laborum',
+            'name' => 'sed',
+            'url' => 'voluptatem',
         ],
     ]
 );
@@ -2731,7 +2727,7 @@ let headers = {
 
 let body = {
     "files": [
-        "sunt"
+        "blanditiis"
     ]
 }
 
@@ -2756,7 +2752,7 @@ $response = $client->post(
         ],
         'json' => [
             'files' => [
-                'sunt',
+                'blanditiis',
             ],
         ],
     ]
@@ -2788,7 +2784,7 @@ Delete gallery image
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/gallery/ex"
+    "https://www.blog1997.com/api/admin/gallery/culpa"
 );
 
 let headers = {
@@ -2808,7 +2804,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->delete(
-    'https://www.blog1997.com/api/admin/gallery/ex',
+    'https://www.blog1997.com/api/admin/gallery/culpa',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -2863,8 +2859,8 @@ let headers = {
 };
 
 let body = {
-    "id": "est",
-    "category": "minima"
+    "id": "quam",
+    "category": "sit"
 }
 
 fetch(url, {
@@ -2887,8 +2883,8 @@ $response = $client->post(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'id' => 'est',
-            'category' => 'minima',
+            'id' => 'quam',
+            'category' => 'sit',
         ],
     ]
 );
@@ -3051,14 +3047,14 @@ Display a listing of the resource.
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/log/aliquam"
+    "https://www.blog1997.com/api/admin/log/minus"
 );
 
 let params = {
-    "email": "qui",
-    "startDate": "officia",
-    "endDate": "est",
-    "p": "aut",
+    "email": "id",
+    "startDate": "iusto",
+    "endDate": "aliquid",
+    "p": "nemo",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -3080,17 +3076,17 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->get(
-    'https://www.blog1997.com/api/admin/log/aliquam',
+    'https://www.blog1997.com/api/admin/log/minus',
     [
         'headers' => [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ],
         'query' => [
-            'email'=> 'qui',
-            'startDate'=> 'officia',
-            'endDate'=> 'est',
-            'p'=> 'aut',
+            'email'=> 'id',
+            'startDate'=> 'iusto',
+            'endDate'=> 'aliquid',
+            'p'=> 'nemo',
         ],
     ]
 );
@@ -3193,7 +3189,7 @@ const url = new URL(
 );
 
 let params = {
-    "have_read": "ipsam",
+    "have_read": "earum",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -3222,7 +3218,7 @@ $response = $client->get(
             'Accept' => 'application/json',
         ],
         'query' => [
-            'have_read'=> 'ipsam',
+            'have_read'=> 'earum',
         ],
     ]
 );
@@ -3303,7 +3299,7 @@ Parameter | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/illegal-info/approve/iusto"
+    "https://www.blog1997.com/api/admin/illegal-info/approve/neque"
 );
 
 let headers = {
@@ -3323,7 +3319,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->post(
-    'https://www.blog1997.com/api/admin/illegal-info/approve/iusto',
+    'https://www.blog1997.com/api/admin/illegal-info/approve/neque',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -3366,7 +3362,7 @@ Parameter | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/illegal-info/ignore/vel"
+    "https://www.blog1997.com/api/admin/illegal-info/ignore/est"
 );
 
 let headers = {
@@ -3386,7 +3382,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->post(
-    'https://www.blog1997.com/api/admin/illegal-info/ignore/vel',
+    'https://www.blog1997.com/api/admin/illegal-info/ignore/est',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -3434,7 +3430,7 @@ const url = new URL(
 );
 
 let params = {
-    "have_read": "optio",
+    "have_read": "saepe",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -3463,7 +3459,7 @@ $response = $client->get(
             'Accept' => 'application/json',
         ],
         'query' => [
-            'have_read'=> 'optio',
+            'have_read'=> 'saepe',
         ],
     ]
 );
@@ -3549,11 +3545,11 @@ Parameter | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/notification/commentable-comments/architecto"
+    "https://www.blog1997.com/api/admin/notification/commentable-comments/aspernatur"
 );
 
 let params = {
-    "p": "quam",
+    "p": "ratione",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -3575,14 +3571,14 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->get(
-    'https://www.blog1997.com/api/admin/notification/commentable-comments/architecto',
+    'https://www.blog1997.com/api/admin/notification/commentable-comments/aspernatur',
     [
         'headers' => [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ],
         'query' => [
-            'p'=> 'quam',
+            'p'=> 'ratione',
         ],
     ]
 );
@@ -3678,10 +3674,10 @@ let headers = {
 };
 
 let body = {
-    "sender": 1,
-    "content": "aut",
-    "type": 1,
-    "reported_id": "quo"
+    "sender": 19,
+    "content": "et",
+    "type": 17,
+    "reported_id": "consequuntur"
 }
 
 fetch(url, {
@@ -3704,10 +3700,10 @@ $response = $client->post(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'sender' => 1,
-            'content' => 'aut',
-            'type' => 1,
-            'reported_id' => 'quo',
+            'sender' => 19,
+            'content' => 'et',
+            'type' => 17,
+            'reported_id' => 'consequuntur',
         ],
     ]
 );
@@ -3750,7 +3746,7 @@ Parameter | Type | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/image/enim/quae/1/quos"
+    "https://www.blog1997.com/image/nihil/placeat/1/ad"
 );
 
 let headers = {
@@ -3770,7 +3766,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->get(
-    'https://www.blog1997.com/image/enim/quae/1/quos',
+    'https://www.blog1997.com/image/nihil/placeat/1/ad',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -3919,10 +3915,10 @@ let headers = {
 };
 
 let body = {
-    "name": "rerum",
-    "remark": "reiciendis",
+    "name": "consectetur",
+    "remark": "illo",
     "authorities": [
-        9
+        4
     ]
 }
 
@@ -3946,10 +3942,10 @@ $response = $client->post(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'name' => 'rerum',
-            'remark' => 'reiciendis',
+            'name' => 'consectetur',
+            'remark' => 'illo',
             'authorities' => [
-                9,
+                4,
             ],
         ],
     ]
@@ -4024,10 +4020,10 @@ let headers = {
 };
 
 let body = {
-    "name": "necessitatibus",
-    "remark": "eveniet",
+    "name": "ullam",
+    "remark": "expedita",
     "authorities": [
-        9
+        15
     ]
 }
 
@@ -4051,10 +4047,10 @@ $response = $client->put(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'name' => 'necessitatibus',
-            'remark' => 'eveniet',
+            'name' => 'ullam',
+            'remark' => 'expedita',
             'authorities' => [
-                9,
+                15,
             ],
         ],
     ]
@@ -4119,7 +4115,7 @@ Parameter | Type | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/role/corporis"
+    "https://www.blog1997.com/api/admin/role/facilis"
 );
 
 let headers = {
@@ -4139,7 +4135,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->delete(
-    'https://www.blog1997.com/api/admin/role/corporis',
+    'https://www.blog1997.com/api/admin/role/facilis',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -5378,9 +5374,9 @@ let headers = {
 };
 
 let body = {
-    "name": "voluptatibus",
-    "parent_id": 12,
-    "route_name": "in"
+    "name": "dolore",
+    "parent_id": 10,
+    "route_name": "aut"
 }
 
 fetch(url, {
@@ -5403,9 +5399,9 @@ $response = $client->post(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'name' => 'voluptatibus',
-            'parent_id' => 12,
-            'route_name' => 'in',
+            'name' => 'dolore',
+            'parent_id' => 10,
+            'route_name' => 'aut',
         ],
     ]
 );
@@ -5453,7 +5449,7 @@ Parameter | Type | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/auth/velit"
+    "https://www.blog1997.com/api/admin/auth/quibusdam"
 );
 
 let headers = {
@@ -5473,7 +5469,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->delete(
-    'https://www.blog1997.com/api/admin/auth/velit',
+    'https://www.blog1997.com/api/admin/auth/quibusdam',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -5517,7 +5513,7 @@ Get user and roles information after enter user email
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/manager/user/sint"
+    "https://www.blog1997.com/api/admin/manager/user/qui"
 );
 
 let headers = {
@@ -5537,7 +5533,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->get(
-    'https://www.blog1997.com/api/admin/manager/user/sint',
+    'https://www.blog1997.com/api/admin/manager/user/qui',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -5602,8 +5598,8 @@ const url = new URL(
 );
 
 let params = {
-    "email": "accusantium",
-    "role_id": "commodi",
+    "email": "quisquam",
+    "role_id": "autem",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -5632,8 +5628,8 @@ $response = $client->get(
             'Accept' => 'application/json',
         ],
         'query' => [
-            'email'=> 'accusantium',
-            'role_id'=> 'commodi',
+            'email'=> 'quisquam',
+            'role_id'=> 'autem',
         ],
     ]
 );
@@ -5799,7 +5795,7 @@ Update user roles in storage.
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/manager/nisi"
+    "https://www.blog1997.com/api/admin/manager/nostrum"
 );
 
 let headers = {
@@ -5808,9 +5804,9 @@ let headers = {
 };
 
 let body = {
-    "email": "ex",
+    "email": "nihil",
     "roles": [
-        3
+        8
     ]
 }
 
@@ -5827,16 +5823,16 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->put(
-    'https://www.blog1997.com/api/admin/manager/nisi',
+    'https://www.blog1997.com/api/admin/manager/nostrum',
     [
         'headers' => [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ],
         'json' => [
-            'email' => 'ex',
+            'email' => 'nihil',
             'roles' => [
-                3,
+                8,
             ],
         ],
     ]
@@ -5979,7 +5975,7 @@ let headers = {
 
 let body = {
     "ids": [
-        15
+        6
     ]
 }
 
@@ -6004,7 +6000,7 @@ $response = $client->delete(
         ],
         'json' => [
             'ids' => [
-                15,
+                6,
             ],
         ],
     ]
@@ -6040,7 +6036,7 @@ const url = new URL(
 
 let params = {
     "category_id": "perspiciatis",
-    "word": "eligendi",
+    "word": "aut",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -6070,7 +6066,7 @@ $response = $client->get(
         ],
         'query' => [
             'category_id'=> 'perspiciatis',
-            'word'=> 'eligendi',
+            'word'=> 'aut',
         ],
     ]
 );
@@ -6149,8 +6145,8 @@ let headers = {
 };
 
 let body = {
-    "category_id": 15,
-    "word": "rerum"
+    "category_id": 12,
+    "word": "eveniet"
 }
 
 fetch(url, {
@@ -6173,8 +6169,8 @@ $response = $client->post(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'category_id' => 15,
-            'word' => 'rerum',
+            'category_id' => 12,
+            'word' => 'eveniet',
         ],
     ]
 );
@@ -6220,7 +6216,7 @@ Parameter | Type | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/sensitive-word/sit"
+    "https://www.blog1997.com/api/admin/sensitive-word/doloribus"
 );
 
 let headers = {
@@ -6229,8 +6225,8 @@ let headers = {
 };
 
 let body = {
-    "category_id": 9,
-    "word": "placeat"
+    "category_id": 8,
+    "word": "qui"
 }
 
 fetch(url, {
@@ -6246,15 +6242,15 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->put(
-    'https://www.blog1997.com/api/admin/sensitive-word/sit',
+    'https://www.blog1997.com/api/admin/sensitive-word/doloribus',
     [
         'headers' => [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ],
         'json' => [
-            'category_id' => 9,
-            'word' => 'placeat',
+            'category_id' => 8,
+            'word' => 'qui',
         ],
     ]
 );
@@ -6305,7 +6301,7 @@ Parameter | Type | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/sensitive-word/quae"
+    "https://www.blog1997.com/api/admin/sensitive-word/numquam"
 );
 
 let headers = {
@@ -6325,7 +6321,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->delete(
-    'https://www.blog1997.com/api/admin/sensitive-word/quae',
+    'https://www.blog1997.com/api/admin/sensitive-word/numquam',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -6372,8 +6368,8 @@ const url = new URL(
 );
 
 let params = {
-    "name": "delectus",
-    "rank": "illum",
+    "name": "est",
+    "rank": "eveniet",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -6402,8 +6398,8 @@ $response = $client->get(
             'Accept' => 'application/json',
         ],
         'query' => [
-            'name'=> 'delectus',
-            'rank'=> 'illum',
+            'name'=> 'est',
+            'rank'=> 'eveniet',
         ],
     ]
 );
@@ -6472,8 +6468,8 @@ let headers = {
 };
 
 let body = {
-    "name": "quam",
-    "rand": 904.5489876
+    "name": "est",
+    "rand": 932410.991
 }
 
 fetch(url, {
@@ -6496,8 +6492,8 @@ $response = $client->post(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'name' => 'quam',
-            'rand' => 904.5489876,
+            'name' => 'est',
+            'rand' => 932410.991,
         ],
     ]
 );
@@ -6552,9 +6548,9 @@ let headers = {
 };
 
 let body = {
-    "category": "ad",
-    "name": "ut",
-    "rand": 0.76687
+    "category": "sit",
+    "name": "magnam",
+    "rand": 1268182.5883274
 }
 
 fetch(url, {
@@ -6577,9 +6573,9 @@ $response = $client->put(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'category' => 'ad',
-            'name' => 'ut',
-            'rand' => 0.76687,
+            'category' => 'sit',
+            'name' => 'magnam',
+            'rand' => 1268182.5883274,
         ],
     ]
 );
@@ -6629,7 +6625,7 @@ Parameter | Type | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/sensitive-word-category/nulla"
+    "https://www.blog1997.com/api/admin/sensitive-word-category/officiis"
 );
 
 let headers = {
@@ -6649,7 +6645,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->delete(
-    'https://www.blog1997.com/api/admin/sensitive-word-category/nulla',
+    'https://www.blog1997.com/api/admin/sensitive-word-category/officiis',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -6775,8 +6771,8 @@ let headers = {
 };
 
 let body = {
-    "enable_comment": "quasi",
-    "verify_comment": "enim"
+    "enable_comment": "id",
+    "verify_comment": "quas"
 }
 
 fetch(url, {
@@ -6799,8 +6795,8 @@ $response = $client->put(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'enable_comment' => 'quasi',
-            'verify_comment' => 'enim',
+            'enable_comment' => 'id',
+            'verify_comment' => 'quas',
         ],
     ]
 );
@@ -6840,9 +6836,9 @@ const url = new URL(
 );
 
 let params = {
-    "parent_id": "rerum",
-    "name": "impedit",
-    "p": "cumque",
+    "parent_id": "quia",
+    "name": "quisquam",
+    "p": "tempora",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -6871,9 +6867,9 @@ $response = $client->get(
             'Accept' => 'application/json',
         ],
         'query' => [
-            'parent_id'=> 'rerum',
-            'name'=> 'impedit',
-            'p'=> 'cumque',
+            'parent_id'=> 'quia',
+            'name'=> 'quisquam',
+            'p'=> 'tempora',
         ],
     ]
 );
@@ -7024,10 +7020,10 @@ let headers = {
 };
 
 let body = {
-    "name": "aspernatur",
-    "cover": "fugiat",
-    "parent_id": 3,
-    "description": "nemo"
+    "name": "corporis",
+    "cover": "rerum",
+    "parent_id": 2,
+    "description": "omnis"
 }
 
 fetch(url, {
@@ -7050,10 +7046,10 @@ $response = $client->post(
             'Accept' => 'application/json',
         ],
         'json' => [
-            'name' => 'aspernatur',
-            'cover' => 'fugiat',
-            'parent_id' => 3,
-            'description' => 'nemo',
+            'name' => 'corporis',
+            'cover' => 'rerum',
+            'parent_id' => 2,
+            'description' => 'omnis',
         ],
     ]
 );
@@ -7103,7 +7099,7 @@ Parameter | Type | Status | Description
 
 ```javascript
 const url = new URL(
-    "https://www.blog1997.com/api/admin/tag/cupiditate"
+    "https://www.blog1997.com/api/admin/tag/eum"
 );
 
 let headers = {
@@ -7112,10 +7108,10 @@ let headers = {
 };
 
 let body = {
-    "name": "nihil",
-    "cover": "officia",
-    "parent_id": 9,
-    "description": "ducimus"
+    "name": "architecto",
+    "cover": "animi",
+    "parent_id": 20,
+    "description": "voluptatem"
 }
 
 fetch(url, {
@@ -7131,17 +7127,17 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->put(
-    'https://www.blog1997.com/api/admin/tag/cupiditate',
+    'https://www.blog1997.com/api/admin/tag/eum',
     [
         'headers' => [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ],
         'json' => [
-            'name' => 'nihil',
-            'cover' => 'officia',
-            'parent_id' => 9,
-            'description' => 'ducimus',
+            'name' => 'architecto',
+            'cover' => 'animi',
+            'parent_id' => 20,
+            'description' => 'voluptatem',
         ],
     ]
 );
