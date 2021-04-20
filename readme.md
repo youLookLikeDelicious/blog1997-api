@@ -5,6 +5,7 @@
 [![codecov](https://codecov.io/gh/youLookLikeDelicious/blog1997-api/branch/master/graph/badge.svg?token=4GY5UED0WI)](https://codecov.io/gh/youLookLikeDelicious/blog1997-api)
 ![license](https://img.shields.io/github/license/youLookLikeDelicious/blog1997-api)
 
+[接口文档](https://www.blog1997.com/docs/)  [部署文档](https://github.com/youLookLikeDelicious/blog1997-api/blob/dev/doc/docker.md)
 ### 项目介绍
 Blog1997是一个前后端分离的博客系统。前端使用Nuxt，实现vue的服务端渲染（ssr）。后端使用Laravel + mysql + redis进行开发。该项目是系统的后端部分。
 
