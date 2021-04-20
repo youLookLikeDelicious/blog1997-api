@@ -18,24 +18,34 @@ class TagObserver
         $cover = $tag->getOriginal('cover');
         
         if ($tag->isDirty('cover') && $cover) {
-            $webpCover = str_replace(strrchr($cover, '.'), '.webp', $cover);
-            Storage::delete([$cover, $webpCover]);
+            $this->removeCover($cover);
         }
     }
 
     /**
      * Handle the tag "deleted" event.
-     *
+     * 
+     * 移除标签的封面
+     * 
      * @param  \App\Model\Tag  $tag
      * @return void
      */
     public function deleted(Tag $tag)
     {
-        if ($tag->cover) {        
-            // 同时删除webp的备份
-            $ext = strrchr($tag->cover, '.');
-            $webpCover = str_replace($ext, '.webp', $tag->cover);
-            Storage::delete([$tag->cover, $webpCover]);
+        if ($tag->cover) {
+            $this->removeCover($tag->cover);
         }
+    }
+
+    /**
+     * 尝试从本地移除标签的封面
+     *
+     * @param string $cover 封面地址
+     * @return void
+     */
+    protected function removeCover($cover)
+    {
+        $webpCover = str_replace(strrchr($cover, '.'), '.webp', $cover);
+        Storage::delete([$cover, $webpCover]);
     }
 }

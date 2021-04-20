@@ -2,14 +2,13 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Facades\Upload;
-use App\Model\Article as ModelArticle;
-use App\Model\Gallery;
 use App\Model\Tag;
 use App\Model\Topic;
-use App\Service\FilterStringService;
+use App\Model\Gallery;
+use App\Facades\Upload;
 use App\Service\SummaryService;
 use App\Service\GalleryService;
+use App\Service\FilterStringService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class Article extends FormRequest
@@ -32,6 +31,22 @@ class Article extends FormRequest
     }
 
     /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'tags'     => __('field.tags'),
+            'title'    => __('field.title'),
+            'content'  => __('field.content'),
+            'topic_id' => __('field.topic_id'),
+            'is_markdown' => __('field.is_markdown'),
+        ];
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -39,7 +54,7 @@ class Article extends FormRequest
     public function rules()
     {
         $rules = [
-            'title' => 'sometimes|required|max:72',
+            'title' => 'required|max:72',
             'topic_id' => 'required',
             'is_origin' => 'sometimes|required|in:yes,no',
             'order_by' => 'sometimes|sometimes|integer',
@@ -119,19 +134,24 @@ class Article extends FormRequest
      */
     public function withValidator($validator)
     {
-        $topic = $this->input('topic_id');
+        $validator->after(function ($validator) {
 
-        if (empty($topic)) {
-            return;
-        }
-
-        if (is_numeric($topic) && is_integer($topic + 0)) {
-            if (!Topic::select('id')->find($topic + 0)) {
-                $validator->errors()->add('topic_id', 'validation.exists');
+            $topic = $this->input('topic_id');
+    
+            if (empty($topic)) {
+                return;
             }
-        } else {
-            $this->createTopic($topic);
-        }
+    
+            // 如果专题id没有对应的记录,给出错误信息
+            // 如果专题字段不是 一个字符串,创建之
+            if (is_numeric($topic) && is_integer($topic + 0)) {
+                if (!Topic::select('id')->find($topic + 0)) {
+                    $validator->errors()->add('topic_id', __('validation.exists', ['attribute' => __('field.topic_id')]));
+                }
+            } else if (is_string($topic)) {
+                $this->createTopic($topic);
+            }
+        });
     }
 
     /**

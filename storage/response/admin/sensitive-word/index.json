@@ -1,0 +1,35 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "pagination": {
+            "total": 1,
+            "uri": "?",
+            "currentPage": 1,
+            "next": 1,
+            "previous": null,
+            "first": 1,
+            "last": 1,
+            "pages": 1
+        },
+        "records": [
+            {
+                "id": 11,
+                "word": "sb",
+                "category_id": 27,
+                "editAble": 0
+            }
+        ],
+        "categoryList": [
+            {
+                "id": 0,
+                "name": "所有分类"
+            },
+            {
+                "id": 27,
+                "name": "色情词库"
+            }
+        ],
+        "categoryId": 0
+    }
+}

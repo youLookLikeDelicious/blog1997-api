@@ -7,12 +7,18 @@ use App\Facades\Upload;
 use App\Model\SocialAccount;
 use Illuminate\Http\Request;
 use App\Contract\Auth\Factory;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadImageRequest;
 use App\Http\Requests\LoginByProviderRequest;
 use App\Http\Requests\Admin\UserUpdateRequest;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
+/**
+ * @group User management
+ * 
+ * 用户管理
+ */
 class UserController extends Controller
 {
     use SendsPasswordResetEmails;
@@ -109,5 +115,23 @@ class UserController extends Controller
     protected function sendResetLinkResponse(Request $request, $response)
     {
         return response()->success('', '邮件已发送，请注意查收~');
+    }
+
+    /**
+     * destroy
+     * 
+     * 注销账号
+     * Remove the specified resource from storage.
+     *
+     * @param  User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        $user->update([
+            'deleted_at' => time()
+        ]);
+
+        return response()->success('', '管理员删除成功');
     }
 }

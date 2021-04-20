@@ -115,7 +115,9 @@ class ChaosSEO extends Command
 
         if ($fileList) {
             array_map(function ($v) {
-                unlink($this->getFile($v));
+                if (is_file($this->getFile($v))) {
+                    unlink($this->getFile($v));
+                }
             }, $fileList);
         }
 

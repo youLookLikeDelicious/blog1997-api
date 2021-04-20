@@ -14,14 +14,24 @@ use App\Http\Requests\Admin\SensitiveWordImportRequest;
 use App\Contract\Repository\SensitiveWord as RepositorySensitiveWord;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * @group Sensitive word management
+ * 
+ * 敏感词汇管理
+ */
 class SensitiveWordController extends Controller
 {
     /**
-     * 获取敏感词列表
-     * Method GET
+     * Display sensitive work
      * 
-     * @param $request
-     * @param $id  category表中的id
+     * 显示所有的敏感词汇
+     * 
+     * @queryParam category_id 敏感词汇分类ID
+     * @queryParam word        词汇
+     * @responseFile response/admin/sensitive-word/index.json
+     * @param Request $request
+     * @param RepositorySensitiveWord $repository
+     * @return \Illuminate\Http\Response
      */
     public function index (Request $request, RepositorySensitiveWord $repository) 
     {
@@ -32,8 +42,13 @@ class SensitiveWordController extends Controller
 
 
     /**
-     * 添加敏感词汇
+     * Store newly create word
+     * 
+     * 添加新的敏感词汇
      *
+     * @bodyParam category_id int    required 敏感词汇分类ID
+     * @bodyParam word        string required 敏感词汇
+     * @responseFile response/admin/sensitive-word/store.json
      * @param SensitiveWordRequest $request
      * @return \Illuminate\Http\Response
      */
@@ -55,11 +70,17 @@ class SensitiveWordController extends Controller
     }
 
     /**
-     * 更新操作
-     *
-     * @param Request $request
-     * @param int $id
-     * @return void
+     * Update the specific word
+     * 
+     * 更新敏感词汇
+     * 
+     * @urlParam word 敏感词汇ID
+     * @bodyParam category_id int    required 敏感词汇分类ID
+     * @bodyParam word        string required 敏感词汇
+     * @responseFile response/admin/sensitive-word/update.json
+     * @param SensitiveWordRequest $request
+     * @param SensitiveWord $word
+     * @return \Illuminate\Http\Response
      */
     public function update(SensitiveWordRequest $request, SensitiveWord $word)
     {
@@ -73,8 +94,10 @@ class SensitiveWordController extends Controller
     }
 
     /**
-     * Destroy sensitive word
+     * Destroy the specific sensitive word
      *
+     * @urlParam word 敏感词汇ID
+     * @responseFile response/admin/sensitive-word/destroy.json
      * @param SensitiveWord $word
      * @return \Illuminate\Http\Response
      */
@@ -90,8 +113,13 @@ class SensitiveWordController extends Controller
     }
 
     /**
-     * Destroy specified records
+     * Destroy specified sensitive words
      *
+     * 批量删除敏感慈湖
+     * 
+     * @bodyParam ids   array required 敏感词汇ID列表
+     * @bodyParam ids.* int   required 敏感词汇ID
+     * @responseFiles response/admin/sensitive-word/batch-destroy.json
      * @param BatchDeleteRequest $request
      * @return \Illuminate\Http\Response
      */
@@ -113,8 +141,14 @@ class SensitiveWordController extends Controller
     }
 
     /**
+     * Import sensitive words from file
+     * 
      * 批量导入敏感词汇
-     *
+     * 文件格式
+     *    word1
+     *    word2
+     * 
+     * @responseFiles response/admin/sensitive-word/import.json
      * @param SensitiveWordImportRequest $request
      * @param ExtractSensitiveWordService $service
      * @return \Illuminate\Http\Response

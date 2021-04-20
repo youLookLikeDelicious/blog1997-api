@@ -24,11 +24,8 @@ class FriendLinkTest extends TestCase
         $response = $this->json('POST', '/api/admin/friend-link', []);
 
         $response->assertStatus(400)
-            ->assertJson([
-                'message' => [
-                    'name' => ['name 属性是必填的.'],
-                    'url' => ['url 属性是必填的.']
-                ]
+            ->assertJsonStructure([
+                'message' => [ 'name', 'url']
             ]);
     }
 

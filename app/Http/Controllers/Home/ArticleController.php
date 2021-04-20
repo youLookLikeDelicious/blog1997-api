@@ -7,10 +7,15 @@ use Illuminate\Http\Request;
 use App\Contract\Repository\Article;
 use App\Http\Controllers\Controller;
 
+/**
+ * @group Article management
+ * 
+ * 文章管理
+ */
 class ArticleController extends Controller
 {
     /**
-     * repository
+     * Article repository
      *
      * @var \App\Contract\Repository\Article
      */
@@ -22,10 +27,13 @@ class ArticleController extends Controller
     }
 
     /**
-     * 获取文章详情 以及相关的回复
-     * Method GET
+     * Show the specific article in front page
+     * 获取文章详情
      * 
-     * @return Illuminate\Http\Response
+     * @urlParam articleId required The id of article 
+     * @responseFile response/home/article/find.json
+     * @param $articleId 文章id
+     * @return \Illuminate\Http\Response
      */
     public function find ($articleId)
     {
@@ -35,9 +43,15 @@ class ArticleController extends Controller
     }
 
     /**
+     * Get comments about the specific article
+     * 
      * 获取文章的相关评论
+     * 并将文章的访问量+1
      *
-     * @param string $articleId
+     * @urlParam articleId required The id of article
+     * @queryParam p 请求的页数 默认是1
+     * @responseFile response/home/article/comments.json
+     * @param $articleId 文章id
      * @return \Illuminate\Http\Response
      */
     public function comments($articleId)
@@ -52,7 +66,15 @@ class ArticleController extends Controller
     }
 
     /**
-     * 获取文章列表
+     * Search article
+     * 
+     * 搜索文章
+     * 
+     * @queryParam order_by 排序的方式
+     * @queryParam tag_id   标签ID
+     * @queryParam keyword  关键字
+     * @queryParam p        请求的页数 默认是1
+     * @responseFile response/home/article/all.json
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
@@ -64,8 +86,13 @@ class ArticleController extends Controller
     }
 
     /**
-     * 通过标签，对文章分类
+     * Search article by tags
+     * 
+     * 根据标签检索文章
      *
+     * @queryParam tag_id 标签id
+     * @queryParam p      请求的页数 默认是1
+     * @responseFile response/home/article/tags.json
      * @param Request $request
      * @return \Illuminate\Http\Response
      */

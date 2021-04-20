@@ -8,6 +8,12 @@ use App\Http\Controllers\Controller;
 use App\Events\ApproveIllegalInfoEvent;
 use App\Contract\Repository\MessageBox as RepositoryMessageBox;
 
+/**
+ * @group Message management
+ * 
+ * 管理后台的消息
+ * 包括通知信息、用户举报信息等相关的数据
+ */
 class MessageBoxController extends Controller
 {
     /**
@@ -22,9 +28,13 @@ class MessageBoxController extends Controller
         $this->messageBoxRepository = $repository;
     }
     /**
-     * 获取举报信息
-     * Method GET
+     * Get reported illegal records
      * 
+     * 获取举报信息
+     * 
+     * @queryParam have_read 消息是否已读,例如:yes,no
+     * @responseFile response/admin/message-box/index.json
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
@@ -36,9 +46,12 @@ class MessageBoxController extends Controller
     }
 
     /**
-     * 批准举报的信息
-     * Method POST
+     * Approve illegal information
      * 
+     * 批准举报的信息,同时会删除对应的内容
+     * 
+     * @urlParam id 举报记录的ID
+     * @responseFile response/admin/message-box/approve.json
      * @param int $id
      * @return Response
      */
@@ -59,9 +72,12 @@ class MessageBoxController extends Controller
     }
 
     /**
-     * 忽略举报的信息，将其标记为已读
-     * Method POST
+     * Ignore reported illegal info
      * 
+     * 忽略举报的信息,会自动将该记录标记为已读
+     * 
+     * @urlParam id 举报记录的ID
+     * @responseFile response/admin/message-box/ignore.json
      * @param int $id
      * @return Response
      */
@@ -80,8 +96,13 @@ class MessageBoxController extends Controller
     }
 
     /**
+     * Get notification
+     * 
+     * 获取通知的内容
      * Get Comment notification
      *
+     * @queryParam have_read 是否已读
+     * @responseFile response/admin/message-box/get-notification.json
      * @param Request $request
      * @param RepositoryMessageBox $repository
      * @return \Illuminate\Http\Response
@@ -94,8 +115,13 @@ class MessageBoxController extends Controller
     }
 
     /**
-     * Get comment able comments
+     * Get more comments about specific notification
      *
+     * 获取通知相关的评论
+     * 
+     * @urlParam  id  通知的ID
+     * @queryParam p  请求的页数
+     * @responseFile response/admin/message-box/get-commentable-comments.json
      * @param RepositoryMessageBox $repository
      * @param int $id
      * @return \Illuminate\Http\Response

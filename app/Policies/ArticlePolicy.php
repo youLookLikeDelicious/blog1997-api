@@ -31,7 +31,7 @@ class ArticlePolicy
      */
     public function view(User $user, Article $article)
     {
-        return $article->user_id === $user->id;
+        return $article->user_id == $user->id;
     }
 
     /**
@@ -66,13 +66,10 @@ class ArticlePolicy
      */
     public function delete(User $user, ArticleBase $article)
     {
-        return $article->user_id === $user->id;
-    }
-
-    public function before($user, $ability)
-    {
         if ($user->isMaster()) {
             return true;
         }
+
+        return $article->user_id === $user->id;
     }
 }

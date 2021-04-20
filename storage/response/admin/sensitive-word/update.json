@@ -1,0 +1,12 @@
+{
+    "status": "success",
+    "message": "敏感词汇更新成功",
+    "data": {
+        "id": 553,
+        "word": "1222",
+        "category_id": 27,
+        "created_at": "1618840963",
+        "updated_at": "1618841181",
+        "editAble": false
+    }
+}

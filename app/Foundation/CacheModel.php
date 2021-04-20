@@ -2,11 +2,10 @@
 
 namespace App\Foundation;
 
+use App\Model\SystemSetting;
+use Illuminate\Support\Facades\Cache;
 use App\Foundation\Traits\CacheModel\CacheComment;
 use App\Foundation\Traits\CacheModel\CacheArticle;
-use App\Model\SystemSetting;
-use Illuminate\Contracts\Cache\LockTimeoutException;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * 缓存站点的一些数据
@@ -196,10 +195,25 @@ class CacheModel
         Cache::forever("{$type}-key-list", $ids);
     }
 
+    /**
+     * 获取系统配置信息
+     *
+     * @return void
+     */
     public function getSystemSetting()
     {
         return cache()->rememberForever('system.setting', function () {
             return SystemSetting::first();
         });
+    }
+
+    /**
+     * 清除系统配置缓存
+     *
+     * @return void
+     */
+    public function forgetSystemSetting()
+    {
+        Cache::forget('system.setting');
     }
 }

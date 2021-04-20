@@ -1,0 +1,13 @@
+{
+    "status": "success",
+    "message": "标签添加成功",
+    "data": {
+        "name": "ThinkPHP",
+        "cover": "/image/tag/2021-04-19/128.84250900162607d9536cdb1d2.31715669.png",
+        "parent_id": 0,
+        "description": "",
+        "updated_at": "1618842935",
+        "created_at": "1618842935",
+        "id": 20
+    }
+}

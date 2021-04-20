@@ -18,6 +18,20 @@ class AuthRequest extends FormRequest
     }
 
     /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'name' => __('field.name'),
+            'parent_id' => ('field.parent_id'),
+            'route_name' => ('field.route_name')
+        ];
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array

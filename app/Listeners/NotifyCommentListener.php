@@ -101,7 +101,7 @@ class NotifyCommentListener implements ShouldQueue
         }
 
         $excludeIds = [$comment->user_id];
-
+        
         $userIds = array_diff(array_unique($userIds), $excludeIds);
 
         return $userIds;

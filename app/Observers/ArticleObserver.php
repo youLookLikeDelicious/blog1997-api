@@ -59,7 +59,7 @@ class ArticleObserver
     {
         $message = '文章保存成功';
 
-        // 如果是没有发布的草稿,不进行删除
+        // 如果草稿没有对应的原文,不进行删除
         if (!(!$article->isDirty('is_draft') && $article->isDraft())) {
             $this->deleteDraft($article);
         }
@@ -134,7 +134,7 @@ class ArticleObserver
     protected function deleteDraft(Article $article)
     {
         Article::where('user_id', auth()->id())
-            ->where('article_id', $article->article_id)
+            ->where('article_id', $article->article_id ?: $article->id)
             ->where('is_draft', 'yes')
             ->delete();
     }

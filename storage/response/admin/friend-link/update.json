@@ -1,0 +1,12 @@
+{
+    "status": "success",
+    "message": "友链更新成功",
+    "data": {
+        "id": 12,
+        "name": "Blog1997",
+        "url": "https://www.blog1997.com",
+        "created_at": "1618733426",
+        "updated_at": "1618733534",
+        "editAble": false
+    }
+}

@@ -7,12 +7,23 @@ use App\Repository\IllegalInfo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReportIllegalInfo as Request;
 
+/**
+ * @group Report illegal information management
+ * 
+ * 举报 文章|评论
+ */
 class ReportIllegalInfoController extends Controller
 {
     /**
-     * 举报违法信息
-     * Method POST
+     * Report article or comment
      * 
+     * 举报违法信息
+     * 
+     * @bodyParam sender  int    required 举报者ID
+     * @bodyParam content string nullable 举报的内容
+     * @bodyParam type    int    required 举报内容的类型:1文章, 2评论 
+     * @bodyParam reported_id    int|string required 被举报内容的ID
+     * @responseFile response/home/report-illegal-info/store.json
      * @return Response
      */
     public function store (Request $request, IllegalInfo $illegalInfo)

@@ -16,7 +16,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/image/{type}/{dir}/{name}/{isWebp?}', 'ImageController@find')->middleware('cors');
+Route::get('/image/{type}/{dir}/{name}/{isWebp?}', 'ImageController@find')
+    ->middleware('cors')
+    ->name('retrieve.image');
 
 Route::group(['middleware' => 'x-session'], function () {
     Route::get('/admin/manager/register', 'Auth\ManagerRegisterController@create')

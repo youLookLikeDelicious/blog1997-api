@@ -1,0 +1,16 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": [
+        {
+            "id": 1,
+            "name": "blog1998s",
+            "url": "https://www.blog1997.com"
+        },
+        {
+            "id": 2,
+            "name": "Laravel9",
+            "url": "https://www.laravel.com"
+        }
+    ]
+}

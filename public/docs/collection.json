@@ -1,0 +1,2973 @@
+{
+    "variables": [],
+    "info": {
+        "name": "blog1997 API",
+        "_postman_id": "e0fd3667-18a6-4b38-837e-1ae9030f8de9",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Get Article Data On The Front Page",
+            "description": "\n\u5728\u524d\u53f0\u9875\u9762\u83b7\u53d6\u6587\u7ae0\u7684\u76f8\u5173\u6570\u636e",
+            "item": [
+                {
+                    "name": "\u6839\u636e\u6807\u7b7e\u68c0\u7d22\u6587\u7ae0",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/article\/tags",
+                            "query": [
+                                {
+                                    "key": "tag_id",
+                                    "value": "qui",
+                                    "description": "\u6807\u7b7eid",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "p",
+                                    "value": "eveniet",
+                                    "description": "\u8bf7\u6c42\u7684\u9875\u6570 \u9ed8\u8ba4\u662f1",
+                                    "disabled": false
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u6587\u7ae0\u7684\u76f8\u5173\u8bc4\u8bba",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/article\/comments\/:articleId",
+                            "query": [
+                                {
+                                    "key": "p",
+                                    "value": "maiores",
+                                    "description": "\u8bf7\u6c42\u7684\u9875\u6570 \u9ed8\u8ba4\u662f1",
+                                    "disabled": false
+                                }
+                            ],
+                            "variable": [
+                                {
+                                    "id": "articleId",
+                                    "key": "articleId",
+                                    "value": "saepe",
+                                    "description": "The id of article"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u641c\u7d22\u6587\u7ae0",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/article\/search",
+                            "query": [
+                                {
+                                    "key": "order_by",
+                                    "value": "sunt",
+                                    "description": "\u6392\u5e8f\u7684\u65b9\u5f0f",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "tag_id",
+                                    "value": "perferendis",
+                                    "description": "\u6807\u7b7eID",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "keyword",
+                                    "value": "vero",
+                                    "description": "\u5173\u952e\u5b57",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "p",
+                                    "value": "neque",
+                                    "description": "\u8bf7\u6c42\u7684\u9875\u6570 \u9ed8\u8ba4\u662f1",
+                                    "disabled": false
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u6587\u7ae0\u8be6\u60c5 \u4ee5\u53ca\u76f8\u5173\u7684\u56de\u590d",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/article\/:articleId",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "articleId",
+                                    "key": "articleId",
+                                    "value": "temporibus",
+                                    "description": "The id of article"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u641c\u7d22\u6587\u7ae0",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/article",
+                            "query": [
+                                {
+                                    "key": "order_by",
+                                    "value": "dicta",
+                                    "description": "\u6392\u5e8f\u7684\u65b9\u5f0f",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "tag_id",
+                                    "value": "quasi",
+                                    "description": "\u6807\u7b7eID",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "keyword",
+                                    "value": "officia",
+                                    "description": "\u5173\u952e\u5b57",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "p",
+                                    "value": "quidem",
+                                    "description": "\u8bf7\u6c42\u7684\u9875\u6570 \u9ed8\u8ba4\u662f1",
+                                    "disabled": false
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Index Page Information",
+            "description": "\n\u83b7\u53d6\u524d\u53f0\u9996\u9875\u7684\u76f8\u5173\u6570\u636e",
+            "item": [
+                {
+                    "name": "\u83b7\u53d6\u9996\u9875\u76f8\u5173\u4fe1\u606f",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u53cb\u94fe\u5217\u8868",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/friend-link",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Leave Message",
+            "description": "\n\u83b7\u53d6\u7559\u8a00\u4fe1\u606f",
+            "item": [
+                {
+                    "name": "\u83b7\u53d6\u7f51\u7ad9\u7684\u7559\u8a00",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/leave-message",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Manage Comment On The Front Page",
+            "description": "\n\u5728\u524d\u53f0\u7ba1\u7406\u8bc4\u8bba\u5185\u5bb9",
+            "item": [
+                {
+                    "name": "\u4e0a\u4f20\u8bc4\u8bba",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/comment",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"able_id\": \"ut\",\n    \"able_type\": \"aut\",\n    \"content\": \"libero\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u5220\u9664\u8bc4\u8bba",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/comment\/:comment",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "comment",
+                                    "key": "comment",
+                                    "value": "quisquam",
+                                    "description": "\u8bc4\u8bba\u7684id"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "\u540c\u65f6\u4e5f\u4f1a\u5220\u9664\u76f8\u5173\u7684\u56de\u590d\u5185\u5bb9",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u56de\u590d\u5185\u5bb9",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/comment\/reply\/:rootId\/:offset",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Report Illegal Info",
+            "description": "\n\u4e3e\u62a5 \u6587\u7ae0|\u8bc4\u8bba",
+            "item": [
+                {
+                    "name": "\u4e3e\u62a5\u8fdd\u6cd5\u4fe1\u606f",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/report-illegal-info",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"sender\": 19,\n    \"content\": \"sed\",\n    \"type\": 12,\n    \"reported_id\": \"quia\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Retrieve Image",
+            "description": "\n\u83b7\u53d6\u672c\u7ad9\u7684\u56fe\u7247",
+            "item": [
+                {
+                    "name": "\u83b7\u53d6\u4e0a\u4f20\u7684\u56fe\u7247",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "image\/:type\/:dir\/:name\/:isWebp",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "type",
+                                    "key": "type",
+                                    "value": "in",
+                                    "description": "string \u56fe\u7247\u7c7b\u578b,\u4f8b\u5982avatar,article,gallery"
+                                },
+                                {
+                                    "id": "dir",
+                                    "key": "dir",
+                                    "value": "saepe",
+                                    "description": "string \u65e5\u671f\u4fe1\u606f,\u4f8b\u59822021-01-04"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Thumb Up Management",
+            "description": "\n\u70b9\u8d5e \u6587\u7ae0|\u8bc4\u8bba",
+            "item": [
+                {
+                    "name": "\u70b9\u8d5e\u64cd\u4f5c",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/thumb-up",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"id\": \"ea\",\n    \"category\": \"similique\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "User Login",
+            "description": "Login user",
+            "item": [
+                {
+                    "name": "\u901a\u8fc7\u7b2c\u4e09\u65b9\u8d26\u53f7\u767b\u9646",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/oauth\/authorize",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Handle a login request to the application.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/auth\/login",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Log the user out of the application.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/oauth\/logout",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "general",
+            "description": "",
+            "item": [
+                {
+                    "name": "get CAPTCHA api",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "captcha\/api\/:config",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "get CAPTCHA",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "captcha\/:config",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u5f53\u524d\u767b\u9646\u7684\u7528\u6237",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/oauth\/currentUser",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update Manager password",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/auth\/manager\/:manager",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Resend the email verification notification.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/oauth\/sign-up",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Send a reset link to the given user.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/user\/password\/reset",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u6279\u91cf\u5bfc\u5165\u654f\u611f\u8bcd\u6c47",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/sensitive-word\/import",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Destroy specified records",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/sensitive-word\/batch-delete",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u654f\u611f\u8bcd\u5217\u8868\nMethod GET",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/sensitive-word",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u6dfb\u52a0\u654f\u611f\u8bcd\u6c47",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/sensitive-word",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u66f4\u65b0\u64cd\u4f5c",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/sensitive-word\/:word",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Destroy sensitive word",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/sensitive-word\/:word",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u5217\u8868\nMethod GET",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/sensitive-word-category",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u65b0\u5efa\u5206\u7c7b\nMethod Post",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/sensitive-word-category",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u66f4\u65b0\u64cd\u4f5c\nMethod PUT",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/sensitive-word-category\/:category",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u5220\u9664\u5206\u7c7b\nMethod DELETE",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/sensitive-word-category\/:category",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u4e3e\u62a5\u4fe1\u606f\nMethod GET",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/illegal-info",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u6279\u51c6\u4e3e\u62a5\u7684\u4fe1\u606f\nMethod POST",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/illegal-info\/approve\/:id",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u5ffd\u7565\u4e3e\u62a5\u7684\u4fe1\u606f\uff0c\u5c06\u5176\u6807\u8bb0\u4e3a\u5df2\u8bfb\nMethod POST",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/illegal-info\/ignore\/:id",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u56fe\u7247\u5217\u8868",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/gallery",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Method GET",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u4e0a\u4f20\u56fe\u7247",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/gallery",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Delete gallery image",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/gallery\/:gallery",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u53cb\u94fe\u5217\u8868\nMethod GET",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/friend-link",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u65b0\u5efa\u53cb\u94fe\u6570\u636e\nMethod POST",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/friend-link",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u66f4\u65b0\u53cb\u94fe\nMethod PUT",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/friend-link\/:friend_link",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u5220\u9664\u53cb\u94fe\nMethod Delete",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/friend-link\/:friend_link",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display a listing of the resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/auth",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Show the form for creating a new resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/auth\/create",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Store a newly created resource in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/auth",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update the specified resource in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/auth\/:auth",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Remove the specified resource from storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/auth\/:auth",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display a listing of the resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/role",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Store a newly created resource in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/role",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update the specified resource in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/role\/:role",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Remove the specified resource from storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/role\/:role",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Get user and roles information after enter user email",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/manager\/user\/:email",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display a listing of the resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/manager",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Show the form for creating a new resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/manager\/create",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update user roles in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/manager\/:manager",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Remove the specified resource from storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/manager\/:manager",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Comment be verified .",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/comment\/approve",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Batch reject comments",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/comment\/reject",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display a listing of the resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/comment",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display a listing of the resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/system-setting",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update a specified resource in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/system-setting\/:system_setting",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display a listing of the resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/email-config",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Store email config to database",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/email-config",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update a specified resource in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/email-config\/:email_config",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display a listing of the resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/tag",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Show the resource for creating a new resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/tag\/create",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Store a newly created resource in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/tag",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the specified resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/tag\/:tag",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update the specified resource in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/tag\/:tag",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Remove the specified resource from storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/tag\/:tag",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display a listing of the resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/log\/:type",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u7f51\u7ad9\u7684\u7edf\u8ba1\u4fe1\u606f",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/dashboard",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Undocumented function",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/upload\/image\/:category",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u4e13\u9898\u5217\u8868\nMethod GET",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/topic",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u65b0\u5efa\u4e13\u9898\nMethod POST",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/topic",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u66f4\u65b0\u64cd\u4f5c",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/topic\/:id",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u5220\u9664\u4e13\u9898\nMethod DELETE",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/topic\/:id",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Restore deleted article",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/article\/restore\/:article",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u6587\u7ae0\u5217\u8868\nMethod GET",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/article",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Get topics and tags",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/article\/create",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u65b0\u5efa \u6587\u7ae0\nMethod POST",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/article",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u83b7\u53d6\u6587\u7ae0\u7684\u5185\u5bb9\nMethod POST",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/article\/:article",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u66f4\u65b0\u6587\u7ae0 | \u53d1\u5e03\u8349\u7a3f\nMethod PUT",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/article\/:article",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "\u5220\u9664\u6587\u7ae0\nMethod POST",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/article\/:article",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Get Comment notification",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/notification",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Get comment able comments",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/notification\/commentable-comments\/:id",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Reset user avatar",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/user\/update\/:user",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Bind social account to exists account",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/user\/bind",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Bind social account to exists account",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/user\/unbind\/:account",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Bind social account to exists account",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/user\/rebind",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Get user extra information",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/user\/profile",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Reset the given user's password.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "api\/admin\/password\/update",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Show create Page",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "admin\/manager\/register",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Mark the authenticated user's email address as verified.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "admin\/verify",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "admin\/login",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "admin\/login",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "admin\/login\/{any}",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "admin\/login\/:any",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the password reset view for the given token.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "admin\/password\/reset",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "If no token is present, display the link request form.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "index\nMethod GET",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "admin\/:any",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Show the application dashboard.",
+                    "request": {
+                        "url": {
+                            "protocol": "https",
+                            "host": "www.blog1997.com",
+                            "path": "home",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        }
+    ]
+}

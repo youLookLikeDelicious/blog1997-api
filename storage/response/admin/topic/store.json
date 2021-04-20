@@ -1,0 +1,12 @@
+{
+    "status": "success",
+    "message": "专题创建成功",
+    "data": {
+        "name": "Docker",
+        "user_id": 2,
+        "updated_at": "1618844856",
+        "created_at": "1618844856",
+        "id": 22,
+        "editAble": false
+    }
+}

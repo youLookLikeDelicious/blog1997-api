@@ -24,8 +24,10 @@
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.0"
+        "mpociot/laravel-apidoc-generator": "^4.8",
+        "nunomaduro/collision": "^3.0",
+        "phpunit/phpunit": "^7.0",
+        "sebastian/recursion-context": "3.0"
     },
     "config": {
         "optimize-autoloader": true,

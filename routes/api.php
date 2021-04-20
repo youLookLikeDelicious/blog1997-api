@@ -1,9 +1,4 @@
 <?php
-
-use Illuminate\Http\Request;
-use App\Facades\CacheModel;
-use App\Model\User;
-use Intervention\Image\ImageManagerStatic as Image;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -79,7 +74,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
         Route::get('/manager/user/{email}', 'ManagerController@user')
             ->name('manager.get.user');
         Route::resource('manager', 'ManagerController')
-            ->only(['update', 'create', 'destroy', 'index']);
+            ->only(['update', 'create', 'index']);
 
         Route::post('/comment/approve', 'CommentController@approve')
             ->name('comment.approve');
@@ -97,7 +92,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
             ->only(['index', 'update', 'store']);
 
         Route::resource('tag', 'TagController')
-            ->only(['index', 'update', 'store', 'destroy', 'show', 'create']);
+            ->only(['index', 'update', 'store', 'destroy', 'create']);
             
         Route::get('/log/{type?}', 'LogController@index')
             ->name('system.log');
@@ -113,10 +108,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
         Route::post('/upload/image/{category}', 'UploadController@uploadImage');
 
         Route::resource('topic', 'TopicController')
-            ->only(['index', 'store', 'update', 'destroy'])
-            ->parameters([
-                'topic' => 'id'
-            ]);
+            ->only(['index', 'store', 'update', 'destroy']);
 
         Route::post('/article/restore/{article}', 'ArticleController@restore')
             ->name('article.restore');
@@ -142,6 +134,8 @@ Route::group(['middleware' => 'auth'], function () {
         ->name('user.rebind');
     Route::get('/user/profile', 'UserController@profile')
         ->name('user.profile');
+    Route::delete('/user/{user}', 'UserController@destroy')
+        ->name('user.destroy');
     Route::post('/admin/password/update', 'Auth\ResetPasswordsController@reset')
         ->name('password.update'); 
 });
@@ -175,17 +169,16 @@ Route::group(['namespace' => 'Home'], function () {
 
         // 获取评论
         // 评论相关操作
-        Route::get('/comment/reply/{rootId}/{offset}', 'CommentController@getReply');
+        Route::get('/comment/reply/{rootId}/{offset}', 'CommentController@getReply')
+            ->where('offset', '[1-9]\d*');
         Route::post('/article/comments/{articleId}', 'ArticleController@comments');
 
         // 获取文章列表
-        Route::match(['post'], '/article/search', 'ArticleController@all');
+        Route::match(['post', 'get'], '/article/search', 'ArticleController@all');
 
         // 文章详情
         Route::get('/article/{articleId}', 'ArticleController@find')
             ->middleware('sitemap:1,weekly');
-            
-        Route::get('/article', 'ArticleController@all');
         
         // 获取博客留言
         Route::get('/leave-message', 'LeaveMessageController@index')

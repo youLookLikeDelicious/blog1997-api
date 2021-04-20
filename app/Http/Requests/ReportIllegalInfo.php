@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Traits\DecodeParam;
 use App\Rules\Exists;
 use App\Service\FilterStringService;
 use Illuminate\Foundation\Http\FormRequest;

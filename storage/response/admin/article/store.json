@@ -1,0 +1,37 @@
+{
+    "status": "success",
+    "message": "\u6587\u7ae0\u521b\u5efa\u6210\u529f",
+    "data": {
+        "title": "Blog1997",
+        "topic_id": 17,
+        "is_origin": "yes",
+        "order_by": "50",
+        "content": "## \u6ca1\u5934\u8111\n## \u4e0d\u9ad8\u5174",
+        "is_draft": "no",
+        "is_markdown": "yes",
+        "summary": "## \u6ca1\u5934\u8111\n## \u4e0d\u9ad8\u5174",
+        "gallery_id": 28,
+        "user_id": 2,
+        "updated_at": "1618723068",
+        "created_at": "1618723068",
+        "id": 138,
+        "tags": [
+            {
+                "id": 1,
+                "name": "Tag",
+                "pivot": {
+                    "article_id": 138,
+                    "tag_id": 1
+                }
+            },
+            {
+                "id": 2,
+                "name": "\u524d\u7aef",
+                "pivot": {
+                    "article_id": 138,
+                    "tag_id": 2
+                }
+            }
+        ]
+    }
+}

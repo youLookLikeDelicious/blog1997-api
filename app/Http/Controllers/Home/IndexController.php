@@ -9,15 +9,22 @@ use App\Contract\Repository\Comment;
 use App\Contract\Repository\FriendLink;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * @group Front index page
+ * 
+ * 获取前台首页的相关数据
+ */
 class IndexController extends Controller
 {
     /**
-     * 获取首页相关信息
-     * Method GET
+     * index
      * 
+     * 获取首页相关信息
+     * 
+     * @responseFile response/home/index/index.json
      * @param Request $request
      * @param Article $article
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function index(Request $request, Article $article, Comment $comment)
     {
@@ -39,9 +46,12 @@ class IndexController extends Controller
     }
 
     /**
+     * getFriendLink
      * 获取友链列表
      * 
+     * @responseFile response/home/index/friend-link.json
      * @param FriendLink $friendLink 友链模型
+     * @return \Illuminate\Http\Response
      */
     public function getFriendLink (FriendLink $friendLink) {
 

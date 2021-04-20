@@ -1,0 +1,49 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "records": [
+            {
+                "id": 71,
+                "content": "<p>123<\/p>",
+                "user_id": 2,
+                "level": 1,
+                "reply_to": 2,
+                "created_at": "1618655624",
+                "liked": 0,
+                "commented": 1,
+                "thumbs": 0,
+                "user": {
+                    "id": 2,
+                    "name": "\u4e0d\u9ad8\u5174",
+                    "avatar": "\/image\/avatar\/2021-01-04\/792.071792001615ff318151187d1.11539176.jpg"
+                },
+                "replies": [
+                    {
+                        "id": 72,
+                        "level": 2,
+                        "liked": 0,
+                        "user_id": 2,
+                        "content": "<p>23<\/p>",
+                        "able_id": 71,
+                        "root_id": 71,
+                        "reply_to": 2,
+                        "thumbs": 0,
+                        "user": {
+                            "id": 2,
+                            "name": "\u4e0d\u9ad8\u5174",
+                            "avatar": "\/image\/avatar\/2021-01-04\/792.071792001615ff318151187d1.11539176.jpg"
+                        },
+                        "receiver": {
+                            "id": 2,
+                            "name": "\u4e0d\u9ad8\u5174",
+                            "avatar": "\/image\/avatar\/2021-01-04\/792.071792001615ff318151187d1.11539176.jpg"
+                        }
+                    }
+                ]
+            }
+        ],
+        "p": 1,
+        "pages": 1
+    }
+}

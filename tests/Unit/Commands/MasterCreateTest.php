@@ -24,10 +24,10 @@ class MasterCreateTest extends TestCase
             'name' => 'Master'
         ]);
 
-        $this->artisan('master:create email=454948077@qq.com')
+        $this->artisan('master:create email=454948077@qq.com password=888888')
             ->expectsOutput('Email has been send, please checkout!');
 
-        $this->artisan('master:create email=454948077@qq.com')
-            ->expectsOutput('There is already one master!');
+        $this->artisan('master:create email=454948077@qq.com password=888888')
+            ->expectsOutput('There is already a master!');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Home;
 
+use App\Model\SiteMap;
 use Tests\TestCase;
 use App\Model\Article;
 use App\Model\Comment;
@@ -68,7 +69,7 @@ class ArticleTest extends TestCase
 
         $_GET['p']  =1;
         
-        $response = $this->json('GET', '/api/article');
+        $response = $this->json('GET', '/api/article/search');
 
         $response->assertStatus(200);
 
@@ -79,7 +80,7 @@ class ArticleTest extends TestCase
         /******************************************************************
          *  查询，未知的 topic id
          ******************************************************************/
-        $response = $this->json('GET', '/api/article?tag_id=' . ($tag->id + 1));
+        $response = $this->json('GET', '/api/article/search?tag_id=' . ($tag->id + 1));
 
         $response->assertStatus(200)
             ->assertJson([
@@ -105,12 +106,7 @@ class ArticleTest extends TestCase
     {
         $response = $this->json('GET', '/api/article?tag_id=1s2');
 
-        $response->assertStatus(400)
-            ->assertJsonStructure([
-                'message' => [
-                    'tag_id'
-                ]
-            ]);
+        $response->assertStatus(404);
     }
 
     /**
@@ -133,7 +129,7 @@ class ArticleTest extends TestCase
             'content' => '江畔何人初见月,江月何年初照人.'
         ]);
 
-        $response = $this->json('get', '/api/article?search=江畔何人初见月');
+        $response = $this->json('get', '/api/article/search?keyword=江畔何人初见月');
 
         /**
          * 全文索引在transaction中不可用

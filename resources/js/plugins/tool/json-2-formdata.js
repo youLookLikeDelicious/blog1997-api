@@ -18,9 +18,7 @@ const json2FormData = (data) => {
             }
             continue
         }
-        if (data[key] === '') {
-            continue
-        }
+        
         formData.append(key, data[key])
     }
 

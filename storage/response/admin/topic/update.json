@@ -1,0 +1,13 @@
+{
+    "status": "success",
+    "message": "专题修改成功",
+    "data": {
+        "id": 22,
+        "name": "12s",
+        "article_sum": 0,
+        "user_id": 2,
+        "created_at": "1618844856",
+        "updated_at": "1618845010",
+        "editAble": false
+    }
+}

@@ -151,6 +151,15 @@ class MessageBox implements RepositoryMessageBox
 
         // 查询相互之间的回复
         foreach ($records as $key => $notification) {
+            // 当该记录是博客留言的时候,插入空数据
+            if (! isset($notification['notificationable']['commentable'])) {
+                $records[$key]['notificationable']['commentable'] = [
+                    'comments' => [
+                        'pagination' => []
+                    ]
+                ];
+                continue;
+            }
             switch ($notification['type']) {
                 case 'App\Model\Comment':
                     // 如果评论 的commentable是comment，判断主体是留言还是文章
@@ -207,6 +216,7 @@ class MessageBox implements RepositoryMessageBox
         }])->with('user:id,name,avatar')
             ->select(['id', 'type', 'content', 'have_read', 'sender', 'reported_id', 'created_at', 'updated_at'])
             ->whereRaw($this->notificationCondition())
+            ->where('sender', '!=', auth()->id())
             ->whereIn('type', ['App\Model\Comment', 'App\Model\ThumbUp'])
             ->orderBy('created_at', 'desc');
 
@@ -237,6 +247,8 @@ class MessageBox implements RepositoryMessageBox
         if ($haveRead) {
             $query->where('have_read', $haveRead);
         }
+
+        $query->where('sender', '!=', auth()->id());
 
         $total = $query->first()->total;
 

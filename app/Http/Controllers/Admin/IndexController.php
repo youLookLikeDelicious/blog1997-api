@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Contract\Repository\Article;
-use App\Contract\Repository\MessageBox;
-use App\Contract\Repository\ThumbUp;
 use App\Contract\Repository\User;
+use App\Contract\Repository\Article;
+use App\Contract\Repository\ThumbUp;
 use App\Http\Controllers\Controller;
 use App\Contract\Repository\Comment;
+use App\Contract\Repository\MessageBox;
 
+/**
+ * @group Admin dashboard
+ * 
+ * 后台首页
+ */
 class IndexController extends Controller
 {
     /**
@@ -62,7 +67,12 @@ class IndexController extends Controller
         $this->messageBoxRepository = $messageBoxRepository;
     }
     /**
+     * Statistic site data
+     * 
      * 获取网站的统计信息
+     * 
+     * @responseFile response/admin/index/index.json
+     * @return \Illuminate\Http\Response
      */
     public function index ()
     {
