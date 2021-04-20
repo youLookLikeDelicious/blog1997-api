@@ -1,0 +1,52 @@
+{
+	"status": "success",
+	"message": "success",
+	"data": {
+		"pagination": {
+			"total": 2,
+			"uri": "?",
+			"currentPage": 1,
+			"next": null,
+			"previous": null,
+			"first": 1,
+			"last": 1,
+			"pages": 1
+		},
+		"records": [
+			{
+				"id": 4,
+				"type": "App\\Model\\Comment",
+				"content": "留下了一些足迹",
+				"have_read": "no",
+				"sender": 4,
+				"reported_id": 4,
+				"created_at": "1618752929",
+				"updated_at": "1618752929",
+				"notificationable": {
+					"id": 4,
+					"content": "<p>sdfadfa<br /></p>",
+					"title": "",
+					"able_type": "Blog1997",
+					"able_id": 0,
+					"created_at": "1618752837",
+					"thumbs": 0,
+					"commentable": {
+						"comments": {
+							"pagination": []
+						}
+					}
+				},
+				"user": {
+					"id": 4,
+					"name": "chaos",
+					"avatar": "/image/avatar/2020-11-06/6352a96f3bbc772fdb84906077acb20b"
+				}
+			}
+		],
+		"haveRead": "",
+		"counts": {
+			"total": 1,
+			"have_read": 0
+		}
+	}
+}

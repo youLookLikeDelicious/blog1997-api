@@ -55,15 +55,6 @@ class ManagerControllerTest extends TestCase
 
         $response = $this->json('get', '/api/admin/manager');
         $response->assertStatus(200);
-        
-        // ==================================================
-        //  测试删除部分
-        // ==================================================
-        $response = $this->json('delete', '/api/admin/manager/' . $manager->id);
-
-        $response->assertStatus(200);
-
-        $this->assertNull(User::with('roles')->active()->find($manager->id));
     }
 
     /**

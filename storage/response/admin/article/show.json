@@ -1,0 +1,30 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "id": 136,
+        "title": "Blog1997",
+        "gallery_id": 26,
+        "is_origin": "yes",
+        "topic_id": 17,
+        "is_markdown": "yes",
+        "content": "Webpack是Javascrpit程序的一个静态模型捆绑器。",
+        "order_by": 50,
+        "article_id": 136,
+        "user_id": 2,
+        "is_draft": "no",
+        "tags": [
+            {
+                "id": 2,
+                "pivot": {
+                    "article_id": 136,
+                    "tag_id": 2
+                }
+            }
+        ],
+        "gallery": {
+            "id": 26,
+            "url": "/image/gallery/2020-12-09/73.0739020016085fd09025120bb4.45066014.jpg"
+        }
+    }
+}

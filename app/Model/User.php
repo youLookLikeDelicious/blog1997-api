@@ -80,19 +80,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Soft Delete
-     *
-     * @return this
-     */
-    public function softDelete()
-    {
-        $this->deleted_at = time();
-        $this->save();
-
-        return $this;
-    }
-
-    /**
      * Define relation with log
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

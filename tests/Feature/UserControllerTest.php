@@ -105,4 +105,21 @@ class UserControllerTest extends TestCase
         // redirect
         $response->assertStatus(302);
     }
+
+    /**
+     * 测试注销账号
+     * @group feature
+     *
+     * @return void
+     */
+    public function test_destroy_user()
+    {
+        $this->makeUser();
+
+        $response = $this->json('delete', '/api/user/' . $this->user->id);
+
+        $response->assertStatus(200);
+        
+        $this->assertNotEquals(User::find($this->user->id)->deleted_at, 0);
+    }
 }

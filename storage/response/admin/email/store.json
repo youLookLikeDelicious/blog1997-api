@@ -1,0 +1,16 @@
+{
+    "status": "success",
+    "message": "邮箱配置成功",
+    "data": {
+        "id": 1,
+        "driver": "smtp",
+        "email_server": "smtp.163.com",
+        "email_addr": "blog_1997@163.com",
+        "port": 465,
+        "encryption": "ssl",
+        "sender": "Blog1997",
+        "password": "blog1997",
+        "created_at": "1603533986",
+        "updated_at": "1618732662"
+    }
+}

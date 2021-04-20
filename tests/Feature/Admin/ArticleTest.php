@@ -294,10 +294,12 @@ class ArticleTest extends TestCase
             'is_draft' => 'no',
             'topic_id' => 1,
             'tags' => [1],
+            'title' => 'title',
             'content' => 'new content'
         ]);
         
         $response->assertStatus(200);
+
         $message = json_decode($response->getContent())->message;
         $this->assertEquals('文章发布成功', $message);
         // 获取草稿

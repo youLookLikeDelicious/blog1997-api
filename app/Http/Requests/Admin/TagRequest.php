@@ -19,6 +19,19 @@ class TagRequest extends FormRequest
     }
 
     /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'cover'     => __('field.cover'),
+            'description'     => __('field.description'),
+        ];
+    }
+
+    /**
      * Get data to be validated from the request.
      *
      * @return array
@@ -30,6 +43,8 @@ class TagRequest extends FormRequest
         if (empty($data['cover']) && $this->file('cover')) {
             $data['cover'] = $this->file('cover');
         }
+
+        $data['description'] = $data['description'] ?? '';
 
         return $data;
     }
@@ -46,7 +61,7 @@ class TagRequest extends FormRequest
             'name'  => 'required|max:45',
             'cover' => 'sometimes|required|string|max:120',
             'parent_id'   => 'required|integer|min:-1',
-            'description' => 'sometimes|max:450',
+            'description' => 'present|max:450',
         ];
 
         if (auth()->isMaster() && $this->coverIsFile()) {

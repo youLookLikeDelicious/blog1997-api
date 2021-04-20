@@ -9,14 +9,23 @@ use App\Http\Requests\Admin\TopicRequest;
 use App\Contract\Repository\Topic as Repository;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @group Topic management
+ * 
+ * 文章专题管理
+ */
 class TopicController extends Controller
 {
     /**
-     * 获取专题列表
-     * Method GET
+     * Display tops records
      * 
-     * @param \App\Repository\Admin\Topic $repository 
-     * @return Response
+     * 显示专题列表
+     * 
+     * @queryParam p 请求的页数
+     * @responseFile response/admin/topic/index.php
+     * @param Request $request
+     * @param Repository $repository
+     * @return \Illuminate\Http\Response
      */
     public function index (Request $request, Repository $repository)
     {
@@ -26,10 +35,14 @@ class TopicController extends Controller
     }
 
     /**
+     * Store newly created topic
+     * 
      * 新建专题
-     * Method POST
-     * @param Request $request
-     * @return mixed
+     * 
+     * @bodyParam name string required 专题名称(唯一属性)
+     * @responseFile response/admin/topic/store.php 
+     * @param TopicRequest $request
+     * @return \Illuminate\Http\Response
      */
     public function store (TopicRequest $request) {
         // 验证提交的数据
@@ -41,35 +54,42 @@ class TopicController extends Controller
     }
 
     /**
-     * 更新操作
+     * Update the specific topic
+     * 
+     * 更新专题
      *
-     * @param Request $request
-     * @param [type] $id
-     * @return void
+     * @urlParam topic 专题ID
+     * @bodyParam name string required 专题名称(唯一属性)
+     * @responseFile response/admin/topic/store.php 
+     * @param TopicRequest $request
+     * @param Topic $topic
+     * @return \Illuminate\Http\Response
      */
-    public function update(TopicRequest $request, $id)
+    public function update(TopicRequest $request, Topic $topic)
     {
         // 验证提交的数据
         $data = $request->validated();
 
-        $topicModel = Topic::findOrFail($id);
+        $topic->update($data);
 
-        $topicModel->update($data);
-
-        return response()->success($topicModel->append('editAble'), '专题修改成功');
+        return response()->success($topic->append('editAble'), '专题修改成功');
     }
 
     /**
-     * 删除专题
-     * Method DELETE
+     * Destroy the specific topic
      * 
-     * @param Request $request
-     * @return mixed
+     * 删除指定的专题
+     * 该专题下的所有文章会被删除
+     * 
+     * @urlParam topic 专题ID
+     * @responseFile response/admin/topic/destroy.php 
+     * @param Topic $topic
+     * @return \Illuminate\Http\Response
      */
-    public function destroy ($id)
+    public function destroy (Topic $topic)
     {
-        DB::transaction(function () use ($id) {
-            Topic::findOrFail($id)->delete();
+        DB::transaction(function () use ($topic) {
+            $topic->delete();
         });
 
         return response()->success('', '专题删除成功');

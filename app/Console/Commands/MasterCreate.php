@@ -47,6 +47,7 @@ class MasterCreate extends Command
         $data = $this->validated();
 
         if ($this->hasMaster()) {
+            dump(1);
             $this->error('There is already a master!');
             return;
         }

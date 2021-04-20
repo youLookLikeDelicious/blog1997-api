@@ -8,13 +8,23 @@ use App\Http\Requests\FriendLinkRequest;
 use App\Contract\Repository\FriendLink as RepositoryFriendLink;
 use Illuminate\Http\Request;
 
+/**
+ * @group Friend link management
+ * 
+ * 友情连接管理
+ * Friend Link Management
+ */
 class FriendLinkController extends Controller
 {
     /**
+     * Get friend link records
+     * 
      * 获取友链列表
-     * Method GET
+     * 
+     * @responseFile response/admin/friend-link/index.json
      * @param Request $request
-     * @return mixed
+     * @param RepositoryFriendLink $friendLInk
+     * @return \Illuminate\Http\Response
      */
     public function index (Request $request, RepositoryFriendLink $friendLInk)
     {        
@@ -24,13 +34,18 @@ class FriendLinkController extends Controller
     }
 
     /**
-     * 新建友链数据
-     * Method POST
+     * Store newly created friend link records
      * 
-     * @param Request $request
-     * @return mixed
+     * 新建友链数据
+     * 
+     * @bodyParam name string required 友链名称,例如Blog1997
+     * @bodyParam url  string required 友链地址,例如https://www.blog1997.com
+     * @responseFile response/admin/friend-link/store.json
+     * @param FriendLinkRequest $request
+     * @return \Illuminate\Http\Response
      */
-    public function store (FriendLinkRequest $request) {
+    public function store (FriendLinkRequest $request)
+    {
         $data = $request->validated();
 
         $friendLInkModel = FriendLink::create($data);
@@ -41,11 +56,17 @@ class FriendLinkController extends Controller
     }
 
     /**
+     * Update newly specified friend link record
+     * 
      * 更新友链
-     * Method PUT
      *
-     * @param Type $var
-     * @return void
+     * @urlParam friendLink 友链记录ID
+     * @bodyParam name string required 友链名称,例如Blog1997
+     * @bodyParam url  string required 友链地址,例如https://www.blog1997.com
+     * @responseFile response/admin/friend-link/update.json
+     * @param FriendLinkRequest $request
+     * @param FriendLink $friendLink
+     * @return \Illuminate\Http\Response
      */
     public function update(FriendLinkRequest $request, FriendLink $friendLink)
     {
@@ -57,12 +78,16 @@ class FriendLinkController extends Controller
         
         return response()->success($friendLink, '友链修改成功');
     }
+
     /**
-     * 删除友链
-     * Method Delete
+     * Destroy newly specified friend link record
      * 
+     * 删除友链
+     * 
+     * @urlParam friendLink 友链ID
+     * @responseFile response/admin/friend-link/destroy.json
      * @param FriendLink $friendLInk
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy (FriendLink $friendLink)
     {

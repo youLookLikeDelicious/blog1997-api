@@ -1,0 +1,28 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "pagination": {
+            "total": 2,
+            "uri": "?",
+            "currentPage": 1,
+            "next": null,
+            "previous": null,
+            "first": 1,
+            "last": 1,
+            "pages": 1
+        },
+        "records": [
+            {
+                "id": 24,
+                "url": "\/image\/gallery\/2020-12-09\/98.1580210016085fd08fa8269547.61618326.jpg",
+                "created_at": "1607503784"
+            },
+            {
+                "id": 25,
+                "url": "\/image\/gallery\/2020-12-09\/228.087949001615fd08fc21579d0.79028584.jpg",
+                "created_at": "1607503810"
+            }
+        ]
+    }
+}

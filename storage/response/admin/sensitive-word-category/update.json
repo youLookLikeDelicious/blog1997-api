@@ -1,0 +1,13 @@
+{
+    "status": "success",
+    "message": "分类修改成功",
+    "data": {
+        "id": 28,
+        "name": "分类-",
+        "rank": 1,
+        "count": 0,
+        "created_at": "1618840335",
+        "updated_at": "1618840456",
+        "editAble": false
+    }
+}

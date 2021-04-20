@@ -6,20 +6,34 @@ use App\Model\ThumbUp;
 use App\Http\Requests\ThumbUpRequest;
 use App\Http\Controllers\Controller;
 
+/**
+ * @group Home\ThumbUpController
+ * 
+ * 点赞 文章|评论
+ */
 class ThumbUpController extends Controller
 {
+    /**
+     * Thumb up model
+     *
+     * @var ThumbUp
+     */
     protected $thumbUp;
 
     public function __construct(ThumbUp $thumbUp)
     {
         $this->thumbUp = $thumbUp;
     }
+
     /**
+     * store
      * 点赞操作
-     * Method POST
      * 
+     * @bodyParam id int|string required 文章|评论的ID
+     * @bodyParam category string required 点赞的类型
+     * @responseFile response/home/thumb-up/store.json
      * @param App\Http\Requests\ThumbUpRequest $request
-     * @return mixed
+     * @return \Illuminate\Http\Response
      */
     public function store (ThumbUpRequest $request) {
         // 验证表单数据

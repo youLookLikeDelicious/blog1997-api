@@ -49,6 +49,6 @@ class Exists implements Rule
      */
     public function message()
     {
-        return '记忆中模糊记得有这条记录，但是找不到了';
+        return trans('validation.exists');
     }
 }

@@ -1,0 +1,21 @@
+{
+    "status": "success",
+    "message": "角色更新成功",
+    "data": {
+        "id": 5,
+        "name": "author",
+        "remark": "备注",
+        "created_at": "1618835002",
+        "updated_at": "1618835952",
+        "authorities": [
+            {
+                "id": 2,
+                "name": "文章管理",
+                "pivot": {
+                    "role_id": 5,
+                    "auth_id": 2
+                }
+            }
+        ]
+    }
+}

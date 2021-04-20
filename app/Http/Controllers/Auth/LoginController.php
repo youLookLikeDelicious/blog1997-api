@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Cookie;
 use App\Http\Requests\LoginByProviderRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\App;
-
+/**
+ * @group User Login
+ * Login user
+ */
 class LoginController extends Controller
 {
     use AuthenticatesUsers;

@@ -1,0 +1,33 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "pagination": {
+            "total": 1,
+            "uri": "?",
+            "currentPage": 1,
+            "next": null,
+            "previous": null,
+            "first": 1,
+            "last": 1,
+            "pages": 1
+        },
+        "records": [
+            {
+                "id": 77,
+                "content": "<p><img class=\"lazy\" data-src=\"http:\/\/img.baidu.com\/hi\/jx2\/j_0040.gif\" alt=\"j_0040.gif\" \/><\/p>",
+                "able_id": 137,
+                "able_type": "App\\Model\\Article",
+                "user_id": 2,
+                "created_at": "1618726336",
+                "verified": "no",
+                "thumbs": 0,
+                "user": {
+                    "id": 2,
+                    "name": "\u4e0d\u9ad8\u5174",
+                    "avatar": "\/image\/avatar\/2021-01-04\/792.071792001615ff318151187d1.11539176.jpg"
+                }
+            }
+        ]
+    }
+}

@@ -146,11 +146,15 @@ class Comment implements RepositoryComment
 
             // 获取 该条评论 缓存的点赞数
             $commentLiked = CacheModel::getCommentLiked($v['id']);
-            $this->comments['records'][$k]['liked'] += $commentLiked;
+            if ($commentLiked) {
+                $this->comments['records'][$k]['liked'] += $commentLiked;
+            }
 
             // 获取缓存的 评论回复数量
             $commentCommented = CacheModel::getCommentCommented($v['id']);
-            $this->comments['records'][$k]['commented'] += $commentCommented;
+            if ($commentCommented) {
+                $this->comments['records'][$k]['commented'] += $commentCommented;
+            }
 
             // 如果 该评论没有相关的回复
             if (!$this->comments['records'][$k]['commented']) {

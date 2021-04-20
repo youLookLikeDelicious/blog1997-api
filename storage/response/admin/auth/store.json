@@ -1,0 +1,13 @@
+{
+    "status": "success",
+    "message": "权限添加成功",
+    "data": {
+        "name": "test",
+        "parent_id": 0,
+        "route_name": "",
+        "updated_at": "1618725637",
+        "created_at": "1618725637",
+        "id": 84,
+        "auth_path": "84_"
+    }
+}

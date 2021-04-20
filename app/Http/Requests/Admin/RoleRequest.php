@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Rules\Exists;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoleRequest extends FormRequest
@@ -17,6 +18,32 @@ class RoleRequest extends FormRequest
     }
 
     /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'authorities.*' => __('field.authorities id')
+        ];
+    }
+
+    /**
+     * Get data to be validated from the request.
+     *
+     * @return array
+     */
+    public function validationData()
+    {
+        $data = parent::validationData();
+
+        $data['remark'] = $data['remark'] ?? '';
+        
+        return $data;
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -25,9 +52,9 @@ class RoleRequest extends FormRequest
     {
         return [
             'name' => 'required|max:45',
-            'remark' => 'sometimes|max:450',
+            'remark' => 'present|string|max:450',
             'authorities' => 'nullable|array',
-            'authorities.*' => 'integer'
+            'authorities.*' => ['integer', new Exists('auth')]
         ];
     }
 }

@@ -29,7 +29,10 @@ class MessageBox extends Model
      */
     public function notificationable()
     {
-        return $this->morphTo('notificationable', 'type', 'reported_id');
+        return $this->morphTo('notificationable', 'type', 'reported_id')
+            ->withDefault([
+                'content' => '该内容已被删除'
+            ]);
     }
 
     /**

@@ -1,0 +1,29 @@
+{
+    "status": "success",
+    "message": "角色添加成功",
+    "data": {
+        "name": "11",
+        "remark": "",
+        "updated_at": "1618836138",
+        "created_at": "1618836138",
+        "id": 6,
+        "authorities": [
+            {
+                "id": 1,
+                "name": "\u535a\u5ba2\u7ba1\u7406",
+                "pivot": {
+                    "role_id": 6,
+                    "auth_id": 1
+                }
+            },
+            {
+                "id": 16,
+                "name": "\u4fee\u6539\u4e13\u9898",
+                "pivot": {
+                    "role_id": 6,
+                    "auth_id": 16
+                }
+            }
+        ]
+    }
+}

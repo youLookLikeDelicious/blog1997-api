@@ -17,6 +17,21 @@ class EmailConfigRequest extends FormRequest
     }
 
     /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'email_server' => __('field.email_server'),
+            'port' => __('field.port'),
+            'email_addr' => __('field.email_addr'),
+            'password' => __('field.password'),
+        ];
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array

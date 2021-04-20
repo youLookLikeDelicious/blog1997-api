@@ -1,0 +1,47 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "pagination": {
+            "total": 3,
+            "uri": "?",
+            "currentPage": 1,
+            "next": null,
+            "previous": null,
+            "first": 1,
+            "last": 1,
+            "pages": 1
+        },
+        "records": [
+            {
+                "id": 1,
+                "name": "Master",
+                "remark": "Supper admin",
+                "authorities": [
+                    {
+                        "id": 38,
+                        "name": "\u4e0a\u4f20\u56fe\u7247",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 38
+                        }
+                    },
+                    {
+                        "id": 13,
+                        "name": "\u4e13\u9898\u7ba1\u7406",
+                        "pivot": {
+                            "role_id": 1,
+                            "auth_id": 13
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "\u6ce8\u518c\u7528\u6237",
+                "remark": "\u4f7f\u7528\u7b2c\u4e09\u65b9\u8d26\u53f7\u767b\u9646\u7684\u7528\u6237",
+                "authorities": []
+            }
+        ]
+    }
+}

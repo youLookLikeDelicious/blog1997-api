@@ -1,0 +1,32 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "pagination": {
+            "total": 2,
+            "uri": "?",
+            "currentPage": 1,
+            "next": null,
+            "previous": null,
+            "first": 1,
+            "last": 1,
+            "pages": 1
+        },
+        "records": [
+            {
+                "id": 17,
+                "name": "ES7",
+                "article_sum": 2,
+                "editAble": 0,
+                "created_at": "1608638006"
+            },
+            {
+                "id": 21,
+                "name": "数据结构与算法",
+                "article_sum": 1,
+                "editAble": 0,
+                "created_at": "1612844508"
+            }
+        ]
+    }
+}

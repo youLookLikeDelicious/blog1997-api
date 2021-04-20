@@ -1,0 +1,46 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": [
+        {
+            "id": 75,
+            "user_id": 2,
+            "liked": 0,
+            "content": "<p>3<\/p>",
+            "commented": 0,
+            "root_id": 71,
+            "level": 2,
+            "thumbs": 0,
+            "user": {
+                "id": 2,
+                "name": "\u4e0d\u9ad8\u5174",
+                "avatar": "\/image\/avatar\/2021-01-04\/792.071792001615ff318151187d1.11539176.jpg"
+            },
+            "receiver": {
+                "id": null,
+                "name": "\u8be5\u7528\u6237\u5df2\u6ce8\u9500",
+                "avatar": ""
+            }
+        },
+        {
+            "id": 76,
+            "user_id": 2,
+            "liked": 0,
+            "content": "<p>4<\/p>",
+            "commented": 0,
+            "root_id": 71,
+            "level": 2,
+            "thumbs": 0,
+            "user": {
+                "id": 2,
+                "name": "\u4e0d\u9ad8\u5174",
+                "avatar": "\/image\/avatar\/2021-01-04\/792.071792001615ff318151187d1.11539176.jpg"
+            },
+            "receiver": {
+                "id": null,
+                "name": "\u8be5\u7528\u6237\u5df2\u6ce8\u9500",
+                "avatar": ""
+            }
+        }
+    ]
+}

@@ -17,6 +17,19 @@ class FriendLinkRequest extends FormRequest
     }
 
     /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'name' => __('field.friend link name'),
+            'url' => __('field.friend link url')
+        ];
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array

@@ -6,11 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
 
+/**
+ * @group Retrieve Image
+ * 
+ * 获取本站的图片
+ */
 class ImageController extends Controller
 {
     /**
-     * Get image
-     *
+     * 获取上传的图片
+     * 
+     * @urlParam type   string 图片类型,例如avatar,article,gallery
+     * @urlParam dir    string 日期信息,例如2021-01-04
+     * @urlParam isWebp        是否是webp,默认是webp格式
      * @param Request $request
      * @param string $type
      * @param string $dir
@@ -45,7 +53,7 @@ class ImageController extends Controller
      *
      * @return string
      */
-    public function getFileName(Request $request, $type, $dir, $name)
+    protected function getFileName(Request $request, $type, $dir, $name)
     {
         // 获取文件的后缀
         $preExit = strrchr($name, '.');
