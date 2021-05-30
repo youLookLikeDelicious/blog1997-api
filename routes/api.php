@@ -110,6 +110,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
         Route::resource('topic', 'TopicController')
             ->only(['index', 'store', 'update', 'destroy']);
 
+        // 创建微信图文素材
+        Route::post('/article/create-wechat-material/{article}', 'ArticleController@createWeChatMaterial')
+            ->name('wechat.material');
+
         Route::post('/article/restore/{article}', 'ArticleController@restore')
             ->name('article.restore');
         Route::resource('article', 'ArticleController')
@@ -118,7 +122,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
         Route::get('/notification', 'MessageBoxController@getNotification')
             ->name('notification.index');
         Route::get('/notification/commentable-comments/{id}', 'MessageBoxController@getCommentAbleComments')
-            ->name('notification.comments');
+            ->name('notification.comments');        
     });
 });
 

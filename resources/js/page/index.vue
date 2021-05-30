@@ -31,6 +31,10 @@ import renderArticleCategoryChartMixin from '~/mixin/dashboard/render-article-ca
 import renderUserChartMixin from '~/mixin/dashboard/render-user-chart'
 import renderIlligalInfoChartMixin from '~/mixin/dashboard/render-illegal-info-chart'
 
+/**
+ * Dashbord page
+ * @example [none]
+ */
 export default {
   name: "Index",
   data () {

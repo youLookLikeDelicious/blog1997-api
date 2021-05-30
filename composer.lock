@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfaccf23f5ae9dbc3f34cf9676a30b3e",
+    "content-hash": "34013815dc9f4467b1e5771d21e7c7d2",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -371,6 +371,10 @@
                 "markdown",
                 "parser"
             ],
+            "support": {
+                "issues": "https://github.com/erusev/parsedown/issues",
+                "source": "https://github.com/erusev/parsedown/tree/1.7.x"
+            },
             "time": "2019-12-30T22:54:17+00:00"
         },
         {

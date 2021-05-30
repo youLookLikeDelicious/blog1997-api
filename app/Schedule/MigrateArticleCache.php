@@ -31,14 +31,14 @@ class MigrateArticleCache
             // 获取缓存的数据
             $cachedData = Cache::get($key);
             
-            $query = Article::where('id', $id);
+            $article = Article::find($id);
+            $article->timestamps = false;
             
             foreach($cachedData as $key => $v) {
-                $query->increment($key, $v);
+                $article->increment($key, $v);
             }
             
             CacheModel::forget('article', $id);
-
         }
 
         Log::info('文章缓存迁移成功 +' . count($ids), ['operate' => 'schedule']);

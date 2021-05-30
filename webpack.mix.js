@@ -20,6 +20,16 @@ const path = require('path')
 //     extractStyles: true
 // })
 
+mix.options({
+    hmr: true,
+    hmrOptions: {
+        host: 'www.blog1997.com',  // www.blog1997.com is my local domain used for testing
+        port: 443,
+    }
+ });
+//  mix.browserSync({
+//     proxy: 'www.blog1997.com',
+//  })
 
 // mix.setPublicPath('public')
 mix.alias({
@@ -52,11 +62,6 @@ mix.webpackConfig({
 if (mix.inProduction()) {
     mix.version();
 }
-
-// mix.browserSync({
-//     proxy: 'https://www.blog1997.com',
-//     open: false
-// });
 
 mix.sass('./resources/sass/app.scss', 'vue/css')
 

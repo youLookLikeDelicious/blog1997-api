@@ -52,7 +52,7 @@
 import uploadImage from '~/components/gallery/upload-image'
 import BigImage from '../components/gallery/big-image.vue'
 export default {
-  name: 'Index',
+  name: 'Gallery',
   components: {
     uploadImage,
     BigImage,

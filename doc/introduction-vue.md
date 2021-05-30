@@ -1,0 +1,1 @@
+Blog1997后台管理界面是使用[vue@2.6.11](https://cn.vuejs.org/v2/guide/)开发的一个单页面应用程序。通过[bit](https://bit.dev/)在多个项目之间共享组件。

@@ -147,4 +147,9 @@ class Article extends ArticleBase
     {
         return $this->is_draft === 'yes';
     }
+
+    public function getIdentityAttribute()
+    {
+        return base64_encode($this->id);
+    }
 }

@@ -1,11 +1,11 @@
 {
-    "/vue/auth/index.js": "/vue/auth/index.js?id=5820e0f049e47d35c206",
-    "/vue/main.js": "/vue/main.js?id=61a77cc7889c57bee674",
-    "/vue/manifest.js": "/vue/manifest.js?id=3dddb354ce048bbe8b38",
-    "/vue/css/app.css": "/vue/css/app.css?id=2a9e3d6977ae2bf78a4c",
-    "/vue/vendor.css": "/vue/vendor.css?id=5ffcf334d6ac646e12b2",
-    "/vue/vendor.js": "/vue/vendor.js?id=9eadfbdfc03ec873b744",
-    "/vue/image/avatar.svg": "/vue/image/avatar.svg?id=744a193fb5b02c2112b8",
-    "/vue/image/background-1.jpg": "/vue/image/background-1.jpg?id=dfd280925a3c46b5fcff",
-    "/vue/image/background.jpg": "/vue/image/background.jpg?id=c39142b134c48fbd47c1"
+    "/vue/auth/index.js": "/vue/auth/index.js",
+    "/vue/main.js": "/vue/main.js",
+    "/vue/manifest.js": "/vue/manifest.js",
+    "/vue/css/app.css": "/vue/css/app.css",
+    "/vue/vendor.css": "/vue/vendor.css",
+    "/vue/vendor.js": "/vue/vendor.js",
+    "/vue/image/avatar.svg": "/vue/image/avatar.svg",
+    "/vue/image/background-1.jpg": "/vue/image/background-1.jpg",
+    "/vue/image/background.jpg": "/vue/image/background.jpg"
 }

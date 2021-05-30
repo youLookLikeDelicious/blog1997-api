@@ -6,18 +6,34 @@
           <a
             href="/"
             @click.prevent
-            @click="type=''"
-            :class="['icofont-archive', {'link-btn-primary': type === ''}, 'mr-min']"
+            @click="type = ''"
+            :class="[
+              'icofont-archive',
+              { 'link-btn-primary': type === '' },
+              'mr-min',
+            ]"
             >全部 ({{ data.count ? data.count.total : 0 }})</a
           >
           <a
             href="/"
             @click.prevent
             @click="type = 'draft'"
-            :class="['icofont-archive', {'link-btn-primary': type === 'draft'}, 'mr-min']"
+            :class="[
+              'icofont-archive',
+              { 'link-btn-primary': type === 'draft' },
+              'mr-min',
+            ]"
             >草稿箱 ({{ data.count ? data.count.draft : 0 }})</a
           >
-          <a href="/" @click.prevent :class="['icofont-archive', {'link-btn-primary': isDeleteList}, 'mr-min']" @click="type='deleted'"
+          <a
+            href="/"
+            @click.prevent
+            :class="[
+              'icofont-archive',
+              { 'link-btn-primary': isDeleteList },
+              'mr-min',
+            ]"
+            @click="type = 'deleted'"
             >回收站 ({{ data.count ? data.count.deleted : 0 }})</a
           >
         </div>
@@ -63,11 +79,20 @@
           class="mb-min"
         >
           <div class="mb-min">
-            <span class="draft-tab" v-if="article.is_draft === 'yes'">草稿</span>
-            <a v-if="article.is_draft === 'yes' || article.is_draft === undefined" @click.prevent href="/"
+            <span class="draft-tab" v-if="article.is_draft === 'yes'"
+              >草稿</span
+            >
+            <a
+              v-if="
+                article.is_draft === 'yes' || article.is_draft === undefined
+              "
+              @click.prevent
+              href="/"
               ><h2>{{ article.title }}</h2></a
             >
-            <a v-else target="__blank" :href="articleHref(article.id)"><h2>{{ article.title }}</h2></a>
+            <a v-else target="__blank" :href="articleHref(article.id)"
+              ><h2>{{ article.title }}</h2></a
+            >
           </div>
           <div class="flex article-list-item-info-wrapper">
             <div class="article-list-item-info">
@@ -81,9 +106,17 @@
               </span>
             </div>
             <div>
+              <a
+                v-if="!isDeleteList"
+                @click.prevent="createWeChatMaterial(article.id)"
+                class="icofont-wechat link-btn-primary mr-min"
+                href="/"
+              >
+                微信素材</a
+              >
               <router-link
                 v-if="type !== 'deleted'"
-                class="icofont-edit link-btn-primary"
+                class="icofont-edit link-btn-primary mr-min"
                 :to="'/article/create/' + article.id"
               >
                 编辑</router-link
@@ -103,7 +136,7 @@
                 @click.stop.prevent
                 @click="deleteRecord(index, deleted)"
               >
-                {{isDeleteList ? '彻底删除' : '删除'}}</a
+                {{ isDeleteList ? '彻底删除' : '删除' }}</a
               >
             </div>
           </div>
@@ -114,38 +147,39 @@
 </template>
 
 <script>
+import { createWeChatMaterial } from '~/api/article'
 export default {
-  name: "ArticleList",
+  name: 'ArticleList',
   data() {
     return {
       inited: false,
-      topicId: "",
-      previousTopciId: "",
-      orderBy: "", // 排序的方式
-      type: "", // 类型
-    };
+      topicId: '',
+      previousTopciId: '',
+      orderBy: '', // 排序的方式
+      type: '', // 类型
+    }
   },
   computed: {
     requestApi() {
-      let baseUrl = "/admin/article?";
-      const queryArr = [];
+      let baseUrl = '/admin/article?'
+      const queryArr = []
 
       if (this.orderBy) {
-        queryArr.push("order-by=" + this.orderBy);
-        queryArr.push(`topicId=${this.topicId}`);
+        queryArr.push('order-by=' + this.orderBy)
+        queryArr.push(`topicId=${this.topicId}`)
       } else if (this.previousTopciId !== this.topicId) {
-        queryArr.push(`topicId=${this.topicId}`);
+        queryArr.push(`topicId=${this.topicId}`)
       }
 
       if (this.type) {
-        queryArr.push("type=" + this.type);
+        queryArr.push('type=' + this.type)
       }
 
-      return baseUrl + queryArr.join("&");
+      return baseUrl + queryArr.join('&')
     },
-    isDeleteList () {
+    isDeleteList() {
       return this.type === 'deleted'
-    }
+    },
   },
   watch: {
     /**
@@ -153,10 +187,10 @@ export default {
      * 设置面包屑信息
      */
     topicId() {
-      const finder = (item) => item.id === this.topicId;
-      const topic = this.$children[0].requestResult.topics.find(finder);
+      const finder = (item) => item.id === this.topicId
+      const topic = this.$children[0].requestResult.topics.find(finder)
 
-      this.updateArticleBread(topic);
+      this.updateArticleBread(topic)
     },
   },
   methods: {
@@ -166,18 +200,18 @@ export default {
      */
     updatedData(data) {
       if (this.inited) {
-        return;
+        return
       }
-      
-      this.inited = true;
+
+      this.inited = true
       if (!data.topics || !data.topics.length) {
-        return;
+        return
       }
 
       // 获取当前的专题
-      const topicId = this.$route.query.topicId;
+      const topicId = this.$route.query.topicId
 
-      this.previousTopciId = this.topicId = data.currentTopicId;
+      this.previousTopciId = this.topicId = data.currentTopicId
     },
     /**
      * 更新面包屑的状态
@@ -186,65 +220,78 @@ export default {
      */
     updateArticleBread(topic) {
       if (!topic) {
-        return;
+        return
       }
-      this.$store.commit("articleBread/setTopic", {
+      this.$store.commit('articleBread/setTopic', {
         id: topic.id,
         name: topic.name,
-      });
+      })
     },
     /**
      * 获取文章预览地址
-     * 
+     *
      * @param {int} id
      * @return {string}
      */
-    articleHref (id) {
+    articleHref(id) {
       return '/article/' + btoa(id)
     },
     /**
      * 将文章从回收站回复
-     * 
+     *
      * @param {int} id
      */
-    restoreArticle (id) {
-      this.$axios.post('/admin/article/restore/' + id)
-        .then(response => {
+    restoreArticle(id) {
+      this.$axios
+        .post('/admin/article/restore/' + id)
+        .then((response) => {
           const records = this.$children[0].requestResult.records
-          const index = records.findIndex(record => record.id === id)
+          const index = records.findIndex((record) => record.id === id)
           records.splice(index, 1)
-        }).then(() => {
-          this.setStatisticCount({total: 1, deleted: -1})
+        })
+        .then(() => {
+          this.setStatisticCount({ total: 1, deleted: -1 })
         })
     },
     /**
      * 删除文章的回调
-     * 
+     *
      * @param {json} record
      */
-    deleted (record) {
+    deleted(record) {
       let data = {}
 
       if (this.isDeleteList) {
         data.deleted = -1
       } else {
-        data = record.is_draft === 'yes' ? {draft: -1, total: -1} : {total: -1, deleted: 1}
+        data =
+          record.is_draft === 'yes'
+            ? { draft: -1, total: -1 }
+            : { total: -1, deleted: 1 }
       }
 
       this.setStatisticCount(data)
     },
     /**
      * 设置文章统计的数量
-     * 
+     *
      * @param {string} type
      */
     setStatisticCount(type) {
-      for(const key in type) {
+      for (const key in type) {
         this.$children[0].requestResult.count[key] += type[key]
       }
-    }
+    },
+    /**
+     * 创建微信素材
+     *
+     * @param {int} id 文章id
+     */
+    createWeChatMaterial(id) {
+      createWeChatMaterial(id)
+    },
   },
-};
+}
 </script>
 
 <style lang="scss">
@@ -269,11 +316,11 @@ export default {
   .article-list-item-info {
     color: #999;
   }
-  .draft-tab{
-    padding: .3rem .5rem;
-    border: .1rem solid #ddd;
+  .draft-tab {
+    padding: 0.3rem 0.5rem;
+    border: 0.1rem solid #ddd;
     box-sizing: border-box;
-    border-radius: .3rem;
+    border-radius: 0.3rem;
     color: #999;
   }
 }
