@@ -1,7 +1,7 @@
 {
   "name": "blog1997-api",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "scripts": {
     "test:e2e": "cypress run --spec cypress/integration/**/*.spec.js",
     "codecov": "codecov",
@@ -14,7 +14,7 @@
     "watch-poll": "mix watch -- --watch-options-poll=8000 --hot",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "release": "standard-version --dry-run"
+    "release": "standard-version -- --dry-run"
   },
   "dependencies": {
     "@antv/data-set": "^0.11.7",
