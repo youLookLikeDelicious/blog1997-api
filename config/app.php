@@ -236,6 +236,8 @@ return [
     'git_secret' => env('GIT_SECRET'),
     'wechat_app_id' => env('WECHAT_APP_ID'),
     'wechat_secret' => env('WECHAT_SECRET'),
+    'wechat_public_app_id' => env('WECHAT_PUBLIC_APP_ID'),
+    'wechat_public_secret' => env('WECHAT_PUBLIC_SECRET'),
     'sitemap_max_num' => env('SITEMAP_MAX_NUM', 1000),
     // 高德地图密钥
     'gmap_key' => env('GMAP_KEY'),

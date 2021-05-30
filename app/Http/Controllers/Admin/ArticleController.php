@@ -12,6 +12,7 @@ use App\Model\ArticleBase as Article;
 use App\Model\Article as ModelArticle;
 use App\Http\Requests\Admin\Article as ArticleRequest;
 use App\Contract\Repository\Article as ArticleRepository;
+use App\Service\WeChatService;
 
 /**
  * @group Article management
@@ -89,7 +90,6 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request, ModelArticle $article)
     {
-
         // 获取表单数据
         $data = $request->validated();
 
@@ -99,6 +99,9 @@ class ArticleController extends Controller
             unset($data['tags']);
         }
 
+        /**
+         * @var ModelArticle
+         */
         $articleRecord = '';
 
         DB::transaction(function () use ($article, $data, &$articleRecord, $tags) {
@@ -243,5 +246,17 @@ class ArticleController extends Controller
         ArticleBackUp::where('id', $article->id)->delete();
 
         return response()->success('', '文章已从回收站恢复');
+    }
+
+    /**
+     * 将文章上传为图文素材
+     *
+     * @param WeChatService $service
+     * @param Article $article
+     * @return \Illuminate\Http\Response
+     */
+    public function createWeChatMaterial(WeChatService $service, Article $article)
+    {
+        $service->uploadNewsMaterial($article);
     }
 }

@@ -8,9 +8,10 @@ class CurlService
      *
      * @param string $url
      * @param array $opt
-     * @return string
+     * @param boolean $getJson 是否返回json结果
+     * @return string|array
      */
-    public static function make($url, $opt = [])
+    public static function make($url, $opt = [], $getJson = false)
     {
         $ch = curl_init($url);
 
@@ -24,6 +25,10 @@ class CurlService
 
         curl_close($ch);
 
+        if ($getJson) {
+            return json_decode($result, true);
+        }
+        
         return $result;
     }
 }
