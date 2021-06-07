@@ -1,0 +1,6 @@
+{
+    "ignoreCommitPattern": "chore",
+    "compareUrl": false,
+    "sortCommits": "date-desc",
+    "startingVersion": "v1.0.0"
+}
