@@ -28,6 +28,7 @@ use App\Observers\UserObserver;
 use App\Repository\Admin\Gallery as AdminGallery;
 use App\Model\User;
 use App\Repository\User as RepositoryUser;
+use App\Service\CurlService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -44,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        $this->app->bind('Page', function () {
+        $this->app->singleton('Page', function () {
             return new \App\Foundation\Page;
         });
 
@@ -58,6 +59,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton('CacheModel', function () {
             return new \App\Foundation\CacheModel;
+        });
+
+        $this->app->singleton('CurlService', function () {
+            return new CurlService;
         });
     }
 

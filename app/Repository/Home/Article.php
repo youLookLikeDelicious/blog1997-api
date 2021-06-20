@@ -9,9 +9,9 @@ use App\Model\Article as ArticleModel;
 use App\Contract\Repository\Article as RepositoryArticle;
 use App\Contract\Repository\Tag;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Article implements RepositoryArticle
 {
@@ -58,11 +58,18 @@ class Article implements RepositoryArticle
             return $this->article
                 ->withAuthorAndGalleryAndThumbs()
                 ->with('tags:id,name')
-                ->selectRaw('to_base64(id) as identity, id, content, user_id, title, gallery_id, visited, commented, liked, created_at, is_markdown, updated_at')
-                ->findOrFail($id);
+                ->selectRaw('id, content, user_id, title, gallery_id, visited, commented, liked, created_at, is_markdown, updated_at')
+                ->where('id', $id)
+                ->where('is_draft', 'no')
+                ->first();
         });
 
-        $articleRecord->makeHidden(['id']);
+        if (!$articleRecord) {
+            throw new ModelNotFoundException;
+        }
+
+        $articleRecord->makeHidden(['id'])
+            ->append('identity');
 
         $articleRecord = $articleRecord->toArray();
 
@@ -236,6 +243,7 @@ class Article implements RepositoryArticle
     {
         $popArticle = $this->article->selectRaw('to_base64(id) as identity, title, visited, created_at')
             ->orderBy('visited', 'DESC')
+            ->where('is_draft', 'no')
             ->limit(7)
             ->get();
 
