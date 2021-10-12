@@ -6,5 +6,12 @@ use Illuminate\Http\Request;
 
 interface Article {
     public function find ($id);
-    public function all(Request $request) : array;
+
+    /**
+     * Get article list
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
+     */
+    public function all(Request $request);
 }

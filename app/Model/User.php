@@ -2,16 +2,24 @@
 
 namespace App\Model;
 
-use App\Notifications\PasswordResetNotification;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Notifications\Notifiable;
 use App\Notifications\VerifyEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Notifications\Notifiable;
+use App\Notifications\PasswordResetNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     
+    /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 10;
+
     /**
      * The table associated with the model.
      *
@@ -33,6 +41,16 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $dateFormat = 'U';
 
+    const genderTextMap = [
+        'boy' => '男',
+        'girl' => '女',
+        'keep_secret' => '保密'
+    ];
+
+    public function getAvatarAttribute($val)
+    {
+        return $val ? URL::asset($val) : '';
+    }
     /**
      * define has many ralation
      *
@@ -42,6 +60,23 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Role::class, 'manager_roles', 'user_id', 'role_id')
             ->withTimestamps();
+    }
+
+    /**
+     * Convert gender to text
+     *
+     * @return string
+     */
+    public function getGenderTextAttribute()
+    {
+        return static::genderTextMap[$this->gender];
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->deleted_at
+            ? ['code' => 2, 'text' => '已注销']
+            : ($this->freeze_at ? ['code' => 3, 'text' => '已冻结'] : ['code' => 1, 'text' => '正常']);
     }
 
     /**
@@ -59,7 +94,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return boolean
      */
-    public function isMaster ()
+    public function isMaster()
     {
         $this->load('roles:role.id,role.name');
 
@@ -76,7 +111,10 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function scopeActive($query)
     {
-        return $query->where('deleted_at', '0');
+        return $query->where([
+            'deleted_at' => 0,
+            'freeze_at' => 0
+        ]);
     }
 
     /**

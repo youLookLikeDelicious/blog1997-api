@@ -33,7 +33,7 @@ class TagController extends Controller
     {
         $data = $tag->all($request);
 
-        return response()->success($data);
+        return $data->toResponse($request);
     }
 
     /**
@@ -72,9 +72,9 @@ class TagController extends Controller
         
         $this->authorize('create', [Tag::class, $data]);
         
-        $tagModel = Tag::create($data);
+        Tag::create($data);
 
-        return response()->success($tagModel, '标签添加成功');
+        return response()->success('', '标签添加成功');
     }
 
     /**
@@ -99,7 +99,7 @@ class TagController extends Controller
 
         $tag->update($data);
         
-        return response()->success($tag, '标签修改成功');
+        return response()->success('', '标签修改成功');
     }
 
     /**
@@ -122,5 +122,19 @@ class TagController extends Controller
         });
 
         return response()->success('', '标签删除成功');
+    }
+
+    /**
+     * Get details of tag
+     * 
+     * 获取标签的详情
+     * @urlParam  id required The ID of the post.
+     * 
+     * @param Tag $tag
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Tag $tag)
+    {
+        return response()->success($tag);
     }
 }

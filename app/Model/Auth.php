@@ -45,4 +45,18 @@ class Auth extends Model
     {
         return $this->belongsToMany('App\Model\Role', 'role_auth');
     }
+
+    /**
+     * Define relations with child
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function child()
+    {
+        return $this->hasMany(static::class, 'parent_id', 'id')
+            ->select('id', 'name', 'parent_id')
+            ->with(['child' => function ($query) {
+                
+            }]);
+    }
 }

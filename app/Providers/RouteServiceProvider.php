@@ -30,6 +30,8 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::pattern('p', '[0-9]+');
 
+        Route::pattern('perPage', '[0-9]+');
+
         Route::pattern('limit', '[0-9]+');
 
         $this->bindArticle();

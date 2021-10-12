@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Role as Model;
 use Illuminate\Validation\ValidationException;
 use App\Contract\Repository\Role as RepositoryRole;
+use App\Http\Resources\RoleCollection;
 
 class Role implements RepositoryRole
 {
@@ -24,15 +25,18 @@ class Role implements RepositoryRole
     /**
      * 分页获取所有的权限
      *
-     * @return array
+     * @param boolean $paginate 是否分页
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
      */
-    public function all(Request $request)
+    public function all(Request $request, $paginate = true)
     {
         $query = $this->buildQuery($request);
+        
+        $data = $paginate
+            ? $query->paginate($request->input('page', 10))
+            : $query->get();
 
-        $result = Page::paginate($query);
-
-        return $result;
+        return new RoleCollection($data);
     }
 
     /**
@@ -44,7 +48,7 @@ class Role implements RepositoryRole
     protected function buildQuery($request)
     {
         $query = $this->model->select(['id', 'name', 'remark'])
-        ->with('authorities:id,name');
+            ->with('authorities:id,name');
 
         if ($request->input('name')) {
             $query->where('name', 'like', '%' . $request->input('name') . '%');

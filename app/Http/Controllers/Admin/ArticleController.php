@@ -51,7 +51,7 @@ class ArticleController extends Controller
     {
         $data = $this->articleRepository->all($request);
 
-        return response()->success($data);
+        return $data->response();
     }
 
     /**

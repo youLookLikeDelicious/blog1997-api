@@ -9,5 +9,5 @@ use Illuminate\Http\Request;
  */
 interface Tag
 {
-    public function all(?Request $request) : array;
+    public function all(?Request $request);
 }

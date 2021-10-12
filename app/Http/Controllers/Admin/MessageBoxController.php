@@ -42,7 +42,7 @@ class MessageBoxController extends Controller
         $result = $this->messageBoxRepository
             ->all($request);
 
-        return response()->success($result);
+        return $result;
     }
 
     /**
@@ -111,7 +111,7 @@ class MessageBoxController extends Controller
     {
         $notifications = $repository->getNotification($request);
         
-        return response()->success($notifications);
+        return $notifications->toResponse($request);
     }
 
     /**

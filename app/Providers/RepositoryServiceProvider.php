@@ -35,7 +35,12 @@ use Illuminate\Contracts\Support\DeferrableProvider;
 
 class RepositoryServiceProvider extends ServiceProvider implements DeferrableProvider
 {    
-    public $bindings = [
+    /**
+     * All of the container singletons that should be registered.
+     *
+     * @var array
+     */
+    public $singletons = [
         MessageBox::class => MessageBoxRepository::class,
         ArticleBackUp::class => AdminArticleBackUp::class,
         IllegalComment::class => RepositoryIllegalComment::class,
@@ -58,7 +63,7 @@ class RepositoryServiceProvider extends ServiceProvider implements DeferrablePro
         /*************************************************
          * 动态绑定 article repository
          *************************************************/
-        $this->app->bind(ContractRepositoryArticle::class, function ($app) {
+        $this->app->singleton(ContractRepositoryArticle::class, function ($app) {
             if (request()->is('api/admin*')) {
                 return $app->make(AdminArticle::class);
             }
@@ -70,7 +75,7 @@ class RepositoryServiceProvider extends ServiceProvider implements DeferrablePro
         /*************************************************
          * 动态绑定 friend link repository
          *************************************************/
-        $this->app->bind(FriendLink::class, function ($app) {
+        $this->app->singleton(FriendLink::class, function ($app) {
             if (request()->is('api/admin/*')) {
                 return $app->make(AdminFriendLink::class);
             }
@@ -81,7 +86,7 @@ class RepositoryServiceProvider extends ServiceProvider implements DeferrablePro
         /*************************************************
          * 动态绑定 tag repository
          *************************************************/
-        $this->app->bind(Tag::class, function ($app) {
+        $this->app->singleton(Tag::class, function ($app) {
             if (request()->is('api/admin/*')) {
                 return $app->make(AdminTag::class);
             }

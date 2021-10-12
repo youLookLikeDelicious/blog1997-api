@@ -2,13 +2,13 @@
 
 namespace App\Repository\Admin;
 
-use App\Facades\Page;
 use Illuminate\Http\Request;
-use App\Model\Article as ModelArticle;
-use App\Contract\Repository\Article as RepositoryArticle;
-use App\Contract\Repository\ArticleBackUp;
 use App\Contract\Repository\Topic;
+use App\Model\Article as ModelArticle;
+use App\Http\Resources\CommonCollection;
+use App\Contract\Repository\ArticleBackUp;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Contract\Repository\Article as RepositoryArticle;
 
 class Article implements RepositoryArticle
 {
@@ -20,61 +20,48 @@ class Article implements RepositoryArticle
     protected $model;
 
     /**
-     * Topic repository
-     * @var Topic
-     */
-    protected $topicRepository;
-
-    /**
      * Article backup repository
      *
      * @var ArticleBackUp
      */
     protected $articleBackUp;
 
-    public function __construct(ModelArticle $model, Topic $topicRepository, ArticleBackUp $articleBackUp)
+    /**
+     * Topic repository
+     *
+     * @var Topic
+     */
+    protected $topicRepository;
+
+    public function __construct(ModelArticle $model, ArticleBackUp $articleBackUp, Topic $topicRepository)
     {
         $this->model = $model;
-        $this->topicRepository = $topicRepository;
         $this->articleBackUp = $articleBackUp;
+        $this->topicRepository = $topicRepository;
     }
 
     /**
      * 根据专题获取文章
      *
-     * @param int $where topic id
-     * @return array
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
      */
-    public function all(Request $request): array
+    public function all(Request $request)
     {
         $this->validateRequest($request);
-        // 获取所有的专题
-        $topics = $this->topicRepository->all();
 
         $query = $this->generateQuery($request);
 
-        $articles = Page::paginate($query);
+        $articles = $query->paginate($request->input('perPage', 10));
 
-        $articles['topics'] = $topics->toArray();
-        array_unshift($articles['topics'], ['id' => 0, 'name' => '所有专题']);
-
-        // 当前的专题id
-        $articles['currentTopicId'] = $request->input('topicId') + 0;
-
-        // 获取相关文章的总数量
-        $total = $this->getTotalArticleCount();
-        // 获取相关文章的总数量
-        $draftCount = $this->getDraftArticleCount();
-
-        // 获取相关文章的总数量
-        $deletedCount = $this->articleBackUp->count();
-        $articles['count'] = [
-            'total' => $total,
-            'draft' => $draftCount,
-            'deleted' => $deletedCount
-        ];
-
-        return $articles;
+        return (new CommonCollection($articles))
+            ->additional([
+                'meta' => [
+                    'topics' => $this->topicRepository->all(),
+                    'draft' => $this->getDraftArticleCount(),
+                    'deleted' => $this->articleBackUp->count()
+                ]
+            ]);
     }
 
     /**
@@ -228,16 +215,4 @@ class Article implements RepositoryArticle
             ->total;
     }
 
-    /**
-     * Get the number of articles
-     *
-     * @return int
-     */
-    protected function getTotalArticleCount()
-    {
-        return $this->model->selectRaw('count(id) as total')
-            ->where('user_id', auth()->id())
-            ->first()
-            ->total;
-    }
 }

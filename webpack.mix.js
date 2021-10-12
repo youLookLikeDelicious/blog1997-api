@@ -1,5 +1,4 @@
-const mix = require('laravel-mix');
-const { options } = require('marked');
+const mix = require('laravel-mix')
 const path = require('path')
 /*
  |--------------------------------------------------------------------------
@@ -21,57 +20,65 @@ const path = require('path')
 // })
 
 mix.options({
-    hmr: true,
-    hmrOptions: {
-        host: 'www.blog1997.com',  // www.blog1997.com is my local domain used for testing
-        port: 443,
-    }
- });
-//  mix.browserSync({
-//     proxy: 'www.blog1997.com',
-//  })
+  hmr: true,
+  hmrOptions: {
+    host: 'www.blog1997.com',  // www.blog1997.com is my local domain used for testing
+    port: 443
+  }
+})
 
-// mix.setPublicPath('public')
 mix.alias({
-    '~': path.join(__dirname, 'resources/js'),
+  '~': path.join(__dirname, 'resources/js')
 })
 
 mix.webpackConfig({
-    module: {
-        rules: [{
-            test: /\.scss|\.css$/,
-            use: [
-                {
-                    loader: "sass-loader",
-                    options: {
-                        data: `
-                        @import "resources/sass/_variables.scss";
-                        @import "resources/sass/_mixin.scss";
-                        @import "resources/sass/_placeholder.scss";
-                        `
-                    }
-                }
-            ]
-        }]
-    },
-    devServer: {
-        overlay: true // 在dev环境中，直接将错误显示在页面中
-    }
+  output: {
+    filename: './[name].js',
+    hotUpdateMainFilename: '_vue_[id].[hash].hot-update.json',
+    hotUpdateChunkFilename: '_vue_[id].[hash].hot-update.json'
+  },
+  module: {
+    rules: [{
+      test: /\.scss|\.css$/,
+      use: [
+        {
+          loader: 'sass-loader',
+          options: {
+            additionalData: `
+                @import "resources/sass/_variables.scss";
+                @import "resources/sass/_mixin.scss";
+                @import "resources/sass/_placeholder.scss";
+                `
+          }
+        }
+      ]
+    }]
+  },
+  devServer: {
+    hot: true,
+    host: '0.0.0.0',
+    port: 8081,
+    historyApiFallback: true,
+    disableHostCheck: true,
+    inline: true,
+    publicPath: 'http://0.0.0.0:8081/'
+  }
 })
-// mix.js('resources/js/login.js', 'public/js/login/index.js')
+
 if (mix.inProduction()) {
-    mix.version();
+  mix.version()
 }
+mix.vue({
+  version: 2,
+  extractStyles: true,
+  globalStyles: false
+})
 
 mix.sass('./resources/sass/app.scss', 'vue/css')
+mix.js('./resources/js/auth.js', 'vue/auth')
+  .js('./resources/js/main.js', 'vue')
+  .extract(['vue', 'vue-router', 'vuex', 'axios', '@blog1997/vue-umeditor', '@blog1997/animate'])
 
-mix.vue({
-    version: 2,
-    extractStyles: true,
-    globalStyles: false,
-})
-mix.js('resources/js/auth.js', '/vue/auth/index.js')
-    .js('resources/js/main.js', '/vue/')
-    .extract(['vue', 'vue-router', 'vuex', 'axios', '@blog1997/vue-umeditor', '@blog1997/animate'])
+
 
 mix.copyDirectory('resources/image', 'public/vue/image')

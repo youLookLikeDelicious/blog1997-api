@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Model\Comment;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\BatchRequest;
+use App\Http\Controllers\Controller;
 use App\Contract\Repository\Comment as RepositoryComment;
 
 /**
@@ -23,14 +24,15 @@ class CommentController extends Controller
      * 
      * @responseFile response/admin/comment/index.json
      * 
+     * @param Request $request
      * @param RepositoryComment $repository
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index(RepositoryComment $repository)
+    public function index(Request $request, RepositoryComment $repository)
     {
-        $comments = $repository->getUnVerified();
+        $comments = $repository->getUnVerified($request);
 
-        return response()->success($comments);
+        return $comments->toResponse($request);
     }
 
     /**

@@ -2,13 +2,14 @@
 
 namespace App\Repository;
 
-use App\Facades\Page;
-use App\Model\MessageBox as MessageBoxModel;
-use App\Contract\Repository\MessageBox as RepositoryMessageBox;
 use App\Model\Article;
 use App\Model\Comment;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
+use App\Http\Resources\CommonCollection;
+use App\Model\MessageBox as MessageBoxModel;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use App\Contract\Repository\MessageBox as RepositoryMessageBox;
+use Blog1997;
 
 class MessageBox implements RepositoryMessageBox
 {
@@ -37,32 +38,15 @@ class MessageBox implements RepositoryMessageBox
         $query = $this->buildQuery($request);
 
         // 分页获取数据
-        $result = Page::paginate($query);
-        
-        $result['records']->search(function ($item, $key) {
-            if ($item->type === 'App\Model\Comment') {
-                $item->load('notificationable:id,content');
-            }
-        });
+        $data = $query->paginate($request->input('perPage', 10));
 
-        // 获取未读举报信息的数量
-        $notHaveReadCount = $this->model
-            ->selectRaw('count(id) as count')
-            ->where('have_read', 'no')
-            ->where('receiver', -1)
-            ->first();
+        $result = new CommonCollection($data);
 
-        $result['notHaveReadCount'] = $notHaveReadCount->count;
-
-        $total = $this->model
-            ->selectRaw('count(id) as count')
-            ->where('receiver', -1)
-            ->first();
-
-        // 获取总的记录数量
-        $result['total'] = $total->count;
-
-        $result['haveRead'] = $request->input('have_read', '');
+        $result->additional([
+                'meta' => [
+                    'notHaveReadCount' => $this->getUnreadReportInfoCount()
+                ]
+            ]);
 
         return $result;
     }
@@ -79,7 +63,10 @@ class MessageBox implements RepositoryMessageBox
 
         $query = $this->model
             ->selectRaw('id, sender, receiver, reported_id, type, content, created_at, operate, have_read')
-            ->where('receiver', -1);
+            ->where('receiver', -1)
+            ->with(['notificationable' => function ($query) {
+                $query->select('id', 'content')->where('type', ['App\Model\Comment']);
+            }]);
 
         if ($type = $request->input('have_read', '')) {
             $query->where('have_read', $type);
@@ -102,6 +89,20 @@ class MessageBox implements RepositoryMessageBox
         $request->validate([
             'have_read' => 'sometimes|required|in:yes,no'
         ]);
+    }
+
+    /**
+     * 获取未读的举报内容数量
+     *
+     * @return int
+     */
+    public function getUnreadReportInfoCount()
+    {
+        return $this->model
+            ->select('id', 'have_read', 'receiver')
+            ->where('have_read', 'no')
+            ->where('receiver', -1)
+            ->count();
     }
 
     /**
@@ -136,7 +137,7 @@ class MessageBox implements RepositoryMessageBox
     /**
      * Get comment notification
      *
-     * @return array
+     * @return CommonCollection
      */
     public function getNotification(Request $request)
     {
@@ -145,55 +146,32 @@ class MessageBox implements RepositoryMessageBox
         $query = $this->buildNotificationQuery($request);
 
         $updateQuery = clone $query;
-        $notifications = Page::paginate($query);
-
-        $records = $notifications['records']->toArray();
-
-        // 查询相互之间的回复
-        foreach ($records as $key => $notification) {
-            // 当该记录是博客留言的时候,插入空数据
-            if (! isset($notification['notificationable']['commentable'])) {
-                $records[$key]['notificationable']['commentable'] = [
-                    'comments' => [
-                        'pagination' => []
-                    ]
-                ];
-                continue;
-            }
-            switch ($notification['type']) {
-                case 'App\Model\Comment':
-                    // 如果评论 的commentable是comment，判断主体是留言还是文章
-                    $commentSubject = $notification['notificationable']['commentable'];
-
-                    // 表示是评论
-                    if (!empty($commentSubject['able_type'])) {
-                        $records[$key]['notificationable']['commentable'] = $this->getCommentSubject($commentSubject);
-                    }
-
-                    $comments = $this->getCommentAbleComments($notification);
-                    $records[$key]['notificationable']['commentable']['comments'] = $comments;
-                    break;
-                case 'App\Model\ThumbUp':
-                    break;
-            }
-        }
-
-        $notifications['records'] = $records;
-
-        $haveRead = $request->input('have_read', '');
-        $notifications['haveRead'] = $haveRead;
-
-        $notifications['counts'] = [
-            'total' => $this->statisticTotalNotification(),
-            'have_read' => $this->statisticTotalNotification('yes')
-        ];
+        $notifications = $query->paginate($request->input('perPage', 10));
 
         // 将未读改为已读
-        if ($haveRead === 'no') {
+        if ($request->input('have_read') !== 'yes') {
             $updateQuery->update(['have_read' => 'yes']);
         }
 
-        return $notifications;
+        $result =  new CommonCollection($notifications);
+
+        $result->each(function($notification) {
+            if ($notification->notificationable instanceof Comment) {
+                $subComments = $notification->notificationable->subComments()
+                    ->whereIn('user_id', [auth()->id(), $notification->sender])
+                    ->orderByDesc('created_at')
+                    ->paginate(5);
+                $notification->notificationable->setRelation('subComments', $subComments);
+            }
+        });
+        // 统计未读数量
+        $result->additional([
+            'meta' => [
+                'have_read' => $this->statisticTotalNotification('yes')
+            ]
+        ]);
+
+        return $result;
     }
 
     /**
@@ -218,7 +196,7 @@ class MessageBox implements RepositoryMessageBox
             ->whereRaw($this->notificationCondition())
             ->where('sender', '!=', auth()->id())
             ->whereIn('type', ['App\Model\Comment', 'App\Model\ThumbUp'])
-            ->orderBy('created_at', 'desc');
+            ->orderBy('updated_at', 'desc');
 
         if ($type = $request->input('have_read', '')) {
             $query->where('have_read', $type);
@@ -255,6 +233,19 @@ class MessageBox implements RepositoryMessageBox
         return $total;
     }
 
+    /**
+     * Get select condition
+     *
+     * @return string
+     */
+    protected function notificationCondition()
+    {
+        $userId = auth()->id();
+
+        return auth()->isMaster()
+            ? "(receiver = {$userId} or receiver = 0)"
+            : 'receiver = ' . $userId;
+    }
 
     /**
      * Get commentable comments
@@ -269,12 +260,13 @@ class MessageBox implements RepositoryMessageBox
 
 
         // 获取文章的评论 以及回复
-        if ($notification['notificationable']['able_type'] === 'App\Model\Article' || !$notification['notificationable']['able_type']) {
+        if ($notification['notificationable']['able_type'] === 'App\Model\Article') {
             $query->whereRaw("root_id = {$notification['notificationable']['id']}");
         } else {
             // 获取留言的回复
-            $comment = Comment::select(['id', 'root_id'])->find($notification['notificationable']['id']);
-            $query->whereRaw("(root_id = {$comment->root_id} or id = {$comment->root_id})");
+            $comment = Comment::select(['id', 'root_id'])->findOrFail($notification['notificationable']['id']);
+            $rootId = $comment->root_id ?: $comment->id;
+            $query->where('root_id', $rootId);
         }
 
         $currentUserId = auth()->id();
@@ -283,50 +275,8 @@ class MessageBox implements RepositoryMessageBox
 
         $query->orderBy('created_at', 'ASC');
 
-        $comments = Page::paginate($query, 5);
+        $comments = $query->paginate(5);
 
         return $comments;
-    }
-
-    /**
-     * 获取评论的主体
-     *
-     * @param array $comment
-     * @return Article|null
-     */
-    protected function getCommentSubject($comment)
-    {
-        if (!$comment) {
-            return null;
-        }
-
-        if ($comment['level'] == 1) {
-            if ($comment['able_type'] == 'App\Model\Article') {
-                return Article::with('user:id,name,avatar')
-                    ->select(['id', 'summary', 'created_at', 'title', 'user_id'])
-                    ->find($comment['able_id']) ?: null;
-            } else {
-                return null;
-            }
-        }
-
-        $rootComment = Comment::select(['id', 'level', 'able_type', 'able_id'])
-            ->find($comment['root_id']);
-
-        return $this->getCommentSubject($rootComment);
-    }
-
-    /**
-     * Get select condition
-     *
-     * @return string
-     */
-    protected function notificationCondition()
-    {
-        $userId = auth()->id();
-
-        return auth()->isMaster()
-            ? "(receiver = {$userId} or receiver = 0)"
-            : 'receiver = ' . $userId;
     }
 }

@@ -51,7 +51,7 @@ class RoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:45',
+            'name' => 'required|max:45|' . $this->isMethod('put') ? 'unique:role,name,' . $this->route('role')->id . ',id' : '' ,
             'remark' => 'present|string|max:450',
             'authorities' => 'nullable|array',
             'authorities.*' => ['integer', new Exists('auth')]

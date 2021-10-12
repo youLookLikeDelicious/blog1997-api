@@ -20,7 +20,7 @@ interface MessageBox
     /**
      * Get comment notification
      *
-     * @return void
+     * @return \App\Http\Resources\CommonCollection
      */
     public function getNotification(Request $request);
 }

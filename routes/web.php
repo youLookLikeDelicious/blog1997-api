@@ -12,8 +12,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/admin', function () {
+    phpinfo();die;
+    return view('admin');
 });
 
 Route::get('/image/{type}/{dir}/{name}/{isWebp?}', 'ImageController@find')

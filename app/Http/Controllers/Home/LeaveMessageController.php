@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Home;
 
 use App\Repository\Comment;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 /**
@@ -19,7 +18,7 @@ class LeaveMessageController extends Controller
      * 获取网站的留言
      * 
      * @responseFile response/home/leave-message/index.json
-     * @param App\Model\Comment $comment
+     * @param \App\Model\Comment $comment
      * @return \Illuminate\Http\Response
      */
     public function index (Comment $comment)

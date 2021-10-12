@@ -19,7 +19,7 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * 获取所有的角色列表
+     * 获取角色列表 - 分页
      * 
      * @responseFile response/admin/role/index.json
      * @param Request $request
@@ -29,9 +29,41 @@ class RoleController extends Controller
     public function index(Request $request, Repository $repository)
     {
         $result = $repository->all($request);
-        return response()->success($result);
+        
+        return $result->toResponse($request);
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * 获取角色列表 - 分页
+     * 
+     * @responseFile response/admin/role/index.json
+     * @param Request $request
+     * @param Repository $repository
+     * @return \Illuminate\Http\Response
+     */
+    public function all(Request $request, Repository $repository)
+    {
+        $result = $repository->all($request, false);
+        return $result;
     }
 
+    /**
+     * Get role detail
+     *
+     * 获取角色详情
+     * 
+     * @urlParam role     角色id
+     * @param Role $role
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Role $role)
+    {
+        $role->load('authorities:id,name,parent_id');
+
+        return response()->success($role);
+    }
 
     /**
      * Store a newly created role in storage.
@@ -52,15 +84,14 @@ class RoleController extends Controller
         $authorities = $data['authorities'];
         unset($data['authorities']);
 
-        $role = '';
-        DB::transaction(function () use ($data, $authorities, &$role) {
+        $role = DB::transaction(function () use ($data, $authorities) {
             $role = Role::create($data);
             $role->authorities()->attach($authorities);
+
+            return $role;
         });
 
-        // 载入多对多关系
-        $role->load('authorities:id,name');
-        return response()->success($role, '角色添加成功');
+        return response()->success('', '角色添加成功');
     }
 
     /**
@@ -89,8 +120,7 @@ class RoleController extends Controller
             $role->authorities()->sync($authorities);
         });
 
-        $role->load('authorities:id,name');
-        return response()->success($role, '角色更新成功');
+        return response()->success('', '角色更新成功');
     }
 
     /**

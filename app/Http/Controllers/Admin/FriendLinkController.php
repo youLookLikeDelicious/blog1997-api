@@ -30,7 +30,7 @@ class FriendLinkController extends Controller
     {        
         $result = $friendLInk->all($request);
 
-        return response()->success($result);
+        return $result->toResponse($request);
     }
 
     /**
@@ -48,11 +48,9 @@ class FriendLinkController extends Controller
     {
         $data = $request->validated();
 
-        $friendLInkModel = FriendLink::create($data);
-
-        $friendLInkModel->append('editAble');
+        FriendLink::create($data);
         
-        return response()->success($friendLInkModel, '友链添加成功');
+        return response()->success('', '友链添加成功');
     }
 
     /**
@@ -73,10 +71,8 @@ class FriendLinkController extends Controller
         $data = $request->validated();
 
         $friendLink->update($data);
-
-        $friendLink->append('editAble');
         
-        return response()->success($friendLink, '友链修改成功');
+        return response()->success('', '友链修改成功');
     }
 
     /**

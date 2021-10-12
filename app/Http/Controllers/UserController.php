@@ -7,11 +7,12 @@ use App\Facades\Upload;
 use App\Model\SocialAccount;
 use Illuminate\Http\Request;
 use App\Contract\Auth\Factory;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Repository\User as Repository;
 use App\Http\Requests\UploadImageRequest;
 use App\Http\Requests\LoginByProviderRequest;
 use App\Http\Requests\Admin\UserUpdateRequest;
+use App\Http\Resources\User as ResourcesUser;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 /**
@@ -22,6 +23,20 @@ use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 class UserController extends Controller
 {
     use SendsPasswordResetEmails;
+
+    /**
+     * Get user List
+     * 
+     * 获取用户列表
+     *
+     * @param Request $request
+     * @param Repository $repository
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request, Repository $repository)
+    {
+        return $repository->index($request);
+    }
 
     /**
      * Reset user avatar
@@ -42,7 +57,7 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return response()->success($data, '修改成功');
+        return response()->success($user->makeHidden(['password', 'remember_token']), '修改成功');
     }
 
     /**
@@ -133,5 +148,50 @@ class UserController extends Controller
         ]);
 
         return response()->success('', '管理员删除成功');
+    }
+
+    /**
+     * Freeze the account
+     * 冻结账号
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function freeze(User $user)
+    {
+        $user->freeze_at = time();
+
+        $user->save();
+
+        return response()->success('', '冻结成功');
+    }
+
+    /**
+     * Unfreeze the account
+     * 
+     * 冻结账号
+     *
+     * @param User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function Unfreeze(User $user)
+    {
+        $user->freeze_at = 0;
+
+        $user->save();
+
+        return response()->success('', '解冻成功');
+    }
+
+    /**
+     * Get user info
+     * 
+     * 获取用户详情
+     *
+     * @param User $user
+     * @return @return \Illuminate\Http\Response
+     */
+    public function show(User $user)
+    {
+        return response()->success(new ResourcesUser($user));
     }
 }

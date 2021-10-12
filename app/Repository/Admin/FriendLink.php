@@ -1,17 +1,17 @@
 <?php
 namespace App\Repository\Admin;
 
-use App\Facades\Page;
 use Illuminate\Http\Request;
 use App\Model\FriendLink as ModelFriendLink;
 use App\Contract\Repository\FriendLink as RepositoryFriendLink;
+use App\Http\Resources\CommonCollection;
 
 class FriendLink implements RepositoryFriendLink
 {
     /**
      * 友链模型
      *
-     * @var App\Model\FriendLink
+     * @var \App\Model\FriendLink
      */
     protected $model;
 
@@ -20,15 +20,21 @@ class FriendLink implements RepositoryFriendLink
         $this->model = $model;
     }
 
+    /**
+     * Get friend link list
+     *
+     * @param Request|null $request
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
+     */
     public function all(Request $request = null)
     {
         $this->validateRequest($request);
 
         $friendLInkQuery = $this->buildQuery($request);
 
-        $friendLInk = Page::paginate($friendLInkQuery);
+        $friendLInk = $friendLInkQuery->paginate($request->input('perPage'));
         
-        return $friendLInk;
+        return new CommonCollection($friendLInk);
     }
 
     protected function validateRequest(Request $request)
@@ -46,7 +52,7 @@ class FriendLink implements RepositoryFriendLink
      */
     protected function buildQuery(Request $request)
     {
-        $query = $this->model->selectRaw('id, name, url, false as editAble');
+        $query = $this->model->selectRaw('id, name, url, created_at');
         
         if ($name = $request->input('name')) {
             $query->where('name', 'like', "%{$name}%");

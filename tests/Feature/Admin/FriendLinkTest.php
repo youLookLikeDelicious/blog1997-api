@@ -108,7 +108,7 @@ class FriendLinkTest extends TestCase
                         'total', 'uri', 'currentPage'
                     ],
                     'records' => [
-                        '*' => ['id', 'name', 'url', 'editAble']
+                        '*' => ['id', 'name', 'url']
                     ]
                 ]
             ]);

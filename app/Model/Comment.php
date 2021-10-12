@@ -11,10 +11,15 @@ class Comment extends Model
     
     protected $table = 'comment';
 
-    protected $guarded = [];
+    protected $guarded = ['created_at', 'updated_at', 'id'];
 
-    protected $appends = [
-        'thumbs'
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i',
     ];
 
     /**
@@ -82,6 +87,11 @@ class Comment extends Model
     public function comments()
     {
         return $this->morphMany('App\Model\Comment', 'able');
+    }
+
+    public function subComments()
+    {
+        return $this->hasMany(self::class, 'root_id', 'id')->with('user:id,name,avatar');
     }
 
     /**

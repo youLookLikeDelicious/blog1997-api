@@ -11,7 +11,7 @@ class AuthorizeController extends Controller
     /**
      * 获取当前登陆的用户
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
     public function currentUser ()
     {
@@ -22,5 +22,15 @@ class AuthorizeController extends Controller
         }
 
         return response()->success('');
+    }
+
+    /**
+     * 获取令牌
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCsrfToken()
+    {
+        return response()->success(session()->token());
     }
 }

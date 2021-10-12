@@ -16,7 +16,7 @@ interface SensitiveWord
      * 分页查找记录
      * @param int $categoryId
      * 
-     * @return array
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
      */
-    public function all (Request $request) : array;
+    public function all (Request $request);
 }

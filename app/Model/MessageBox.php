@@ -11,6 +11,15 @@ class MessageBox extends Model
     protected $guarded = [];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i',
+    ];
+    
+    /**
      * Define relations with user
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

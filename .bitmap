@@ -16,9 +16,9 @@
     "blog1997.vue-collection/password-strength@0.0.1": {
         "files": [
             {
+                "name": "password-strength.vue",
                 "relativePath": "resources/js/auth-page/component/password-strength.vue",
-                "test": false,
-                "name": "password-strength.vue"
+                "test": false
             }
         ],
         "mainFile": "resources/js/auth-page/component/password-strength.vue",

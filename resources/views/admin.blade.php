@@ -8,7 +8,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Blog1997 | admin</title>
     <link rel="stylesheet" href="{{mix('vue/css/app.css')}}">
-    <link rel="stylesheet" href="{{mix('vue/vendor.css')}}">
 </head>
 <body>
     <div id="app"></div>

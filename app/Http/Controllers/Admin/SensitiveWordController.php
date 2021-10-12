@@ -37,7 +37,7 @@ class SensitiveWordController extends Controller
     {
         $result = $repository->all($request);
 
-        return response()->success($result);
+        return $result->toResponse($request);
     }
 
 
@@ -56,17 +56,13 @@ class SensitiveWordController extends Controller
     {
         // 获取验证后的数据
         $data = $request->validated();
-        $newSensitiveWord = '';
 
         // 开始事务
-        DB::transaction(function () use ($data, &$newSensitiveWord) {
-            
-            $newSensitiveWord = SensitiveWord::create($data);
-
-            $newSensitiveWord->append('editAble');
+        DB::transaction(function () use ($data) {
+            SensitiveWord::create($data);
         });
 
-        return response()->success($newSensitiveWord, '敏感词添加成成功');
+        return response()->success('', '敏感词添加成成功');
     }
 
     /**
@@ -88,9 +84,7 @@ class SensitiveWordController extends Controller
 
         $word->update($data);
 
-        $word->append('editAble');
-
-        return response()->success($word, '敏感词汇更新成功');
+        return response()->success('', '敏感词汇更新成功');
     }
 
     /**

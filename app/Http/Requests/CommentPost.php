@@ -147,7 +147,7 @@ class CommentPost extends FormRequest
     protected function getReplyPerson($comment)
     {
         if ($comment['able_type'] === 'Blog1997') {
-            return 0;
+            return 1;
         }
 
         $commentAbleModel = $comment['able_type']::select('user_id', 'id')

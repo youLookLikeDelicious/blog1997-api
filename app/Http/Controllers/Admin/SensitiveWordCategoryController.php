@@ -31,7 +31,7 @@ class SensitiveWordCategoryController extends Controller
     {
         $data = $repository->all($request);
 
-        return response()->success($data);
+        return $data->toResponse($request);
     }
     
     /**
@@ -50,15 +50,11 @@ class SensitiveWordCategoryController extends Controller
         // 获取表单数据
         $category = $request->validated();
 
-        $newCategory = '';
-
-        DB::transaction(function () use ($category, &$newCategory) {
-            $newCategory = SensitiveWordCategory::create($category);
+        DB::transaction(function () use ($category) {
+            SensitiveWordCategory::create($category);
         });
-    
-        $newCategory->append('editAble');
 
-        return response()->success($newCategory, '分类添加成功');
+        return response()->success('', '分类添加成功');
     }
 
     /**
@@ -79,10 +75,8 @@ class SensitiveWordCategoryController extends Controller
         $data = $request->validated();
         
         $category->update($data);
-
-        $category->append('editAble');
         
-        return response()->success($category, '分类修改成功');
+        return response()->success('', '分类修改成功');
     }
     /**
      * Destroy the specific category of sensitive work

@@ -39,7 +39,7 @@ class TagRequest extends FormRequest
     protected function validationData()
     {
         $data = $this->all();
-
+        
         if (empty($data['cover']) && $this->file('cover')) {
             $data['cover'] = $this->file('cover');
         }
@@ -60,7 +60,7 @@ class TagRequest extends FormRequest
         $rules = [
             'name'  => 'required|max:45',
             'cover' => 'sometimes|required|string|max:120',
-            'parent_id'   => 'required|integer|min:-1',
+            'parent_id'   => 'sometimes|nullable|integer|min:-1',
             'description' => 'present|max:450',
         ];
 
@@ -119,12 +119,18 @@ class TagRequest extends FormRequest
     {
         $result = parent::validated();
 
-        if (isset($result['cover']) && $this->coverIsFile()) {
-            $result['cover'] = Upload::uploadImage($result['cover'], 'tag', 270, 0, false)
-                ->getFileList()[0];
+        if (isset($result['cover'])) {
+            if ($this->coverIsFile()) {
+                $result['cover'] = Upload::uploadImage($result['cover'], 'tag', 270, 0, false)
+                    ->getFileList()[0];
+            } else {
+                $result['cover'] = str_replace($this->root(), '', $result['cover']);
+            }
         }
 
-        $result['parent_id'] += 0;
+        if (empty($result['parent_id'])) {
+            $result['parent_id'] = 0;
+        }
 
         return $result;
     }

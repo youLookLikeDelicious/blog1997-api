@@ -11,7 +11,6 @@ use App\Model\SocialAccount;
 use App\Repository\SocialAccount as RepositorySocialAccount;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use App\Http\Resources\User as UserResource;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 abstract class ProviderAbstract

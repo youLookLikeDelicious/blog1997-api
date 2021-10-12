@@ -2,9 +2,9 @@
 
 namespace App\Repository\Admin;
 
+use App\Http\Resources\CommonCollection;
 use App\Model\Log;
 use App\Model\User;
-use App\Facades\Page;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -40,7 +40,7 @@ class LogRepository
      *
      * @param string $type
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
      */
     public function all(Request $request, $type = 'user')
     {
@@ -48,9 +48,9 @@ class LogRepository
 
         $logQuery = $this->buildQuery($request, $type === 'schedule');
 
-        $logs = Page::paginate($logQuery);
+        $logs = $logQuery->paginate($request->input('perPage', 10));
 
-        return $logs;
+        return new CommonCollection($logs);
     }
 
     /**
@@ -67,7 +67,7 @@ class LogRepository
                 ->where('user_id', 0)
             : $this->log->select(['id', 'ip', 'port', 'location', 'result', 'time_consuming', 'user_id', 'created_at', 'operate', 'message'])
                 ->with('user:id,name,avatar')
-                ->where('user_id', '!=', 0);
+                ->where('user_id', '<>', 0);
         
         // 设置用户信息
         if ($email = $request->input('email')) {
@@ -76,12 +76,12 @@ class LogRepository
             });
         }
 
-        if ($startDate = $request->input('startDate')) {
-            $query->where('created_at', '>=', strtotime($startDate));
+        if ($date = $request->input('date')) {
+            $query->whereBetween('created_at', [strtotime($date[0]), strtotime($date[1])]);
         }
 
-        if ($endDate = $request->input('endDate')) {
-            $query->where('created_at', '<=', strtotime($endDate));
+        if ($result = $request->input('result')) {
+            $query->where('result', $result);
         }
 
         $query->orderBy('created_at', 'DESC');
@@ -99,8 +99,9 @@ class LogRepository
     {
         $request->validate([
             'email' => 'sometimes|required|email|exists:user',
-            'startDate' => ['nullable', 'regex:/\d{4}-\d{1,2}\d{1,2}/'],
-            'endDate' => ['nullable', 'regex:/\d{4}-\d\d?\d\d?/'],
+            'date' => 'sometimes|required|array',
+            'date.*' => 'required|date',
+            'result' => 'sometimes|required|in:success,failure,neutral'
         ]);
     }
 }

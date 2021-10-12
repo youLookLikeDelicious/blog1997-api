@@ -26,4 +26,7 @@ return [
     'friend link url' => '友链地址',
     'email_server' => '邮箱服务器地址',
     'friend link name' => '友链名称',
+    'success' => '成功',
+    'failure' => '失败',
+    'neutral' => '正常'
 ];

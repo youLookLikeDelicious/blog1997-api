@@ -42,7 +42,7 @@ class Authenticate
         $user->load('socialAccounts');
 
         if (!$this->runningUnitTests() && !$user->hasVerifiedEmail() && $user->socialAccounts->isEmpty()) {
-            return response()->error(__('auth.Your email has not verified yet.'), 401);
+            abort(403, __('auth.Your email has not verified yet.'));
         }
 
         return $next($request);
@@ -66,7 +66,7 @@ class Authenticate
     public function sendFailedResponse()
     {
         return request()->expectsJson() ?
-            response()->error('~.~', 401)
+            response()->error(__('Not login'), 401)
             : redirect('/admin/login');
     }
 }

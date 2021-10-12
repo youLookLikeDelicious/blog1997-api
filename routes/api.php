@@ -19,6 +19,7 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::put('/auth/manager/{manager}', 'ManagerRegisterController@update')
         ->name('manager.inti.password');
     Route::post('/oauth/sign-up', 'SignUpController@store');
+    Route::get('/csrf', 'AuthorizeController@getCsrfToken');
 });
 
 /**
@@ -59,17 +60,19 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
         // 相册的相关操作
         Route::resource('gallery', 'GalleryController')
-            ->only(['index', 'store', 'destroy']);
+            ->only(['index', 'store', 'destroy', 'show']);
 
         // 友链相关的操作
         Route::resource('friend-link', 'FriendLinkController')
             ->only(['index', 'destroy', 'update', 'store']);
 
+        // 权限
         Route::resource('auth', 'AuthController')
             ->only(['store', 'update', 'destroy', 'index', 'create']);
 
+        // 角色
         Route::resource('role', 'RoleController')
-            ->only(['store', 'update', 'destroy', 'index']);
+            ->only(['store', 'update', 'destroy', 'show', 'index']);
 
         Route::get('/manager/user/{email}', 'ManagerController@user')
             ->name('manager.get.user');
@@ -92,7 +95,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
             ->only(['index', 'update', 'store']);
 
         Route::resource('tag', 'TagController')
-            ->only(['index', 'update', 'store', 'destroy', 'create']);
+            ->only(['index', 'update', 'store', 'destroy', 'show', 'create']);
             
         Route::get('/log/{type?}', 'LogController@index')
             ->name('system.log');
@@ -122,8 +125,17 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
         Route::get('/notification', 'MessageBoxController@getNotification')
             ->name('notification.index');
         Route::get('/notification/commentable-comments/{id}', 'MessageBoxController@getCommentAbleComments')
-            ->name('notification.comments');        
+            ->name('notification.comments');
     });
+});
+
+// 用户里列表 以及相关的操作
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    // 获取全部用户
+    Route::get('/user', 'UserController@index')->name('user.index');
+    Route::put('/user/freeze/{user}', 'UserController@freeze')->name('user.freeze');
+    Route::put('/user/unfreeze/{user}', 'UserController@unfreeze')->name('user.freeze');
+    Route::get('/user/{user}', 'UserController@show')->name('user.show');
 });
 
 // 更新账号信息

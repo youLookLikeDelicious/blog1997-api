@@ -59,7 +59,8 @@ interface Comment {
     /**
      * 获取未审核的评论
      *
-     * @return array
+     * @param \Illuminate\Support\Facades\Request $request;
+     * @return \App\Http\Resources\CommonCollection
      */
-    public function getUnVerified();
+    public function getUnVerified($request);
 }

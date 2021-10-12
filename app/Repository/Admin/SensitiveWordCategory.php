@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Model\SensitiveWordCategory as ModelSensitiveWordCategory;
 use App\Contract\Repository\SensitiveWordCategory as RepositorySensitiveWordCategory;
+use App\Http\Resources\CommonCollection;
 
 class SensitiveWordCategory implements RepositorySensitiveWordCategory
 {
@@ -25,15 +26,15 @@ class SensitiveWordCategory implements RepositorySensitiveWordCategory
      * Get all sensitive category
      *
      * @param Request $request
-     * @return array
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
      */
     public function all(Request $request)
     {
         $this->validateRequest($request);
 
-        $query = $this->buildQuery($request);
+        $data = $this->buildQuery($request)->paginate($request->input('perPage', 10));
 
-        return Page::paginate($query);
+        return new CommonCollection($data);
     }
 
     /**
@@ -59,7 +60,7 @@ class SensitiveWordCategory implements RepositorySensitiveWordCategory
      */
     protected function buildQuery(Request $request)
     {
-        $query = $this->model->selectRaw('id, name, count, rank, false as editAble');
+        $query = $this->model->selectRaw('id, name, count, rank');
 
         if ($name = $request->input('name')) {
             $query->where('name', 'like', "%{$name}%");
@@ -70,5 +71,12 @@ class SensitiveWordCategory implements RepositorySensitiveWordCategory
         }
 
         return $query;
+    }
+
+    public function list()
+    {
+        $categoryList = $this->model->select(['id', 'name'])->get();
+
+        return $categoryList;
     }
 }

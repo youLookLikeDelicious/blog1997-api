@@ -60,19 +60,16 @@ your-image:tag
 php artisan config:cache
 php artisan view:cache
 php artisan migrate
-php artisan db:seed --class AuthTableSeeder
-php artisan db:seed --class RoleAuthTableSeeder
-php artisan db:seed --class RoleTableSeeder
-php artisan db:seed --class SystemSettingSeed
+php artisan db:seed 
 php artisan sitemap:init
-php artisan master:create email@email.com
+php artisan master:create email@email.com password
 ```
+**队列任务开启之后,邮箱才能够被发送**
 
-## 启动supervisor
+## 开启队列任务
 supervisor用于管理队列任务,如果不开启,用户就不会收到邮件通知.  
 默认是不开启的,假设你的项目运行在多个服务器上,手动开启是很合理的.
-```
-docker exec -it you-php-fpm-container-name -uroot /bin/bash
+``` 
 service supervisor start
 ```
 

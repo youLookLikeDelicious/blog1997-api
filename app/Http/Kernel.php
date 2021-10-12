@@ -40,10 +40,10 @@ class Kernel extends HttpKernel
         ],
         'api' => [
             \App\Http\Middleware\EncryptCookies::class, // 不在第一行 cookie不会加密
-            'throttle:60,1',
-            'bindings',
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
+            'throttle:60,1',
+            'bindings',
             \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,

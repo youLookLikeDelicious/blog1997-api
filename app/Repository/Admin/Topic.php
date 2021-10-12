@@ -1,10 +1,10 @@
 <?php
 namespace App\Repository\Admin;
 
-use App\Facades\Page;
+use Illuminate\Http\Request;
 use App\Model\Topic as ModelTopic;
 use App\Contract\Repository\Topic as RepositoryTopic;
-use Illuminate\Http\Request;
+use App\Http\Resources\CommonCollection;
 
 class Topic implements RepositoryTopic
 {
@@ -35,7 +35,7 @@ class Topic implements RepositoryTopic
      * 分页获取专题
      * 
      * @param Request $request
-     * @return array
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
      */
     public function paginate(Request $request)
     {
@@ -47,8 +47,8 @@ class Topic implements RepositoryTopic
             $topicQuery->where('name', 'like', "%{$name}%");
         }
         
-        $topicList = Page::paginate($topicQuery);
+        $topicList = $topicQuery->paginate($request->input('perPage', 10));
         
-        return $topicList;
+        return new CommonCollection($topicList);
     }
 }

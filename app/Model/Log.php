@@ -18,6 +18,22 @@ class Log extends Model
     protected $guarded = ['id'];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['resultText'];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i',
+    ];
+
+    /**
      * Define relation with user
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -28,5 +44,14 @@ class Log extends Model
             'avatar' => '',
             'name' => 'system'
         ]);
+    }
+
+    public function getResultTextAttribute()
+    {
+        return [
+            'success' => __('field.success'),
+            'failure' => __('field.failure'),
+            'neutral' => __('field.neutral')
+        ][$this->result];
     }
 }

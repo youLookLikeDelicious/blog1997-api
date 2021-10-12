@@ -224,7 +224,7 @@ class Article implements RepositoryArticle
 
         // 配置全文索引的内容
         if ($keyword = $request->input('keyword')) {
-            $articleQuery->whereRaw('Match (title, content) AGAINST ("'. $keyword .'<" IN BOOLEAN MODE)');
+            $articleQuery->whereRaw('Match (title, content) AGAINST ("+'. $keyword .'>" IN BOOLEAN MODE)');
         }
 
         $articleQuery->where('is_draft', 'no');

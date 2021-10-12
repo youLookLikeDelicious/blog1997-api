@@ -31,7 +31,7 @@ class TopicController extends Controller
     {
         $result = $repository->paginate($request);
 
-        return response()->success($result);
+        return $result->toResponse($request);
     }
 
     /**
@@ -50,7 +50,7 @@ class TopicController extends Controller
 
         $topicModel = Topic::create($data);
 
-        return response()->success($topicModel->append('editAble'), '专题创建成功');
+        return response()->success('', '专题创建成功');
     }
 
     /**
@@ -72,7 +72,7 @@ class TopicController extends Controller
 
         $topic->update($data);
 
-        return response()->success($topic->append('editAble'), '专题修改成功');
+        return response()->success('', '专题修改成功');
     }
 
     /**

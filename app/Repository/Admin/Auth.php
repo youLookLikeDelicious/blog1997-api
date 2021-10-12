@@ -1,7 +1,6 @@
 <?php
 namespace App\Repository\Admin;
 
-use App\Facades\Page;
 use Illuminate\Http\Request;
 use App\Model\Auth as ModelAuth;
 use App\Contract\Repository\Auth as RepositoryAuth;
@@ -21,52 +20,16 @@ class Auth implements RepositoryAuth
     }
 
     /**
-     * 获取所有的权限
+     * 分页获取所有的权限
      *
      * @param Request $request
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function all(Request $request)
     {
-        $this->validateRequest($request);
-
-        $query = $this->buildQuery($request);
-
-        $result = Page::paginate($query);
-
-        // 获取哦所有顶级权限
-        $topAuth = $this->model->select(['id', 'name'])
-            ->where('parent_id', 0)
-            ->get()->toArray();
-
-        array_unshift($topAuth, ['id' => '', 'name' => '--所有权限--']);
-
-        $result['topAuth'] = $topAuth;
-        
-        return $result;
-    }
-
-    /**
-     * Build request query
-     *
-     * @param Request $request
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    protected function buildQuery(Request $request)
-    {
-        $query = $this->model
-            ->select(['id', 'name', 'parent_id', 'auth_path', 'route_name'])
-            ->orderBy('auth_path', 'ASC');
-
-        if ($request->input('name')) {
-            $query->where('name', 'like', '%' . $request->input('name') . '%');
-        }
-
-        if ($request->input('parent_id')) {
-            $query->where('auth_path', 'like', $request->input('parent_id') . '_%');
-        }
-
-        return $query;
+        return $this->model->select(['id', 'name', 'route_name', 'parent_id'])
+            ->where('parent_id', 0)->with('child')
+            ->get();
     }
 
     /**
@@ -82,9 +45,19 @@ class Auth implements RepositoryAuth
             ->get()
             ->toArray();
 
-        array_unshift($result, ['id' => 0, 'name' => '--顶级权限--']);
-
         return $result;
+    }
+
+    /**
+     * 获取权限的树形结构
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getAuthTree()
+    {
+        $data = $this->model->with('child')->get();
+
+        return $data;
     }
 
     /**

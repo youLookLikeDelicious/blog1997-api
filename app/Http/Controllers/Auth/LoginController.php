@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Resources\User;
+use Illuminate\Http\Request;
+use App\Contract\Auth\Factory;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Contract\Auth\Factory;
-use Illuminate\Http\Request;
+use App\Facades\Service\RSAService;
 use Illuminate\Support\Facades\Cookie;
 use App\Http\Requests\LoginByProviderRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\App;
+
 /**
  * @group User Login
  * Login user
@@ -96,6 +97,12 @@ class LoginController extends Controller
     {
         $request->request->add(['remember' => true]);
 
+        $request->replace([
+            'email' => RSAService::decrypt($request->input('email')),
+            'password' => RSAService::decrypt($request->input('password')),
+            'captcha' => $request->input('captcha')
+        ]);
+        
         $rules = [
             $this->username() => 'required|string|email',
             'password' => 'required|string',

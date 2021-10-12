@@ -2,16 +2,13 @@
 
 namespace App\Model;
 
-use App\Model\Traits\EditAble;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * 敏感词汇模型
  */
 class SensitiveWord extends Model
-{
-    use EditAble;
-    
+{    
     public $dateFormat = 'U';
 
     protected $table = 'sensitive_word';
@@ -25,5 +22,16 @@ class SensitiveWord extends Model
      */
     protected $casts = [
         'category_id' => 'integer',
+        'created_at' => 'datetime:Y-m-d H:i',
     ];
+
+    /**
+     * Define relationship with category
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo(SensitiveWordCategory::class);
+    }
 }

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Facades\Upload;
+use Illuminate\Http\Request;
 use App\Contract\Repository\Gallery;
 use App\Http\Controllers\Controller;
 use App\Model\Gallery as ModelGallery;
 use App\Http\Requests\UploadImageRequest;
-use App\Service\UrlConvertToGalleryService;
 
 /**
  * @group Gallery management
@@ -23,14 +22,15 @@ class GalleryController extends Controller
      * 获取图片列表
      * 
      * @response/admin/gallery/index.json
+     * @param Request $request
      * @param Gallery $gallery
      * @return \Illuminate\Http\Response
      */
-    public function index (Gallery $gallery)
+    public function index (Request $request, Gallery $gallery)
     {
-        $result = $gallery->all();
+        $result = $gallery->all($request);
         
-        return response()->success($result);
+        return $result->toResponse($request);
     }
 
     /**
@@ -45,26 +45,24 @@ class GalleryController extends Controller
      * @param UploadImageRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UploadImageRequest $request)
+    public function store(UploadImageRequest $request, Gallery $gallery)
+    {        
+        $gallery->store($request);
+
+        return response()->success('', '图片上传成功');
+    }
+
+    /**
+     * Get image detail
+     * 
+     * 获取图片的详情
+     *
+     * @param Gallery $gallery
+     * @return @return \Illuminate\Http\Response
+     */
+    public function show(ModelGallery $gallery)
     {
-        // 获取文件
-        $data = $request->validated();
-        
-        // 开始上传
-        $upload = Upload::uploadImage($data['files'], 'gallery')
-            ->createThumbnail('240');
-
-        $result = $upload->getFileList();
-
-        $files = (new UrlConvertToGalleryService())->make($result);
-
-        $galleries = [];
-
-        foreach($files as $file) {
-            $galleries[] = ModelGallery::create($file);
-        }
-
-        return response()->success($galleries, '图片上传成功');
+        return response()->success($gallery->makeHidden('user_id'));
     }
 
     /**
@@ -80,7 +78,7 @@ class GalleryController extends Controller
      */
     public function destroy(ModelGallery $gallery)
     {
-        $gallery->delete();
+        $gallery->softDelete();
 
         return response()->success('', '图片删除成功');
     }

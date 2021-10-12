@@ -16,8 +16,7 @@ class CorsMiddleware
     public function handle($request, Closure $next)
     {
         $originList = [
-            'https://www.blog1997.com',
-            // 'http://localhost:1997'
+            'http://localhost:9090'
         ];
         /* 记录$_SERVER/
         $log = '';
@@ -28,12 +27,16 @@ class CorsMiddleware
 
         file_put_contents(storage_path('log.txt'), $log, FILE_APPEND);
         //*/
-
+        if (!isset($_SERVER['HTTP_ORIGIN'])) {
+            $_SERVER['HTTP_ORIGIN'] = 'http://localhost:9090';
+        }
+        
         // 获取origin信息
-        if (isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $originList)) {
-            header('Access-Control-Allow-Origin:'.$_SERVER['HTTP_ORIGIN']);
+        if (in_array($_SERVER['HTTP_ORIGIN'], $originList)) {
+            header('Access-Control-Allow-Origin:' . $_SERVER['HTTP_ORIGIN']);
             header('Access-Control-Allow-Credentials:true');
-            header('Access-Control-Allow-Headers:content-type,x-xsrf-token,support-webp,X-Forwarded-For,X-Real-IP');
+            header('Access-Control-Allow-Methods:POST, GET, OPTIONS, PUT, DELETE');
+            header('Access-Control-Allow-Headers:content-type,X-CSRF-TOKEN,support-webp,X-Forwarded-For,X-Real-IP,x-xsrf-token,X-Requested-With,Cookie');
         }
         
         $GLOBALS['startTime'] = microtime(true);

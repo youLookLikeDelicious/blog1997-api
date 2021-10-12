@@ -1,11 +1,18 @@
 <?php
 namespace App\Contract\Repository;
-use App\Model\User as Model;
-use App\Model\SocialAccount;
+
 use Illuminate\Http\Request;
 
 interface User
 {
+    /**
+     * Get user list
+     *
+     * @param Request $request
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function index(Request $request);
+
     /**
      * Find a user
      *

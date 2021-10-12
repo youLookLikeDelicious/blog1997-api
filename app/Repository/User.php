@@ -1,15 +1,15 @@
 <?php
 namespace App\Repository;
 
-use App\Contract\Repository\Role as RepositoryRole;
 use App\Facades\Page;
+use Illuminate\Http\Request;
 use App\Model\User as Model;
 use App\Model\SocialAccount;
-use App\Contract\Repository\User as Contract;
-use App\Model\Role;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+use App\Contract\Repository\User as Contract;
 use Illuminate\Validation\ValidationException;
+use App\Contract\Repository\Role as RepositoryRole;
+use App\Http\Resources\UserCollection;
 
 class User implements Contract
 {
@@ -36,6 +36,27 @@ class User implements Contract
     {
         $this->model = $model;
         $this->socialAccount = $socialAccount;
+    }
+
+    /**
+     * Get user list
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(Request $request)
+    {
+        $query = $this->model->select('id', 'name', 'avatar', 'email', 'gender', 'created_at', 'deleted_at', 'freeze_at')
+            ->with('roles:user_id,role_id,name');
+
+        if ($name = $request->input('name')) {
+            $query->where(function ($query) use ($name) {
+                $query->where('name', 'like', '%' . $name . '%')->orWhere('email', 'like', '%' . $name . '%');
+            });
+        }
+
+        $resData = $query->paginate($request->input('perPage', 10));
+        return (new UserCollection($resData))->toResponse($request);
     }
 
     /**

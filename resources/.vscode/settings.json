@@ -18,7 +18,8 @@
         {
             "language": "vue",
             "autoFix": true
-        },{
+        },
+        {
             "language": "javascript",
             "autoFix": true
         }
@@ -33,5 +34,7 @@
         },
         "wrap_attributes": "force-aligned"
     },
-    "prettier.semi": false, //去掉代码结尾的分号
+    "prettier.semi": false,
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true, //去掉代码结尾的分号
 }

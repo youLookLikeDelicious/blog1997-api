@@ -3,16 +3,17 @@
 namespace App\Repository;
 
 use App\Facades\Page;
-use App\Model\Comment as Model;
-use App\Facades\CacheModel;
 use App\Model\Article;
-use App\Contract\Repository\Comment as RepositoryComment;
+use App\Facades\CacheModel;
+use App\Model\Comment as Model;
 use Illuminate\Support\Facades\Cache;
+use App\Http\Resources\CommonCollection;
+use App\Contract\Repository\Comment as RepositoryComment;
 
 class Comment implements RepositoryComment
 {
     /**
-     * @var App\Model\Comment
+     * @var \App\Model\Comment
      */
     protected $model;
 
@@ -269,17 +270,17 @@ class Comment implements RepositoryComment
     /**
      * 获取未审核的评论
      *
-     * @return array
+     * @param \Illuminate\Support\Facades\Request $request;
+     * @return CommonCollection
      */
-    public function getUnverified()
+    public function getUnverified($request)
     {
         $comments = $this->model
             ->with('user:id,name,avatar')
             ->select(['id', 'content', 'able_id', 'able_type', 'user_id', 'created_at', 'verified']) 
-            ->where('verified', 'no');
+            ->where('verified', 'no')
+            ->paginate($request->input('perPage', 10));
 
-        $result = Page::paginate($comments);
-
-        return $result;
+        return new commonCollection($comments);;
     }
 }

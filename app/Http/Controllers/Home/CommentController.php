@@ -33,12 +33,14 @@ class CommentController extends Controller
     {
         // 验证字段
         $data = $request->validated();
-
-        $newComment = '';
         
-        DB::transaction(function () use ($data, &$newComment) {
+        $newComment = DB::transaction(function () use ($data) {
+
             $newComment = Comment::create($data);
+            
             $newComment['replies'] = [];
+
+            return $newComment;
         });
         
         $newComment->load(['user:id,name,avatar', 'receiver:id,name,avatar']);

@@ -1,6 +1,7 @@
 <?php
 namespace App\Logging;
 
+use App\Facades\MapService;
 use Illuminate\Support\Str;
 use App\Service\CurlService;
 use Monolog\Formatter\NormalizerFormatter;
@@ -81,11 +82,9 @@ class LoggerFormat extends NormalizerFormatter
             return '未识别的ip';
         }
 
-        $result = CurlService::make('https://restapi.amap.com/v3/ip?ip='. $ip .'&output=json&key=' . config('app.gmap_key'));
-        
-        $result = json_decode($result);
+        $result = MapService::getLocationByIp($ip);
 
-        if (!is_object($result) || $result->status != 1) {
+        if (!$result) {
             return  '定位失败';
         }
 

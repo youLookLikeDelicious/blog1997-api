@@ -23,7 +23,7 @@ class LogController extends Controller
      * @queryParam email 用户邮箱
      * @queryParam startDate 开始日期
      * @queryParam endDate   结束日期
-     * @queryParam p         请求的页数
+     * @queryParam page      请求的页数
      * @responseFile response/admin/log/index.json
      * @param Request $request
      * @param LogRepository $repository
@@ -34,6 +34,6 @@ class LogController extends Controller
     {        
         $logs = $repository->all($request, $type);
 
-        return response()->success($logs);
+        return $logs->toResponse($request);
     }
 }

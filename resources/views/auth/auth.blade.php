@@ -7,13 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Blog1997 | {{$title ?? '登陆'}}</title>
-    <link rel="stylesheet" href="{{mix('vue/css/app.css')}}">
+    <link rel="stylesheet" href="{{mix('/vue/css/app.css')}}">
 </head>
 <body>
     <div id="app"></div>
 </body>
-<script src="/vue/manifest.js"></script>
-<script src="/vue/vendor.js"></script>
 @if (isset($manager))
 <script>
     window.__vue__ = (function () {
@@ -21,5 +19,8 @@
     })()
 </script>
 @endif
-<script type="text/javascript" src="{{mix('vue/auth/index.js')}}"></script>
+
+<script src="{{mix('/vue/manifest.js')}}"></script>
+<script src="{{mix('/vue/vendor.js')}}"></script>
+<script type="text/javascript" src="{{mix('/vue/auth/auth.js')}}"></script>
 </html>

@@ -1,11 +1,10 @@
 <?php
 namespace App\Repository;
 
-use App\Facades\Page;
+use Illuminate\Http\Request;
+use App\Http\Resources\SensitiveWordCollection;
 use App\Model\SensitiveWord as ModelSensitiveWord;
 use App\Contract\Repository\SensitiveWord as RepositorySensitiveWord;
-use App\Model\SensitiveWordCategory;
-use Illuminate\Http\Request;
 
 class SensitiveWord implements RepositorySensitiveWord
 {
@@ -33,28 +32,17 @@ class SensitiveWord implements RepositorySensitiveWord
      * Get paginated sensitive word from database
      *
      * @param Request $request
-     * @return array
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
      */
-    public function all (Request $request) : array
+    public function all (Request $request)
     {
         $this->validateRequest($request);
 
-        // 获取分类列表
-        $categoryList = $this->getCategoryList();
-
-        if (!count($categoryList)) {
-            return [];
-        }
-
         $sensitiveWordQuery = $this->buildQuery($request);
 
-        $result = Page::paginate($sensitiveWordQuery);
-        
-        $result['categoryList'] = $categoryList;
+        $result = $sensitiveWordQuery->paginate($request->input('perPage', 10));
 
-        $result['categoryId'] = $request->input('category_id', 0) + 0;
-
-        return $result;
+        return new SensitiveWordCollection($result);
     }
 
     protected function validateRequest(Request $request)
@@ -72,7 +60,8 @@ class SensitiveWord implements RepositorySensitiveWord
      */
     protected function buildQuery (Request $request) {
 
-        $sensitiveWordQuery = $this->model->selectRaw('id, word, category_id, false as editAble');
+        $sensitiveWordQuery = $this->model->selectRaw('id, word, category_id, created_at')
+            ->with('category:id,name,rank');
 
         if ($categoryId = $request->input('category_id')) {
             $sensitiveWordQuery->where('category_id', $categoryId + 0);
@@ -85,19 +74,5 @@ class SensitiveWord implements RepositorySensitiveWord
         $sensitiveWordQuery->orderBy('created_at', 'desc');
 
         return $sensitiveWordQuery;
-    }
-
-    /**
-     * 获取敏感词分类列表
-     *
-     * @return array
-     */
-    protected function getCategoryList()
-    {
-        $categoryList = SensitiveWordCategory::select(['id', 'name'])->get()->toArray();
-
-        array_unshift($categoryList, ['id' => 0, 'name' => '所有分类']);
-
-        return $categoryList;
     }
 }
