@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UploadImageRequest extends FormRequest
 {
@@ -25,7 +26,9 @@ class UploadImageRequest extends FormRequest
     {
         return [
             'files.*' => 'required|image|max:10240', // 文件最大为10M
-            'id' => 'nullable'
+            'id' => 'nullable',
+            'user_id' => 'required',
+            'album' => 'required|max:45'
         ];
     }
 
@@ -37,6 +40,10 @@ class UploadImageRequest extends FormRequest
     protected function validationData()
     {
         $files = $this->file('upfile');
-        return ['files' => is_array($files) ? $files : [$files]];
+
+        return array_merge([
+            'user_id' => Auth::id(),
+            'files' => is_array($files) ? $files : [$files]
+        ], $this->all());
     }
 }

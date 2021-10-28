@@ -80,6 +80,23 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('MapService', function () {
             return new MapService;
         });
+
+        $this->registerRequestRebindHandler();
+    }
+
+    /**
+     * Handle the re-binding of the request binding.
+     *
+     * @return void
+     */
+    protected function registerRequestRebindHandler()
+    {
+        $this->app->rebinding('request', function ($app, $request) {
+            $perPage = $request->input('perPage');
+            if (!$perPage || $perPage > 500) {
+                $request->merge(['perPage' => 10]);
+            }
+        });
     }
 
     /**

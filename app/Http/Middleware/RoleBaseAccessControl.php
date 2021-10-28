@@ -54,8 +54,8 @@ class RoleBaseAccessControl
             // 获取当前用户的所有权限
             $user = auth()->user()->load('roles.authorities:id,route_name');
 
-            $roles = $user->roles->isEmpty() ?
-                null
+            $roles = $user->roles->isEmpty()
+                ? null
                 : $user->roles;
 
             if (!$roles->pluck('authorities')->collapse()->pluck('route_name')->contains($routeName)) {

@@ -15,7 +15,7 @@ class XyGallery extends Migration
     {
         //
         Schema::create('gallery', function (Blueprint $table) {
-            $table->smallIncrements('id')
+            $table->increments('id')
                 ->comment('主键id');
                 
             $table->string('url')
@@ -53,7 +53,7 @@ class XyGallery extends Migration
             $table->charset = 'utf8mb4';
         });
 
-        DB::statement('ALTER TABLE ' .DB::getTablePrefix(). 'gallery COMMENT = "背景图片表"');
+        DB::statement('ALTER TABLE ' .DB::getTablePrefix(). 'gallery COMMENT = "相册图片"');
     }
 
     /**

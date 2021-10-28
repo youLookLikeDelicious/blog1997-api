@@ -4,9 +4,9 @@ namespace App\Model;
 
 use App\Events\GalleryCreateEvent;
 use App\Events\GalleryDeletedEvent;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\URL;
 
 class Gallery extends Model
 {
@@ -46,5 +46,10 @@ class Gallery extends Model
     public function getDateTimeAttribute($val)
     {
         return $val ? date('Y-m-d H:i', $val) : '';
+    }
+
+    public function album()
+    {
+        return $this->belongsToMany(Album::class, 'gallery_album');
     }
 }

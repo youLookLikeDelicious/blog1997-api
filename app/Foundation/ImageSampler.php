@@ -1,6 +1,9 @@
 <?php
 namespace App\Foundation;
 
+use Intervention\Image\Exception\ImageException;
+use RuntimeException;
+
 /**
  * 提取图片的颜色
  * 
@@ -25,7 +28,10 @@ class ImageSampler
      */
     public function make($imagePath)
     {
-        if (!$this->img = imagecreatefromjpeg($imagePath)) {
+        if (!$imagePath) {
+            throw new ImageException('Image path is empty');
+        }
+        if (!$this->img = $this->createImage($imagePath)) {
             die("Error loading image: {$imagePath}");
         }
         $this->w = imagesx($this->img);
@@ -36,6 +42,32 @@ class ImageSampler
         $this->initialized = TRUE;
 
         return $this;
+    }
+
+    /**
+     * 根据文件类型,创建image
+     *
+     * @param string $imagePath
+     * @return GdImage|false 
+     */
+    protected function createImage($imagePath)
+    {
+        $type = exif_imagetype($imagePath);
+
+        switch ($type) {
+            case IMAGETYPE_GIF:
+                return imagecreatefromgif($imagePath);
+            case IMAGETYPE_PNG:
+                return imagecreatefrompng($imagePath);
+            case IMAGETYPE_WEBP:
+                return imagecreatefromwebp($imagePath);
+            case IMAGETYPE_JPEG:
+                return imagecreatefromjpeg($imagePath);
+            case IMAGETYPE_BMP:
+                return imagecreatefrombmp($imagePath);
+            default:
+                throw new RuntimeException('Unknown image type for sample');
+        }
     }
 
     /**

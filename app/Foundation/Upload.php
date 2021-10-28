@@ -126,7 +126,7 @@ class Upload
                 })->join(';');
 
             return [
-                'lng_lat'       => $gps,
+                'lng_lat'       => $gps ?: '',
                 'colors'        => $colors,
                 'url'           => $file['url'],
                 'camera_name'   => $file['exif']['Make'] ?? '',

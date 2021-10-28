@@ -5,6 +5,8 @@ use App\Model\Gallery as ModelGallery;
 use App\Contract\Repository\Gallery as RepositoryGallery;
 use App\Facades\Upload;
 use App\Http\Resources\CommonCollection;
+use App\Model\Album;
+use Illuminate\Http\Request;
 
 class Gallery implements RepositoryGallery
 {
@@ -37,15 +39,29 @@ class Gallery implements RepositoryGallery
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Resources\Json\ResourceCollection
      */
-    public function all($request)
+    public function list($request)
     {
         $this->validateRequest($request);
 
         $galleryQuery = $this->buildQuery($request);
 
-        $data = new CommonCollection($galleryQuery->paginate($request->input('perPage', 10)));
+        $data = new CommonCollection($galleryQuery->paginate($request->input('perPage')));
 
         return $data;
+    }
+
+    /**
+     * 获取有gps信息的所有图片
+     *
+     * @return void
+     */
+    public function all($request)
+    {
+        $galleries = $this->gallery->select(['id', 'url', 'lng_lat', 'location', 'date_time'])
+            ->where('lng_lat', '<>', '')
+            ->get();
+
+        return $galleries;
     }
 
     /**
@@ -87,6 +103,13 @@ class Gallery implements RepositoryGallery
             $query->whereBetween('date_time', [strtotime($date[0]), strtotime($date[1])]);
         }
 
+        // 根据相册查询
+        if ($id = $request->input('id')) {
+            $query->whereHas('album', function ($builder) use ($id) {
+                $builder->where('album_id', $id);
+            });
+        }
+
         if ($keywords = $request->input('keywords')) {
             $query->whereRaw("Match (location, remark) AGAINST ('+{$keywords}' IN BOOLEAN MODE)");
         }
@@ -125,19 +148,62 @@ class Gallery implements RepositoryGallery
     /**
      * 上传图片
      *
-     * @param \App\Http\Requests\UploadImageRequest $request $request
+     * @param \App\Http\Requests\UploadImageRequest $request
      * @return void
      */
     public function store($request)
     {
-        $data = $request->validate();
+        $data = $request->validated();
 
         // 开始上传
         $fileList = Upload::uploadImage($data['files'], 'gallery', null, null, false)
             ->createThumbnail('240')
             ->getFileList(false, true)
-            ->toArray();
+            ->map(function ($item) {
+                return new ModelGallery($item);
+            });
 
-        ModelGallery::insert($fileList);
+        $album = Album::firstOrCreate(['name' => $data['album']]);
+        $galleries = $album->galleries()->saveMany($fileList);
+        
+        // 更新相册封面
+        if ($album->gallery_is_auto === 1) {
+            $album->update([ 'gallery_id' => $galleries->last()->id ]);
+        }
+    }
+
+    /**
+     * 获取所有相册
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function albumAll()
+    {
+        return Album::select(['id', 'name'])->get();
+    }
+
+    /**
+     * 分页获取相册
+     *
+     * @param Request $request
+     * @return \Illuminate\Pagination\Paginator
+     */
+    public function albumList($request)
+    {
+        $albums = $this->buildAlbumQuery($request)->paginate($request->input('perPage'));
+
+        return new CommonCollection($albums);
+    }
+
+    protected function buildAlbumQuery($request)
+    {
+        $query = Album::select(['id', 'name', 'gallery_id', 'desc'])
+            ->with('gallery:id,url');
+
+        if ($name = $request->input('name')) {
+            $query->where('name', 'like', '%' . $name . '%');
+        }
+
+        return $query;
     }
 }

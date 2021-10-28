@@ -2,14 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\GalleryCreateEvent;
-use App\Facades\Upload;
 use App\Service\GalleryService;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\GalleryCreateEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\App;
 
-class GalleryCreateListener implements ShouldQueue
+class GalleryCreateListener
 {
     /**
      * Create the event listener.
@@ -33,7 +30,7 @@ class GalleryCreateListener implements ShouldQueue
         $gallery = $event->gallery;
 
         $base64Image = app()->make(GalleryService::class)
-            ->createTinyThumbnail($gallery->url);
+            ->createTinyThumbnail($gallery->getAttributes()['url']);
 
         if ($base64Image) {
             $gallery->update([

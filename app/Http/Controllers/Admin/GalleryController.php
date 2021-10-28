@@ -7,11 +7,12 @@ use App\Contract\Repository\Gallery;
 use App\Http\Controllers\Controller;
 use App\Model\Gallery as ModelGallery;
 use App\Http\Requests\UploadImageRequest;
+use App\Http\Requests\Admin\GalleryRequest;
 
 /**
  * @group Gallery management
  * 
- * 管理相册
+ * 管理相册图片
  * Gallery Management
  */
 class GalleryController extends Controller
@@ -28,9 +29,26 @@ class GalleryController extends Controller
      */
     public function index (Request $request, Gallery $gallery)
     {
-        $result = $gallery->all($request);
+        $result = $gallery->list($request);
         
         return $result->toResponse($request);
+    }
+
+    /**
+     * Get galleries' records
+     * 
+     * 获取所有GPS信息的图片
+     * 
+     * @response/admin/gallery/all.json
+     * @param Request $request
+     * @param Gallery $gallery
+     * @return \Illuminate\Http\Response
+     */
+    public function all (Request $request, Gallery $gallery)
+    {
+        $result = $gallery->all($request);
+        
+        return response()->success($result);
     }
 
     /**
@@ -52,13 +70,21 @@ class GalleryController extends Controller
         return response()->success('', '图片上传成功');
     }
 
+    public function update(GalleryRequest $request, ModelGallery $gallery)
+    {
+        $gallery->update($request->validated());
+
+        return response()->success('', '更新成功');
+    }
+
     /**
      * Get image detail
      * 
      * 获取图片的详情
-     *
+     * 
+     * @urlParam gallery 相册图片的id
      * @param Gallery $gallery
-     * @return @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function show(ModelGallery $gallery)
     {
@@ -78,7 +104,7 @@ class GalleryController extends Controller
      */
     public function destroy(ModelGallery $gallery)
     {
-        $gallery->softDelete();
+        $gallery->delete();
 
         return response()->success('', '图片删除成功');
     }

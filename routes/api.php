@@ -59,8 +59,15 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
             ->name('illegal-info.ignore');
 
         // 相册的相关操作
+        Route::get('/gallery/album-all', 'AlbumController@all')
+            ->name('gallery.album-all');
+        Route::resource('/gallery/album', 'AlbumController')
+            ->only(['index', 'store', 'destroy', 'update']);
+            
+        Route::get('/gallery/all', 'GalleryController@all');
         Route::resource('gallery', 'GalleryController')
-            ->only(['index', 'store', 'destroy', 'show']);
+            ->only(['index', 'store', 'destroy', 'show', 'update']);
+
 
         // 友链相关的操作
         Route::resource('friend-link', 'FriendLinkController')
