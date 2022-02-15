@@ -186,7 +186,7 @@ class Gallery implements RepositoryGallery
      * 分页获取相册
      *
      * @param Request $request
-     * @return \Illuminate\Pagination\Paginator
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
      */
     public function albumList($request)
     {

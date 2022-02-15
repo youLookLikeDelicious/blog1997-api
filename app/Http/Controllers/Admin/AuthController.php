@@ -37,24 +37,6 @@ class AuthController extends Controller
     }
 
     /**
-     * Get auth records when create new auth
-     * 
-     * 获取创建权限所需的数据
-     * Show the form data for creating a new resource.
-     * 
-     * @responseFile response/admin/auth/create.json
-     *
-     * @param RepositoryAuth $repository
-     * @return \Illuminate\Http\Response
-     */
-    public function create(RepositoryAuth $repository)
-    {
-        $result = $repository->flatted();
-
-        return response()->success($result);
-    }
-
-    /**
      * Store newly created auth
      * 
      * 新建一个权限记录
@@ -78,6 +60,20 @@ class AuthController extends Controller
         });
 
         return response()->success($auth, '权限添加成功');
+    }
+
+    /**
+     * Get specify auth by id
+     * 
+     * 获取权限详情
+     * @urlParam auth 权限id
+     * 
+     * @param Auth $auth
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Auth $auth)
+    {
+        return response()->success($auth);
     }
 
     /**

@@ -26,8 +26,8 @@ class AuthRequest extends FormRequest
     {
         return [
             'name' => __('field.name'),
-            'parent_id' => ('field.parent_id'),
-            'route_name' => ('field.route_name')
+            'parent_id' => __('field.parent_id'),
+            'route_name' => __('field.route_name')
         ];
     }
 
@@ -40,7 +40,7 @@ class AuthRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:15',
-            'parent_id' => 'required|integer|min:0',
+            'parent_id' => 'sometimes|required|integer|min:0',
             'route_name' => 'nullable|max:45'
         ];
     }
@@ -73,6 +73,10 @@ class AuthRequest extends FormRequest
             $result['route_name'] = '';
         }
 
+        if (empty($result['parent_id'])) {
+            $result['parent_id'] = 0;
+        }
+        
         return $result;
     }
 }

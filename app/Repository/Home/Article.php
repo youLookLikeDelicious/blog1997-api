@@ -17,7 +17,7 @@ class Article implements RepositoryArticle
 {
     /**
      * Article eloquent
-     * @var App\Model\Article
+     * @var \App\Model\Article
      */
     protected $article;
 

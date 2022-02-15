@@ -75,7 +75,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
         // 权限
         Route::resource('auth', 'AuthController')
-            ->only(['store', 'update', 'destroy', 'index', 'create']);
+            ->only(['store', 'update', 'destroy', 'index', 'show', 'create']);
 
         // 角色
         Route::resource('role', 'RoleController')
@@ -133,6 +133,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
             ->name('notification.index');
         Route::get('/notification/commentable-comments/{id}', 'MessageBoxController@getCommentAbleComments')
             ->name('notification.comments');
+        
+        // 手册
+        Route::post('/manual/article', 'ManualController@storeArticle')->name('manual-article.create');
+        Route::put('/manual/article/{manualArticle}', 'ManualController@updateArticle')->name('manual-article.update');
+        Route::get('/manual/article/{catalog}', 'ManualController@showArticle')->name('manual-article.show');
+        Route::resource('/manual', 'ManualController')->only(['index', 'show', 'store', 'update', 'destroy']);
+        // 手册目录
+        Route::resource('/catalog', 'CatalogController')->only(['store', 'update', 'destroy']);
     });
 });
 
@@ -206,5 +214,11 @@ Route::group(['namespace' => 'Home'], function () {
         // 获取博客留言
         Route::get('/leave-message', 'LeaveMessageController@index')
             ->middleware('sitemap:0.8,weekly,1');
+    });
+});
+
+Route::group(['middleware' => 'x-session'], function () {
+    Route::get('/captcha', function () {
+        return captcha();
     });
 });

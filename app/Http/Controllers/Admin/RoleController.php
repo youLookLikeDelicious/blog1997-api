@@ -84,7 +84,7 @@ class RoleController extends Controller
         $authorities = $data['authorities'];
         unset($data['authorities']);
 
-        $role = DB::transaction(function () use ($data, $authorities) {
+        DB::transaction(function () use ($data, $authorities) {
             $role = Role::create($data);
             $role->authorities()->attach($authorities);
 

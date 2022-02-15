@@ -24,7 +24,7 @@ class ArticleController extends Controller
     /**
      * repository
      *
-     * @var /App\Contract\Repository\Article
+     * @var \App\Contract\Repository\Article
      */
     protected $articleRepository;
 

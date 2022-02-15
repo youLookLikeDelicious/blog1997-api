@@ -53,10 +53,6 @@ class Auth extends Model
      */
     public function child()
     {
-        return $this->hasMany(static::class, 'parent_id', 'id')
-            ->select('id', 'name', 'parent_id')
-            ->with(['child' => function ($query) {
-                
-            }]);
+        return $this->hasMany(static::class, 'parent_id', 'id')->select('id', 'name', 'parent_id');
     }
 }

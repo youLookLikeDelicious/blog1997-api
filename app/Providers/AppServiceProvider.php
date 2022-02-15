@@ -31,6 +31,8 @@ use App\Repository\User as RepositoryUser;
 use App\Http\Controllers\Auth\LoginManager;
 use App\Observers\SensitiveWordCategoryObserver;
 use App\Contract\Repository\User as UserContract;
+use App\Model\Catalog;
+use App\Observers\catalogObserver;
 use App\Repository\Admin\Gallery as AdminGallery;
 
 class AppServiceProvider extends ServiceProvider
@@ -114,20 +116,23 @@ class AppServiceProvider extends ServiceProvider
         Article::observe(ArticleObserver::class);
         Comment::observe(CommentObserver::class);
         ThumbUp::observe(ThumbUpObserver::class);
+        Catalog::observe(catalogObserver::class);
         SensitiveWord::observe(SensitiveWordObserver::class);
         SensitiveWordCategory::observe(SensitiveWordCategoryObserver::class);
 
         /*记录sql */
-        \DB::listen(function ($query) {
-             file_put_contents(
-                storage_path(date('Y-m-d') . '_sql_log.txt'),
-                '[' . date('Y-m-d H:i:s') . ']  ' . Str::replaceArray('?', $query->bindings, $query->sql) . '[  ' . implode(', ', $query->bindings) . PHP_EOL,
-                FILE_APPEND
-            );
-            //  dump($query->bindings);
-             // $query->time
-             // var_dump($query->time);
-         });//*/
+        if (config('app.env') === 'local') {
+            \DB::listen(function ($query) {
+                 file_put_contents(
+                    storage_path(date('Y-m-d') . '_sql_log.txt'),
+                    '[' . date('Y-m-d H:i:s') . ']  ' . Str::replaceArray('?', $query->bindings, $query->sql) . '[  ' . implode(', ', $query->bindings) . PHP_EOL,
+                    FILE_APPEND
+                );
+                //  dump($query->bindings);
+                 // $query->time
+                 // var_dump($query->time);
+             });//*/
+        }
     }
 
     /**

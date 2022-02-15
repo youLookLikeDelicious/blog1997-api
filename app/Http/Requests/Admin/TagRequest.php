@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Contract\Repository\Tag;
 use App\Facades\Upload;
+use App\Contract\Repository\Tag;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Storage;
 class TagRequest extends FormRequest
 {
     /**

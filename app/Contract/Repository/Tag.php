@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 
 /**
  * 返回全部的标签列表
- * @method pubic array flatted()
  */
 interface Tag
 {
