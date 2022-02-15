@@ -53,6 +53,24 @@ class Auth extends Model
      */
     public function child()
     {
-        return $this->hasMany(static::class, 'parent_id', 'id')->select('id', 'name', 'parent_id');
+        return $this->hasMany(static::class, 'parent_id', 'id')
+            ->select('id', 'name', 'parent_id')
+            ->with(['child']);
+    }
+
+    /**
+     * Get the model's relationships in array form.
+     *
+     * @return array
+     */
+    public function relationsToArray()
+    {
+        $attributes = parent::relationsToArray();
+
+        if (isset($attributes['child']) && !$attributes['child']) {
+            $attributes['child'] = null;
+        }
+
+        return $attributes;
     }
 }
