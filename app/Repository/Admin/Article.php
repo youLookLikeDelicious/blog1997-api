@@ -54,12 +54,17 @@ class Article implements RepositoryArticle
 
         $articles = $query->paginate($request->input('perPage', 10));
 
+        $aggregate = $request->input('type')
+            ? $this->model->count()
+            : $articles->total();
+
         return (new CommonCollection($articles))
             ->additional([
                 'meta' => [
-                    'topics' => $this->topicRepository->all(),
-                    'draft' => $this->getDraftArticleCount(),
-                    'deleted' => $this->articleBackUp->count()
+                    'aggregate' => $aggregate,
+                    'topics'    => $this->topicRepository->all(),
+                    'draft'     => $this->getDraftArticleCount(),
+                    'deleted'   => $this->articleBackUp->count()
                 ]
             ]);
     }

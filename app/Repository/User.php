@@ -55,6 +55,12 @@ class User implements Contract
             });
         }
 
+        if ($role = $request->input('role')) {
+            $query->whereHas('roles', function ($q) use ($role) {
+                $q->where('role.id', $role);
+            });
+        }
+
         $resData = $query->paginate($request->input('perPage', 10));
         return (new UserCollection($resData))->toResponse($request);
     }
@@ -166,12 +172,12 @@ class User implements Contract
 
         if ($roleId = $request->input('role_id')) {
             $query->whereHas('roles', function (Builder $query) use ($roleId) {
-                $query->where('role.id', $roleId + 0);
+                $query->where('role.id', $roleId);
             });
         } else {
             $query->whereHas('roles');
         }
-
+        
         return $query;
     }
 

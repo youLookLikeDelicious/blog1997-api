@@ -38,6 +38,8 @@ class User extends JsonResource
 
             $result['roles'] = $roles;
             $result['authorities'] = $authorities;
+        } else {
+            $result['roles'] = [];
         }
         return $result;
     }

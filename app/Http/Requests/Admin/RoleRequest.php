@@ -25,7 +25,8 @@ class RoleRequest extends FormRequest
     public function attributes()
     {
         return [
-            'authorities.*' => __('field.authorities id')
+            'authorities.*' => __('field.authorities id'),
+            'name' => __('field.name'),
         ];
     }
 
@@ -50,8 +51,12 @@ class RoleRequest extends FormRequest
      */
     public function rules()
     {
+        $except = $this->route('role')
+            ? $this->route('role')->id
+            : '';
+
         return [
-            'name' => 'required|max:45|' . $this->isMethod('put') ? 'unique:role,name,' . $this->route('role')->id . ',id' : '' ,
+            'name' => 'required|max:45|unique:role,name,' .  $except,
             'remark' => 'present|string|max:450',
             'authorities' => 'nullable|array',
             'authorities.*' => ['integer', new Exists('auth')]

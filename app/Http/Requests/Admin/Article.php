@@ -54,14 +54,14 @@ class Article extends FormRequest
     public function rules()
     {
         $rules = [
-            'title' => 'required|max:72',
-            'topic_id' => 'required',
+            'title'     => 'required|max:72',
+            'topic_id'  => 'required',
             'is_origin' => 'sometimes|required|in:yes,no',
-            'order_by' => 'sometimes|sometimes|integer',
-            'content' => 'required|max:30000',
-            'tags' => 'required|array|min:1|max:5',
-            'tags.*' => 'required',
-            'is_draft' => 'sometimes|in:no,yes',
+            'order_by'  => 'sometimes|sometimes|integer',
+            'content'   => 'required|max:30000',
+            'tags'      => 'required|array|min:1|max:5',
+            'tags.*'    => 'required',
+            'is_draft'  => 'sometimes|in:no,yes',
         ];
 
         // 作为草稿保存的规则

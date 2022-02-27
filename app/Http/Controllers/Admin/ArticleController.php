@@ -12,6 +12,7 @@ use App\Model\ArticleBase as Article;
 use App\Model\Article as ModelArticle;
 use App\Http\Requests\Admin\Article as ArticleRequest;
 use App\Contract\Repository\Article as ArticleRepository;
+use App\Http\Resources\Article as ResourcesArticle;
 use App\Service\WeChatService;
 
 /**
@@ -66,7 +67,7 @@ class ArticleController extends Controller
      */
     public function show(?Article $article)
     {
-        return response()->success($article);
+        return response()->success(new ResourcesArticle($article));
     }
 
     /**

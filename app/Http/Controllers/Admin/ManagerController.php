@@ -79,8 +79,6 @@ class ManagerController extends Controller
             $manager->roles()->sync($data['roles']);
         });
 
-        $manager->load('roles:role.id,name');
-
         $manager->makeHidden(['remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'deleted_at']);
         
         return response()->success($manager, '管理员修改成功');
