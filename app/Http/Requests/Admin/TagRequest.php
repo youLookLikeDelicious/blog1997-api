@@ -57,8 +57,8 @@ class TagRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name'  => 'required|max:45',
-            'cover' => 'sometimes|required|string|max:120',
+            'name'        => 'required|max:45',
+            'cover'       => 'sometimes|required|string|max:120',
             'parent_id'   => 'sometimes|nullable|integer|min:-1',
             'description' => 'present|max:450',
         ];
