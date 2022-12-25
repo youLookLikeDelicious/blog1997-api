@@ -17,8 +17,8 @@ class catalogObserver
         $data = [];
 
         if ($lastNode = $this->getLastNode($catalog->parent_id, $catalog->id)) {
-            $lastNode->update(['next_node' => $catalog->id]);
-            $data['pre_node'] = $lastNode->id;
+            Catalog::where('id', $lastNode->id)->update(['next_node_id' => $catalog->id]);
+            $data['pre_node_id'] = $lastNode->id;
         }
         
         if ($catalog->parent) {
@@ -38,33 +38,73 @@ class catalogObserver
      */
     public function updated(Catalog $catalog)
     {
-        if ($catalog->isDirty('pre_node')) {
-            // 将当前节点放到第一个位置
-            if ($catalog->preNode === 0) {
-                // 获取当前层级的第一个节点
-                $firstCatalog = Catalog::where([
-                    'parent_id', $catalog->parent_id,
-                    'pre_node', 0
-                ])->first();
-                dd($firstCatalog);
-                $catalog->next_node = $firstCatalog ? $firstCatalog->id : 0;
-                $catalog->save();
-            } else {
-                Catalog::where('id', $catalog->getOriginal('pre_node'))->update(['next_node' => $catalog->getOriginal('next_node')]);
-                Catalog::where('id', $catalog->getOriginal('next_node'))->update(['pre_node' => $catalog->getOriginal('pre_node')]);
-                Catalog::where('id', $catalog->per_node)->update(['next_node' => $catalog->id]);
-                Catalog::where('id', $catalog->id)->update(['next_node' => $catalog->preNode ? $catalog->preNode->next_node : 0]);
+        if ($catalog->isDirty('pre_node_id')) {            
+            // 从链表中移除该节点
+            if ($preNodeId = $catalog->getOriginal('pre_node_id')) {
+                Catalog::where('id', $preNodeId)->update(['next_node_id' => $catalog->next_node_id]);
             }
-        } else if ($catalog->isDirty('parent_node')) {
+            if ($catalog->next_node_id) {
+                Catalog::where('id', $catalog->next_node_id)->update(['pre_node_id' => $catalog->getOriginal('pre_node_id')]);
+            }
+
+            // 重新插入该节点
+            $currentPreNode = Catalog::find($catalog->pre_node_id);
+            Catalog::where('id', $catalog->pre_node_id)->update(['next_node_id' => $catalog->id]);
+            Catalog::where('id', $catalog->id)->update([
+                'next_node_id' => $currentPreNode->next_node_id,
+                'parent_id' => $currentPreNode->parent_id,
+                'level' => $currentPreNode->level
+            ]);
+            if ($currentPreNode->next_node_id) {
+                Catalog::where('id', $currentPreNode->next_node_id)->update(['pre_node_id' => $catalog->id]);
+            }
+
+            return;
+        }        
+ 
+        // 将当前节点的下一个节点 指向next节点
+        if ($catalog->isDirty('next_node_id')) {
+            // 从链表中删除该节点
+            if ($catalog->pre_node_id) {
+                Catalog::where('id', $catalog->pre_node_id)->update(['next_node_id' => $catalog->getOriginal('next_node_id')]);
+            }
+            if ($originNextId = $catalog->getOriginal('next_node_id')) {
+                Catalog::where('id', $originNextId)->update(['pre_node_id' => $catalog->pre_node_id]);
+            }
+
+            // 重新插入该节点
+            $nextNode = Catalog::find($catalog->next_node_id);
+            Catalog::where('id', $catalog->next_node_id)->update(['pre_node_id' => $catalog->id]);
+            Catalog::where('id', $catalog->id)->update([
+                'pre_node_id' => $nextNode->pre_node_id,
+                'parent_id' => $nextNode->parent_id,
+                'level' => $nextNode->level
+            ]);
+            if ($nextNode->pre_node_id) {
+                Catalog::where('id', $nextNode->pre_node_id)->update(['next_node_id' => $catalog->id]);
+            }
+
+            return;
+        }
+
+        if ($catalog->isDirty('parent_id')) {
+            // 从之前的链表中删除该节点
+            if ($catalog->pre_node_id) {
+                Catalog::where('id', $catalog->pre_node_id)->update(['next_node_id' => $catalog->next_node_id]);
+            }
+            if ($catalog->next_node_id) {
+                Catalog::where('id', $catalog->next_node_id)->update(['pre_node_id' => $catalog->pre_node_id]);
+            }
+
             // 将节点放到父节点的最后一个节点
-            $data = [];
+            $data = ['next_node_id' => 0, 'pre_node_id' => 0];
+            
             if ($lastNode = $this->getLastNode($catalog->parent_id, $catalog->id)) {
-                Catalog::where('id', $catalog->id)->update(['next_node' => $catalog->id]);
-                $data['pre_node'] = $lastNode->id;
-            } else {
-                $data['pre_node'] = 0;
-                $data['next_node'] = 0;
+                Catalog::where('id', $lastNode->id)->update(['next_node_id' => $catalog->id]);
+                $data['pre_node_id'] = $lastNode->id;
             }
+
+            $data['level'] = $catalog->parent ?  $catalog->parent->level + 1 : 0;
 
             Catalog::where('id', $catalog->id)->update($data);
         }
@@ -78,27 +118,13 @@ class catalogObserver
      */
     public function deleted(Catalog $catalog)
     {
-        $preNode = $catalog->preNode;
-        $nextNode = $catalog->nextNode;
-
-        if ($preNode) {
-            $preNode->next_node = $nextNode
-                ? $nextNode->id
-                : 0;
-
-            if ($nextNode) {
-                $nextNode->pre_node = $preNode->id;
-            }
-        } else if($nextNode) {
-            $nextNode->pre_node = $preNode ? $preNode->id : 0;
-
-            if ($preNode) {
-                $preNode->next_node = $nextNode->id;
-            }
+        if ($catalog->pre_node_id) {
+            Catalog::where('id', $catalog->pre_node_id)->update(['next_node_id' => $catalog->next_node_id]);
         }
-
-        $preNode->save();
-        $nextNode->save();
+        
+        if ($catalog->next_node_id) {
+            Catalog::where('id', $catalog->next_node_id)->update(['pre_node_id' => $catalog->pre_node_id]);
+        }
     }
 
     /**
@@ -112,7 +138,7 @@ class catalogObserver
     {
         $condition = [
             ['parent_id', $parentId],
-            ['next_node', 0]
+            ['next_node_id', 0]
         ];
 
         if ($excludeId) {

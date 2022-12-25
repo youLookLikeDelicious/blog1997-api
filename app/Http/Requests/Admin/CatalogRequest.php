@@ -24,13 +24,13 @@ class CatalogRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'      => 'required|string|max:45',
-            'manual_id' => 'required',
-            'is_public' => 'required|in:1,2',
-            'pre_node'  => 'sometimes',
-            'parent_id' => 'sometimes',
-            'next_node' => 'sometimes',
-            'type'      => 'required|in:1,2'
+            'name'         => 'required|string|max:45',
+            'manual_id'    => 'required',
+            'is_public'    => 'required|in:1,2',
+            'pre_node_id'  => 'sometimes',
+            'parent_id'    => 'sometimes',
+            'next_node_id' => 'sometimes',
+            'type'         => 'sometimes|in:1,2'
         ];
     }
 }

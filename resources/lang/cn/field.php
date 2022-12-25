@@ -28,5 +28,6 @@ return [
     'friend link name' => '友链名称',
     'success' => '成功',
     'failure' => '失败',
-    'neutral' => '正常'
+    'neutral' => '正常',
+    'remark'  => '备注'
 ];

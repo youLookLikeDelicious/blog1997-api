@@ -18,8 +18,8 @@ class CreateCatalogTable extends Migration
             $table->string('name', 45)->comment('目录名称');
             $table->tinyInteger('level')->default(0)->comment('当前层级,默认0');
             $table->tinyInteger('type')->default(1)->comment('类型: 1标题, 2文章');
-            $table->bigInteger('pre_node')->default(0)->comment('前一个节点');
-            $table->bigInteger('next_node')->default(0)->comment('下一个个节点');
+            $table->bigInteger('pre_node_id')->default(0)->comment('前一个节点');
+            $table->bigInteger('next_node_id')->default(0)->comment('下一个个节点');
             $table->bigInteger('parent_id')->default(0)->comment('父级节点');
             $table->bigInteger('manual_id')->default(0)->comment('手册id');
             $table->tinyInteger('is_public')->default(1)->comment('是否公开 1: 是 2: 否');

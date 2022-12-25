@@ -10,7 +10,7 @@ use App\Model\Article;
 use App\Model\Comment;
 use App\Model\ThumbUp;
 use Illuminate\Support\Str;
-use App\Service\RSAservice;
+use App\Service\RSAService;
 use App\Service\MapService;
 use App\Service\CurlService;
 use App\Model\SensitiveWord;
@@ -71,7 +71,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('RSAService', function () {
-            return new RSAservice;
+            return new RSAService;
         });
 
         $this->app->singleton('ImageSampler', function () {

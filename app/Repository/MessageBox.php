@@ -2,14 +2,12 @@
 
 namespace App\Repository;
 
-use App\Model\Article;
 use App\Model\Comment;
 use Illuminate\Http\Request;
 use App\Http\Resources\CommonCollection;
 use App\Model\MessageBox as MessageBoxModel;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use App\Contract\Repository\MessageBox as RepositoryMessageBox;
-use Blog1997;
 
 class MessageBox implements RepositoryMessageBox
 {
@@ -38,15 +36,12 @@ class MessageBox implements RepositoryMessageBox
         $query = $this->buildQuery($request);
 
         // 分页获取数据
-        $data = $query->paginate($request->input('perPage', 10));
+        $data = (clone $query)->paginate($request->input('perPage', 10));
 
         $result = new CommonCollection($data);
-
-        $result->additional([
-                'meta' => [
-                    'notHaveReadCount' => $this->getUnreadReportInfoCount()
-                ]
-            ]);
+        
+        // 标记为已读状态
+        $query->update(['have_read' => 'yes']);
 
         return $result;
     }
@@ -64,12 +59,15 @@ class MessageBox implements RepositoryMessageBox
         $query = $this->model
             ->selectRaw('id, sender, receiver, reported_id, type, content, created_at, operate, have_read')
             ->where('receiver', -1)
-            ->with(['notificationable' => function ($query) {
-                $query->select('id', 'content')->where('type', ['App\Model\Comment']);
-            }]);
+            ->with('notificationable:id,content');
 
         if ($type = $request->input('have_read', '')) {
             $query->where('have_read', $type);
+        }
+
+        // 处理结果
+        if ($operate = $request->input('operate')) {
+            $query->where('operate', $operate);
         }
 
         $query->orderBy('created_at');
@@ -87,7 +85,8 @@ class MessageBox implements RepositoryMessageBox
     protected function validateRequest(Request $request)
     {
         $request->validate([
-            'have_read' => 'sometimes|required|in:yes,no'
+            'have_read' => 'sometimes|required|in:yes,no',
+            'operate'   => 'sometimes|in:undo,ignore,approve'
         ]);
     }
 
@@ -99,7 +98,6 @@ class MessageBox implements RepositoryMessageBox
     public function getUnreadReportInfoCount()
     {
         return $this->model
-            ->select('id', 'have_read', 'receiver')
             ->where('have_read', 'no')
             ->where('receiver', -1)
             ->count();

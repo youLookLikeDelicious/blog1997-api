@@ -80,7 +80,8 @@ class Comment implements RepositoryComment
     public function getComment($commentableId, $commentableType)
     {
         $key = 'comment' . $commentableId . $commentableType . request()->input('p', 1);
-        return Cache::remember($key, (60 * 60 * mt_rand(0, 200)), function () use ($commentableId, $commentableType) {
+        
+        return Cache::remember($key, (60 * mt_rand(0, 200)), function () use ($commentableId, $commentableType) {
             return $this->rememberComment($commentableId, $commentableType);
         });
     }

@@ -11,6 +11,13 @@ class MessageBox extends Model
     protected $guarded = [];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['operate_name', 'have_read_name'];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -52,5 +59,31 @@ class MessageBox extends Model
     public function thumbs()
     {
         return $this->belongsTo('App\Model\ThumbUp', 'reported_id');
+    }
+
+    /**
+     * 获取操作结果的文本
+     *
+     * @return string
+     */
+    public function getOperateNameAttribute()
+    {
+        if (!$this->operate) return '';
+
+        return [
+            'undo'    => '未处理',
+            'approve' => '已批准',
+            'ignore'  => '已忽略'
+        ][$this->operate];
+    }
+
+    /**
+     * 获取已读状态文本
+     *
+     * @return string
+     */
+    public function getHaveReadNameAttribute()
+    {
+        return $this->have_read === 'yes' ? '已读' : '未读';
     }
 }

@@ -3,7 +3,7 @@ namespace App\Service;
 
 use Exception;
 
-class RSAservice
+class RSAService
 {
     protected $privateKey = '';
 

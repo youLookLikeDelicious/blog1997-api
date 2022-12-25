@@ -63,7 +63,7 @@ class CatalogController extends Controller
      */
     public function destroy(Catalog $catalog)
     {
-        if ($catalog->children->isNotEmpty()) {
+        if ($catalog->isCateNode && $catalog->children->isNotEmpty()) {
             return response()->error('该章节下还有内容,暂无法删除');
         }
 
@@ -71,6 +71,6 @@ class CatalogController extends Controller
             $catalog->delete();
         });
 
-        return response()->success('', '章节删除成功');
+        return response()->success('', '节点删除成功');
     }
 }

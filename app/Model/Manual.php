@@ -43,4 +43,28 @@ class Manual extends Model
     {
         return $this->hasMany(Catalog::class, 'manual_id')->where('parent_id', 0);
     }
+
+    /**
+     * Get the model's relationships in array form.
+     *
+     * @return array
+     */
+    public function relationsToArray()
+    {
+        $relationArray = parent::relationsToArray();
+        
+        if (!empty($relationArray['catalogs'])) {
+            // 排序
+            $sortedChildren = [];
+            $children = collect($relationArray['catalogs']);
+            $sortedChildren[] = $tempNode = $children->where('pre_node_id', 0)->first();
+            while($tempNode = $children->firstWhere('id', $tempNode['next_node_id'])) {
+                $sortedChildren[] = $tempNode;
+            }
+
+            $relationArray['catalogs'] = $sortedChildren;
+        }
+
+        return $relationArray;
+    }
 }

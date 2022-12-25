@@ -114,6 +114,8 @@ class Gallery implements RepositoryGallery
             $query->whereRaw("Match (location, remark) AGAINST ('+{$keywords}' IN BOOLEAN MODE)");
         }
 
+        $query->orderBy('created_at', 'desc');
+
         return $query;
     }
 
@@ -203,6 +205,8 @@ class Gallery implements RepositoryGallery
         if ($name = $request->input('name')) {
             $query->where('name', 'like', '%' . $name . '%');
         }
+
+        $query->orderBy('created_at', 'desc');
 
         return $query;
     }

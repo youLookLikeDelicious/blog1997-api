@@ -28,7 +28,7 @@ class Catalog extends Model
      */
     public function nextNode()
     {
-        return $this->hasOne(Catalog::class, 'pre_node');
+        return $this->hasOne(Catalog::class, 'pre_node_id');
     }
 
     /**
@@ -38,7 +38,7 @@ class Catalog extends Model
      */
     public function preNode()
     {
-        return $this->hasOne(Catalog::class, 'next_node');
+        return $this->hasOne(Catalog::class, 'next_node_id');
     }
 
     /**
@@ -71,15 +71,22 @@ class Catalog extends Model
             // 排序
             $sortedChildren = [];
             $children = collect($relationArray['children']);
-            $sortedChildren[] = $tempNode = $children->where('pre_node', 0)->first();
-            while($tempNode = $children->where('id', $tempNode['next_node'])->first()) {
+            $sortedChildren[] = $tempNode = $children->where('pre_node_id', 0)->first();
+            while($tempNode = $children->firstWhere('id', $tempNode['next_node_id'])) {
                 $sortedChildren[] = $tempNode;
             }
+
+            $relationArray['children'] = $sortedChildren;
         }
 
         return $relationArray;
     }
 
+    /**
+     * Get article
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function manualArticle()
     {
         return $this->hasOne(ManualArticle::class, 'catalog_id')->withDefault([
@@ -89,5 +96,25 @@ class Catalog extends Model
             'title'       => $this->name,
             'manual_id'   => $this->manual_id
         ]);
+    }
+
+    /**
+     * Check is article node
+     *
+     * @return Boolean
+     */
+    public function getIsArticleNodeAttribute()
+    {
+        return $this->type == 2;
+    }
+
+    /**
+     * Check is cate node
+     *
+     * @return Boolean
+     */
+    public function getIsCateNodeAttribute()
+    {
+        return $this->type == 1;
     }
 }

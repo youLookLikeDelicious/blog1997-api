@@ -31,7 +31,7 @@ class ManualRequest extends FormRequest
             'cover'     => 'required|string|max:120'
         ];
         
-        if (is_uploaded_file($this->file('cover')->path())) {
+        if ($this->file('cover') && is_uploaded_file($this->file('cover')->path())) {
             $rules['cover'] = 'required|image|max:10240';
         }
 
@@ -80,6 +80,8 @@ class ManualRequest extends FormRequest
      */
     public function coverIsFile()
     {
+        if (!$this->file('cover')) return false;
+        
         return $this['cover'] instanceof \Illuminate\Http\Testing\File || is_uploaded_file($this->file('cover')->path());
     }
 }

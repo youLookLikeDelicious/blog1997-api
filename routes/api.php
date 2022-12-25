@@ -16,8 +16,7 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/auth/login', 'LoginController@login');  // 登录
     Route::any('/oauth/currentUser', 'AuthorizeController@currentUser');
     Route::post('/oauth/logout', 'LoginController@logout');
-    Route::put('/auth/manager/{manager}', 'ManagerRegisterController@update')
-        ->name('manager.inti.password');
+    Route::put('/auth/manager/{manager}', 'ManagerRegisterController@update')->name('manager.inti.password');
     Route::post('/oauth/sign-up', 'SignUpController@store');
     Route::get('/csrf', 'AuthorizeController@getCsrfToken');
 });
@@ -51,12 +50,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
             ]);
 
         // 获取举报的信息
-        Route::get('/illegal-info', 'MessageBoxController@index')
-            ->name('illegal-info.index');
-        Route::post('/illegal-info/approve/{id}', 'MessageBoxController@approve')
-            ->name('illegal-info.approve');
-        Route::post('/illegal-info/ignore/{id}', 'MessageBoxController@ignore')
-            ->name('illegal-info.ignore');
+        Route::get('/illegal-info', 'MessageBoxController@index')->name('illegal-info.index');
+        Route::post('/illegal-info/approve/{id}', 'MessageBoxController@approve')->name('illegal-info.approve');
+        Route::post('/illegal-info/ignore/{id}', 'MessageBoxController@ignore')->name('illegal-info.ignore');
 
         // 相册的相关操作
         Route::get('/gallery/album-all', 'AlbumController@all')

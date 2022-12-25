@@ -53,9 +53,8 @@ class CommentController extends Controller
 
         DB::transaction(function () use ($data) {
             foreach ($data['ids'] as $id) {
-                Comment::select('id', 'verified', 'able_type', 'able_id', 'level', 'root_id')
-                    ->find($id)
-                    ->update(['verified' => 'yes']);
+                $comment = Comment::select('id', 'verified', 'able_type', 'able_id', 'level', 'root_id')->find($id);
+                $comment->update(['verified' => 'yes']);
             }
         });
 

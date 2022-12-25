@@ -27,4 +27,11 @@ class GalleryRequest extends FormRequest
             'remark' => 'sometimes|required|max:255'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'remark' => __('field.remark')
+        ];
+    }
 }

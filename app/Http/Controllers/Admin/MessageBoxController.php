@@ -39,8 +39,7 @@ class MessageBoxController extends Controller
      */
     public function index(Request $request)
     {
-        $result = $this->messageBoxRepository
-            ->all($request);
+        $result = $this->messageBoxRepository->all($request);
 
         return $result;
     }
