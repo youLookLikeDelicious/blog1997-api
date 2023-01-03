@@ -3,7 +3,9 @@
 namespace App\Contract\Repository;
 
 use Illuminate\Http\Request;
-
+/**
+ * @method static array getTopTen()
+ */
 interface Article {
     public function find ($id);
 

@@ -39,6 +39,8 @@ class ArticleController extends Controller
     {
         $articleRecord = $this->article->find($articleId);
 
+        event(new VisitArticle($this->article->decodeArticleId($articleId)));
+
         return response()->success($articleRecord);
     }
 
@@ -57,10 +59,6 @@ class ArticleController extends Controller
     public function comments($articleId)
     {
         $comments = $this->article->comments($articleId);
-
-        event(new VisitArticle($comments['articleId']));
-
-        unset($comments['articleId']);
 
         return response()->success($comments);
     }

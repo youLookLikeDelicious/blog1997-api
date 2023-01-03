@@ -6,7 +6,6 @@ use App\Facades\CacheModel;
 use App\Model\SystemSetting;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SystemSettingRequest;
-use App\Repository\Admin\SystemSetting as Repository;
 
 /**
  * @group System config management
@@ -23,9 +22,9 @@ class SystemSettingController extends Controller
      * @responseFile response/admin/system-setting/index.json
      * @return \Illuminate\Http\Response
      */
-    public function index(Repository $repository)
+    public function index()
     {
-        $setting = $repository->get();
+        $setting = CacheModel::getSystemSetting();
 
         return response()->success($setting);
     }

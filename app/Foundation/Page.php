@@ -25,7 +25,7 @@ class Page{
      */
     public function paginate ($query, int $limit = 20, int $showPages = 10) {
 
-        $this->limit = empty($_GET['limit'])? $limit : $_GET['limit'];
+        $this->limit = request()->input('limit', $limit);
 
         // 获取带id的字段
         $model = $query->getModel();
@@ -117,7 +117,11 @@ class Page{
      */
     public function setCurrentPage($p = 1) {
 
-        $p = isset($_GET['p']) && is_numeric($_GET['p'])? $_GET['p'] + 0 : 1;
+        $p = request()->input('p', 1);
+
+        if (!is_numeric($p)) {
+            $p = 1;
+        }
 
         if ($p < 1) {
             $this->currentPage = 1;

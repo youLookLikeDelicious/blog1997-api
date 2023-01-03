@@ -14,6 +14,7 @@ use App\Http\Requests\Admin\Article as ArticleRequest;
 use App\Contract\Repository\Article as ArticleRepository;
 use App\Http\Resources\Article as ResourcesArticle;
 use App\Service\WeChatService;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * @group Article management
@@ -111,6 +112,7 @@ class ArticleController extends Controller
 
             // 添加多对多的关系
             $articleRecord->tags()->sync($tags);
+            Cache::forget('home.list');
         });
 
         $message = $articleRecord->is_draft === 'yes' ? '草稿保存成功' : '文章创建成功';
