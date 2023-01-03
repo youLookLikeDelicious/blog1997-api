@@ -44,12 +44,12 @@ class MasterCreate extends Command
      */
     public function handle()
     {
-        $data = $this->validated();
-
         if ($this->hasMaster()) {
-            $this->error('There is already a master!');
+            $this->warn('There is already a master!');
             return;
         }
+
+        $data = $this->validated();
 
         // 获取master role
         $role = Role::select('id', 'name')
@@ -64,6 +64,7 @@ class MasterCreate extends Command
 
         DB::transaction(function () use (&$manager, $data, $role) {
             $manager = User::create($data);
+            $manager->markEmailAsVerified();
             $manager->roles()->attach($role->id);
         });
 

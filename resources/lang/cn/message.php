@@ -15,5 +15,6 @@ return [
     'This verify link will expire in :count minutes.' => '邮箱验证连接在 :count分钟后失效.',
     'If you did not request to verify, no further action is required.' => '如果你没有请求验证邮箱,请忽略该邮件.',
     'unknown private key' => '未知的私有密钥.',
-    'Not login' => '用户信息已失效,请重新登陆'
+    'Not login' => '用户信息已失效,请重新登陆',
+    'Invalid expired' => '该链接已失效'
 ];

@@ -28,7 +28,7 @@ class UploadImageRequest extends FormRequest
             'files.*' => 'required|image|max:10240', // 文件最大为10M
             'id' => 'nullable',
             'user_id' => 'required',
-            'album' => 'required|max:45'
+            'album' => 'sometimes|max:45'
         ];
     }
 

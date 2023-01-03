@@ -57,12 +57,7 @@ class Upload
                 $this->resize($img, $width, $height);
             }
 
-            // 添加水印
-            if ($withWaterMark) {
-                $this->addWaterMark($img);
-            }
-
-            $this->putImageToStorage($img, $fileFullName);
+            $this->putImageToStorage($img, $fileFullName, $withWaterMark);
 
             $img->destroy();
         }
@@ -171,7 +166,7 @@ class Upload
         $x = 30;
         $y = $height > $fontSize ? $height - $fontSize / 2 : $height;
 
-        $img->text('©www.blog1997.com', $x, $y, function ($font) use ($fontSize) {
+        $img->text(config('app.url', ''), $x, $y, function ($font) use ($fontSize) {
             $font->file(public_path('GenJyuuGothic-Normal.ttf'));
             $font->size($fontSize);
             $font->color('#ffffff');
@@ -266,14 +261,20 @@ class Upload
      *
      * @param \Intervention\Image\Image $image
      * @param string $imageFullName
+     * @param boolean $withWaterMark 是否添加水印
      * @return void
      */
-    protected function putImageToStorage($image, $imageFullName)
+    protected function putImageToStorage($image, $imageFullName, $withWaterMark)
     {
         $image->save(storage_path($imageFullName), 100);
 
         $webpFullName = str_replace(strrchr($imageFullName, '.'), '.webp', $imageFullName);
         
+        // 添加水印
+        if ($withWaterMark) {
+            $this->addWaterMark($image);
+        }
+
         Storage::put($webpFullName, (string) $image->encode('webp'));
     }
 
