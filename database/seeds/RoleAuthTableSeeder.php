@@ -11,6 +11,10 @@ class RoleAuthTableSeeder extends Seeder
      */
     public function run()
     {
+        if (\DB::table('role_auth')->count()) {
+            return;
+        }
+
         \DB::table('role_auth')->delete();
 
         \DB::table('role_auth')->insert(array (

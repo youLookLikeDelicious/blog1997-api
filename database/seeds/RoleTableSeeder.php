@@ -12,6 +12,9 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
+        if (\DB::table('role')->count()) {
+            return;
+        }
 
         \DB::table('role')->delete();
 

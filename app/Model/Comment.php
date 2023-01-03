@@ -89,7 +89,7 @@ class Comment extends Model
         return $this->morphMany('App\Model\Comment', 'able');
     }
 
-    public function subComments()
+    public function replies()
     {
         return $this->hasMany(self::class, 'root_id', 'id')->with('user:id,name,avatar');
     }

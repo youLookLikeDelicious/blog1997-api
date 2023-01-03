@@ -12,6 +12,10 @@ class SystemSettingSeed extends Seeder
      */
     public function run()
     {
+        if (\DB::table('system_settings')->count()) {
+            return;
+        }
+
         DB::table('system_settings')->insert([
             'enable_comment' => 'yes',
             'verify_comment' => 'no',

@@ -13,7 +13,9 @@ class AuthTableSeeder extends Seeder
     public function run()
     {
 
-
+        if (\DB::table('auth')->count()) {
+            return;
+        }
         \DB::table('auth')->delete();
 
         \DB::table('auth')->insert(array (

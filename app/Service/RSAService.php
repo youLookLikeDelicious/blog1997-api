@@ -7,8 +7,20 @@ class RSAService
 {
     protected $privateKey = '';
 
+    /**
+     * 是否进行rsa解码
+     *
+     * @var boolean
+     */
+    protected $allowDecode = true;
+
     public function __construct()
     {
+        if (!file_exists(base_path('rsa_1024_priv.pem'))) {
+            $this->allowDecode = false;
+            return;
+        }
+
         $this->privateKey = openssl_pkey_get_private('file://' . base_path('rsa_1024_priv.pem'));
 
         if (!$this->privateKey) {
@@ -23,7 +35,7 @@ class RSAService
      */
     public function decrypt($data)
     {
-        if (!$data) {
+        if (!$data || !$this->allowDecode) {
             return $data;
         }
         

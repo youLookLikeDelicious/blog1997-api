@@ -17,13 +17,6 @@ class Comment implements RepositoryComment
      */
     protected $model;
 
-    /**
-     * 获取的评论
-     * 
-     * @var array
-     */
-    protected $comments;
-
     public function __construct(Model $model)
     {
         $this->model = $model;
@@ -38,14 +31,16 @@ class Comment implements RepositoryComment
             ->where('able_id', $commentableId)
             ->where('able_type', $commentableType)
             ->where('level', 1)
-            ->where('verified', 'yes');
+            ->where('verified', 'yes')
+            ->with(['replies' => function ($q) {
+                $q->with('receiver:id,name,avatar')
+                    ->select(['comment.id', 'level', 'liked', 'user_id', 'content', 'able_id', 'root_id', 'reply_to']);
+            }]);
 
         // 返回的分页数据
-        $this->comments = Page::paginate($commentQuery, 12);
+        $result = Page::paginate($commentQuery, 12);
 
-        $this->comments['records'] = $this->comments['records']
-            ->makeHidden(['able_id', 'able_type'])
-            ->toArray();
+        $records = $this->syncCommentsCache($result['records']);
 
         $commented = 0;
         if ($commentableType == Article::class) {
@@ -55,19 +50,15 @@ class Comment implements RepositoryComment
         }
         
         // 没有相关的评论,不在尝试获取回复
-        if (!count($this->comments['records']) && !$commented) {
+        if (!count($result) && !$commented) {
             return $this->getEmptyComment();
         }
 
-        $this->getReplyForEachComment();
-
-        $result = ['records' => $this->comments['records']];
-
         // 添加页数信息
-        $result['p'] = $this->comments['pagination']['currentPage'];
-        $result['pages'] = $this->comments['pagination']['last'];
+        $p = $result['pagination']['currentPage'];
+        $pages = $result['pagination']['last'];
 
-        return $result;
+        return compact('records', 'p', 'pages');
     }
 
     /**
@@ -80,8 +71,8 @@ class Comment implements RepositoryComment
     public function getComment($commentableId, $commentableType)
     {
         $key = 'comment' . $commentableId . $commentableType . request()->input('p', 1);
-        
-        return Cache::remember($key, (60 * mt_rand(0, 200)), function () use ($commentableId, $commentableType) {
+        $seconds = getCacheSeconds(60 * mt_rand(1, 200));
+        return Cache::remember($key, $seconds, function () use ($commentableId, $commentableType) {
             return $this->rememberComment($commentableId, $commentableType);
         });
     }
@@ -93,7 +84,7 @@ class Comment implements RepositoryComment
      * @param int $offset
      * @return array
      */
-    public function getReply($rootId, $offset)
+    public function getReply($rootId, $offset = 0)
     {
         $comment = $this->model
             ->with(['user:id,name,avatar', 'receiver:id,name,avatar'])
@@ -134,51 +125,26 @@ class Comment implements RepositoryComment
     }
 
     /**
-     * 为每条评论获取回复
+     * 同步评论的缓存数据
+     * 
+     * @param \Illuminate\Database\Eloquent\Collection $comments
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    protected function getReplyForEachComment ()
+    protected function syncCommentsCache ($comments)
     {
-        // 生成 获取回复的 query
-        $replyQuery = $this->model
-            ->with(['user:id,name,avatar', 'receiver:id,name,avatar'])
-            ->select(['comment.id', 'level', 'liked', 'user_id', 'content', 'able_id', 'root_id', 'reply_to']);
-
-         // 尝试为每条评论获取回复
-         foreach ($this->comments['records'] as $k => $v) {
-
+        $comments->flatten()->each(function($comment) {
             // 获取 该条评论 缓存的点赞数
-            $commentLiked = CacheModel::getCommentLiked($v['id']);
-            if ($commentLiked) {
-                $this->comments['records'][$k]['liked'] += $commentLiked;
+            if ($commentLiked = CacheModel::getCommentLiked($comment->id)) {
+                $comment->liked += $commentLiked;
             }
 
             // 获取缓存的 评论回复数量
-            $commentCommented = CacheModel::getCommentCommented($v['id']);
-            if ($commentCommented) {
-                $this->comments['records'][$k]['commented'] += $commentCommented;
+            if ($commentCommented = CacheModel::getCommentCommented($comment->id)) {
+                $comment->commented += $commentCommented;
             }
+        });
 
-            // 如果 该评论没有相关的回复
-            if (!$this->comments['records'][$k]['commented']) {
-                $this->comments['records'][$k]['replies'] = [];
-                continue;
-            }
-
-            $replyTmpQuery = clone $replyQuery;
-
-            $replies = $replyTmpQuery
-                ->where('root_id', $v['id'])
-                ->limit(3)
-                ->get()
-                ->toArray();
-
-            // 获取缓存的 回复的点赞数
-            foreach ($replies as $key => $vv) {
-                $replies[$key]['liked'] += CacheModel::getCommentLiked($vv['id']);
-            }
-
-            $this->comments['records'][$k]['replies'] = $replies;
-        }
+        return $comments;
     }
 
 

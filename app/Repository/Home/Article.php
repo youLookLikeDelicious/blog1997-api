@@ -53,8 +53,9 @@ class Article implements RepositoryArticle
     public function find($id): array
     {
         $id = $this->decodeArticleId($id);
-        
-        $articleRecord = Cache::remember('article-' . $id, (3 * 60 * 60 + mt_rand(0, 100)), function () use ($id) {
+        $seconds = getCacheSeconds(60 + mt_rand(0, 100));
+
+        $articleRecord = Cache::remember('article-' . $id, $seconds, function () use ($id) {
             return $this->article
                 ->withAuthorAndGalleryAndThumbs()
                 ->with('tags:id,name')
@@ -112,7 +113,7 @@ class Article implements RepositoryArticle
         // 获取评论
         $comments = $this->comment->getComment($id, ArticleModel::class);
 
-        return $comments + ['articleId' => $id];
+        return $comments;
     }
 
     /**
@@ -167,7 +168,7 @@ class Article implements RepositoryArticle
      * @return int
      * @throws NotFoundHttpException
      */
-    protected function decodeArticleId($id)
+    public function decodeArticleId($id)
     {
         $id = base64_decode($id);
 
@@ -241,12 +242,15 @@ class Article implements RepositoryArticle
      */
     public function getTopTen(): array
     {
-        $popArticle = $this->article->selectRaw('to_base64(id) as identity, title, visited, created_at')
+        $popArticle = $this->article->selectRaw('id, title, visited, created_at')
             ->orderBy('visited', 'DESC')
             ->where('is_draft', 'no')
             ->limit(7)
             ->get();
-
+        $popArticle->each(function ($article) {
+            $article->append(['identity']);
+            $article->makeHidden('id');
+        });
         return $popArticle->toArray();
     }
 

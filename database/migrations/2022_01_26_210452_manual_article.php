@@ -30,10 +30,9 @@ class ManualArticle extends Migration
             $table->index('manual_id');
             $table->index('catalog_id');
         });
-        
-        DB::statement('ALTER TABLE ' . DB::getTablePrefix() . 'article ADD FULLTEXT index article_full_text_index(title, content) WITH PARSER ngram');
 
         DB::statement('ALTER TABLE ' . DB::getTablePrefix(). 'manual_articles COMMENT = "手册文章表"');
+        DB::statement('ALTER TABLE ' . DB::getTablePrefix() . 'manual_articles ADD FULLTEXT index article_full_text_index(title, content) WITH PARSER ngram');
     }
 
     /**

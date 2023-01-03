@@ -20,7 +20,7 @@ class AddGprsToGalleryTable extends Migration
 
             $table->string('location', 255)->default('')->comment('地理位置')->before('created_at');
 
-            $table->unsignedInteger('date_time')->default('')->comment('拍摄时间')->before('created_at');
+            $table->unsignedInteger('date_time')->default(0)->comment('拍摄时间')->before('created_at');
 
             $table->text('colors')->nullable()->comment('文件的颜色列表')->before('created_at');
 

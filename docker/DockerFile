@@ -19,11 +19,11 @@ RUN composer install \
 #
 # application
 #
-FROM chaosxy/php:gd-cron-redis-supervisor as app
+FROM chaosxy/php:7.4.gd-cron-redis-supervisor as app
 
 WORKDIR /var/www
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get --allow-releaseinfo-change update && apt-get install -y \
     zip \
     unzip
 
@@ -32,32 +32,26 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Add user for laravel application
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
+USER www
 
 COPY --chown=www:www . /var/www
 
 COPY --from=vendor /app/vendor/ /var/www/vendor/
 
-# Add laravel schedule job
-COPY ./docker/laravel.sh /root/laravel.sh
-COPY ./docker/laravel-schedule /etc/cron.d/laravel-schedule
-RUN chmod 0777 /etc/cron.d/laravel-schedule && \
-    chmod 0755 /root/laravel.sh && \
-    crontab /etc/cron.d/laravel-schedule
+#
 
-RUN chmod -R 0777 /var/www/bootstrap/
-RUN chmod -R 0777 /var/www/public/
+# Add laravel schedule job
+COPY --chown=www:www ./docker/start.sh /usr/bin/start.sh
+COPY ./docker/laravel-schedule /etc/cron.d/laravel-schedule
+COPY --chown=www:www .env.example /var/www/.env
+
+RUN crontab /etc/cron.d/laravel-schedule
+
+RUN chmod -R 0777 /var/www/bootstrap/ && chmod -R 0777 /var/www/public/ && chmod +x /usr/bin/start.sh && chmod a+rw /var/www/.env 
 
 # Config supervisor to manager queue job
-RUN touch /var/log/supervisor.log
+# RUN touch /var/log/supervisor.log
 COPY ./docker/laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
-RUN touch /var/run/supervisor.sock && chmod 777 /var/run/supervisor.sock
-RUN supervisord -c /etc/supervisor/supervisord.conf
 
-USER www
-
-#
-# Build nginx image
-#
-FROM nginx:stable-alpine as nginx
-
-COPY ./public/ /var/www/public/
+USER root
+ENTRYPOINT ["start.sh"]

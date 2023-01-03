@@ -4,7 +4,6 @@
 /vendor
 .env
 .env.testing
-.env.example
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -21,3 +20,6 @@ coverage.xml
 /dist/*
 /.idea/*
 /.vscode/*
+.git/
+storage/*sql_log.txt
+rsa_1024_priv.pem

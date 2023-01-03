@@ -155,11 +155,17 @@ class MessageBox implements RepositoryMessageBox
 
         $result->each(function($notification) {
             if ($notification->notificationable instanceof Comment) {
-                $subComments = $notification->notificationable->subComments()
+                $replies = $notification->notificationable->replies()
                     ->whereIn('user_id', [auth()->id(), $notification->sender])
-                    ->orderByDesc('created_at')
+                    ->orderBy('created_at')
                     ->paginate(5);
-                $notification->notificationable->setRelation('subComments', $subComments);
+
+                $items = $replies->getCollection();
+                if ($notification->notificationable['id']) {
+                    $items->prepend($notification->notificationable->toArray());
+                }
+                $replies->setCollection($items);
+                $notification->notificationable->replies = $replies;
             }
         });
         // 统计未读数量
