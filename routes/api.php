@@ -25,8 +25,7 @@ Route::group(['namespace' => 'Auth'], function () {
  * Send reset password link
  */
 Route::post('/user/password/reset', 'UserController@sendResetLinkEmail')
-    ->name('password.reset.send-email')
-    ->middleware('throttle:2,1');
+    ->name('password.reset.send-email');
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     // master权限的接口
@@ -210,10 +209,12 @@ Route::group(['namespace' => 'Home'], function () {
         // 获取博客留言
         Route::get('/leave-message', 'LeaveMessageController@index')
             ->middleware('sitemap:0.8,weekly,1');
+        
+        });
     });
-});
-
+    
 Route::group(['middleware' => 'x-session'], function () {
+    Route::get('/user/verify', 'Auth\SignUpController@verify')->name('user.verify');
     Route::get('/captcha', function () {
         return captcha();
     });

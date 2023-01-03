@@ -39,7 +39,6 @@ class GithubProvider extends ProviderAbstract implements ProviderInterface
 
         // 获取git的access token
         preg_match('/access_token=(\w+)&/', $result, $match);
-
         // 访问令牌获取失败
         if (!$match) {
             throw new ConnectionException('Sorry, We cannot connect to git server for that moment');

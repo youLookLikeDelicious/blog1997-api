@@ -98,7 +98,7 @@ class LoginController extends Controller
         $request->request->add(['remember' => true]);
 
         $request->replace([
-            'email' => RSAService::decrypt($request->input('email')),
+            $this->username() => RSAService::decrypt($request->input('email')),
             'password' => RSAService::decrypt($request->input('password')),
             'captcha' => $request->input('captcha')
         ]);

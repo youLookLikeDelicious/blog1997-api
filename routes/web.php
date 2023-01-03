@@ -12,41 +12,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/admin', function () {
-    phpinfo();die;
-    return view('admin');
-});
-
 Route::get('/image/{type}/{dir}/{name}/{isWebp?}', 'ImageController@find')
     ->middleware('cors')
     ->name('retrieve.image');
 
-Route::group(['middleware' => 'x-session'], function () {
-    Route::get('/admin/manager/register', 'Auth\ManagerRegisterController@create')
-        ->name('manager.register');
-
-    Route::get('/admin/captcha', function () {
-        return captcha();
-    });
-});
-
-Route::get('/admin/verify', 'Auth\SignUpController@verify')
-    ->name('user.verify');
-
-Route::get('/admin/login', 'Admin\VueController@login')
-    ->name('admin.login');
-
-Route::get('/admin/login/{any}', 'Admin\VueController@login')->where('any', '.*');
-
-Route::get('/admin/password/reset', 'Auth\ResetPasswordsController@showResetForm')
+Route::get('/auth/password/reset', 'Auth\ResetPasswordsController@showResetForm')
     ->name('password.reset');   
 
-Route::get('/admin/{any?}', 'Admin\VueController@index')
-    ->where('any', '.*')
-    ->name('admin.index');
-
-Route::get('/home', 'HomeController@index')->name('home');
-
+// Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/{sitemap}', function ($sitemap) {
-    return response()->file(storage_path("sitemap/{$sitemap}"));
+    $fullPath = storage_path("sitemap/{$sitemap}");
+    if (!file_exists(storage_path("sitemap/{$sitemap}"))) {
+        abort(404);
+    }
+    return response()->file($fullPath);
 })->where('sitemap', 'sitemap.*');

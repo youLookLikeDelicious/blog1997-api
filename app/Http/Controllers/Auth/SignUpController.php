@@ -8,6 +8,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class SignUpController
 {
@@ -37,13 +38,14 @@ class SignUpController
 
         $data = $request->only(['email', 'password']);
 
-        User::create([
-            'name' => substr($data['email'], 0, 3) . '***' . strrchr($data['email'], '@'),
-            'email' => $data['email'],
-            'password' => Hash::make($data['password'])
-        ]);
+        User::updateOrCreate(
+            ['email' => $data['email'], 'password' => Hash::make($data['password'])],
+            ['name' => substr($data['email'], 0, 3) . '***' . strrchr($data['email'], '@')]
+        );
 
-        return response()->success('', '连接已经发送到邮箱,请注意查收');
+        $message = allowSendEmail() ? '连接已经发送到邮箱,请注意查收' : '注册成功';
+
+        return response()->success('', $message);
     }
 
     /**
@@ -56,7 +58,7 @@ class SignUpController
     public function verify(Request $request)
     {
         if (! $request->hasValidSignature()) {
-            abort(401);
+            abort(401, __('message.Invalid expired'));
         }
 
         $this->validateVerifyRequest($request);
@@ -88,7 +90,10 @@ class SignUpController
     protected function validateRequest(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|unique:user',
+            'email' => [
+                'required', 'email',
+                Rule::unique('user')->whereNotNull('email_verified_at')
+            ],
             'password' => 'required|confirmed|max:27|min:9',
             'captcha' => 'required|captcha'
         ]);
