@@ -95,7 +95,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->rebinding('request', function ($app, $request) {
             $perPage = $request->input('perPage');
-            if (!$perPage || $perPage > 500) {
+            $currentPage = $request->input('p');
+            if ($currentPage && !$perPage || $perPage > 500) {
                 $request->merge(['perPage' => 10]);
             }
         });

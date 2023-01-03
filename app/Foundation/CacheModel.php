@@ -145,21 +145,24 @@ class CacheModel
      * @return boolean|\Illuminate\Cache\Lock
      */
     public function getLock($key, $retries = 3)
-    {   
-        while ($retries) {
-            $startTime = microtime(true);
-            $lock = Cache::lock($key, $this->ttl);
+    {   try {
+            while ($retries) {
+                $startTime = microtime(true);
+                $lock = Cache::lock($key, $this->ttl);
 
-            $currentTime = microtime(true);
-            $validateTime = $currentTime - $startTime - ($this->ttl * 1000 * $this->driftFactory);
+                $currentTime = microtime(true);
+                $validateTime = $currentTime - $startTime - ($this->ttl * 1000 * $this->driftFactory);
 
-            if (!$lock->get() || $validateTime < 0) {
-                $delay = $this->getRetryDelay();
-                --$retries;
-                usleep($delay);
+                if (!$lock->get() || $validateTime < 0) {
+                    $delay = $this->getRetryDelay();
+                    --$retries;
+                    usleep($delay);
+                }
+
+                return $lock;
             }
-
-            return $lock;
+        } catch (\Throwable $e) {
+            return false;
         }
 
         return false;
@@ -214,6 +217,6 @@ class CacheModel
      */
     public function forgetSystemSetting()
     {
-        Cache::forget('system.setting');
+        cache()->forget('system.setting');
     }
 }
