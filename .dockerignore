@@ -23,3 +23,5 @@ coverage.xml
 .git/
 storage/*sql_log.txt
 rsa_1024_priv.pem
+cypress/
+./storage/logs/

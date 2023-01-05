@@ -43,8 +43,8 @@ class LogSuccessfulLogin
             ->orderBy('id', 'desc')
             ->first();
 
-        if ($logRecord && $logRecord->created_at < time() - 12 * 60 * 60) {
-            Log::info('登陆成功', ['operate' => 'login', 'user_id' => $event->user->id, 'result'=> 'success', ]);
+        if (!$logRecord || ($logRecord->created_at->getTimestamp() < (time() - 12 * 60 * 60))) {
+            Log::info('登陆成功', ['operate' => 'login', 'user_id' => $event->user->id, 'result'=> 'success']);
         }
     }
 }

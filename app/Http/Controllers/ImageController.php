@@ -32,7 +32,7 @@ class ImageController extends Controller
         $cookie = Cookie::get(config('app.name') . '_session');
 
         if (!$cookie && !App::runningUnitTests()) {
-            abort(404);
+            return $this->responseNotFound();
         }
 
         $fileName = $this->getFileName($request, $type, $dir, $name);
@@ -45,7 +45,17 @@ class ImageController extends Controller
             return response()->file($storagePath);
         }
 
-        abort(404);
+        return $this->responseNotFound();
+    }
+
+    /**
+     * 返回404图片
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    protected function responseNotFound()
+    {
+        return response()->file(public_path('/images/404.svg'));
     }
 
     /**
