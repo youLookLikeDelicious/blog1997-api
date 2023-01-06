@@ -21,7 +21,7 @@ if [ $num -eq 1 ]
 then
 	appKey=$(php artisan key:generate --force --show)
 	sed -i '/^APP_KEY=/c APP_KEY='${appKey}'' /tmp/tmp-config
-	# echo "Please remember you app key: '${appKey}'"
+	echo "Please remember you app key: '${appKey}'"
 	export APP_KEY=$appKey
 fi
 cat /tmp/tmp-config > .env

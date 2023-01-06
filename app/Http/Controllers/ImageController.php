@@ -55,7 +55,7 @@ class ImageController extends Controller
      */
     protected function responseNotFound()
     {
-        return response()->file(public_path('/images/404.svg'));
+        return response()->file(public_path('/images/404.png'));
     }
 
     /**
