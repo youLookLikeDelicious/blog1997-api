@@ -28,7 +28,7 @@ class CorsMiddleware
         file_put_contents(storage_path('log.txt'), $log, FILE_APPEND);
         //*/
         if (!isset($_SERVER['HTTP_ORIGIN'])) {
-            // $_SERVER['HTTP_ORIGIN'] = 'http://localhost:9090';
+            $_SERVER['HTTP_ORIGIN'] = '';
         }
         
         // 获取origin信息

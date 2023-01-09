@@ -29,11 +29,11 @@ class ImageController extends Controller
      */
     public function find(Request $request, $type, $dir, $name)
     {
-        $cookie = Cookie::get(config('app.name') . '_session');
+        // $cookie = Cookie::get(config('app.name') . '_session');
 
-        if (!$cookie && !App::runningUnitTests()) {
-            return $this->responseNotFound();
-        }
+        // if (!$cookie && !App::runningUnitTests()) {
+        //     return $this->responseNotFound();
+        // }
 
         $fileName = $this->getFileName($request, $type, $dir, $name);
 
