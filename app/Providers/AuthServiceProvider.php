@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Auth\SessionGuard;
-use App\Model\ArticleBase as Article;
-use App\Model\Tag;
+use App\Models\ArticleBase as Article;
+use App\Models\Tag;
 use App\Policies\ArticlePolicy;
 use App\Policies\TagPolicy;
 use Illuminate\Auth\EloquentUserProvider;

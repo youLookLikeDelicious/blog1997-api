@@ -1,11 +1,17 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Model\Gallery::class, function (Faker $faker) {
-    return [
-        'url' => $faker->text(45),
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class GalleryFactory extends Factory
+{
+    public function definition()
+    {
+        return [
+            'url' => $this->faker->text(45),
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

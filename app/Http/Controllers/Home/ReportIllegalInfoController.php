@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Model\MessageBox;
+use App\Models\MessageBox;
 use App\Repository\IllegalInfo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReportIllegalInfo as Request;

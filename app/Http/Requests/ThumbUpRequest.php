@@ -9,6 +9,8 @@ class ThumbUpRequest extends FormRequest
 {
     use DecodeParam;
     
+    public $key = 'able_id';
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,20 +29,14 @@ class ThumbUpRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'       => 'required|numeric',
-            'category' => 'required|in:article,comment'
+            'able_id'   => 'required|numeric',
+            'able_type' => 'required|in:article,comment'
         ];
     }
 
     public function validated()
     {
         $result = parent::validated();
-
-        $result['able_id'] = $result['id'];
-        $result['able_type'] = $result['category'] === 'article' ? 'App\Model\Article' : 'App\Model\Comment';
-
-        unset($result['id']);
-        unset($result['category']);
 
         // 设置用户id
         $result['user_id'] = auth()->id();

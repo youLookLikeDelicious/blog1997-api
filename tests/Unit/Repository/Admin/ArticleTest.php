@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Repository\Admin;
 
-use App\Model\Article as ModelArticle;
-use App\Model\ArticleBackUp;
-use App\Model\Tag;
-use App\Model\Topic as ModelTopic;
+use App\Models\Article as ModelArticle;
+use App\Models\ArticleBackUp;
+use App\Models\Tag;
+use App\Models\Topic as ModelTopic;
 use App\Repository\Admin\Article;
 use App\Repository\Admin\ArticleBackUp as AdminArticleBackUp;
 use App\Repository\Admin\Topic;
@@ -28,13 +28,13 @@ class ArticleTest extends TestCase
     {
         $this->makeUser();
 
-        $repository = new Article(new ModelArticle, app()->make(Topic::class), app()->make(AdminArticleBackUp::class));
+        $repository = new Article(new ModelArticle, app()->make(AdminArticleBackUp::class), app()->make(Topic::class));
 
         // 创建一个专题
-        $topic = factory(ModelTopic::class)->create();
+        $topic = ModelTopic::factory()->create();
 
         // 创建一个草稿
-        $draft = factory(ModelArticle::class)
+        $draft = ModelArticle::factory()
             ->create([
                 'is_draft' => 'yes',
                 'title' => 'draft',
@@ -46,14 +46,14 @@ class ArticleTest extends TestCase
         ModelArticle::where('id', 1)->update(['article_id' => 99]);
 
         // 在回收站中创建一篇文章
-        factory(ArticleBackUp::class)
+        ArticleBackUp::factory()
             ->create([
                 'title' => 'deleted',
                 'user_id' => $this->user->id
             ]);
 
         // 创建一篇可见的文章
-        $article = factory(ModelArticle::class)
+        $article = ModelArticle::factory()
             ->create([
                 'id' => 99,
                 'title' => 'blog1997',
@@ -63,7 +63,7 @@ class ArticleTest extends TestCase
             ]);
 
         // 创建标签
-        $tag = factory(Tag::class)->create();
+        $tag = Tag::factory()->create();
         $article->tags()->sync([$tag->id]);
 
         // 获取一篇草稿
@@ -79,6 +79,6 @@ class ArticleTest extends TestCase
         $request = new Request(['type' => 'deleted', 'order-by' => 'hot']);
         $result = $repository->all($request);
 
-        $this->assertEquals('deleted', $result['records'][0]->title);
+        $this->assertEquals('deleted', $result[0]->title);
     }
 }

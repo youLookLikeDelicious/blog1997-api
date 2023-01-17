@@ -4,7 +4,7 @@ namespace App\Repository\Admin;
 
 use Illuminate\Http\Request;
 use App\Contract\Repository\Topic;
-use App\Model\Article as ModelArticle;
+use App\Models\Article as ModelArticle;
 use App\Http\Resources\CommonCollection;
 use App\Contract\Repository\ArticleBackUp;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -176,21 +176,6 @@ class Article implements RepositoryArticle
     }
 
     /**
-     * 获取最新的文章
-     *
-     * @return int
-     */
-    public function getNewestArticleGalleryId()
-    {
-        $article = $this->model
-            ->select('gallery_id', 'created_at')
-            ->orderBy('created_at', 'desc')
-            ->first();
-
-        return $article ? ($article->gallery_id ?: 0) : 0;
-    }
-
-    /**
      * 统计各个分类下文章的数量
      *
      * @return array
@@ -220,4 +205,8 @@ class Article implements RepositoryArticle
             ->total;
     }
 
+    public function getTopTen()
+    {
+        return [];
+    }
 }

@@ -1,11 +1,21 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Model\Topic::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class TopicFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition() {
+        return [
+            'name' => $this->faker->name,
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

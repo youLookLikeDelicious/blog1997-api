@@ -2,11 +2,12 @@
 
 namespace App\Repository;
 
-use App\Model\Comment;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Resources\CommonCollection;
-use App\Model\MessageBox as MessageBoxModel;
+use App\Models\MessageBox as MessageBoxModel;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use App\Contract\Repository\MessageBox as RepositoryMessageBox;
 
 class MessageBox implements RepositoryMessageBox
@@ -14,7 +15,7 @@ class MessageBox implements RepositoryMessageBox
     /**
      * 未读的邮件信息
      *
-     * @var \App\Model\MessageBox
+     * @var \App\Models\MessageBox
      */
     protected $model;
 
@@ -125,7 +126,7 @@ class MessageBox implements RepositoryMessageBox
             ->selectRaw('count(id) as count, type')
             ->where('receiver', -1)
             ->where('have_read', 'no')
-            ->whereIn('type', ['App\Model\Article', 'App\Model\Comment'])
+            ->whereIn('type', ['article', 'comment'])
             ->groupBy('type')
             ->get();
 
@@ -154,24 +155,27 @@ class MessageBox implements RepositoryMessageBox
         $result =  new CommonCollection($notifications);
 
         $result->each(function($notification) {
+            // 为评论获取相关的回复
             if ($notification->notificationable instanceof Comment) {
-                $replies = $notification->notificationable->replies()
+                $replyPaginator = $notification->notificationable->replies()
+                    ->with('user:id,name,avatar')
                     ->whereIn('user_id', [auth()->id(), $notification->sender])
                     ->orderBy('created_at')
                     ->paginate(5);
 
-                $items = $replies->getCollection();
+                $replies = $replyPaginator->getCollection();
                 if ($notification->notificationable['id']) {
-                    $items->prepend($notification->notificationable->toArray());
+                    $replies->prepend($notification->notificationable->toArray());
                 }
-                $replies->setCollection($items);
-                $notification->notificationable->replies = $replies;
+                $notification->notificationable->replies = $replyPaginator;
             }
         });
+
         // 统计未读数量
         $result->additional([
             'meta' => [
-                'have_read' => $this->statisticTotalNotification('yes')
+                'have_read' => $this->statisticTotalNotification('yes'),
+                'total_num' => $this->statisticTotalNotification()
             ]
         ]);
 
@@ -186,23 +190,20 @@ class MessageBox implements RepositoryMessageBox
      */
     protected function buildNotificationQuery(Request $request)
     {
-        // 为了使用Eloquent的加载机制，给comment表添加了 title字段
-        // 也可以选择重写框架的MorphTo类，完善该功能
-        // 要么使用其他的逻辑 | 使用select * 语法
         $query = $this->model->with(['notificationable' => function (MorphTo $morphTo) {
-            $morphTo->select('id', 'content', 'title', 'able_type', 'able_id', 'created_at');
+            $morphTo->select('id', 'content', 'title', 'able_type', 'able_id', 'created_at', 'user_id');
             $morphTo->morphWith([
-                'App\Model\Comment' => ['commentable.user:id,name,avatar'],
-                'App\Model\ThumbUp' => ['thumbable:id,content,title'],
+                Relation::getMorphedModel('comment') => ['commentable.user:id,name,avatar', 'user:id,name,avatar'],
+                Relation::getMorphedModel('thumbup') => ['thumbable:id,content,title'],
             ]);
         }])->with('user:id,name,avatar')
             ->select(['id', 'type', 'content', 'have_read', 'sender', 'reported_id', 'created_at', 'updated_at'])
             ->whereRaw($this->notificationCondition())
             ->where('sender', '!=', auth()->id())
-            ->whereIn('type', ['App\Model\Comment', 'App\Model\ThumbUp'])
+            ->whereIn('type', ['comment', 'thumbup'])
             ->orderBy('updated_at', 'desc');
 
-        if ($type = $request->input('have_read', '')) {
+        if ($type = $request->input('have_read')) {
             $query->where('have_read', $type);
         }
 
@@ -219,12 +220,7 @@ class MessageBox implements RepositoryMessageBox
     {
         $query = $this->model->selectRaw('count(id) as total');
 
-        if (auth()->isMaster()) {
-            $userId = auth()->id();
-            $query->whereRaw("receiver = {$userId} or receiver = 0");
-        } else {
-            $query->where('receiver', auth()->id());
-        }
+        $query->whereRaw($this->notificationCondition());
 
         if ($haveRead) {
             $query->where('have_read', $haveRead);
@@ -264,7 +260,7 @@ class MessageBox implements RepositoryMessageBox
 
 
         // 获取文章的评论 以及回复
-        if ($notification['notificationable']['able_type'] === 'App\Model\Article') {
+        if ($notification['notificationable']['able_type'] === 'article') {
             $query->whereRaw("root_id = {$notification['notificationable']['id']}");
         } else {
             // 获取留言的回复

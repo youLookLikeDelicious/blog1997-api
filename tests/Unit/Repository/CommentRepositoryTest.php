@@ -2,10 +2,9 @@
 
 namespace Tests\Unit\Repository;
 
-use App\Model\Comment;
-use App\Facades\CacheModel;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Comment;
+use App\Facades\CacheModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CommentRepository extends TestCase
@@ -21,37 +20,37 @@ class CommentRepository extends TestCase
     {
         $this->makeUser();
 
-        $rootComment = factory(Comment::class)
-            ->states('Blog1997')
+        $rootComment = Comment::factory()
+            ->suspended('Blog1997')
             ->create();
 
-        $leaveMessage2 = factory(Comment::class)
-            ->states('comment')
+        $leaveMessage2 = Comment::factory()
+            ->suspended('comment')
             ->create([
                 'able_id' => $rootComment->id,
                 'root_id' => $rootComment->id,
                 'level' => 2
             ]);
 
-        $leaveMessage = factory(Comment::class)
-            ->states('comment')
+        $leaveMessage = Comment::factory()
+            ->suspended('comment')
             ->create([
                 'able_id' => $leaveMessage2->id,
                 'root_id' => $rootComment->id,
                 'level' => 3
             ]);
 
-        $leaveMessage = factory(Comment::class)
-        ->states('comment')
-        ->create([
-            'able_id' => $leaveMessage2->id,
-            'root_id' => $rootComment->id,
-            'level' => 3
-        ]);
+        $leaveMessage = Comment::factory()
+            ->suspended('comment')
+            ->create([
+                'able_id' => $leaveMessage2->id,
+                'root_id' => $rootComment->id,
+                'level' => 3
+            ]);
 
         // 为二级评论创建回复
-        factory(Comment::class)
-            ->states('comment')
+        Comment::factory()
+            ->suspended('comment')
             ->create([
                 'able_id' => $leaveMessage2->id,
                 'root_id' => $rootComment->id,
@@ -63,7 +62,7 @@ class CommentRepository extends TestCase
 
         $comments = app()->make(\App\Contract\Repository\Comment::class)->getComment(0, 'Blog1997');
 
-        $this->assertEquals($comments['records'][0]['liked'], 1);
-        $this->assertEquals($comments['records'][0]['commented'], 4);
+        $this->assertEquals($comments[0]['liked'], 1);
+        $this->assertEquals($comments[0]['commented'], 4);
     }
 }

@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Contract\Repository\User as RepositoryUser;
-use App\Model\User;
+use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\VerifiesEmails;

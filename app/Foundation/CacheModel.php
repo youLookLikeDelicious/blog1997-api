@@ -2,7 +2,7 @@
 
 namespace App\Foundation;
 
-use App\Model\SystemSetting;
+use App\Models\SystemSetting;
 use Illuminate\Support\Facades\Cache;
 use App\Foundation\Traits\CacheModel\CacheComment;
 use App\Foundation\Traits\CacheModel\CacheArticle;

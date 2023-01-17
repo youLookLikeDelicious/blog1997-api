@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Facades\CacheModel;
-use App\Model\SystemSetting;
+use App\Models\SystemSetting;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SystemSettingRequest;
 

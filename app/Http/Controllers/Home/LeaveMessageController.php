@@ -18,13 +18,13 @@ class LeaveMessageController extends Controller
      * 获取网站的留言
      * 
      * @responseFile response/home/leave-message/index.json
-     * @param \App\Model\Comment $comment
+     * @param \App\Models\Comment $comment
      * @return \Illuminate\Http\Response
      */
     public function index (Comment $comment)
     {
-        $comments = $comment->getLeaveMessage();
+        $resource = $comment->getLeaveMessage();
 
-        return response()->success($comments);
+        return $resource->response();
     }
 }

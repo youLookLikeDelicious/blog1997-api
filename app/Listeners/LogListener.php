@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\LogEvent;
-use App\Model\Log;
+use App\Models\Log;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\App;

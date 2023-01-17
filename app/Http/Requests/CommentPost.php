@@ -2,21 +2,20 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Traits\DecodeParam;
-use App\Model\Comment;
+use App\Models\Comment;
 use App\Rules\ImageSource;
 use App\Service\FilterStringService;
 use App\Service\SensitiveWordService;
+use App\Http\Requests\Traits\DecodeParam;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Requests\Traits\FailedValidation;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class CommentPost extends FormRequest
 {
     use FailedValidation, DecodeParam;
 
-    protected $filterStringService;
-
-    protected $sensitiveWordService;
+    public $key = 'able_id';
 
     /**
      * Real content length
@@ -25,24 +24,6 @@ class CommentPost extends FormRequest
      */
     protected $maxContentLength = 700;
 
-    /**
-     * 映射评论的类型对应的关系
-     * 
-     * @var array
-     */
-    const commentType = [
-        'comment' => 'App\Model\Comment',
-        'article' => 'App\Model\Article',
-        'Blog1997' => 'Blog1997'
-    ];
-
-    public function __construct(FilterStringService $filterStringService, SensitiveWordService $sensitiveWordService)
-    {
-        $this->filterStringService = $filterStringService;
-        $this->sensitiveWordService = $sensitiveWordService;
-
-        $this->key = 'able_id';
-    }
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -88,7 +69,7 @@ class CommentPost extends FormRequest
             
             $content = $this->input('content', '');
 
-            $filterContent = $this->filterStringService->removeHTMLTags($content, 'img');
+            $filterContent = app()->make(FilterStringService::class)->removeHTMLTags($content, 'img');
 
             $pureLength = mb_strlen($filterContent);
             if ($pureLength > $this->maxContentLength) {
@@ -109,23 +90,22 @@ class CommentPost extends FormRequest
     {
         $result = parent::validated();
 
-        $result['able_type'] = self::commentType[$result['able_type']];
-
         // 生成root_id和level
-        if ($result['able_type'] !== self::commentType['comment']) {
+        if ($result['able_type'] !== 'comment') {
             $result['level'] = 1;
             $result['root_id'] = 0;
         } else {
-
-            $rootComment = Comment::select(['id', 'root_id'])->find($result['able_id']);
+            $rootComment = Comment::select(['id', 'root_id'])->findOrFail($result['able_id']);
 
             $result['root_id'] = $rootComment->root_id ?: $rootComment->id;
             $result['level'] = $rootComment->root_id ? 3 : 2;
         }
 
-        $content = $this->filterStringService->removeXss($result['content']);
-        $content = $this->sensitiveWordService->make($content);
-        $content = $this->filterStringService->coverImageSrc($content);
+        $filterStringService = app()->make(FilterStringService::class);
+        $sensitiveWordService = app()->make(SensitiveWordService::class);
+        $content = $filterStringService->removeXss($result['content']);
+        $content = $sensitiveWordService->make($content);
+        $content = $filterStringService->coverImageSrc($content);
         
         $result['content'] = $content;
 
@@ -150,8 +130,8 @@ class CommentPost extends FormRequest
             return 1;
         }
 
-        $commentAbleModel = $comment['able_type']::select('user_id', 'id')
-            ->findOrFail($comment['able_id']);
+        $class = Relation::getMorphedModel($comment['able_type']);
+        $commentAbleModel = $class::select('user_id', 'id')->findOrFail($comment['able_id']);
 
         return $commentAbleModel->user_id;
     }

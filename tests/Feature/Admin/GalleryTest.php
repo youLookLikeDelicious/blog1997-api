@@ -3,11 +3,10 @@
 namespace Tests\Feature\Admin;
 
 use Tests\TestCase;
-use App\Model\Gallery;
+use App\Models\Gallery;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class GalleryTest extends TestCase
 {
@@ -26,9 +25,7 @@ class GalleryTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson([
-                'data' => [
-                    'records' => []
-                ]
+                'data' => []
             ]);
     }
 
@@ -42,16 +39,14 @@ class GalleryTest extends TestCase
     {
         $this->makeUser('master');
 
-        factory(Gallery::class, 20)->create();
+        Gallery::factory()->count(20)->create();
 
         $response = $this->json('GET', '/api/admin/gallery');
 
         $response->assertStatus(200)
             ->assertJson([
-                'data' => [
-                    'pagination' => [
-                        'total' => 20
-                    ]
+                'meta' => [
+                    'total' => 20
                 ]
             ]);
     }
@@ -70,29 +65,22 @@ class GalleryTest extends TestCase
         $response = $this->json('post', '/api/admin/gallery', [
             'upfile' => [
                 UploadedFile::fake()->image('photo1.jpg')
-            ]
+            ],
+            'album'  => 'aa'            
         ]);
 
-        $response->assertStatus(200)
-            ->assertJsonStructure([
-                'data' => [
-                    '*' => [
-                        'url', 'created_at', 'updated_at'
-                    ]
-                ]
-            ]);
-        
-        // 期望数据库中存在该记录
-        $responseUrl = json_decode($response->getContent())->data;
-        $gallery = Gallery::select('id', 'url')->where('url', $responseUrl[0]->url)->first();
-        $this->assertNotNull($gallery);
+        $response->assertStatus(200);
+
+        $gallery = Gallery::orderBy('id', 'desc')->first();
 
         // 期望文件存在目录中
-        $this->assertTrue(Storage::exists($responseUrl[0]->url));
+        $filePath = strstr($gallery->url, 'image');
+        $this->assertTrue(Storage::exists($filePath));
 
         // 删除相册的图片
         $response = $this->delete('/api/admin/gallery/' . $gallery->id);
         $response->assertStatus(200);
-        $this->assertTrue(!Storage::exists($responseUrl[0]->url));
+        $gallery->refresh();
+        $this->assertNotNull($gallery->deleted_at);
     }
 }

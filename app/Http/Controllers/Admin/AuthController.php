@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Exception;
-use App\Model\Auth;
+use App\Models\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -88,7 +88,7 @@ class AuthController extends Controller
      * @responseFile response/admin/auth/update.json
      * 
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Auth  $auth
+     * @param  \App\Models\Auth  $auth
      * @return \Illuminate\Http\Response
      */
     public function update(AuthRequest $request, Auth $auth)
@@ -109,7 +109,7 @@ class AuthController extends Controller
      *
      * @urlParam auth 权限id
      * @responseFile response/admin/auth/destroy.json
-     * @param  \App\Model\Auth  $auth
+     * @param  \App\Models\Auth  $auth
      * @return \Illuminate\Http\Response
      */
     public function destroy(Auth $auth)

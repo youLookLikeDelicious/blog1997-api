@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\ArticleBackUpDeleted;
-use App\Model\Comment;
+use App\Models\Comment;
 use App\Service\FilterStringService;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

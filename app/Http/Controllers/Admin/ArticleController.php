@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Model\ArticleBackUp;
+use App\Models\ArticleBackUp;
 use App\Contract\Repository\Tag;
 use App\Contract\Repository\Topic;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Model\ArticleBase as Article;
-use App\Model\Article as ModelArticle;
+use App\Models\ArticleBase as Article;
+use App\Models\Article as ModelArticle;
 use App\Http\Requests\Admin\Article as ArticleRequest;
 use App\Contract\Repository\Article as ArticleRepository;
 use App\Http\Resources\Article as ResourcesArticle;

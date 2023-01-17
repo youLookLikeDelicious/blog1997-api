@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use App\Model\SensitiveWord;
+use App\Models\SensitiveWord;
 use Illuminate\Support\Facades\Log;
-use App\Model\SensitiveWordCategory;
+use App\Models\SensitiveWordCategory;
 
 class SensitiveWordCategoryObserver
 {
@@ -12,7 +12,7 @@ class SensitiveWordCategoryObserver
      * Handle the sensitive category "deleted" event.
      * 删除分类后，删除该分类下的关键词
      *
-     * @param  \App\Model\SensitiveCategory  $sensitiveCategory
+     * @param  \App\Models\SensitiveCategory  $sensitiveCategory
      * @return void
      */
     public function deleted(SensitiveWordCategory $sensitiveCategory)

@@ -2,7 +2,7 @@
 namespace App\Repository\Home;
 
 use App\Contract\Repository\Tag as RepositoryTag;
-use App\Model\Tag as ModelTag;
+use App\Models\Tag as ModelTag;
 use Illuminate\Http\Request;
 
 class Tag implements RepositoryTag

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\FriendLink;
+use App\Models\FriendLink;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FriendLinkRequest;
 use App\Contract\Repository\FriendLink as RepositoryFriendLink;

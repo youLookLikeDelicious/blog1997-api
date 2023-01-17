@@ -2,8 +2,8 @@
 namespace App\Logging;
 
 use App\Events\LogEvent;
+use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\AbstractProcessingHandler;
-
 class LoggerHandler extends AbstractProcessingHandler
 {
     /**
@@ -12,7 +12,7 @@ class LoggerHandler extends AbstractProcessingHandler
      * @param  array $record
      * @return void
      */
-    protected function write(array $record)
+    protected function write(array $record) : void
     {
         event(new LogEvent($record['formatted']));
     }
@@ -22,8 +22,10 @@ class LoggerHandler extends AbstractProcessingHandler
      * 
      * @return LoggerFormat
      */
-    protected function getDefaultFormatter()
+    protected function getDefaultFormatter() : FormatterInterface
     {
         return new LoggerFormat();
     }
+
+
 }

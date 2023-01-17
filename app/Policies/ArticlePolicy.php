@@ -2,9 +2,9 @@
 
 namespace App\Policies;
 
-use App\Model\User;
-use App\Model\Article;
-use App\Model\ArticleBase;
+use App\Models\User;
+use App\Models\Article;
+use App\Models\ArticleBase;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ArticlePolicy
@@ -14,10 +14,10 @@ class ArticlePolicy
     /**
      * Determine whether the user can view any articles.
      *
-     * @param  \App\Model\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function viewAny(User $user, $article)
+    public function viewAny(User $user)
     {
         return true;
     }
@@ -25,8 +25,8 @@ class ArticlePolicy
     /**
      * Determine whether the user can view the article.
      *
-     * @param  \App\Model\User  $user
-     * @param  \App\Model\Article  $article
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Article  $article
      * @return mixed
      */
     public function view(User $user, Article $article)
@@ -37,7 +37,7 @@ class ArticlePolicy
     /**
      * Determine whether the user can create articles.
      *
-     * @param  \App\Model\User  $user
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function create(User $user)
@@ -48,8 +48,8 @@ class ArticlePolicy
     /**
      * Determine whether the user can update the article.
      *
-     * @param  \App\Model\User  $user
-     * @param  \App\Model\Article  $article
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Article  $article
      * @return mixed
      */
     public function update(User $user, $article = '')
@@ -60,8 +60,8 @@ class ArticlePolicy
     /**
      * Determine whether the user can delete the article.
      *
-     * @param  \App\Model\User  $user
-     * @param  \App\Model\Article  $article
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Article  $article
      * @return boolean
      */
     public function delete(User $user, ArticleBase $article)

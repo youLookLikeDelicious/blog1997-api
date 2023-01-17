@@ -3,14 +3,13 @@
 namespace Tests\Feature\Admin;
 
 use Tests\TestCase;
-use App\Model\Article;
-use App\Model\MessageBox;
-use App\Model\ArticleBackUp;
-use App\Model\Comment;
-use App\Model\IllegalComment;
-use App\Model\ThumbUp;
-use App\Model\User;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Article;
+use App\Models\MessageBox;
+use App\Models\ArticleBackUp;
+use App\Models\Comment;
+use App\Models\IllegalComment;
+use App\Models\ThumbUp;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MessageBoxControllerTest extends TestCase
@@ -42,18 +41,17 @@ class MessageBoxControllerTest extends TestCase
     {
         $this->makeUser('master');
 
-        factory(MessageBox::class, 20)->create([
-            'receiver' => -1
+        MessageBox::factory()->count(20)->create([
+            'receiver'   => -1,
+            'type'       => 'article'
         ]);
 
         $response = $this->json('get', '/api/admin/illegal-info');
 
         $response->assertStatus(200)
             ->assertJson([
-                'data' => [
-                    'pagination' => [
-                        'total' => 20
-                    ]
+                'meta' => [
+                    'total' => 20
                 ]
             ]);
     }
@@ -68,13 +66,13 @@ class MessageBoxControllerTest extends TestCase
     {
         $this->makeUser('master');
 
-        $article = factory(Article::class)->create([
+        $article = Article::factory()->create([
             'user_id' => $this->user->id
         ]);
 
-        $messageBox = factory(MessageBox::class)->create([
+        $messageBox = MessageBox::factory()->create([
             'reported_id' => $article->id,
-            'type' => 'App\Model\Article'
+            'type' => 'article'
         ]);
 
         $response = $this->json('post', '/api/admin/illegal-info/approve/' . $messageBox->id);
@@ -100,13 +98,13 @@ class MessageBoxControllerTest extends TestCase
     {
         $this->makeUser('master');
 
-        $comment = factory(Comment::class)->create([
+        $comment = Comment::factory()->create([
             'user_id' => $this->user->id
         ]);
 
-        $messageBox = factory(MessageBox::class)->create([
+        $messageBox = MessageBox::factory()->create([
             'reported_id' => $comment->id,
-            'type' => 'App\Model\Comment'
+            'type' => 'comment'
         ]);
 
         $response = $this->post('/api/admin/illegal-info/approve/' . $messageBox->id);
@@ -132,11 +130,11 @@ class MessageBoxControllerTest extends TestCase
     {
         $this->makeUser('master');
 
-        $comment = factory(Comment::class)->create([
+        $comment = Comment::factory()->create([
             'user_id' => $this->user->id
         ]);
 
-        $messageBox = factory(MessageBox::class)->create([
+        $messageBox = MessageBox::factory()->create([
             'reported_id' => $comment->id,
             'type' => 2
         ]);
@@ -160,10 +158,8 @@ class MessageBoxControllerTest extends TestCase
         $response = $this->get('/api/admin/notification');
         $response->assertStatus(200)
             ->assertJson([
-                'data' => [
-                    'pagination' => [
-                        'total' => 0
-                    ]
+                'meta' => [
+                    'total' => 0
                 ]
             ]);
 
@@ -178,7 +174,7 @@ class MessageBoxControllerTest extends TestCase
         ]);
 
         $user = User::find(999);
-        $article = factory(Article::class)->create([
+        $article = Article::factory()->create([
             'user_id' => $user->id
         ]);
 
@@ -187,7 +183,7 @@ class MessageBoxControllerTest extends TestCase
             'id' => 999,
             'user_id' => 999,
             'able_id' => $article->id,
-            'able_type' => 'App\Model\Article',
+            'able_type' => 'article',
             'to' => $this->user->id
         ]);
 
@@ -198,40 +194,41 @@ class MessageBoxControllerTest extends TestCase
             'able_id' => $article->id,
             'user_id' => 999,
             'root_id' => 999,
-            'able_type' => 'App\Model\Article'
+            'able_type' => 'article'
         ]);
         // 生成两条通知
         MessageBox::insert([[
                 'id' => 999,
                 'sender' => 999,
                 'receiver' => $this->user->id,
-                'type' => 'App\Model\Comment',
+                'type' => 'comment',
                 'content' => '评论了您的文章',
                 'reported_id' => 999
             ], [
                 'id' => 998,
                 'sender' => 999,
                 'receiver' => $this->user->id,
-                'type' => 'App\Model\ThumbUp',
+                'type' => 'thumbup',
                 'content' => '点赞了您的文章',
                 'reported_id' => 999
             ]
         ]);
 
         // 获取通知
-        $response = $this->get('/api/admin/notification');
-        $response->assertStatus(200);
-        $result = json_decode($response->getContent())->data;
-        $this->assertEquals(2, count($result->records));
+        $this->get('/api/admin/notification')
+            ->assertStatus(200)
+            ->assertJson([
+                'meta' => [
+                    'total' => 2
+                ]
+            ]);
 
         // 获取通知相关的评论内容
         $response = $this->get('/api/admin/notification/commentable-comments/999');
         $response->assertStatus(200)
             ->assertJson([
                 'data' => [
-                    'pagination' => [
-                        'total' => 1
-                    ]
+                    'total' => 1
                 ]
             ]);
     }

@@ -1,21 +1,25 @@
 <?php
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Model\Article::class, function (Faker $faker) {
-    $text = $faker->text;
-    return [
-        'title' => $faker->title,
-        'is_origin' => 'yes',
-        'summary' => $text,
-        'content' => 'test' . $faker->text(1000),
-        'liked' => rand(0, 1000),
-        'visited' => rand(0, 1000),
-        'commented' => rand(0, 1000),
-        'user_id' => 1,
-        'topic_id' => 1,
-        'gallery_id' => 1,
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+class ArticleFactory extends Factory
+{
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->title,
+            'is_origin' => 'yes',
+            'summary' => $this->faker->text,
+            'content' => 'test' . $this->faker->text(1000),
+            'liked' => rand(0, 1000),
+            'visited' => rand(0, 1000),
+            'commented' => rand(0, 1000),
+            'user_id' => 1,
+            'topic_id' => 1,
+            'gallery_id' => 1,
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

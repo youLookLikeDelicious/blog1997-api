@@ -3,7 +3,7 @@ namespace App\Repository;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\SensitiveWordCollection;
-use App\Model\SensitiveWord as ModelSensitiveWord;
+use App\Models\SensitiveWord as ModelSensitiveWord;
 use App\Contract\Repository\SensitiveWord as RepositorySensitiveWord;
 
 class SensitiveWord implements RepositorySensitiveWord

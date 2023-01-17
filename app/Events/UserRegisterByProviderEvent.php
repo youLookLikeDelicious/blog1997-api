@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Model\User;
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -18,7 +18,7 @@ class UserRegisterByProviderEvent
     /**
      * 注册的用户
      *
-     * @var App\Model\User
+     * @var App\Models\User
      */
     public $user;
     

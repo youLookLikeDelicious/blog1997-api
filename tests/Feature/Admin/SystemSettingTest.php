@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Model\SystemSetting;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\SystemSetting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SystemSettingTest extends TestCase

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Log;
 
-use App\Model\Log as ModelLog;
+use App\Models\Log as ModelLog;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;

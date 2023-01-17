@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Model\SensitiveWordCategory;
+use App\Models\SensitiveWordCategory;
 use App\Http\Requests\Admin\SensitiveCategoryRequest;
 use App\Contract\Repository\SensitiveWordCategory as RepositorySensitiveWordCategory;
 use Illuminate\Http\Request;

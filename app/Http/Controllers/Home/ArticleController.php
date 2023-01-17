@@ -60,7 +60,7 @@ class ArticleController extends Controller
     {
         $comments = $this->article->comments($articleId);
 
-        return response()->success($comments);
+        return $comments->response();
     }
 
     /**
@@ -78,9 +78,9 @@ class ArticleController extends Controller
      */
     public function all (Request $request)
     {
-        $articles = $this->article->all($request);
+        $resource = $this->article->all($request);
 
-        return response()->success($articles);
+        return $resource->response();
     }
 
     /**
@@ -98,6 +98,6 @@ class ArticleController extends Controller
     {
         $data = $this->article->tags($request);
 
-        return response()->success($data);
+        return $data->response();
     }
 }

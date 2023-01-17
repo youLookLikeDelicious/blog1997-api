@@ -1,6 +1,7 @@
 <?php
+namespace Database\Factories;
 
-use App\Model\SensitiveWord;
+use App\Models\SensitiveWord;
 use Faker\Generator as Faker;
 
 $factory->define(SensitiveWord::class, function (Faker $faker) {

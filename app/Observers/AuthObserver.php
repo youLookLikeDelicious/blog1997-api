@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Model\Auth;
+use App\Models\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AuthObserver
@@ -12,7 +12,7 @@ class AuthObserver
      * 
      * 生成auth_path
      *
-     * @param  \App\Model\Auth  $auth
+     * @param  \App\Models\Auth  $auth
      * @return void
      */
     public function created(Auth $auth)
@@ -24,7 +24,7 @@ class AuthObserver
     /**
      * Handle the auth "updated" event.
      *
-     * @param  \App\Model\Auth  $auth
+     * @param  \App\Models\Auth  $auth
      * @return void
      */
     public function updating(Auth $auth)
@@ -45,7 +45,7 @@ class AuthObserver
     /**
      * Handle the auth "deleted" event.
      *
-     * @param  \App\Model\Auth  $auth
+     * @param  \App\Models\Auth  $auth
      * @return void
      */
     public function deleted(Auth $auth)

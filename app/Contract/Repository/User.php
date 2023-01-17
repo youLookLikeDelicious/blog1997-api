@@ -17,7 +17,7 @@ interface User
      * Find a user
      *
      * @param int $id
-     * @return \App\Model\User
+     * @return \App\Models\User
      */
     public function find($id);
 
@@ -26,7 +26,7 @@ interface User
      *
      * @param integer $id
      * @param integer $type
-     * @return \App\Model\User
+     * @return \App\Models\User
      */
     public function findByVendorInfo(int $foreign_id, int $type);
 
@@ -38,17 +38,10 @@ interface User
     public function statisticBySource();
 
     /**
-     * 获取所有管理员的信息
-     *
-     * @return array
-     */
-    public function getManagers(Request $request) : array;
-
-    /**
      * Retrieve user by user email
      *
      * @param string $email
-     * @return App\Model\User
+     * @return App\Models\User
      */
     public function findByEmail($email);
 }

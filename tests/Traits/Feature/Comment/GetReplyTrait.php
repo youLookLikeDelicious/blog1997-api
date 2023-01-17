@@ -2,7 +2,7 @@
 
 namespace Tests\Traits\Feature\Comment;
 
-use App\Model\Comment;
+use App\Models\Comment;
 use App\Facades\RedisCache;
 
 trait GetReplyTrait {
@@ -13,12 +13,12 @@ trait GetReplyTrait {
     public function testGetReplyMethod () {
         $this->initUserAndArticleModel();
         // 添加 一级 评论
-        $rootComment = factory(Comment::class)->create([
+        $rootComment = Comment::factory()->create([
             'able_id' => $this->article->id
         ]);
 
         // 添加二级评论
-        $comment = factory(Comment::class)->states('level-2', 'comment')->create([
+        $comment = Comment::factory()->suspended('level-2', 'comment')->create([
             'able_id' => $rootComment->id,
             'root_id' => $rootComment->id
         ]);
@@ -26,7 +26,7 @@ trait GetReplyTrait {
         $commentList = [];
 
         for ($i = 1, $len = 8; $i <= $len; $i++) {
-            $commentList[] = factory(Comment::class)->states('level-3', 'comment')->create([
+            $commentList[] = Comment::factory()->suspended('level-3', 'comment')->create([
                 'able_id' => $comment->id,
                 'root_id' => $rootComment->id
             ]);

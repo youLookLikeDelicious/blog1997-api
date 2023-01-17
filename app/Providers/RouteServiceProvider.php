@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Model\Article as ModelArticle;
-use App\Model\ArticleBackUp;
+use App\Models\Article as ModelArticle;
+use App\Models\ArticleBackUp;
 use App\Contract\Repository\Article;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;

@@ -2,7 +2,7 @@
 namespace App\Repository;
 
 use App\Contract\Repository\IllegalComment as RepositoryIllegalComment;
-use App\Model\IllegalComment as ModelIllegalComment;
+use App\Models\IllegalComment as ModelIllegalComment;
 
 class IllegalComment implements RepositoryIllegalComment
 {
@@ -22,7 +22,7 @@ class IllegalComment implements RepositoryIllegalComment
      * 查找记录是否存在
      *
      * @param int $id
-     * @return App\Model\IllegalComment
+     * @return App\Models\IllegalComment
      */
     public function isEmpty($id)
     {

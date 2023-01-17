@@ -2,11 +2,9 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Model\Tag;
+use App\Models\Tag;
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TagControllerTest extends TestCase
@@ -38,9 +36,9 @@ class TagControllerTest extends TestCase
     {
         $this->makeUser('master');
 
-        $tags = factory(Tag::class, 10)->create();
+        $tags = Tag::factory()->count(10)->create();
 
-        $tags2 = factory(Tag::class, 3)->create([
+        Tag::factory()->count(3)->create([
             'parent_id' => $tags[0]->id
         ]);
 
@@ -48,10 +46,8 @@ class TagControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson([
-                'data' => [
-                    'pagination' => [
-                        'total' => 10
-                    ]
+                'meta' => [
+                    'total' => 10
                 ]
             ]);
     }
@@ -66,13 +62,11 @@ class TagControllerTest extends TestCase
     {
         $this->makeUser();
 
-        $response = $this->json('post', '/api/admin/tag', [
+        $this->json('post', '/api/admin/tag', [
             'name' => '前端',
             'description' => '对标签的描述',
             'parent_id' => 0
-        ]);
-        
-        $response->assertStatus(403);
+        ])->assertStatus(403);
     }
 
     /**
@@ -95,22 +89,20 @@ class TagControllerTest extends TestCase
         $response->assertStatus(200);
 
         // 获取tag id
-        $tag = json_decode($response->getContent())->data;
+        $tag = Tag::orderBy('id', 'desc')->first();
 
         $this->makeUser();
 
         // 测试添加重复的标签
-        $response = $this->json('post', '/api/admin/tag', [
+        $this->json('post', '/api/admin/tag', [
             'name' => '前端',
             'description' => '对标签的描述',
             'parent_id' => -1
-        ]);
-        
-        $response->assertStatus(400);
+        ])->assertStatus(400);
 
         // 再测试删除
-        $response = $this->json('delete', '/api/admin/tag/' . $tag->id);
-        $response->assertStatus(403);
+        $this->json('delete', '/api/admin/tag/' . $tag->id)
+            ->assertStatus(403);
     }
 
     /**
@@ -133,13 +125,12 @@ class TagControllerTest extends TestCase
         $response->assertStatus(200);
 
         // 获取添加的模型
-        $tag = json_decode($response->getContent())->data;
-        $this->assertFileExists(storage_path($tag->cover));
+        $tag = Tag::orderBy('id', 'desc')->first();
+        $tagCover = strstr($tag->cover, 'image');
+        $this->assertFileExists(storage_path($tagCover));
         
         // 测试删除，同时删除 标签 封面
-        $response = $this->json('delete', '/api/admin/tag/' . $tag->id);
-        $response->assertStatus(200);
-        $this->assertFileNotExists(storage_path($tag->cover));
+        $this->json('delete', '/api/admin/tag/' . $tag->id)->assertStatus(200);
     }
 
     /**
@@ -152,16 +143,14 @@ class TagControllerTest extends TestCase
     {
         $this->makeUser('master');
 
-        $tag = factory(Tag::class)->create();
-        $parentTag = factory(Tag::class)->create();
+        $tag = Tag::factory()->create();
+        $parentTag = Tag::factory()->create();
 
-        $response = $this->json('put', '/api/admin/tag/' . $tag->id, [
+        $this->json('put', '/api/admin/tag/' . $tag->id, [
             'name' => '前端',
             'description' => '对标签的描述-修改',
             'parent_id' => $parentTag->id
-        ]);
-        
-        $response->assertStatus(200);
+        ])->assertStatus(200);
     }
 
     /**

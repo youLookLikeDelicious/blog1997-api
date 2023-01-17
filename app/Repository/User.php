@@ -3,8 +3,8 @@ namespace App\Repository;
 
 use App\Facades\Page;
 use Illuminate\Http\Request;
-use App\Model\User as Model;
-use App\Model\SocialAccount;
+use App\Models\User as Model;
+use App\Models\SocialAccount;
 use Illuminate\Database\Eloquent\Builder;
 use App\Contract\Repository\User as Contract;
 use Illuminate\Validation\ValidationException;
@@ -16,21 +16,21 @@ class User implements Contract
     /**
      * User eloquent
      *
-     * @var App\Model\User
+     * @var App\Models\User
      */
     protected $model;
 
     /**
      * Social account with belongs to user
      *
-     * @var App\Model\socialAccounts
+     * @var App\Models\socialAccounts
      */
     protected $socialAccount;
 
     /**
      * Create Instance
      *
-     * @param \App\Model\User $model
+     * @param \App\Models\User $model
      */
     public function __construct(Model $model, SocialAccount $socialAccount)
     {
@@ -47,7 +47,7 @@ class User implements Contract
     public function index(Request $request)
     {
         $query = $this->model->select('id', 'name', 'avatar', 'email', 'gender', 'created_at', 'deleted_at', 'freeze_at')
-            ->with('roles:user_id,role_id,name');
+            ->with('roles');
 
         if ($name = $request->input('name')) {
             $query->where(function ($query) use ($name) {
@@ -69,7 +69,7 @@ class User implements Contract
      * Get specified user
      *
      * @param int $id
-     * @return \App\Model\User
+     * @return \App\Models\User
      */
     public function find($id)
     {
@@ -83,7 +83,7 @@ class User implements Contract
      *
      * @param integer $foreign_id 第三方平台的id
      * @param integer $type 第三方平台的类型
-     * @return App\Model\user|null
+     * @return App\Models\user|null
      */
     public function findByVendorInfo($foreign_id, int $type)
     {
@@ -111,30 +111,6 @@ class User implements Contract
             ->get();
         
         return $result;
-    }
-
-    /**
-     * 获取管理员的信息
-     * 有role的用户
-     *
-     * @param Request $request
-     * @return array
-     */
-    public function getManagers(Request $request) : array
-    {
-        $this->validateGetManagersRequest($request);
-
-        $query = $this->buildQueryToGetManagers($request);
-
-        $managers = Page::paginate($query);
-        
-        $roles = app()->make(RepositoryRole::class)->flatted()->toArray();
-
-        array_unshift($roles, ['id' => 0, 'name' => '--所有角色--']);
-
-        $managers['roles'] = $roles;
-
-        return $managers;
     }
 
     /**
@@ -186,7 +162,7 @@ class User implements Contract
      * with roles
      * 
      * @param string $email
-     * @return App\Model\User
+     * @return App\Models\User
      */
     public function findByEmail($email)
     {

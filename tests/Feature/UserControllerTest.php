@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Model\User;
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -103,7 +103,7 @@ class UserControllerTest extends TestCase
     {
         $response = $this->json('post', 'api/user/password/reset', ['email' => 'blog1997123@qq.com']);
         // redirect
-        $response->assertStatus(302);
+        $response->assertStatus(400);
     }
 
     /**

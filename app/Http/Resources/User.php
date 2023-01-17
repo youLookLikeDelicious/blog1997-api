@@ -29,14 +29,14 @@ class User extends JsonResource
             'created_at' => $this->created_at
         ];
 
-        $roles = $this->load('roles:role.id,name')->roles;
+        $this->load('roles:role.id,name');
         
-        if ($roles->isNotEmpty()) {
-            $authorities = $roles->load('authorities:id,name,route_name')
+        if ($this->roles->isNotEmpty()) {
+            $authorities = $this->roles->load('authorities:id,name,route_name')
                 ->pluck('authorities')
                 ->flatten();
 
-            $result['roles'] = $roles;
+            $result['roles'] = $this->roles;
             $result['authorities'] = $authorities;
         } else {
             $result['roles'] = [];

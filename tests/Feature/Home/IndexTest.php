@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Home;
 
-use App\Model\FriendLink;
 use Tests\TestCase;
-use App\Model\Gallery;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Topic;
+use App\Models\Article;
+use App\Models\ThumbUp;
+use App\Models\FriendLink;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class IndexTest extends TestCase
 {
@@ -22,47 +22,31 @@ class IndexTest extends TestCase
     {
         $this->makeUser('master');
 
-        $topic = factory(\App\Model\Topic::class)->make([
+        Topic::factory()->make([
             'id' => '1',
             'user_id' => $this->user->id
         ]);
 
-        \App\Model\Article::query()->truncate();
+        Article::query()->truncate();
         
-        $articles = factory(\App\Model\Article::class, 2)
+        $state = ['to' => $this->user->id];
+        Article::factory()->count(2)
+            // ->has(Gallery::factory())
+            ->has(ThumbUp::factory()->state(fn () => $state), 'thumbs')
             ->create([
                 'user_id' => $this->user->id
-            ])
-            ->each(function ($article) {
-                $article->thumbs()->save(factory(\App\Model\ThumbUp::class)->make(['to' => $this->user->id]));
-                if (Gallery::find($article->gallery_id)) {
-                    return;
-                }
-                $article->gallery()->save(factory(\App\Model\Gallery::class)->make());
-            });
+            ]);
 
         $response = $this->json('get', '/api');
 
         $response->assertStatus(200)
-            ->assertJson(['message' => 'success'])
-            ->assertJson(['status' =>  'success'])
-            ->assertJson([
-                'data' => [
-                    'articleNum' => 2
-                ]
-            ])
             ->assertJsonStructure([
-                'message',
-                'status',
                 'data' => [
-                    'articles' => [
-                        '*' =>
-                        ['identity', 'author' => ['id', 'name', 'avatar'], 'created_at', 'gallery' => ['id', 'url'], 'gallery_id', 'is_origin', 'summary', 'title', 'updated_at', 'user_id', 'visited']
-                    ],
-                    'articleNum',
-                    'messageNum',
-                    'pages',
-                    'popArticles'
+                    '*' =>
+                    ['identity', 'author' => ['id', 'name', 'avatar'], 'created_at', 'gallery', 'gallery_id', 'is_origin', 'summary', 'title', 'updated_at', 'user_id', 'visited']
+                ],
+                'popArticles' => [
+                    '*' => ['identity', 'title', 'visited']
                 ]
             ]);
     }

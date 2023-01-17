@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Model\Gallery;
+use App\Models\Gallery;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -18,7 +18,7 @@ class GalleryDeletedEvent
     /**
      * Gallery record
      *
-     * @var \App\Model\Gallery
+     * @var \App\Models\Gallery
      */
     public $gallery;
     /**

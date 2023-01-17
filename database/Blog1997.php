@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * 博客留言的多态关系对应到该模型
  */
-class Blog1997 extends Model{
+class Blog1997 extends Model
+{
     
     public $dateFormat = 'U';
     

@@ -2,11 +2,9 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Model\Auth;
-use App\Model\RoleAuth;
-use App\Repository\Admin\Auth as AdminAuth;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Auth;
+use App\Models\RoleAuth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AuthControllerTest extends TestCase
@@ -108,7 +106,7 @@ class AuthControllerTest extends TestCase
 
         $auth = factory(Auth::class)->create();
 
-        $auths = factory(Auth::class, 2)->create([
+        factory(Auth::class, 2)->create([
             'parent_id' => $auth->id
         ]);
 

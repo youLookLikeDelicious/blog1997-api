@@ -3,8 +3,8 @@
 namespace Tests\Feature\Admin;
 
 use Tests\TestCase;
-use App\Model\SensitiveWord;
-use App\Model\SensitiveWordCategory;
+use App\Models\SensitiveWord;
+use App\Models\SensitiveWordCategory;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
@@ -49,10 +49,8 @@ class SensitiveWordTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson([
-                'data' => [
-                    'pagination' => [
-                        'total' => 20
-                    ]
+                'meta' => [
+                    'total' => 20
                 ]
             ]);
     }
@@ -160,9 +158,8 @@ class SensitiveWordTest extends TestCase
             'category_id' => $category->id
         ]);
         
-        $response = $this->json('delete', '/api/admin/sensitive-word/batch-delete' ,['ids' => $sensitiveWords->pluck('id')->all()]);
-        $response->dump();
-        $response->assertStatus(200);
+        $this->json('delete', '/api/admin/sensitive-word/batch-delete' ,['ids' => $sensitiveWords->pluck('id')->all()])
+            ->assertStatus(200);
 
         $count = SensitiveWordCategory::select('count')->find($category->id)->count;
 
@@ -186,12 +183,10 @@ class SensitiveWordTest extends TestCase
         $path = __DIR__ . '/Resource/SensitiveWord.txt';
         $file = new UploadedFile($path, 'foo.txt', 'text/plain', null, true);
 
-        $response = $this->json('POST', '/api/admin/sensitive-word/import', [
+        $this->json('POST', '/api/admin/sensitive-word/import', [
             'category_id' => $category->id,
             'file' => $file
-        ]);
-        
-        $response->assertStatus(200);
+        ])->assertStatus(200);
 
         $count = SensitiveWordCategory::select('count')->find($category->id)->count;
 

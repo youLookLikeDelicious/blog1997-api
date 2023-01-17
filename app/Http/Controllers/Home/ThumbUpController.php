@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Model\ThumbUp;
+use App\Events\ThumbUpEvent;
+use App\Models\ThumbUp;
 use App\Http\Requests\ThumbUpRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @group Home\ThumbUpController
@@ -35,34 +38,24 @@ class ThumbUpController extends Controller
      * @param App\Http\Requests\ThumbUpRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store (ThumbUpRequest $request) {
-        // 验证表单数据
+    public function store (ThumbUpRequest $request)
+    {
         $data = $request->validated();
 
-        $to = (new $data['able_type'])::select('user_id')->findOrFail($data['able_id']);
+        $to = Relation::getMorphedModel($data['able_type'])::select('user_id')->findOrFail($data['able_id']);
         
         $this->beginTransition();
 
         try {
 
             $data['to'] = $to->user_id;
+            $thumbUp = ThumbUp::updateOrCreate($data, ['content' => DB::raw('content + 1')]);
 
-            // 入库操作
-            $thumbUp = $this->thumbUp->where($data)->first();
-
-            if ($thumbUp) {
-                $thumbUp->update([
-                    'content' => $thumbUp->content + 1
-                ]);
-            } else {
-                $this->thumbUp->create($data);
-            }
-
+            event(new ThumbUpEvent($thumbUp));
             $this->commit();
 
             return response()->success('', '点赞成功');
         } catch (\Exception $e) {
-
             $this->rollBack();
 
             return response()->error('点赞失败');

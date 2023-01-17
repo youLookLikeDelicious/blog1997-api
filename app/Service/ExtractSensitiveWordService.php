@@ -1,7 +1,7 @@
 <?php
 namespace App\Service;
 
-use App\Model\SensitiveWord;
+use App\Models\SensitiveWord;
 
 class ExtractSensitiveWordService
 {

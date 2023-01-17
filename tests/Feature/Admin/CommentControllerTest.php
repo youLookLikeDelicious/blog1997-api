@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Model\Comment;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Comment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CommentControllerTest extends TestCase
@@ -23,10 +22,10 @@ class CommentControllerTest extends TestCase
         $response->assertStatus(200);
 
         // make some data
-        factory(Comment::class, 20)->state('no-verified')->create();
+        Comment::factory()->count(20)->suspended('no-verified')->create();
         $response = $this->json('get', '/api/admin/comment');
         $response->assertStatus(200);
-        $count = json_decode($response->getContent())->data->pagination->total;
+        $count = json_decode($response->getContent())->meta->total;
         $this->assertEquals(20, $count);
     }
 
@@ -39,7 +38,7 @@ class CommentControllerTest extends TestCase
     public function test_approve()
     {
         $this->makeUser();
-        $comment = factory(Comment::class)->state('no-verified')->create();
+        $comment = Comment::factory()->suspended('no-verified')->create();
         $response = $this->json('post', '/api/admin/comment/approve/', ['ids' => [$comment->id]]);
 
         $response->assertStatus(200);
@@ -57,7 +56,7 @@ class CommentControllerTest extends TestCase
     {
         $this->makeUser();
 
-        $comment = factory(Comment::class)->state('no-verified')->create();
+        $comment = Comment::factory()->suspended('no-verified')->create();
 
         $response = $this->json('delete', '/api/admin/comment/reject' , ['ids' => [$comment->id]]);
 

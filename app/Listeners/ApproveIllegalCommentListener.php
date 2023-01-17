@@ -2,8 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Model\Comment;
-use App\Model\IllegalComment;
+use App\Models\Comment;
+use App\Models\IllegalComment;
 use App\Events\ApproveIllegalInfoEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -36,7 +36,7 @@ class ApproveIllegalCommentListener
     {
         $mailbox = $event->mailbox;
         
-        if ($mailbox->type === 'App\Model\Comment' && $this->repository->isEmpty($mailbox->reported_id)) {
+        if ($mailbox->type === 'comment' && $this->repository->isEmpty($mailbox->reported_id)) {
 
             // 如果是违规的评论，将评论的内容替换
             $comment = Comment::select(['id', 'content'])

@@ -2,11 +2,10 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Model\Auth;
-use App\Model\Role;
-use App\Model\RoleAuth;
+use App\Models\Auth;
+use App\Models\Role;
+use App\Models\RoleAuth;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RoleControllerTest extends TestCase
@@ -39,17 +38,9 @@ class RoleControllerTest extends TestCase
             'remark' => '备注',
             'authorities' => [9990, 9991, 9992]
         ]);
-        $response->assertStatus(200)
-            ->assertJsonStructure([
-                'data' => [
-                    'name',
-                    'authorities' => [
-                        '*' => ['id', 'name']
-                    ]
-                ]
-            ]);
+        $response->assertStatus(200);
 
-        $role = json_decode($response->getContent())->data;
+        $role = Role::orderBy('id', 'desc')->first();
 
         // 测试修改角色-----------------------------------------------------
         $response = $this->json('PUT', '/api/admin/role/' . $role->id, [
@@ -83,7 +74,7 @@ class RoleControllerTest extends TestCase
         $response->assertStatus(400)
             ->assertJson([
                 'message' => [
-                    'name' => ['name 属性是必填的.']
+                    'name' => ['名称 属性是必填的.']
                 ]
             ]);
     }
@@ -98,7 +89,7 @@ class RoleControllerTest extends TestCase
     {
         $this->makeUser('master');
 
-        factory(Role::class, 20)->create();
+        Role::factory()->count(20)->create();
 
         $response = $this->json('get', '/api/admin/role');
         

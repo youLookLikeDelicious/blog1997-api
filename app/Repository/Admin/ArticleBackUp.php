@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository\Admin;
 
-use App\Model\ArticleBackUp as ModelArticleBackUp;
+use App\Models\ArticleBackUp as ModelArticleBackUp;
 use App\Contract\Repository\ArticleBackUp as RepositoryArticleBackUp;
 
 class ArticleBackUp implements RepositoryArticleBackUp
@@ -9,7 +9,7 @@ class ArticleBackUp implements RepositoryArticleBackUp
     /**
      * Eloquent ORM
      *
-     * @var App\Model\ArticleBackUp
+     * @var App\Models\ArticleBackUp
      */
     protected $model;
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Album;
+use App\Models\Album;
 use Illuminate\Http\Request;
 use App\Contract\Repository\Gallery;
 use App\Http\Controllers\Controller;

@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Model\Comment;
+use App\Models\Comment;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;

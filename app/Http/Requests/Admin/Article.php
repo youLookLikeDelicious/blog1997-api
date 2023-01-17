@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Model\Tag;
-use App\Model\Topic;
-use App\Model\Gallery;
+use App\Models\Tag;
+use App\Models\Topic;
+use App\Models\Gallery;
 use App\Facades\Upload;
 use App\Service\SummaryService;
 use App\Service\GalleryService;
@@ -103,8 +103,7 @@ class Article extends FormRequest
             $result['gallery_id'] = $this->getGalleryId($result['cover']);
         } else if (!isset($this->route()->parameters()['article'])) {
             // 如果没有gallery id,自动从相册中生成一个封面
-            $result['gallery_id'] = app()->make(GalleryService::class)
-                ->calculateGalleryId();
+            $result['gallery_id'] = app()->make(GalleryService::class)->calculateGalleryId();
         }
 
         if (isset($result['tags'])) {

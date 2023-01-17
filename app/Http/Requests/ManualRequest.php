@@ -43,7 +43,7 @@ class ManualRequest extends FormRequest
      *
      * @return array
      */
-    protected function validationData()
+    public function validationData()
     {
         $data = $this->all();
 

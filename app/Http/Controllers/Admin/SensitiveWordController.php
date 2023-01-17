@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Model\SensitiveWord;
+use App\Models\SensitiveWord;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Events\SensitiveWordBatchInsert;

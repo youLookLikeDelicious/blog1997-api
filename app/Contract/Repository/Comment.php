@@ -2,7 +2,7 @@
 
 namespace App\Contract\Repository;
 
-use App\Model\Comment as Model;
+use App\Models\Comment as Model;
 
 interface Comment {
     /**
@@ -15,8 +15,10 @@ interface Comment {
 
     /**
      * 获取评论的回复
+     * 
+     * @return \Illuminate\Http\Resources\Json\ResourceCollection
      */
-    public function getReply($rootId, $offset);
+    public function getReply($rootId);
 
     /**
      * 获取博客的留言
@@ -24,13 +26,8 @@ interface Comment {
     public function getLeaveMessage();
 
     /**
-     * 获取comment的多态关系 commentable_id, commentable_type
-     */
-    public function getCommentPolymorphById($id);
-
-    /**
      * 获取评论 和回复的数量
-     * @param App\Model\Comment $comment
+     * @param App\Models\Comment $comment
      */
     public function getCommentAndCommentReplyCount($comment);
 

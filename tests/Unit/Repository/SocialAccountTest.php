@@ -3,7 +3,7 @@
 namespace Tests\Unit\Repository;
 
 use App\Repository\SocialAccount;
-use App\Model\SocialAccount as Model;
+use App\Models\SocialAccount as Model;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;

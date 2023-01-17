@@ -3,14 +3,12 @@
 namespace Tests\Feature\Admin;
 
 use Tests\TestCase;
-use App\Model\User;
-use App\Model\Topic;
-use App\Model\Article;
-use App\Model\Gallery;
-use App\Model\ArticleTag;
-use App\Model\Tag;
+use App\Models\User;
+use App\Models\Topic;
+use App\Models\Article;
+use App\Models\Gallery;
+use App\Models\ArticleTag;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ArticleTest extends TestCase
@@ -28,11 +26,11 @@ class ArticleTest extends TestCase
         $this->makeUser('master');
 
         // 创建专题
-        $topics = factory(Topic::class, 5)->create([
+        $topics = Topic::factory()->count(5)->create([
             'user_id' => $this->user->id
         ]);
 
-        factory(Article::class, 20)->create([
+        Article::factory()->count(20)->create([
             'topic_id' => $topics[0]->id,
             'user_id' => $this->user->id
         ]);
@@ -51,28 +49,8 @@ class ArticleTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson([
-                'data' => [
-                    'pagination' => [
-                        'total' => 20
-                    ]
-                ]
-            ])
-            ->assertJsonStructure([
-                'data' => [
-                    'pagination' => [
-                        'total', 'uri', 'currentPage', 'next', 'previous', 'first', 'last', 'pages'
-                    ],
-                    'records' => [
-                        '*' => [
-                            'id', 'title', 'is_origin', 'visited', 'commented'
-                        ]
-                    ],
-                    'topics' => [
-                        '*' => [
-                            'id', 'name'
-                        ]
-                    ],
-                    'currentTopicId'
+                'meta' => [
+                    'total' => 20
                 ]
             ]);
     }
@@ -122,7 +100,7 @@ class ArticleTest extends TestCase
     {
         $this->makeUser('author');
 
-        factory(Topic::class)->create(['id' => 1]);
+        Topic::factory()->create(['id' => 1]);
 
         $response = $this->json('POST', '/api/admin/article', [
             'title' => 'title',
@@ -179,12 +157,12 @@ class ArticleTest extends TestCase
     {
         $this->makeUser('author');
 
-        factory(Topic::class)->create(['id' => 1]);
+        Topic::factory()->create(['id' => 1]);
 
-        $galleries = factory(Gallery::class, 12)->create();
+        $galleries = Gallery::factory()->count(20)->create();
 
         // 创建一个文章
-        $article = factory(Article::class)->create([
+        Article::factory()->create([
             'gallery_id' => $galleries[0]->id
         ]);
 
@@ -227,7 +205,7 @@ class ArticleTest extends TestCase
     {
         $this->makeUser('author');
 
-        factory(Topic::class)->create(['id' => 1]);
+        Topic::factory()->create(['id' => 1]);
 
         $response = $this->json('POST', '/api/admin/article', [
             'title' => 'title',
@@ -253,9 +231,9 @@ class ArticleTest extends TestCase
     {
         $this->makeUser('author');
 
-        factory(Topic::class)->create(['id' => 1]);
+        Topic::factory()->create(['id' => 1]);
 
-        $article = factory(Article::class)->create([
+        $article = Article::factory()->create([
             'user_id' => $this->user->id,
             'topic_id' => 1,
             'is_draft' => 'no'
@@ -263,13 +241,13 @@ class ArticleTest extends TestCase
 
         // 修改文章
         $response = $this->json('POST', "/api/admin/article/{$article->id}", [
-            'title' => 'title',
-            'topic_id' => 1,
+            'title'     => 'title',
+            'topic_id'  => 1,
             'is_origin' => 'yes',
-            'topic' => 1,
-            'content' => 'changed',
-            'tags' => ['sdf'],
-            '_method' => 'PUT'
+            'topic'     => 1,
+            'content'   => 'changed',
+            'tags'      => ['sdf'],
+            '_method'   => 'PUT'
         ]);
 
         $response->assertStatus(200);
@@ -321,11 +299,11 @@ class ArticleTest extends TestCase
 
         $this->user->save();
 
-        $topic = factory(Topic::class)->create([
+        $topic = Topic::factory()->create([
             'article_sum' => 1
         ]);
 
-        $article = factory(Article::class)->create([
+        $article = Article::factory()->create([
             'user_id' => $this->user->id,
             'topic_id' => $topic->id
         ]);
@@ -347,7 +325,8 @@ class ArticleTest extends TestCase
         $response = $this->get('/api/admin/article?type=deleted');
         $response->assertStatus(200);
         $result = json_decode($response->getContent());
-        $this->assertEquals($article->id, $result->data->records[0]->id);
+        $this->assertEquals($article->id, $result->data[0]->id);
+
         // 删除回收站中的文章
         $response = $this->json('POST', '/api/admin/article/' . $article->id, [
             '_method' => 'delete'
@@ -367,7 +346,7 @@ class ArticleTest extends TestCase
     {
         $this->makeUser('master');
 
-        $article = factory(Article::class)->create([
+        $article = Article::factory()->create([
             'user_id' => $this->user->id
         ]);
 
@@ -395,10 +374,9 @@ class ArticleTest extends TestCase
         $this->get('/api/admin/article/create')->assertStatus(200);
 
         // 创建专题和标签
-        factory(Topic::class, 2)->create([
+        Topic::factory()->count(2)->create([
             'user_id' => $this->user->id
         ]);
-        factory(Tag::class, 2);
 
         $response = $this->get('/api/admin/article/create');
         $response->assertStatus(200);

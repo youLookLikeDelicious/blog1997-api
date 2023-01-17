@@ -1,8 +1,9 @@
 <?php
+namespace Database\Factories;
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model\SocialAccount;
+use App\Models\SocialAccount;
 use Faker\Generator as Faker;
 
 $factory->define(SocialAccount::class, function (Faker $faker) {

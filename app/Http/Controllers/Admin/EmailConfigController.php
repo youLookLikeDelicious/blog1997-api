@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
-use App\Model\EmailConfig;
+use App\Models\EmailConfig;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\Admin\EmailConfigRequest;
 use App\Repository\Admin\EmailConfig as AdminEmailConfig;

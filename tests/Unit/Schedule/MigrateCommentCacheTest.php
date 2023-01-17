@@ -3,7 +3,7 @@
 namespace Tests\Unit\Schedule;
 
 use App\Facades\CacheModel;
-use App\Model\Comment;
+use App\Models\Comment;
 use App\Schedule\MigrateCommentCache;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -24,14 +24,13 @@ class MigrateCommentCacheTest extends TestCase
         $this->makeUser('master');
         $schedule = new MigrateCommentCache();
 
-        $comment = factory(Comment::class)->states('Blog1997')->create([
+        $comment = Comment::factory()->suspended('Blog1997')->create([
             'liked' => 0
         ]);
 
         $schedule();
 
-        $article = Comment::select('liked')
-            ->find($comment->id);
+        Comment::select('liked')->find($comment->id);
         
         $this->assertEquals($comment->liked, 0);
     }
@@ -46,7 +45,7 @@ class MigrateCommentCacheTest extends TestCase
     {
         $this->makeUser('master');
 
-        $comment = factory(Comment::class)->states('Blog1997')->create([
+        $comment = Comment::factory()->suspended('Blog1997')->create([
             'commented' => 0,
             'liked' => 0
         ]);

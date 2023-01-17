@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Model\Article;
+use App\Models\Article;
 use App\Events\ApproveIllegalInfoEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Contract\Repository\ArticleBackUp;
@@ -39,7 +39,7 @@ class ApproveIllegalArticleListener
         $mailbox = $event->mailbox;
         
         // 如果文章已被清理
-        if ($mailbox->type === 'App\Model\Article' && !$this->articleBackup->exists($mailbox->reported_id)) {
+        if ($mailbox->type === 'article' && !$this->articleBackup->exists($mailbox->reported_id)) {
 
             $article = Article::findOrFail($mailbox->reported_id);
 

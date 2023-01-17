@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Model\ArticleBackUp;
+use App\Models\ArticleBackUp;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;

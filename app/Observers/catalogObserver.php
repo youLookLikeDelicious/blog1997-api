@@ -2,14 +2,14 @@
 
 namespace App\Observers;
 
-use App\Model\Catalog;
+use App\Models\Catalog;
 
 class catalogObserver
 {
     /**
      * Handle the catalog "created" event.
      *
-     * @param  \App\Model\Catalog  $catalog
+     * @param  \App\Models\Catalog  $catalog
      * @return void
      */
     public function created(Catalog $catalog)
@@ -33,7 +33,7 @@ class catalogObserver
     /**
      * Handle the catalog "updated" event.
      *
-     * @param  \App\Model\Catalog  $catalog
+     * @param  \App\Models\Catalog  $catalog
      * @return void
      */
     public function updated(Catalog $catalog)
@@ -113,7 +113,7 @@ class catalogObserver
     /**
      * Handle the catalog "deleted" event.
      *
-     * @param  \App\Model\Catalog  $catalog
+     * @param  \App\Models\Catalog  $catalog
      * @return void
      */
     public function deleted(Catalog $catalog)

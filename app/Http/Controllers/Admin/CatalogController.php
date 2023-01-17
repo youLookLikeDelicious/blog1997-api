@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Catalog;
+use App\Models\Catalog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CatalogRequest;
@@ -41,7 +41,7 @@ class CatalogController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Catalog  $catalog
+     * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
     public function update(CatalogRequest $request, Catalog $catalog)
@@ -58,7 +58,7 @@ class CatalogController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Model\Catalog  $catalog
+     * @param  \App\Models\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
     public function destroy(Catalog $catalog)

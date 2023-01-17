@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
-use App\Model\Tag;
-use App\Model\Auth;
-use App\Model\User;
-use App\Model\Topic;
-use App\Model\Article;
-use App\Model\Comment;
-use App\Model\ThumbUp;
+use App\Models\Tag;
+use App\Models\Auth;
+use App\Models\User;
+use App\Models\Topic;
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\ThumbUp;
 use Illuminate\Support\Str;
 use App\Service\RSAService;
 use App\Service\MapService;
 use App\Service\CurlService;
-use App\Model\SensitiveWord;
+use App\Models\SensitiveWord;
 use App\Contract\Auth\Factory;
 use App\Observers\TagObserver;
 use App\Observers\UserObserver;
@@ -22,18 +22,18 @@ use App\Foundation\ImageSampler;
 use App\Observers\TopicObserver;
 use App\Observers\ArticleObserver;
 use App\Observers\CommentObserver;
-use App\Observers\ThumbUpObserver;
 use App\Contract\Repository\Gallery;
-use App\Model\SensitiveWordCategory;
+use App\Models\SensitiveWordCategory;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\SensitiveWordObserver;
 use App\Repository\User as RepositoryUser;
 use App\Http\Controllers\Auth\LoginManager;
 use App\Observers\SensitiveWordCategoryObserver;
 use App\Contract\Repository\User as UserContract;
-use App\Model\Catalog;
+use App\Models\Catalog;
 use App\Observers\catalogObserver;
 use App\Repository\Admin\Gallery as AdminGallery;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -116,10 +116,15 @@ class AppServiceProvider extends ServiceProvider
         Topic::observe(TopicObserver::class);
         Article::observe(ArticleObserver::class);
         Comment::observe(CommentObserver::class);
-        ThumbUp::observe(ThumbUpObserver::class);
         Catalog::observe(catalogObserver::class);
         SensitiveWord::observe(SensitiveWordObserver::class);
         SensitiveWordCategory::observe(SensitiveWordCategoryObserver::class);
+
+        Relation::enforceMorphMap([
+            'article' => Article::class,
+            'comment' => Comment::class,
+            'thumbup' => ThumbUp::class
+        ]);
 
         /*记录sql */
         if (config('app.env') === 'local') {

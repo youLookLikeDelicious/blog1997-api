@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository;
 
-use App\Model\SocialAccount as ModelSocialAccount;
+use App\Models\SocialAccount as ModelSocialAccount;
 
 class SocialAccount
 {

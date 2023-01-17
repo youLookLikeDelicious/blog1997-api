@@ -3,8 +3,8 @@
 namespace App\Repository\Admin;
 
 use App\Http\Resources\CommonCollection;
-use App\Model\Log;
-use App\Model\User;
+use App\Models\Log;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 

@@ -60,26 +60,6 @@ trait CacheComment
     }
 
     /**
-     * 获取网站留言的数量
-     *
-     * @return int
-     */
-    public function getLeaveMessageCommented()
-    {
-        return $this->get('site', 'commented');
-    }
-
-    /**
-     * 网站留言的数量 + 1
-     *
-     * @return int
-     */
-    public function incrementLeaveMessageCommented()
-    {
-        return $this->cache('site', 'commented');
-    }
-
-    /**
      * 网站留言的数量 -n
      *
      * @return int

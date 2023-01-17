@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository\Admin;
 
-use App\Model\EmailConfig as Model;
+use App\Models\EmailConfig as Model;
 use Illuminate\Support\Facades\Cache;
 
 class EmailConfig

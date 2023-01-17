@@ -4,7 +4,7 @@ namespace Tests\Unit\Listener;
 
 use App\Events\LogEvent;
 use App\Listeners\LogListener;
-use App\Model\Log;
+use App\Models\Log;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -2,13 +2,13 @@
 
 namespace App\Observers;
 
-use App\Model\Article;
-use App\Model\Comment;
+use App\Models\Article;
+use App\Models\Comment;
 use App\Facades\CacheModel;
 use App\Events\NotifyCommentEvent;
 use Illuminate\Support\Facades\Log;
 use App\Contract\Repository\Comment as CommentRepository;
-use App\Model\MessageBox;
+use App\Models\MessageBox;
 
 class CommentObserver
 {
@@ -39,15 +39,15 @@ class CommentObserver
         if ($comment->able_type === 'Blog1997' && $comment->able_id) {
             $comment->able_id = 0;
         }
-        
+
         // 如果评论的是文章，设置article_id 字段
-        if ($comment->able_type === Article::class) {
+        if ($comment->able_type === 'article') {
             $comment->article_id = $comment->able_id;
         } else if ($comment->able_id) {
             // 如果评论的使文章， 获取文章的id 
             // 用于删除
             $parentComment = $this->commentRepository->find($comment->root_id);
-            if ($parentComment->able_type === Article::class) {
+            if ($parentComment->able_type === 'article') {
                 $comment->article_id = $parentComment->able_id;
             }
         }
@@ -100,13 +100,13 @@ class CommentObserver
 
         if (( $cometNeedVerify && $comment->verified === 'yes') || !$this->commentNeedVerify()) {
             switch ($comment->able_type) {
-                case Article::class:
+                case 'article':
                     // 删除文章评论
                     CacheModel::decrementArticleCommented($comment->able_id, $comment->deleteCommentedNum);
                     Comment::where('root_id', $comment->id)
                         ->delete();
                     break;
-                case Comment::class:
+                case 'comment':
                     // 删除评论的回复
                     CacheModel::decrementCommentCommented($comment->deleteCommentedNum);
                     Comment::where('able_id', $comment->id)->delete();
@@ -132,7 +132,9 @@ class CommentObserver
      */
     protected function commentNeedVerify()
     {
-        return CacheModel::getSystemSetting()['verify_comment'] === 'yes';
+        $config = CacheModel::getSystemSetting();
+
+        return $config && $config['verify_comment'] === 'yes';
     }
 
     /**
@@ -143,10 +145,15 @@ class CommentObserver
      */
     protected function destroyNotification(Comment $comment)
     {        
-        MessageBox::where('type', 'App\Model\Comment')
-            ->where('sender', $comment->user_id)
-            ->where('reported_id', $comment->id)
-            ->delete();
+        // MessageBox::where('type', 'App\Models\Comment')
+        //     ->where('sender', $comment->user_id)
+        //     ->where('reported_id', $comment->id)
+        //     ->delete();
+        MessageBox::whereHasMorph(
+            'notificationable',
+            ['comment'],
+            fn ($q) => $q->where('reported_id', $comment->id)->where('sender', $comment->user_id)
+        )->delete();
     }
 
     /**
@@ -158,13 +165,10 @@ class CommentObserver
     protected function makeNotification(Comment $comment)
     {
         switch ($comment->able_type) {
-            case Article::class:
+            case 'article':
                 CacheModel::incrementArticleCommented($comment->able_id);
                 break;
-            case 'Blog1997':
-                CacheModel::incrementLeaveMessageCommented($comment->able_id);
-                break;
-            case Comment::class:
+            case 'comment':
                 CacheModel::incrementCommentCommented($comment->able_id);
 
                 // 如果是三级评论，顶级平评论数 + 1
@@ -172,7 +176,7 @@ class CommentObserver
                     CacheModel::incrementCommentCommented($comment->root_id);
                 }
 
-                $rootComment = $this->commentRepository->getCommentPolymorphById($comment->root_id);
+                $rootComment = Comment::find($comment->root_id);
 
                 // 防止在被处理前，评论被删除的情况
                 if ($rootComment) {

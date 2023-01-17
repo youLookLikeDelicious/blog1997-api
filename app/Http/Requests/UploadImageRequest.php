@@ -37,7 +37,7 @@ class UploadImageRequest extends FormRequest
      *
      * @return array
      */
-    protected function validationData()
+    public function validationData()
     {
         $files = $this->file('upfile');
 

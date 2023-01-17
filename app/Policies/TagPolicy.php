@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Model\User;
-use App\Model\Tag;
+use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,8 +26,8 @@ class TagPolicy
     /**
      * Determine whether the user can update the tag.
      *
-     * @param  \App\Model\User  $user
-     * @param  \App\Model\Tag  $tag
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Tag  $tag
      * @return mixed
      */
     public function update()
@@ -38,8 +38,8 @@ class TagPolicy
     /**
      * Determine whether the user can delete the tag.
      *
-     * @param  \App\Model\User  $user
-     * @param  \App\Model\Tag  $tag
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Tag  $tag
      * @return mixed
      */
     public function delete()

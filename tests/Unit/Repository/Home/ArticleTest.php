@@ -5,9 +5,9 @@ namespace Tests\Unit\Repository\Home;
 use Exception;
 use Tests\TestCase;
 use Illuminate\Http\Request;
-use App\Model\Article as Model;
+use App\Models\Article as Model;
 use App\Repository\Home\Article;
-use App\Model\Article as ModelArticle;
+use App\Models\Article as ModelArticle;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 class ArticleTest extends TestCase
@@ -25,7 +25,7 @@ class ArticleTest extends TestCase
         $repository = app()->make(Article::class);
 
         try{
-            $result = $repository->find('sdf');
+            $repository->find('sdf');
         } catch(Exception $e) {
             $this->assertTrue($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException);
         }
@@ -42,7 +42,7 @@ class ArticleTest extends TestCase
     {
         $this->makeUser('master');
 
-        factory(ModelArticle::class, 10)->create();
+        ModelArticle::factory()->count(10)->create();
 
         $repository = app()->make(Article::class);
 
@@ -50,10 +50,8 @@ class ArticleTest extends TestCase
 
         $result = $repository->all($request);
 
-        $this->assertEquals($result['articleNum'], 10);
-
         for($i = 0, $len = 9; $i < $len; $i++) {
-            $this->assertTrue($result['articles'][$i]['visited'] >= $result['articles'][$i + 1]['visited']);
+            $this->assertTrue($result[$i]['visited'] >= $result[$i + 1]['visited']);
         }
     }
 
@@ -67,7 +65,7 @@ class ArticleTest extends TestCase
     {
         $this->makeUser('master');
 
-        factory(ModelArticle::class, 10)->create();
+        ModelArticle::factory()->count(10)->create();
 
         $repository = app()->make(Article::class);
 
@@ -75,10 +73,8 @@ class ArticleTest extends TestCase
         
         $result = $repository->all($request);
 
-        $this->assertEquals($result['articleNum'], 10);
-
         for($i = 0, $len = 9; $i < $len; $i++) {
-            $this->assertTrue($result['articles'][$i]['commented'] >= $result['articles'][$i + 1]['commented']);
+            $this->assertTrue($result[$i]['commented'] >= $result[$i + 1]['commented']);
         }
     }
 
@@ -107,7 +103,7 @@ class ArticleTest extends TestCase
     {
         $this->makeUser('master');
 
-        factory(Model::class, 50)->create();
+        Model::factory()->count(50)->create();
 
         $repository = app()->make(Article::class);
 

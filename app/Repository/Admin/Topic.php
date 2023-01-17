@@ -2,7 +2,7 @@
 namespace App\Repository\Admin;
 
 use Illuminate\Http\Request;
-use App\Model\Topic as ModelTopic;
+use App\Models\Topic as ModelTopic;
 use App\Contract\Repository\Topic as RepositoryTopic;
 use App\Http\Resources\CommonCollection;
 

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Notification;
 
-use App\Model\User;
+use App\Models\User;
 use App\Notifications\PasswordResetNotification;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;

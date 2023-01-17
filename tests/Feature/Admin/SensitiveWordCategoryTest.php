@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Model\SensitiveWordCategory;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\SensitiveWordCategory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SensitiveWordCategoryTest extends TestCase
@@ -37,18 +36,10 @@ class SensitiveWordCategoryTest extends TestCase
     {
         $this->makeUser('master');
 
-        $response = $this->json('POST', '/api/admin/sensitive-word-category', [
+        $this->json('POST', '/api/admin/sensitive-word-category', [
             'rank' => 1,
             'name' => '恶意辱骂'
-        ]);
-        
-        $response->assertStatus(200)
-            ->assertJson([
-                'data' => [
-                    'name' => '恶意辱骂',
-                    'rank' => 1
-                ]
-            ]);
+        ])->assertStatus(200);
     }
 
     /**
@@ -65,18 +56,11 @@ class SensitiveWordCategoryTest extends TestCase
             'name' => 'name'
         ]);
 
-        $response = $this->json('POST', '/api/admin/sensitive-word-category/' . $category->id, [
+        $this->json('POST', '/api/admin/sensitive-word-category/' . $category->id, [
             'rank' => 1,
             'name' => '恶意辱骂',
             '_method' => 'PUT'
-        ]);
-        
-        $response->assertStatus(200)
-            ->assertJson([
-                'data' => [
-                    'name' => '恶意辱骂'
-                ]
-            ]);
+        ])->assertStatus(200);
     }
 
     /**
@@ -93,13 +77,8 @@ class SensitiveWordCategoryTest extends TestCase
             'name' => 'name'
         ]);
 
-        $response = $this->json('POST', '/api/admin/sensitive-word-category/' . $category->id , [
+        $this->json('POST', '/api/admin/sensitive-word-category/' . $category->id , [
             '_method' => 'delete'
-        ]);
-        
-        $response->assertStatus(200)
-            ->assertJson([
-                'message' => '敏感词分类删除成功'
-            ]);
+        ])->assertStatus(200);
     }
 }

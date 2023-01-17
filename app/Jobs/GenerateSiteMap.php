@@ -4,8 +4,8 @@ namespace App\Jobs;
 
 use Exception;
 use DOMDocument;
-use App\Model\SiteMap;
-use App\Model\FailedJobs;
+use App\Models\SiteMap;
+use App\Models\FailedJobs;
 use DOMXPath;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\DB;
@@ -52,7 +52,7 @@ class GenerateSiteMap implements ShouldQueue
      *
      * @var int
      */
-    public $retryAfter = 3;
+    public $backoff = 3;
 
     /**
      * Create a new job instance.

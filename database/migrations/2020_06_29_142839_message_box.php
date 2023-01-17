@@ -23,42 +23,23 @@ class MessageBox extends Migration
 
             $table->integer('receiver')->comment('收到消息的用户id,0表示发送给站长');
 
-            $table->enum('type', [addslashes("App\Model\ThumbUp"), addslashes('App\Model\Comment'), addslashes('App\Model\Attention'),  addslashes('App\Model\Article')])
-                ->comment('相关的模型');
+            $table->string('type', 45)->comment('相关的模型 article comment thumbup');
 
-            $table->string('content', 2100)
-                ->default('')
-                ->comment('具体内容');
+            $table->string('content', 2100)->default('')->comment('具体内容');
             
-            $table->integer('reported_id')
-                ->default(0)
-                ->comment('被举报记录的id');
+            $table->integer('reported_id')->default(0)->comment('被举报记录的id');
             
-            $table->integer('root_comment_id')
-                ->default(0)
-                ->comment('如果通知的是评论，表示一级评论的id');
+            $table->integer('root_comment_id')->default(0)->comment('如果通知的是评论，表示一级评论的id');
 
-            $table->enum('have_read', ['yes', 'no'])
-                ->default('no');
+            $table->enum('have_read', ['yes', 'no'])->default('no');
 
-            $table->enum('operate', ['undo', 'approve', 'ignore'])
-                ->default('undo')
-                ->comment('执行的操作,在处理举报信息的时候使用');
+            $table->enum('operate', ['undo', 'approve', 'ignore'])->default('undo')->comment('执行的操作,在处理举报信息的时候使用');
                 
-            $table->unsignedInteger('created_at')
-                    ->nullable(false)
-                    ->default(0)
-                    ->comment('创建时间');
+            $table->unsignedInteger('created_at')->nullable(false)->default(0)->comment('创建时间');
 
-            $table->unsignedInteger('deleted_at')
-            ->nullable(false)
-            ->default(0)
-            ->comment('删除事件');
+            $table->unsignedInteger('deleted_at')->nullable()->default(null)->comment('删除时间');
             
-            $table->unsignedInteger('updated_at')
-                ->nullable(false)
-                ->default(0)
-                ->comment('更新时间');
+            $table->unsignedInteger('updated_at')->nullable(false)->default(0)->comment('更新时间');
 
             $table->index('sender');
 

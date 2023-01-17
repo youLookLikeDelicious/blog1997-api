@@ -3,11 +3,9 @@
 namespace Tests\Feature\Home;
 
 use Tests\TestCase;
-use App\Model\Article;
-use App\Model\Comment;
-use App\Model\ArticleBackUp;
-use App\Model\IllegalComment;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\IllegalComment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReportIllegalInfoTest extends TestCase
@@ -23,7 +21,7 @@ class ReportIllegalInfoTest extends TestCase
     {
         $this->makeUser();
 
-        $article = factory(Article::class)->create([
+        $article = Article::factory()->create([
             'user_id' => $this->user->id
         ]);
 
@@ -46,13 +44,13 @@ class ReportIllegalInfoTest extends TestCase
     public function test_report_illegal_article_witch_exists () {
         $this->makeUser();
 
-        $article = factory(Article::class)->create();
+        $article = Article::factory()->create();
 
         $response = $this->json('POST', '/api/report-illegal-info', [
             'sender' => $this->user->id,
             'receiver' => $this->user->id,
             'content' => 'illegal info',
-            'type' => 1,
+            'type' => 'article',
             'reported_id' => base64_encode($article->id)
         ]);
 
@@ -72,14 +70,12 @@ class ReportIllegalInfoTest extends TestCase
     {
         $this->makeUser();
 
-        $comment = factory(Comment::class)->states('Blog1997')->create();
-
         $response = $this->json('POST', '/api/report-illegal-info', [
             'sender' => $this->user->id,
             'receiver' => $this->user->id,
             'content' => 'illegal info',
-            'type' => 2,
-            'reported_id' => $comment->id + 1
+            'type' => 'comment',
+            'reported_id' => 0
         ]);
 
         $response->assertStatus(400);
@@ -93,13 +89,13 @@ class ReportIllegalInfoTest extends TestCase
     public function test_report_illegal_comment_witch_exists () {
         $this->makeUser();
 
-        $comment = factory(Comment::class)->states('Blog1997')->create();
+        $comment = Comment::factory()->suspended('Blog1997')->create();
 
         $response = $this->json('POST', '/api/report-illegal-info', [
             'sender' => $this->user->id,
             'receiver' => $this->user->id,
             'content' => 'illegal info',
-            'type' => 2,
+            'type' => 'comment',
             'reported_id' => $comment->id
         ]);
 
@@ -117,9 +113,9 @@ class ReportIllegalInfoTest extends TestCase
     public function test_report_illegal_comment_witch_has_been_processed () {
         $this->makeUser();
 
-        $comment = factory(Comment::class)->states('Blog1997')->create();
+        $comment = Comment::factory()->suspended('Blog1997')->create();
 
-        factory(IllegalComment::class)->create([
+        IllegalComment::factory()->create([
             'comment_id' => $comment->id
         ]);
 
@@ -127,7 +123,7 @@ class ReportIllegalInfoTest extends TestCase
             'sender' => $this->user->id,
             'receiver' => $this->user->id,
             'content' => 'illegal info',
-            'type' => 2,
+            'type' => 'comment',
             'reported_id' => $comment->id
         ]);
 

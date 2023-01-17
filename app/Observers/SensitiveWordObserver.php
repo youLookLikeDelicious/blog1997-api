@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use App\Model\SensitiveWord;
+use App\Models\SensitiveWord;
 use Illuminate\Support\Facades\Log;
-use App\Model\SensitiveWordCategory;
+use App\Models\SensitiveWordCategory;
 
 class SensitiveWordObserver
 {
@@ -12,7 +12,7 @@ class SensitiveWordObserver
      * Handle the sensitive "created" event.
      * 更新分类的计数
      *
-     * @param  \App\Model\SensitiveCategory  $sensitiveCategory
+     * @param  \App\Models\SensitiveCategory  $sensitiveCategory
      * @return void
      */
     public function created(SensitiveWord $sensitiveWord)

@@ -1,18 +1,18 @@
 <?php
 namespace App\Repository\Admin;
 
-use App\Model\Gallery as ModelGallery;
+use App\Models\Gallery as ModelGallery;
 use App\Contract\Repository\Gallery as RepositoryGallery;
 use App\Facades\Upload;
 use App\Http\Resources\CommonCollection;
-use App\Model\Album;
+use App\Models\Album;
 use Illuminate\Http\Request;
 
 class Gallery implements RepositoryGallery
 {
     /**
      * gallery Model
-     * @var \App\Model\Gallery
+     * @var \App\Models\Gallery
      */
     protected $gallery;
 

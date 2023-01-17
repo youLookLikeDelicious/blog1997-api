@@ -11,7 +11,13 @@ use RuntimeException;
  */
 class ImageSampler
 {
+    /**
+     * 被取样的图片
+     *
+     * @var \GdImage
+     */
     private $img;
+    
     private $callback = NULL;
 
     protected $percent = 5;
@@ -20,6 +26,8 @@ class ImageSampler
     public $w, $h;
     public $sample_w = 0;
     public $sample_h = 0;
+
+    public $initialized = false;
 
     /**
      * 读取文件信息
@@ -48,7 +56,7 @@ class ImageSampler
      * 根据文件类型,创建image
      *
      * @param string $imagePath
-     * @return GdImage|false 
+     * @return \GdImage|false 
      */
     protected function createImage($imagePath)
     {
@@ -136,8 +144,9 @@ class ImageSampler
 
     public function sample($callback = NULL)
     {
+        // 如果取样的像素太少，不进行处理
         if (($this->sample_w < 2) || ($this->sample_h < 2)) {
-            die("Your sampling size is too small for this image - reduce the \$steps value.");
+            return collect([]);
         }
 
         if ($callback) {

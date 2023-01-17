@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Model\ThumbUp;
+use App\Models\ThumbUp;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -18,7 +18,7 @@ class ThumbUpEvent
     /**
      * Thumb up records
      *
-     * @var \App\Model\ThumbUp
+     * @var \App\Models\ThumbUp
      */
     public $thumbUp;
     /**

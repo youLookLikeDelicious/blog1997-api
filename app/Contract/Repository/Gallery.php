@@ -26,14 +26,14 @@ interface Gallery {
     /**
      * 获取下一张相册的数据
      *
-     * @return \App\Model\Gallery
+     * @return \App\Models\Gallery
      */
     public function next(int $id);
 
     /**
      * 获取第一张相册的数据
      *
-     * @return \App\Model\Gallery
+     * @return \App\Models\Gallery
      */
     public function first();
 

@@ -2,7 +2,7 @@
 namespace App\Repository\Admin;
 
 use Illuminate\Support\Facades\Auth;
-use App\Model\ThumbUp as ModelThumbUp;
+use App\Models\ThumbUp as ModelThumbUp;
 use App\Contract\Repository\ThumbUp as RepositoryThumbUp;
 
 class ThumbUp implements RepositoryThumbUp
@@ -10,7 +10,7 @@ class ThumbUp implements RepositoryThumbUp
     /**
      * Thumb up Eloquent
      *
-     * @var \App\Model\ThumbUp
+     * @var \App\Models\ThumbUp
      */
     protected $model;
     public function __construct(ModelThumbUp $model)

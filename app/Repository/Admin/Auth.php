@@ -2,7 +2,7 @@
 namespace App\Repository\Admin;
 
 use Illuminate\Http\Request;
-use App\Model\Auth as ModelAuth;
+use App\Models\Auth as ModelAuth;
 use App\Contract\Repository\Auth as RepositoryAuth;
 
 class Auth implements RepositoryAuth

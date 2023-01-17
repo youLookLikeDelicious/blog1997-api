@@ -3,7 +3,7 @@
 namespace App\Schedule;
 
 use App\Facades\CacheModel;
-use App\Model\Article;
+use App\Models\Article;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 

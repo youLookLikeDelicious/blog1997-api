@@ -2,11 +2,10 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Model\Role;
-use App\Model\User;
+use App\Models\Role;
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ManagerControllerTest extends TestCase
@@ -23,7 +22,7 @@ class ManagerControllerTest extends TestCase
     {
         $this->makeUser('master');
 
-        $roles = factory(Role::class, 3)->create();
+        $roles = Role::factory()->count(3)->create();
 
         // mock event
         Event::fake();
@@ -48,13 +47,6 @@ class ManagerControllerTest extends TestCase
 
         $managerRoles = User::with('roles')->find($manager->id)->roles;
         $this->assertEquals(2, $managerRoles->count());
-
-        // ==================================================
-        //  测试列表部分
-        // ==================================================
-
-        $response = $this->json('get', '/api/admin/manager');
-        $response->assertStatus(200);
     }
 
     /**
@@ -72,23 +64,9 @@ class ManagerControllerTest extends TestCase
         $response->assertStatus(200);
 
         // mock some resource
-        $manager = factory(Role::class, 20)->create();
+        Role::factory()->count(20)->create();
 
         $response = $this->json('get', '/api/admin/manager/create');
-        $response->assertStatus(200);
-    }
-
-    /**
-     * Test get manager list
-     * @group feature
-     * 
-     * @return void
-     */
-    public function test_index_empty()
-    {
-        $this->makeUser();
-
-        $response = $this->json('get', '/api/admin/manager');
         $response->assertStatus(200);
     }
 

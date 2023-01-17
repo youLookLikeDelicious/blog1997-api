@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Model\User;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use App\Model\Role;
+use App\Models\Role;
 use App\Notifications\ManagerCreateNotification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;

@@ -3,7 +3,7 @@
 namespace Tests\Unit\Repository\Admin;
 
 use App\Contract\Repository\Gallery;
-use App\Model\Gallery as ModelGallery;
+use App\Models\Gallery as ModelGallery;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;

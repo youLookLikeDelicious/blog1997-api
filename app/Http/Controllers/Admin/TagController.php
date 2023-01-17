@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Tag;
+use App\Models\Tag;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TagRequest;
 use App\Contract\Repository\Tag as Repository;
@@ -90,7 +90,7 @@ class TagController extends Controller
      * @bodyParam description string                标签的描述
      * @responseFile response/admin/tag/update.json
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Tag  $tag
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function update(TagRequest $request, Tag $tag)
@@ -110,7 +110,7 @@ class TagController extends Controller
      * 
      * @urlParam tag 标签ID
      * @responseFile response/admin/tag/destroy.json
-     * @param  \App\Model\Tag  $tag
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
     public function destroy(Tag $tag)

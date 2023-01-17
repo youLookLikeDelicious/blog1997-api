@@ -7,7 +7,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
-use App\Model\Auth as Model;
+use App\Models\Auth as Model;
 
 class AuthTest extends TestCase
 {
@@ -32,12 +32,12 @@ class AuthTest extends TestCase
 
         // 测试 flatted
         $result = $repository->flatted();
-        $this->assertEquals('--顶级权限--', $result[0]['name']);
-        $this->assertEquals(5, count($result));
+        $this->assertEquals('top auth', $result[0]['name']);
+        $this->assertEquals(4, count($result));
 
         // 测试 条件查询
         $request = new Request(['name' => 'blog1997', ['parent_id' => $topAuth->id]]);
         $result = $repository->all($request);
-        $this->assertEquals(1, $result['pagination']['total']);
+        $this->assertEquals(1, $result->count());
     }
 }

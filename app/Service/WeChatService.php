@@ -1,9 +1,9 @@
 <?php
 namespace App\Service;
 
-use App\Model\Article;
+use App\Models\Article;
 use CURLFile;
-use App\Model\WeChatMaterial;
+use App\Models\WeChatMaterial;
 use Exception;
 use Parsedown;
 use Symfony\Component\HttpFoundation\File\Exception\NoFileException;

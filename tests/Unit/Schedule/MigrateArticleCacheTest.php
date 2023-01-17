@@ -3,7 +3,7 @@
 namespace Tests\Unit\Schedule;
 
 use App\Facades\CacheModel;
-use App\Model\Article;
+use App\Models\Article;
 use App\Schedule\MigrateArticleCache;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -24,7 +24,7 @@ class MigrateArticleCacheTest extends TestCase
         $this->makeUser('master');
         $schedule = new MigrateArticleCache();
 
-        $article = factory(Article::class)->create([
+        $article = Article::factory()->create([
             'visited' => 0
         ]);
 
@@ -46,7 +46,7 @@ class MigrateArticleCacheTest extends TestCase
     {
         $this->makeUser('master');
 
-        $article = factory(Article::class)->create([
+        $article = Article::factory()->create([
             'visited' => 0,
             'commented' => 0,
             'liked' => 0

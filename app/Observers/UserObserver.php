@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Model\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
@@ -11,7 +11,7 @@ class UserObserver
     /**
      * Handle the user "created" event.
      *
-     * @param  \App\Model\User  $user
+     * @param  \App\Models\User  $user
      * @return void
      */
     public function created(User $user)
@@ -27,7 +27,7 @@ class UserObserver
     /**
      * Handle the user "updated" event.
      *
-     * @param  \App\Model\User  $user
+     * @param  \App\Models\User  $user
      * @return void
      */
     public function updated(User $user)
@@ -46,7 +46,7 @@ class UserObserver
     /**
      * Handle the user "deleted" event.
      *
-     * @param  \App\Model\User  $user
+     * @param  \App\Models\User  $user
      * @return void
      */
     public function deleted(User $user)

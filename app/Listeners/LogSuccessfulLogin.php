@@ -2,17 +2,15 @@
 
 namespace App\Listeners;
 
-use App\Model\Log as ModelLog;
+use App\Models\Log as ModelLog;
 use Illuminate\Auth\Events\Login;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
 
 class LogSuccessfulLogin
 {
 
     /**
-     * Variable
+     * 日志模型
      *
      * @var ModelLog
      */

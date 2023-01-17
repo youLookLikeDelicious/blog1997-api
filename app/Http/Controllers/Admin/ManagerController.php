@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\User;
+use App\Models\User;
 use App\Contract\Repository\Role;
 use App\Contract\Repository\User as RepositoryUser;
 use Illuminate\Support\Facades\DB;
@@ -18,27 +18,6 @@ use Illuminate\Http\Request;
  */
 class ManagerController extends Controller
 {
-    /**
-     * Get list of manager
-     * 
-     * 获取管理员列表
-     * 赋予角色的用户被认为是管理员
-     * Display a listing of the resource.
-     *
-     * @queryParam email   管理员邮箱
-     * @queryParam role_id 角色ID
-     * @responseFile response/admin/manager/index.json
-     * @param Request $request
-     * @param RepositoryUser $repository
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request, RepositoryUser $repository)
-    {
-        $result = $repository->getManagers($request);
-
-        return response()->success($result);
-    }
-
     /**
      * Get user info when assign roles
      * 

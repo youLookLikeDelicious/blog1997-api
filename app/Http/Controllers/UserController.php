@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\User;
+use App\Models\User;
 use App\Facades\Upload;
-use App\Model\SocialAccount;
+use App\Models\SocialAccount;
 use Illuminate\Http\Request;
 use App\Contract\Auth\Factory;
 use App\Http\Controllers\Controller;

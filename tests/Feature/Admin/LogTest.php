@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Model\Log;
+use App\Models\Log;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LogTest extends TestCase
@@ -40,14 +39,12 @@ class LogTest extends TestCase
         $response->assertStatus(200);
 
         // 获取指定用户的相关操作日志
-        $response = $this->get('/api/admin/log?startDate=2020-01-14&endDate=2020-01-15&email=' . $this->user->email);
-        $response->dump();
+        $response = $this->get('/api/admin/log?email=' . $this->user->email);
+
         $response->assertStatus(200)
             ->assertJson([
-                'data' => [
-                    'pagination' => [
-                        'total' => 0
-                    ]
+                'meta' => [
+                    'total' => 22
                 ]]);
 
         // 获取计划任务日志

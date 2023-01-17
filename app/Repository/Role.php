@@ -3,7 +3,7 @@ namespace App\Repository;
 
 use App\Facades\Page;
 use Illuminate\Http\Request;
-use App\Model\Role as Model;
+use App\Models\Role as Model;
 use Illuminate\Validation\ValidationException;
 use App\Contract\Repository\Role as RepositoryRole;
 use App\Http\Resources\RoleCollection;
@@ -13,7 +13,7 @@ class Role implements RepositoryRole
     /**
      * Role Eloquent
      *
-     * @var \App\Model\Role
+     * @var \App\Models\Role
      */
     protected $model;
 

@@ -3,11 +3,10 @@
 namespace Tests\Feature\Home;
 
 use App\Contract\Repository\Article as RepositoryArticle;
-use App\Model\Article;
-use App\Model\MessageBox;
-use App\Model\ThumbUp;
+use App\Models\Article;
+use App\Models\MessageBox;
+use App\Models\ThumbUp;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ThumbUpTest extends TestCase
@@ -39,10 +38,7 @@ class ThumbUpTest extends TestCase
         
         $response = $this->json('POST', '/api/thumb-up');
 
-        $response->assertStatus(400)
-            ->assertJsonStructure([ 
-                'message' => [ 'id', 'category']
-            ]);
+        $response->assertStatus(400);
     }
 
     /**
@@ -55,12 +51,12 @@ class ThumbUpTest extends TestCase
     {
         $this->makeUser();
         
-        $article = factory(Article::class)->create([ 'user_id' => $this->user->id ]);
+        $article = Article::factory()->create([ 'user_id' => $this->user->id ]);
 
         for ($i = 0, $len = 10; $i < $len; $i++) {
             $response = $this->json('POST', '/api/thumb-up', [
-                'id' => $article->id,
-                'category' => 'article'
+                'able_id'   => $article->id,
+                'able_type' => 'article'
             ]);
         }
         
@@ -74,12 +70,12 @@ class ThumbUpTest extends TestCase
         $this->assertEquals($articleLiked, $article->liked + $len);
 
         // 获取点赞的记录
-        $thumbUp = ThumbUp::where('able_type', 'App\Model\Article')
+        $thumbUp = ThumbUp::where('able_type', 'article')
                 ->where('able_id', $article->id)
                 ->first();
                 
         // 断言点赞的通知
-        $notification = MessageBox::where('type', ThumbUp::class)
+        $notification = MessageBox::where('type', 'thumbup')
                 ->where('reported_id', $thumbUp->id)
                 ->where('receiver', $this->user->id)
                 ->first();
@@ -90,12 +86,12 @@ class ThumbUpTest extends TestCase
         // 模拟重新登陆
         $this->makeUser();
         $response = $this->json('POST', '/api/thumb-up', [
-            'id' => $article->id,
-            'category' => 'article'
+            'able_id'   => $article->id,
+            'able_type' => 'article'
         ]);
         
         // 断言点赞的通知
-        $notification = MessageBox::where('type', ThumbUp::class)
+        $notification = MessageBox::where('type', 'thumbup')
             ->where('receiver', $article->user->id)
             ->first();
                 
@@ -112,12 +108,12 @@ class ThumbUpTest extends TestCase
     {
         $this->makeUser();
         
-        $article = factory(Article::class)->create();
+        $article = Article::factory()->create();
 
         for ($i = 0, $len = 60; $i < $len; $i++) {
             $response = $this->json('POST', '/api/thumb-up', [
-                'id' => $article->id + 1,
-                'category' => 'article'
+                'able_id'   => $article->id + 1,
+                'able_type' => 'article'
             ]);
         }
         

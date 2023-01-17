@@ -29,21 +29,17 @@ class IndexController extends Controller
     public function index(Request $request, Article $article, Comment $comment)
     {
         $seconds = getCacheSeconds(2 * 60 * 60 + mt_rand(0, 100));
-        $result = Cache::remember('home.list', $seconds, function () use ($request, $article) {
-            return $article->all($request);
+
+        $resource = Cache::remember('home.list', $seconds, function () use ($request, $article, $comment) {
+            $resource = $article->all($request);
+            $resource->additional([
+                'popArticles' => $article->getTopTen(),
+                'messageNum'  => $comment->getLeaveMessageCount()
+            ]);
+            return $resource;
         }); 
 
-        // 获取博客留言的数量
-        $messageNum = $comment->getLeaveMessageCount();
-
-        // 获取本月点击TOP 10
-        $popArticles = $article->getTopTen();
-
-        $result['popArticles'] = $popArticles;
-
-        $result['messageNum'] = $messageNum;
-
-        return response()->success($result);
+        return $resource->response();
     }
 
     /**

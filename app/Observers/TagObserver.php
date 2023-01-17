@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Model\Tag;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Storage;
 
 class TagObserver
@@ -10,7 +10,7 @@ class TagObserver
     /**
      * Handle the tag "updated" event.
      *
-     * @param  \App\Model\Tag  $tag
+     * @param  \App\Models\Tag  $tag
      * @return void
      */
     public function updated(Tag $tag)
@@ -27,7 +27,7 @@ class TagObserver
      * 
      * 移除标签的封面
      * 
-     * @param  \App\Model\Tag  $tag
+     * @param  \App\Models\Tag  $tag
      * @return void
      */
     public function deleted(Tag $tag)

@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository\Admin;
 
-use App\Model\Manual as ModelManual;
+use App\Models\Manual as ModelManual;
 use App\Contract\Repository\Manual as RepositoryManual;
 use App\Http\Resources\CommonCollection;
 

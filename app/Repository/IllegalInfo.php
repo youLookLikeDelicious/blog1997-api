@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository;
 
-use App\Model\IllegalComment;
+use App\Models\IllegalComment;
 class IllegalInfo
 {
     /**

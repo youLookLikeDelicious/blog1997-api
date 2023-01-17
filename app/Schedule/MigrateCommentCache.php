@@ -1,7 +1,7 @@
 <?php
 namespace App\Schedule;
 
-use App\Model\Comment;
+use App\Models\Comment;
 use App\Facades\CacheModel;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;

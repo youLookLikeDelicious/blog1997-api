@@ -1,36 +1,66 @@
 <?php
+namespace Database\Factories;
 
-use App\Model\Comment;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Comment::class, function (Faker $faker) {
-    return [
-        'level' => 1,
-        'root_id' => 1,
-        'reply_to' => '1',
-        'able_id' => 1,
-        'able_type' => 'App\Model\Article',
-        'content' => 'content'
-    ];
-});
+class CommentFactory extends Factory
+{
+    public function definition()
+    {
+        return [
+            'level' => 1,
+            'root_id' => 1,
+            'reply_to' => '1',
+            'able_id' => 1,
+            'able_type' => 'article',
+            'content' => 'content'
+        ];
+    }
 
-$factory->state(Comment::class, 'comment', [
-    'able_type' => 'App\Model\Comment',
-]);
+    public function suspended()
+    {
+        $type = func_get_args();
+        return $this->state(function (array $attributes) use ($type) {
+            $attr = [];
+            // 留言
+            if (in_array('Blog1997', $type)) {
+                $attr += [
+                    'able_type' => 'Blog1997',
+                    'able_id' => 0,
+                    'level' => 1,
+                    'reply_to' => 0
+                ];
+            }
 
-$factory->state(Comment::class, 'Blog1997', [
-    'able_type' => 'Blog1997',
-    'able_id' => 0,
-    'level' => 1,
-    'reply_to' => 0
-]);
-$factory->state(Comment::class, 'level-2', [
-    'level' => 2
-]);
-$factory->state(Comment::class, 'level-3', [
-    'level' => 3
-]);
+            // 普通评论
+            if (in_array('comment', $type)) {
+                $attr = array_merge($attr, [
+                    'able_type' => 'comment'
+                ]);
+            }
 
-$factory->state(Comment::class, 'no-verified', [
-    'verified' => 'no'
-]);
+            // 二级评论
+            if (in_array('level-2', $type)) {
+                $attr = array_merge($attr, [
+                    'level' => 2
+                ]);
+            }
+
+            // 三级评论
+            if (in_array('level-3', $type)) {
+                $attr = array_merge($attr, [
+                    'level' => 3
+                ]);
+            }
+
+            // 未验证的评论
+            if (in_array('no-verified', $type)) {
+                $attr = array_merge($attr, [
+                    'verified' => 'no'
+                ]);
+            }
+
+            return $attr;
+        });
+    }
+}

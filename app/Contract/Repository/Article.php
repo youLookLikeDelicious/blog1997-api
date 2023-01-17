@@ -4,7 +4,7 @@ namespace App\Contract\Repository;
 
 use Illuminate\Http\Request;
 /**
- * @method static array getTopTen()
+ * @method array getTopTen() 获取前热度10文章
  */
 interface Article {
     public function find ($id);
@@ -13,7 +13,7 @@ interface Article {
      * Get article list
      *
      * @param Request $request
-     * @return \Illuminate\Http\Resources\Json\ResourceCollection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function all(Request $request);
 }

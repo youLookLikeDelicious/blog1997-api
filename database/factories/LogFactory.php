@@ -1,8 +1,9 @@
 <?php
+namespace Database\Factories;
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model\Log;
+use App\Models\Log;
 use Faker\Generator as Faker;
 
 $factory->define(Log::class, function (Faker $faker) {

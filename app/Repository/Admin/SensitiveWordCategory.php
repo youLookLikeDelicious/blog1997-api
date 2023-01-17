@@ -4,7 +4,7 @@ namespace App\Repository\Admin;
 use App\Facades\Page;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use App\Model\SensitiveWordCategory as ModelSensitiveWordCategory;
+use App\Models\SensitiveWordCategory as ModelSensitiveWordCategory;
 use App\Contract\Repository\SensitiveWordCategory as RepositorySensitiveWordCategory;
 use App\Http\Resources\CommonCollection;
 
@@ -13,7 +13,7 @@ class SensitiveWordCategory implements RepositorySensitiveWordCategory
     /**
      * Eloquent ORM
      *
-     * @var App\Model\SensitiveWordCategory
+     * @var App\Models\SensitiveWordCategory
      */
     protected $model;
 

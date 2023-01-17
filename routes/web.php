@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/image/{type}/{dir}/{name}/{isWebp?}', 'ImageController@find')
-    ->middleware('cors')
     ->name('retrieve.image');
 
 Route::get('/auth/password/reset', 'Auth\ResetPasswordsController@showResetForm')

@@ -2,7 +2,7 @@
 namespace App\Repository\Admin;
 
 use Illuminate\Http\Request;
-use App\Model\FriendLink as ModelFriendLink;
+use App\Models\FriendLink as ModelFriendLink;
 use App\Contract\Repository\FriendLink as RepositoryFriendLink;
 use App\Http\Resources\CommonCollection;
 
@@ -11,7 +11,7 @@ class FriendLink implements RepositoryFriendLink
     /**
      * 友链模型
      *
-     * @var \App\Model\FriendLink
+     * @var \App\Models\FriendLink
      */
     protected $model;
 

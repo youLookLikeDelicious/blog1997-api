@@ -3,9 +3,9 @@
 namespace Tests\Feature\Home;
 
 use Tests\TestCase;
-use App\Model\Comment;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Comment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
 
 class LeaveMessageTest extends TestCase
 {
@@ -20,11 +20,10 @@ class LeaveMessageTest extends TestCase
     {
         $response = $this->json('GET', '/api/leave-message');
 
-        $response->assertStatus(200);
-
-        $comments = json_decode($response->getContent())->data->records;
-
-        $this->assertEquals(count($comments), 0);
+        $response->assertStatus(200)
+            ->assertJson(fn (AssertableJson $json) => 
+                $json->where('meta.total', 0)->etc()
+            );
     }
 
     /**
@@ -36,18 +35,13 @@ class LeaveMessageTest extends TestCase
     {
         $this->makeUser();
 
-        $comments = factory(Comment::class, 10)->states('Blog1997')->create();
+        Comment::factory()->count(10)->suspended('Blog1997')->create();
 
         $response = $this->json('GET', '/api/leave-message');
 
-        $response->assertStatus(200);
-
-        $responseComments = json_decode($response->getContent())->data->records;
-
-        $this->assertEquals(count($comments), 10);
-
-        foreach($responseComments as $key => $responseComment) {
-            $this->assertEquals($responseComment->id, $comments[$key]->id);
-        }
+        $response->assertStatus(200)
+            ->assertJson(fn (AssertableJson $json) => 
+                $json->where('meta.total', 10)->etc()
+            );
     }
 }

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Auth\Provider;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Model\User as UserModel;
+use App\Models\User as UserModel;
 use Illuminate\Support\Facades\Auth;
 use App\Contract\Repository\User as UserContract;
-use App\Model\SocialAccount;
+use App\Models\SocialAccount;
 use App\Repository\SocialAccount as RepositorySocialAccount;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use App\Http\Resources\User as UserResource;
@@ -157,7 +157,7 @@ abstract class ProviderAbstract
      * 尝试获取用户信息，如果不存在，创建之
      *
      * @param array $vendorInfo
-     * @return \App\Model\User|null
+     * @return \App\Models\User|null
      */
     public function retrieveUser()
     {
@@ -245,7 +245,7 @@ abstract class ProviderAbstract
     /**
      * 授权用户
      *
-     * @param \App\Model\User $user
+     * @param \App\Models\User $user
      * @return $user
      */
     protected function authorizeUser(UserModel $user)

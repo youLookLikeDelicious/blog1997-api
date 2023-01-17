@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Exception;
-use App\Model\SiteMap;
+use App\Models\SiteMap;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Foundation\Application;

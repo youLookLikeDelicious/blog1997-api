@@ -2,9 +2,8 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Model\FriendLink;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\FriendLink;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class FriendLinkTest extends TestCase
@@ -104,12 +103,7 @@ class FriendLinkTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
-                    'pagination' => [
-                        'total', 'uri', 'currentPage'
-                    ],
-                    'records' => [
-                        '*' => ['id', 'name', 'url']
-                    ]
+                    '*' => ['id', 'name', 'url']
                 ]
             ]);
     }

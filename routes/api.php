@@ -79,7 +79,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
         Route::get('/manager/user/{email}', 'ManagerController@user')
             ->name('manager.get.user');
         Route::resource('manager', 'ManagerController')
-            ->only(['update', 'create', 'index']);
+            ->only(['update', 'create']);
 
         Route::post('/comment/approve', 'CommentController@approve')
             ->name('comment.approve');

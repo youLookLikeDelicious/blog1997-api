@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\Model\Article;
-use App\Model\Topic;
+use App\Models\Article;
+use App\Models\Topic;
 use Illuminate\Support\Facades\Log;
 
 class TopicObserver
@@ -12,7 +12,7 @@ class TopicObserver
      * Handle the topic "deleted" event.
      * 删除分类后，删除该分类下的文章
      *
-     * @param  \App\Model\SensitiveCategory  $sensitiveCategory
+     * @param  \App\Models\SensitiveCategory  $sensitiveCategory
      * @return void
      */
     public function deleted(Topic $topic)

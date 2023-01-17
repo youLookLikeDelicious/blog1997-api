@@ -3,7 +3,7 @@
 namespace App\Repository\Admin;
 
 use Illuminate\Http\Request;
-use App\Model\Tag as ModelTag;
+use App\Models\Tag as ModelTag;
 use App\Http\Resources\CommonCollection;
 use Illuminate\Validation\ValidationException;
 use App\Contract\Repository\Tag as RepositoryTag;
@@ -79,7 +79,7 @@ class Tag implements RepositoryTag
      * 通过id获取指定的标签
      *
      * @param integer $id
-     * @return \App\Model\Tag
+     * @return \App\Models\Tag
      */
     public function find(int $id)
     {

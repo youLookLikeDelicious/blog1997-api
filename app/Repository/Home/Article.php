@@ -5,9 +5,10 @@ namespace App\Repository\Home;
 use App\Facades\Page;
 use App\Repository\Comment;
 use App\Facades\CacheModel;
-use App\Model\Article as ArticleModel;
+use App\Models\Article as ArticleModel;
 use App\Contract\Repository\Article as RepositoryArticle;
 use App\Contract\Repository\Tag;
+use App\Http\Resources\CommonCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class Article implements RepositoryArticle
 {
     /**
      * Article eloquent
-     * @var \App\Model\Article
+     * @var \App\Models\Article
      */
     protected $article;
 
@@ -93,8 +94,7 @@ class Article implements RepositoryArticle
 
         $result = [
             'article' => $articleRecord,
-            'commented' => $articleRecord['commented'],
-            'comments' => []
+            'commented' => $articleRecord['commented']
         ];
 
         return $result;
@@ -111,7 +111,7 @@ class Article implements RepositoryArticle
         $id = $this->decodeArticleId($id);
 
         // 获取评论
-        $comments = $this->comment->getComment($id, ArticleModel::class);
+        $comments = $this->comment->getComment($id, 'article');
 
         return $comments;
     }
@@ -120,28 +120,21 @@ class Article implements RepositoryArticle
      * 获取文章列表,默认每页查询10条记录
      * 
      * @param Request $request
-     * @return array
+     * 
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function all(Request $request): array
+    public function all(Request $request)
     {
         $this->validateRequest($request);
 
         // 获取文章的内容        
         $articleQuery = $this->buildGetAllArticleQuery($request);
 
-        $articles = Page::paginate($articleQuery, $request->input('limit', 10));
+        $result = $articleQuery->paginate($request->input('perPage', 10));
 
-        $articles['records']->makeHidden(['id']);
-        $articles['articles'] = $articles['records'];
+        $result->makeHidden(['id']);
 
-        $articles['pages'] = $articles['pagination']['pages'];
-        $articles['p'] = $articles['pagination']['currentPage'];
-        $articles['articleNum'] = $articles['pagination']['total'];
-
-        unset($articles['records']);
-        unset($articles['pagination']);
-
-        return $articles;
+        return new CommonCollection($result);
     }
 
     /**
@@ -288,14 +281,13 @@ class Article implements RepositoryArticle
             $request->request->add(['tag_id' => $tags[0]['id']]);
         }
 
-        $data = $this->all($request);
+        $resource = $this->all($request);
 
-        $data['tags'] = $tags;
+        $resource->additional([
+            'tags' => $tags,
+            'currentTagId' => $request['tag_id'] + 0
+        ]);
 
-        if ($tag = $request['tag_id']) {
-            $data['currentTagId'] = $tag + 0;
-        }
-
-        return $data;
+        return $resource;
     }
 }

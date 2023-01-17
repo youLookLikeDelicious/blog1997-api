@@ -2,10 +2,9 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Model\Article;
-use App\Model\Topic;
+use App\Models\Article;
+use App\Models\Topic;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TopicTest extends TestCase
@@ -37,16 +36,14 @@ class TopicTest extends TestCase
     {
         $this->makeUser();
 
-        factory(Topic::class, 20)->create(['user_id' => $this->user->id]);
+        Topic::factory(20)->create(['user_id' => $this->user->id]);
 
         $response = $this->get('/api/admin/topic');
         
         $response->assertStatus(200)
             ->assertJson([
-                'data' => [
-                    'pagination' => [
-                        'total' => 20
-                    ]
+                'meta' => [
+                    'total' => 20
                 ]
             ]);
     }
@@ -81,7 +78,7 @@ class TopicTest extends TestCase
     {
         $this->makeUser('master');
 
-        $topic = factory(Topic::class)->create([ 'user_id' => $this->user->id ]);
+        $topic = Topic::factory()->create([ 'user_id' => $this->user->id ]);
 
         $response = $this->put('/api/admin/topic/' . $topic->id, [
             'name' => 'topic-name'
@@ -103,9 +100,9 @@ class TopicTest extends TestCase
     {
         $this->makeUser('master');
 
-        $topic = factory(Topic::class)->create([ 'user_id' => $this->user->id ]);
+        $topic = Topic::factory()->create([ 'user_id' => $this->user->id ]);
 
-        $articles = factory(Article::class, 20)->create([
+        Article::factory()->count(20)->create([
             'topic_id' => $topic->id,
             'user_id' => $this->user->id
         ]);

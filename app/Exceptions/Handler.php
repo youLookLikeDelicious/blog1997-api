@@ -36,10 +36,10 @@ class Handler extends ExceptionHandler
      * Report or log an exception.
      * 将日志的记录 chanel 改为daily
      *
-     * @param  \Exception  $exception
+     * @param  \Throwable  $exception
      * @return void
      */
-    public function report(Exception $exception)
+    public function report(\Throwable $exception)
     {
         if ($this->shouldntReport($exception)) {
             return;
@@ -68,7 +68,7 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, \Throwable $exception)
     {
         if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
             return response()->error('要找的东西不见了~', 404);
@@ -112,6 +112,6 @@ class Handler extends ExceptionHandler
     {
         return $request->expectsJson()
                     ? response()->json(['message' => $exception->getMessage()], 401)
-                    : redirect()->guest($exception->redirectTo() ?? route('admin.login'));
+                    : redirect()->guest($exception->redirectTo() ?? '/auth/login');
     }
 }

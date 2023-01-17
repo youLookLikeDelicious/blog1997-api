@@ -3,11 +3,12 @@
 namespace App\Observers;
 
 use App\Events\pushArticleByApi;
-use App\Model\User;
-use App\Model\Topic;
-use App\Model\Article;
-use App\Model\ArticleBackUp;
+use App\Models\User;
+use App\Models\Topic;
+use App\Models\Article;
+use App\Models\ArticleBackUp;
 use App\Events\UpdateArticleEvent;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -17,7 +18,7 @@ class ArticleObserver
     /**
      * Handle the article "creating" event.
      *
-     * @param  \App\Model\Article  $article
+     * @param  \App\Models\Article  $article
      * @return void
      */
     public function creating(Article $article)
@@ -35,7 +36,7 @@ class ArticleObserver
     /**
      * Handle the article "created" event.
      *
-     * @param  \App\Model\Article  $article
+     * @param  \App\Models\Article  $article
      * @return void
      */
     public function created(Article $article)
@@ -52,7 +53,7 @@ class ArticleObserver
     /**
      * Handle the article "updating" event.
      *
-     * @param  \App\Model\Article  $article
+     * @param  \App\Models\Article  $article
      * @return void
      */
     public function updating(Article $article)
@@ -100,7 +101,7 @@ class ArticleObserver
     /**
      * Handle the article "deleting" event.
      *
-     * @param  \App\Model\Article  $article
+     * @param  \App\Models\Article  $article
      * @return void
      */
     public function deleting(Article $article)
@@ -175,6 +176,8 @@ class ArticleObserver
     {
         $draftArticle = $article->toArray();
 
+        $draftArticle['created_at'] = Carbon::parse($draftArticle['created_at'])->getTimestamp();
+        $draftArticle['updated_at'] = Carbon::parse($draftArticle['updated_at'])->getTimestamp();
         $draftArticle['article_id'] = $article->id;
 
         unset($draftArticle['id']);

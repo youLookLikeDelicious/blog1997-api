@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Manual;
-use App\Model\Catalog;
+use App\Models\Manual;
+use App\Models\Catalog;
 use Illuminate\Http\Request;
-use App\Model\ManualArticle;
+use App\Models\ManualArticle;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ManualRequest;
 use App\Contract\Repository\Manual as RepositoryManual;
@@ -46,7 +46,7 @@ class ManualController extends Controller
      * @queryParam with_catalogs  是否加载目录 1加载
      * @urlParam article required 文章的id
      * @param Request $request
-     * @param  \App\Model\Manual  $manual
+     * @param  \App\Models\Manual  $manual
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Manual $manual)
@@ -62,7 +62,7 @@ class ManualController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \\App\Http\Requests\ManualRequest $request
-     * @param  \App\Model\Manual  $manual
+     * @param  \App\Models\Manual  $manual
      * @return \Illuminate\Http\Response
      */
     public function update(ManualRequest $request, Manual $manual)
@@ -75,7 +75,7 @@ class ManualController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Model\Manual  $manual
+     * @param  \App\Models\Manual  $manual
      * @return \Illuminate\Http\Response
      */
     public function destroy(Manual $manual)

@@ -1,7 +1,7 @@
 <?php
 namespace App\Repository\Home;
 
-use App\Model\FriendLink as ModelFriendLink;
+use App\Models\FriendLink as ModelFriendLink;
 use App\Contract\Repository\FriendLink as RepositoryFriendLink;
 use Illuminate\Http\Request;
 

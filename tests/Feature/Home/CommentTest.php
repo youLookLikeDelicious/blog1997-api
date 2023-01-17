@@ -2,13 +2,11 @@
 
 namespace Tests\Feature\Home;
 
-use App\Facades\CacheModel;
 use Tests\TestCase;
-use App\Model\Article;
-use App\Model\Comment;
-use App\Model\MessageBox;
-use App\Model\SensitiveWord;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Article;
+use App\Models\MessageBox;
+use App\Facades\CacheModel;
+use App\Models\SensitiveWord;
 use Tests\Traits\Feature\Comment\GetReplyTrait;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Traits\Feature\Comment\LeaveMessageTrait;
@@ -86,7 +84,7 @@ class CommentTest extends TestCase
 
         // 测试生成的通知 
         // 都是自己的评论，不进行通知
-        $notifications = MessageBox::selectRaw('count(id) as count')->where('type', 'App\Model\Comment')->get()[0];
+        $notifications = MessageBox::selectRaw('count(id) as count')->where('type', 'comment')->get()[0];
         $this->assertEquals(0, $notifications->count);
     }
 
@@ -122,13 +120,13 @@ class CommentTest extends TestCase
         $this->assertEquals(2, $rootCommentCommented);
 
         // 测试生成的通知 
-        $notifications = MessageBox::selectRaw('count(id) as count')->where('type', 'App\Model\Comment')->get()[0];
+        $notifications = MessageBox::selectRaw('count(id) as count')->where('type', 'comment')->get()[0];
         $this->assertEquals(6, $notifications->count);
 
         // 同一个用户再次发表评论
         $response = $this->json('post', '/api/comment', $this->getPostData('comment', 'test', $comment->id));
         // 测试生成的通知 
-        $notifications = MessageBox::selectRaw('count(id) as count')->where('type', 'App\Model\Comment')->get()[0];
+        $notifications = MessageBox::selectRaw('count(id) as count')->where('type', 'comment')->get()[0];
         $this->assertEquals(6, $notifications->count);
     }
 
@@ -194,7 +192,7 @@ class CommentTest extends TestCase
     {
         $this->makeUser();
 
-        $this->article = factory(Article::class)->create([
+        $this->article = Article::factory()->create([
             'id' => 1,
             'user_id' => $this->user->id,
             'commented' => 0

@@ -1,6 +1,7 @@
 <?php
+namespace Database\Factories;
 
-use App\Model\FriendLink;
+use App\Models\FriendLink;
 use Faker\Generator as Faker;
 
 $factory->define(FriendLink::class, function (Faker $faker) {

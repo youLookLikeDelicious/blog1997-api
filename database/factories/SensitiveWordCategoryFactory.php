@@ -1,9 +1,10 @@
 <?php
+namespace Database\Factories;
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use Faker\Generator as Faker;
-use App\Model\SensitiveWordCategory;
+use App\Models\SensitiveWordCategory;
 
 $factory->define(SensitiveWordCategory::class, function (Faker $faker) {
     return [

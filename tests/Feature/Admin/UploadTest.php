@@ -4,9 +4,8 @@ namespace Tests\Feature\Admin;
 
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UploadTest extends TestCase
 {
@@ -33,7 +32,6 @@ class UploadTest extends TestCase
 
         // 获取返回的文件列表
         $urls = json_decode($response->getContent())->data;
-        dump($urls);
 
         Storage::assertExists($urls);
 

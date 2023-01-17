@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Jobs\GenerateSiteMap;
-use App\Model\SiteMap as Model;
+use App\Models\SiteMap as Model;
 
 class SiteMap
 {

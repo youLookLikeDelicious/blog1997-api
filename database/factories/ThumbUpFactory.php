@@ -1,13 +1,18 @@
 <?php
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Model\ThumbUp::class, function (Faker $faker) {
-    return [
-        'user_id' => rand(1, 10),
-        'able_id' => rand(1, 10),
-        'able_type' => 'App\Model\Article',
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+class ThumbUpFactory extends Factory
+{
+    public function definition()
+    {
+        return [
+            'user_id' => rand(1, 10),
+            'able_id' => rand(1, 10),
+            'able_type' => 'article',
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

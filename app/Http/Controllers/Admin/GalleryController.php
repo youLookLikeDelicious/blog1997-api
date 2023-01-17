@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Contract\Repository\Gallery;
 use App\Http\Controllers\Controller;
-use App\Model\Gallery as ModelGallery;
+use App\Models\Gallery as ModelGallery;
 use App\Http\Requests\UploadImageRequest;
 use App\Http\Requests\Admin\GalleryRequest;
 

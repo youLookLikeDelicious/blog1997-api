@@ -35,8 +35,7 @@ class XyThumbUp extends Migration
                 ->default(1)
                 ->comment('被点赞的次数');
                 
-            $table->enum('able_type', [addslashes('App\Model\Article'), addslashes('App\Model\Comment')])
-                ->comment('被评论的的模型');
+            $table->string('able_type', 45)->comment('被评论的的模型 article comment');
 
             $table->integer('to')
                 ->comment('收到赞的用户');

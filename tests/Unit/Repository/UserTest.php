@@ -2,15 +2,13 @@
 
 namespace Tests\Unit\Repository;
 
-use App\Model\Role;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Role;
 use App\Repository\User;
-use App\Model\SocialAccount;
-use App\Model\User as ModelUser;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\SocialAccount;
 use Illuminate\Http\Request;
+use App\Models\User as ModelUser;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
 {
@@ -55,7 +53,7 @@ class UserTest extends TestCase
     public function test_when_there_is_a_user()
     {
         
-        $user = factory(ModelUser::class)->create([
+        $user = ModelUser::factory()->create([
         ]);
             
         factory(SocialAccount::class)->create([
@@ -84,7 +82,7 @@ class UserTest extends TestCase
 
         $this->assertNull($user);
 
-        factory(ModelUser::class)->create([
+        ModelUser::factory()->create([
             'email' => $this->email
         ]);
 
@@ -93,45 +91,7 @@ class UserTest extends TestCase
 
         $this->assertNotNull($user);
     }
-
-    /**
-     * 测试获取管理员
-     * @group unit
-     *
-     * @return void
-     */
-    public function test_get_manager()
-    {
-        $repository = $this->getRepository();
-
-        // 当数据为空时,测试获取的数据
-        $request = new Request(['email' => $this->email]);
-        $managers = $repository->getManagers($request);
-
-        $this->assertEmpty($managers['records']);
-
-        // 添加用户
-        $user = factory(ModelUser::class)->create([
-            'email' => $this->email
-        ]);
-
-        // 测试没有管理员的情况
-        $request = new Request(['email' => $this->email]);
-        $managers = $repository->getManagers($request);
-        $this->assertEquals(0, $managers['records']->count());
-
-        // 添加角色
-        $role = factory(Role::class)->create([
-            'name' => 'role'
-        ]);
-
-        $user->roles()->sync([$role->id]);
-        // 测试有管理员的情况
-        $request = new Request(['email' => $this->email]);
-        $managers = $repository->getManagers($request);
-        $this->assertEquals(1, $managers['records']->count());
-    }
-
+    
     /**
      * 测试根据平台统计用户
      * @group unit

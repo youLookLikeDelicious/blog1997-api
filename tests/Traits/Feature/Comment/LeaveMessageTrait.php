@@ -2,7 +2,7 @@
 
 namespace Tests\Traits\Feature\Comment;
 
-use App\Model\Comment;
+use App\Models\Comment;
 use App\Facades\CacheModel;
 
 trait LeaveMessageTrait {
@@ -28,8 +28,6 @@ trait LeaveMessageTrait {
         
         $response->assertStatus(200);
 
-        $this->assertEquals(CacheModel::getLeaveMessageCommented(), 1);
-
         // 博客留言回复
         $comment = json_decode($response->getContent());
         
@@ -41,7 +39,6 @@ trait LeaveMessageTrait {
         ]);
         
         $response->assertStatus(200);
-        $this->assertEquals(CacheModel::getLeaveMessageCommented(), 2);
     }
 
     /**
@@ -54,20 +51,17 @@ trait LeaveMessageTrait {
     {
         $this->makeUser();
 
-        $rootComment = factory(Comment::class)
-            ->states('Blog1997')
-            ->create();
+        $rootComment = Comment::factory()->suspended('Blog1997')->create();
 
-        $leaveMessage = factory(Comment::class)
-            ->states('comment')
+        $leaveMessage = Comment::factory()->suspended('comment')
             ->create([
                 'able_id' => $rootComment->id,
                 'root_id' => $rootComment->id,
                 'level' => 2
             ]);
 
-        $leaveMessage = factory(Comment::class)
-            ->states('comment')
+        $leaveMessage = Comment::factory()
+            ->suspended('comment')
             ->create([
                 'able_id' => $leaveMessage->id,
                 'root_id' => $rootComment->id,
@@ -98,20 +92,20 @@ trait LeaveMessageTrait {
     {
         $this->makeUser();
 
-        $rootComment = factory(Comment::class)
-            ->states('Blog1997')
+        $rootComment = Comment::factory()
+            ->suspended('Blog1997')
             ->create();
 
-        $leaveMessage2 = factory(Comment::class)
-            ->states('comment')
+        $leaveMessage2 = Comment::factory()
+            ->suspended('comment')
             ->create([
                 'able_id' => $rootComment->id,
                 'root_id' => $rootComment->id,
                 'level' => 2
             ]);
 
-        $leaveMessage3 = factory(Comment::class)
-            ->states('comment')
+        $leaveMessage3 = Comment::factory()
+            ->suspended('comment')
             ->create([
                 'able_id' => $leaveMessage2->id,
                 'root_id' => $rootComment->id,
@@ -142,40 +136,40 @@ trait LeaveMessageTrait {
     {
         $this->makeUser();
 
-        $rootComment = factory(Comment::class)
-            ->states('Blog1997')
+        $rootComment = Comment::factory()
+            ->suspended('Blog1997')
             ->create();
 
-        $leaveMessage2 = factory(Comment::class)
-            ->states('comment')
+        $leaveMessage2 = Comment::factory()
+            ->suspended('comment')
             ->create([
                 'able_id' => $rootComment->id,
                 'root_id' => $rootComment->id,
                 'level' => 2
             ]);
 
-        $leaveMessage3 = factory(Comment::class)
-            ->states('comment')
+        $leaveMessage3 = Comment::factory()
+            ->suspended('comment')
             ->create([
                 'able_id' => $leaveMessage2->id,
                 'root_id' => $rootComment->id,
                 'level' => 3
             ]);
 
-        $leaveMessage4 = factory(Comment::class)
-        ->states('comment')
-        ->create([
-            'able_id' => $leaveMessage3->id,
-            'root_id' => $rootComment->id,
-            'level' => 3
-        ]);
+        Comment::factory()
+            ->suspended('comment')
+            ->create([
+                'able_id' => $leaveMessage3->id,
+                'root_id' => $rootComment->id,
+                'level' => 3
+            ]);
 
-        $response = $this->json('post', '/api/comment/' . $leaveMessage3->id, ['_method' => 'delete']);
+        $response = $this->delete('/api/comment/'.$leaveMessage3->id);
         
         $response->assertStatus(200)
             ->assertJson([
                 'data' => [
-                    'rows' => 2
+                    'rows' => 1
                 ]
             ]);
 

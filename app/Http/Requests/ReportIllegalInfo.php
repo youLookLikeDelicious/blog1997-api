@@ -10,11 +10,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class ReportIllegalInfo extends FormRequest
 {
     protected $filterStringService;
-
-    protected $typeMap = [
-        '1' => 'App\Model\Article',
-        '2' => 'App\Model\Comment'
-    ];
     
     /**
      * Determine if the user is authorized to make this request.
@@ -35,19 +30,19 @@ class ReportIllegalInfo extends FormRequest
     {
         $reportedIdRule = ['required', 'numeric'];
         switch ($this->type) {
-            case 1:
+            case 'article':
                 array_push($reportedIdRule, new Exists('article'));
             break;
-            case 2:
+            case 'comment':
                 array_push($reportedIdRule, new Exists('comment'));
             break;
         }
         
         return [
-            'sender'   => 'required|numeric',
-            'content'  => 'nullable|max:2100',
-            'type'     => 'required|numeric|in:1,2', // 1举报文章, 2举报评论 
-            'reported_id' => $reportedIdRule
+            'sender'        => 'required|numeric',
+            'content'       => 'nullable|max:2100',
+            'type'          => 'required|in:article,comment',
+            'reported_id'   => $reportedIdRule
         ];
     }
 
@@ -56,7 +51,7 @@ class ReportIllegalInfo extends FormRequest
      *
      * @return array
      */
-    protected function validationData()
+    public function validationData()
     {
         if (! is_numeric($this['reported_id'])) {
             $this->merge(['reported_id' => base64_decode($this['reported_id'])]);
@@ -78,8 +73,6 @@ class ReportIllegalInfo extends FormRequest
         $data = parent::validated();
 
         $data['receiver'] = -1;
-
-        $data['type'] = $this->typeMap[$data['type']];
 
         $data['content'] = trim($data['content'], ',');
 

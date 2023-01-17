@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Commands;
 
-use App\Model\Role;
+use App\Models\Role;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -20,7 +20,7 @@ class MasterCreateTest extends TestCase
     public function test_console_command()
     {
         // 创建一个Master 角色
-        factory(Role::class)->create([
+        Role::factory()->create([
             'name' => 'Master'
         ]);
 

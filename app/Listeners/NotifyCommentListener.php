@@ -2,15 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Model\Article;
-use App\Model\Comment;
-use App\Model\ThumbUp;
-use App\Model\MessageBox;
+use App\Models\Comment;
+use App\Models\MessageBox;
+use App\Contract\Repository\User;
 use App\Events\NotifyCommentEvent;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Contract\Repository\Comment as RepositoryComment;
-use App\Contract\Repository\User;
 
 class NotifyCommentListener implements ShouldQueue
 {
@@ -59,8 +56,8 @@ class NotifyCommentListener implements ShouldQueue
         foreach($receivers as $receiver) {
             $message = MessageBox::firstOrCreate([
                 'receiver' => $receiver,
-                'type' => 'App\Model\Comment',
-                'sender' => $comment->user_id,
+                'type'     => 'comment',
+                'sender'   => $comment->user_id,
                 'root_comment_id' => $rootCommentId
             ]);
 
@@ -78,7 +75,7 @@ class NotifyCommentListener implements ShouldQueue
     /**
      * Get receiver of notification
      *
-     * @param \App\Model\Comment $comment
+     * @param \App\Models\Comment $comment
      * @return array
      */
     protected function getReceiver($comment)
@@ -118,11 +115,11 @@ class NotifyCommentListener implements ShouldQueue
         switch ($comment->able_type) {
             case 'Blog1997':
                 return '留下了一些足迹';
-            case Comment::class:
+            case 'comment':
                 return '回复了相关内容';
-            case Article::class:
+            case 'article':
                 return '评论了您的文章';
-            case ThumbUp::class :
+            case 'thumbup':
                 return '点了个赞';
         }
     }

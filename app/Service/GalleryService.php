@@ -1,20 +1,17 @@
 <?php
 namespace App\Service;
 
-use App\Contract\Repository\Article;
 use App\Contract\Repository\Gallery;
+use App\Models\Article;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class GalleryService
 {
-    protected $article;
     protected $gallery;
 
-    public function __construct(Article $article, Gallery $gallery)
+    public function __construct(Gallery $gallery)
     {
-        $this->article = $article;
-
         $this->gallery = $gallery;
     }
 
@@ -25,14 +22,29 @@ class GalleryService
      */
     public function calculateGalleryId()
     {
-        $galleryId = $this->article->getNewestArticleGalleryId();
+        $galleryId = $this->getNewestArticleGalleryId();
 
         $nextGallery = $this->gallery->next($galleryId);
 
         $first = $this->gallery->first();
         
-        return $nextGallery ? $nextGallery->id : 
-            ($first ? $first->id : 1);
+        return $nextGallery
+            ? $nextGallery->id
+            : ($first ? $first->id : 1);
+    }
+
+    /**
+     * 获取最新的文章
+     *
+     * @return int
+     */
+    protected function getNewestArticleGalleryId()
+    {
+        $article = Article::select('gallery_id', 'created_at')
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        return $article ? ($article->gallery_id ?: 0) : 0;
     }
 
     /**

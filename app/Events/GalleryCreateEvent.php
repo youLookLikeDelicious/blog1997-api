@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Model\Gallery;
+use App\Models\Gallery;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;

@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use Illuminate\Support\Facades\Log;
-use App\Model\SensitiveWordCategory;
+use App\Models\SensitiveWordCategory;
 use App\Events\SensitiveWordBatchInsert as Event;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

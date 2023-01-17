@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Role;
+use App\Models\Role;
 use Illuminate\Support\Facades\DB;
 use App\Contract\Repository\Role as Repository;
 use App\Http\Controllers\Controller;
@@ -106,7 +106,7 @@ class RoleController extends Controller
      * @bodyParam authorities.* int  required 权限id
      * @responseFile response/admin/role/update.json
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Role  $role
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
     public function update(RoleRequest $request, Role $role)
@@ -130,7 +130,7 @@ class RoleController extends Controller
      * 
      * @urlParam role 角色ID
      * @responseFile response/admin/role/destroy.json
-     * @param  \App\Model\Role  $role
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
     public function destroy(Role $role)

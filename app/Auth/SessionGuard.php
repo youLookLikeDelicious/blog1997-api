@@ -1,7 +1,7 @@
 <?php
 namespace App\Auth;
 
-use App\Model\Role;
+use App\Models\Role;
 use Illuminate\Auth\SessionGuard as AuthSessionGuard;
 
 /**

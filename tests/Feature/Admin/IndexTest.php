@@ -2,12 +2,11 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Model\Article;
-use App\Model\MessageBox;
-use App\Model\Topic;
-use App\Model\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
+use App\Models\Topic;
+use App\Models\Article;
+use App\Models\MessageBox;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class IndexTest extends TestCase
@@ -44,40 +43,39 @@ class IndexTest extends TestCase
     {
         $this->makeUser('author');
         // 模拟专题-------------------------------------------------------------
-        factory(Topic::class)->create([
+        Topic::factory()->create([
             'id' => 2
         ]);
-        factory(Topic::class)->create([
+        Topic::factory()->create([
             'id' => 3
         ]);
-        factory(Topic::class)->create([
+        Topic::factory()->create([
             'id' => 5
         ]);
         // 模拟文章数据----------------------------------------------------------
-        factory(Article::class, 3)->create([
+        Article::factory()->count(3)->create([
             'topic_id' => 2
         ]);
 
-        factory(Article::class, 9)->create([
+        Article::factory()->count(9)->create([
             'topic_id' => 3
         ]);
 
-        factory(Article::class, 10)->create([
+        Article::factory()->count(10)->create([
             'topic_id' => 5
         ]);
 
         // 模拟用户数据--------------------------------------------------------
-        factory(User::class, 10)->create();
-        factory(User::class, 12)->create();
+        User::factory()->count(12)->create();
 
         // 模拟举报信息--------------------------------------------------------
-        factory(MessageBox::class)->create([
-            'type' => 'App\Model\Comment',
+        MessageBox::factory()->create([
+            'type' => 'comment',
             'receiver' => '-1'
         ]);
 
-        factory(MessageBox::class, 10)->create([
-            'type' => 'App\Model\Article',
+        MessageBox::factory()->count(10)->create([
+            'type' => 'article',
             'receiver' => '-1'
         ]);
 
@@ -93,8 +91,8 @@ class IndexTest extends TestCase
                         ['count' => 10, 'topic_id' => 5],
                     ],
                     'illegalInfo' => [
-                        ['count' => 1, 'type' => 'App\Model\Comment'],
-                        ['count' => 10, 'type' => 'App\Model\Article'],
+                        ['count' => 10, 'type' => 'article'],
+                        ['count' => 1, 'type' => 'comment'],
                     ]
                 ]
             ]);

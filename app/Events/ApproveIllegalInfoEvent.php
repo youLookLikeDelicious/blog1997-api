@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Model\MessageBox;
+use App\Models\MessageBox;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -18,7 +18,7 @@ class ApproveIllegalInfoEvent
     /**
      * 邮箱模型
      *
-     * @var App\Model\MessageBox
+     * @var App\Models\MessageBox
      */
     public $mailbox;
 

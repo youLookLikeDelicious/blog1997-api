@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Model\Comment;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CommentPost;
@@ -31,14 +31,14 @@ class CommentController extends Controller
      */
     public function store (CommentPost $request)
     {
-        // 验证字段
         $data = $request->validated();
-        
+
         $newComment = DB::transaction(function () use ($data) {
 
             $newComment = Comment::create($data);
             
             $newComment['replies'] = [];
+            $newComment['liked'] = 0;
 
             return $newComment;
         });
