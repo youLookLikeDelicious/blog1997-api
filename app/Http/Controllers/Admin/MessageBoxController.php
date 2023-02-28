@@ -64,7 +64,6 @@ class MessageBoxController extends Controller
                 'operate' => 'approve'
             ]);
             event(new ApproveIllegalInfoEvent($mailbox));
-            
         }); 
 
         return response()->success('', '审批成功');

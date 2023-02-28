@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Resources\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class AuthorizeController extends Controller
 {
@@ -13,11 +14,11 @@ class AuthorizeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function currentUser ()
+    public function currentUser (Request $request)
     {
-        $user = Auth::user();
-        
-        if (Auth::user()) {
+        $user = $request->user();
+
+        if ($user) {
             return response()->success(new User($user) ?? []);
         }
 
@@ -31,6 +32,6 @@ class AuthorizeController extends Controller
      */
     public function getCsrfToken()
     {
-        return response()->success(session()->token());
+        return response()->success([]);
     }
 }

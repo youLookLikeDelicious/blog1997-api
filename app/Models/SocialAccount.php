@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class SocialAccount extends Model
 {
+    const TYPE_MAP = [
+        1 => '微信',
+        2 => 'github',
+        3 => 'QQ'
+    ];
+
     /**
      * The table associated with the model.
      *
@@ -35,5 +41,15 @@ class SocialAccount extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * 获取第三方账号类型文本
+     *
+     * @return string
+     */
+    public function getTypeTextAttribute()
+    {
+        return static::TYPE_MAP[$this->type];
     }
 }

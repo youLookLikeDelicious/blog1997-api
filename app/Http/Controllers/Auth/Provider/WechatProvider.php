@@ -2,7 +2,6 @@
 namespace App\Http\Controllers\Auth\Provider;
 
 use App\Service\CurlService;
-use App\Http\Resources\User as UserResource;
 use App\Http\Controllers\Auth\Exception\ConnectionException;
 
 class WechatProvider extends ProviderAbstract implements ProviderInterface

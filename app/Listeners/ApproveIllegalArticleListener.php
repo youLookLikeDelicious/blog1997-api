@@ -41,9 +41,11 @@ class ApproveIllegalArticleListener
         // 如果文章已被清理
         if ($mailbox->type === 'article' && !$this->articleBackup->exists($mailbox->reported_id)) {
 
-            $article = Article::findOrFail($mailbox->reported_id);
+            $article = Article::find($mailbox->reported_id);
 
-            $article->delete();
+            if ($article) {
+                $article->delete();
+            }
         }
     }
 }

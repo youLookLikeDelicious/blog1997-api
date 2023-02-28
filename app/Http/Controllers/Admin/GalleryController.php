@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Gallery as ModelGallery;
 use App\Http\Requests\UploadImageRequest;
 use App\Http\Requests\Admin\GalleryRequest;
+use App\Models\Album;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @group Gallery management
@@ -65,9 +67,9 @@ class GalleryController extends Controller
      */
     public function store(UploadImageRequest $request, Gallery $gallery)
     {        
-        $gallery->store($request);
+        $album = $gallery->store($request);
 
-        return response()->success('', '图片上传成功');
+        return response()->success(['album_id' => $album->id], '图片上传成功');
     }
 
     public function update(GalleryRequest $request, ModelGallery $gallery)
@@ -105,6 +107,34 @@ class GalleryController extends Controller
     public function destroy(ModelGallery $gallery)
     {
         $gallery->delete();
+
+        return response()->success('', '图片删除成功');
+    }
+
+    /**
+     * 批量啥是昵称
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function batchDelete(Request $request)
+    {
+        $data = $request->validate([
+            'ids'       => 'required|min:1',
+            'ids.*'     => 'integer',
+            'album_id'  => 'required'
+        ]);
+
+        DB::transaction(function () use ($data) {
+            $album = Album::findOrFail($data['album_id']);
+            if (in_array($album->gallery_id, $data['ids'])) {
+                $album->load(['galleries' => fn ($q) => $q->orderBy('id', 'desc')->whereNotIn('gallery_id', $data['ids'])->limit(1)]);
+                $galleries = $album->galleries->first();
+                $album->update(['gallery_id' => $galleries ? $galleries->id : 0]);
+            }
+            
+            $album->galleries()->detach($data['ids']);
+        });
 
         return response()->success('', '图片删除成功');
     }

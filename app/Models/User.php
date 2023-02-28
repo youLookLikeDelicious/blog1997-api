@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\VerifyEmailNotification;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, HasFactory;
+    use Notifiable, HasFactory, HasApiTokens;
     
     /**
      * The number of models to return for pagination.

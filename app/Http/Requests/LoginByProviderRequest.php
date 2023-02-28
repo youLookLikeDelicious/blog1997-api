@@ -24,7 +24,23 @@ class LoginByProviderRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'nullable|in:wechat,github,qq'
+            'type' => 'nullable|in:wechat,github,qq,weixinMini'
         ];
+    }
+
+    /**
+     * Get validated data
+     *
+     * @return array
+     */
+    public function validated()
+    {
+        $data = parent::validated();
+
+        if (!$data['type']) {
+            $data['type'] = 'github';
+        }
+
+        return $data;
     }
 }

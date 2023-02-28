@@ -117,6 +117,7 @@ return [
     'url' => ':attribute 格式无效.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
+    'captcha_api' => '验证码错误',
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -132,7 +133,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-        'captcha.captcha' => '验证码错误'
+        'captcha.captcha' => '验证码错误',
     ],
 
     /*

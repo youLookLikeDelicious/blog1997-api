@@ -41,7 +41,7 @@ interface Gallery {
      * 上传图片
      *
      * @param \App\Http\Requests\UploadImageRequest $request
-     * @return void
+     * @return \App\Models\Album
      */
     public function store($request);
 

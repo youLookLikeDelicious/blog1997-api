@@ -13,17 +13,19 @@
         "facade/ignition": "^2.3.6",
         "fideloper/proxy": "^4.0",
         "fruitcake/laravel-cors": "^3.0",
+        "guzzlehttp/guzzle": "^7.5",
         "intervention/image": "^2.5",
         "laravel/framework": "^8.0",
         "laravel/legacy-factories": "^1.3",
+        "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "^3.0",
         "mews/captcha": "^3.2",
         "orangehill/iseed": "^3.0",
         "predis/predis": "^1.1",
         "scrivo/highlight.php": "v9.18.1.6",
         "swiftmailer/swiftmailer": "^6.0",
-        "tymon/jwt-auth": "^1.0",
-        "laravel/ui": "^3.0"
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

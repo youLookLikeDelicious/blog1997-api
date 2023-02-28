@@ -22,7 +22,7 @@ class Manual implements RepositoryManual
             $query->whereRaw("MATCH(name, summary) AGAINST ('+{$name}*' IN BOOLEAN MODE)");
         }
 
-        $data = $query->paginate($request->input('perPage'));
+        $data = $query->paginate($request->input('perPage', 10));
 
         return new CommonCollection($data);
     }

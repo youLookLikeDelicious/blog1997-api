@@ -241,5 +241,9 @@ return [
     // 高德地图密钥
     'gmap_key' => env('GMAP_KEY'),
     // 百度api推送token
-    'baiduToken' => env('BAIDU_TOKEN', '')
+    'baiduToken' => env('BAIDU_TOKEN', ''),
+
+    // 小程序配置
+    'weixin_mini_app_id' => env('WEIXIN_MINI_APP_ID', ''),
+    'weixin_mini_secret' => env('WEIXIN_MINI_SECRET', '')
 ];

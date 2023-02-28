@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     
     public $dateFormat = 'U';
     
@@ -92,9 +93,19 @@ class Comment extends Model
         return $this->morphMany('App\Models\Comment', 'able');
     }
 
+    /**
+     * 获取回复
+     *
+     * @return void
+     */
     public function replies()
     {
         return $this->hasMany(self::class, 'root_id', 'id')->with('user:id,name,avatar');
+    }
+
+    public function thumb()
+    {
+        return $this->morphOne(ThumbUp::class, 'able');
     }
 
     /**

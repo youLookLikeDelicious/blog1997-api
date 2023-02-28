@@ -72,7 +72,7 @@ class ImageController extends Controller
         $name = str_replace($preExit, '', $name);
 
         // 如果客户端支持webp
-        if ($request->header('Support-Webp') === 'no') {
+        if ($request->header('Support-Webp') === 'no' || $request->input('origin')) {
             $ext = $preExit;
         }
 

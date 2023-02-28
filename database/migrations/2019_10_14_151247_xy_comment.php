@@ -82,6 +82,8 @@ class XyComment extends Migration
                 ->default(0)
                 ->comment('更新时间');
 
+            $table->unsignedBigInteger('deleted_at')->nullable()->default(null);
+            
             $table->index('able_id');
             $table->index('able_type');
             $table->index('root_id');

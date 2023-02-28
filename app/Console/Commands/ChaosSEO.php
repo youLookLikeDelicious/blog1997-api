@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use Exception;
 use App\Models\SiteMap;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -122,14 +121,19 @@ class ChaosSEO extends Command
         }
 
         // 创建 sitemap_index文件
-        file_put_contents($this->getFile('sitemap.xml'), $this->sitemapXML);
+        $filename = $this->getFile('sitemap.xml');
+        file_put_contents($filename, $this->sitemapXML);
+        chmod($filename, 0666);
 
         // 创建 sitemap_index xsl文件
-        file_put_contents($this->getFile('sitemap.xsl'), $this->sitemapXSL);
-
+        $filename = $this->getFile('sitemap.xsl');
+        file_put_contents($filename, $this->sitemapXSL);
+        chmod($filename, 0666);
 
         // 创建sitemap_2.xsl 样式文件
-        file_put_contents($this->getFile('sitemap_2.xsl'), $this->sitemapXSL2);
+        $filename = $this->getFile('sitemap_2.xsl');
+        file_put_contents($filename, $this->sitemapXSL2);
+        chmod($filename, 0666);
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Facades\CacheModel;
 use App\Models\Comment as Model;
 use App\Http\Resources\CommonCollection;
 use App\Contract\Repository\Comment as RepositoryComment;
+use Illuminate\Support\Facades\Auth;
 
 class Comment implements RepositoryComment
 {
@@ -35,7 +36,12 @@ class Comment implements RepositoryComment
             ->where('able_id', $ableId)
             ->where('able_type', $ableType)
             ->where('level', 1)
-            ->where('verified', 'yes');
+            ->where('verified', 'yes')
+            ->orderBy('created_at', 'desc');
+
+        if ($user = Auth::user()) {
+            $commentQuery->withCount(['thumb' => fn ($q) => $q->where('user_id', $user->id)]);
+        }
 
         // 返回的分页数据
         $paginator = $commentQuery->paginate(request()->input('perPage', 10));
@@ -64,16 +70,20 @@ class Comment implements RepositoryComment
      */
     public function getReply($rootId, $offset = 0)
     {
-        $comment = $this->model
+        $query = $this->model
             ->with(['user:id,name,avatar', 'receiver:id,name,avatar'])
-            ->select(['comment.id', 'user_id', 'liked', 'content', 'commented', 'reply_to', 'root_id', 'level'])
+            ->with('commentable', fn ($q) => $q->where('id', '<>', $rootId)->with(['user:id,name,avatar', 'receiver:id,name,avatar']))
+            ->select(['comment.id', 'user_id', 'liked', 'content', 'commented', 'reply_to', 'root_id', 'level', 'created_at', 'able_id', 'able_type'])
             ->where('root_id', $rootId)
-            ->where('level', '!=', '1')
-            ->limit(10)
+            ->where('level', '!=', '1');
+
+        $total = (clone $query)->count();
+
+        $comment = $query->limit(10)
             ->offset($offset)
             ->get();
-
-        return $comment->toArray();
+        
+        return [$comment, $total];
     }
 
     /**

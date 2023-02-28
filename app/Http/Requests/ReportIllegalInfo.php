@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Traits\DecodeParam;
+use App\Models\Comment;
 use App\Rules\Exists;
 use App\Service\FilterStringService;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ReportIllegalInfo extends FormRequest
 {
@@ -39,8 +40,8 @@ class ReportIllegalInfo extends FormRequest
         }
         
         return [
-            'sender'        => 'required|numeric',
             'content'       => 'nullable|max:2100',
+            'reason'        => 'required',
             'type'          => 'required|in:article,comment',
             'reported_id'   => $reportedIdRule
         ];
@@ -74,7 +75,17 @@ class ReportIllegalInfo extends FormRequest
 
         $data['receiver'] = -1;
 
-        $data['content'] = trim($data['content'], ',');
+        if ($data['type'] === 'article') {
+            $content = '//'.$this->server('HTTP_HOST').'/article/'.base64_encode($data['reported_id']);
+        } else {
+            $content = Comment::select('id', 'content')->find($data['reported_id'])->content;
+        }
+
+        $data['content'] = "$content,{$data['reason']},{$data['content']}";
+
+        $data['sender'] = Auth::id();
+
+        unset($data['reason']);
 
         return $data;
     }

@@ -7,6 +7,7 @@ use App\Contract\Repository\Article;
 use App\Http\Controllers\Controller;
 use App\Contract\Repository\Comment;
 use App\Contract\Repository\FriendLink;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -55,5 +56,18 @@ class IndexController extends Controller
         $result = $friendLink->all();
 
         return response()->success($result);
+    }
+
+    /**
+     * Aet all tags
+     * 获取所有标签
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tags()
+    {
+        $tags = Tag::where('user_id', 0)->get();
+
+        return response()->success($tags);
     }
 }

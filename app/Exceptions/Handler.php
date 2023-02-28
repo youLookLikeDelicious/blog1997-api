@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Psr\Log\LoggerInterface;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -11,6 +12,7 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
+
 class Handler extends ExceptionHandler
 {
     /**

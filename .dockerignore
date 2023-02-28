@@ -24,4 +24,4 @@ coverage.xml
 storage/*sql_log.txt
 rsa_1024_priv.pem
 cypress/
-./storage/logs/
+./storage/logs/*.log

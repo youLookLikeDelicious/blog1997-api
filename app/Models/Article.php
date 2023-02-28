@@ -80,9 +80,9 @@ class Article extends ArticleBase
     {
         $with = ['author:id,name,avatar', 'gallery:id,url,thumbnail'];
 
-        if (Auth::id()) {
-            $with['thumbs'] = function ($query) {
-                $query->select('id', 'able_id')->where('user_id', Auth::id());
+        if ($id = Auth::id()) {
+            $with['thumbs'] = function ($query) use ($id) {
+                $query->select('id', 'able_id')->where('user_id', $id);
             };
         }
 

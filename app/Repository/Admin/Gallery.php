@@ -7,6 +7,7 @@ use App\Facades\Upload;
 use App\Http\Resources\CommonCollection;
 use App\Models\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Gallery implements RepositoryGallery
 {
@@ -45,7 +46,7 @@ class Gallery implements RepositoryGallery
 
         $galleryQuery = $this->buildQuery($request);
 
-        $data = new CommonCollection($galleryQuery->paginate($request->input('perPage')));
+        $data = new CommonCollection($galleryQuery->paginate($request->input('perPage', 10)));
 
         return $data;
     }
@@ -128,6 +129,8 @@ class Gallery implements RepositoryGallery
     public function next(int $id)
     {
         $gallery = $this->gallery
+            ->withTrashed()
+            ->where('user_id', auth()->id())
             ->where('id', '>', $id)
             ->where('is_cover', 'no')
             ->first();
@@ -151,27 +154,33 @@ class Gallery implements RepositoryGallery
      * 上传图片
      *
      * @param \App\Http\Requests\UploadImageRequest $request
-     * @return void
+     * @return \App\Models\Album
      */
     public function store($request)
     {
         $data = $request->validated();
 
+        $userId =  Auth::id();
+
         // 开始上传
         $fileList = Upload::uploadImage($data['files'], 'gallery', null, null, false)
             ->createThumbnail('240')
             ->getFileList(false, true)
-            ->map(function ($item) {
+            ->map(function ($item) use ($userId) {
+                $item['user_id'] = $userId;
                 return new ModelGallery($item);
             });
 
-        $album = Album::firstOrCreate(['name' => $data['album']]);
+        $album = Album::firstOrCreate(['name' => $data['album'], 'user_id' => $userId]);
+        $album->refresh();
         $galleries = $album->galleries()->saveMany($fileList);
         
         // 更新相册封面
         if ($album->gallery_is_auto === 1) {
             $album->update([ 'gallery_id' => $galleries->last()->id ]);
         }
+
+        return $album;
     }
 
     /**
@@ -192,7 +201,7 @@ class Gallery implements RepositoryGallery
      */
     public function albumList($request)
     {
-        $albums = $this->buildAlbumQuery($request)->paginate($request->input('perPage'));
+        $albums = $this->buildAlbumQuery($request)->withCount('galleries as total')->paginate($request->input('perPage'));
 
         return new CommonCollection($albums);
     }

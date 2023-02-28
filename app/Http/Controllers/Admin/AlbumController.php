@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Contract\Repository\Gallery;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AlbumRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AlbumController extends Controller
 {
@@ -30,7 +31,9 @@ class AlbumController extends Controller
      */
     public function store(AlbumRequest $request)
     {
-        Album::create($request->validated());
+        $data = $request->validated();
+        $data['user_id'] = Auth::id();
+        Album::create();
         
         return response()->success('', '添加成功');
     }

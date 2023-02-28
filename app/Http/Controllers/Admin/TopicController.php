@@ -94,4 +94,19 @@ class TopicController extends Controller
 
         return response()->success('', '专题删除成功');
     }
+
+    /**
+     * Get all topics
+     * 
+     * 获取全部专题
+     *
+     * @return void
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
+    {
+        $topics = Topic::where('user_id', 1)->get();
+
+        return response()->success($topics);
+    }
 }

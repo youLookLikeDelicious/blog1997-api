@@ -2,12 +2,12 @@
 
 namespace App\Repository\Home;
 
-use App\Facades\Page;
 use App\Repository\Comment;
 use App\Facades\CacheModel;
 use App\Models\Article as ArticleModel;
 use App\Contract\Repository\Article as RepositoryArticle;
 use App\Contract\Repository\Tag;
+use App\Facades\HighLightHtml;
 use App\Http\Resources\CommonCollection;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -53,44 +53,36 @@ class Article implements RepositoryArticle
      */
     public function find($id): array
     {
-        $id = $this->decodeArticleId($id);
-        $seconds = getCacheSeconds(60 + mt_rand(0, 100));
+        $id       = $this->decodeArticleId($id);
+        $seconds  = getCacheSeconds(60 + mt_rand(0, 100));
+        $isWechat = request('wechat') ?: '';
 
-        $articleRecord = Cache::remember('article-' . $id, $seconds, function () use ($id) {
-            return $this->article
+        $articleRecord = Cache::remember("article-$id-$isWechat", $seconds, function () use ($id, $isWechat) {
+            $article =  $this->article
                 ->withAuthorAndGalleryAndThumbs()
                 ->with('tags:id,name')
                 ->selectRaw('id, content, user_id, title, gallery_id, visited, commented, liked, created_at, is_markdown, updated_at')
                 ->where('id', $id)
                 ->where('is_draft', 'no')
                 ->first();
+
+            if ($isWechat) {
+                $article->content = HighLightHtml::make($article->content, $article->is_markdown === 'yes');
+            }
+
+            return $article;
         });
 
         if (!$articleRecord) {
             throw new ModelNotFoundException;
         }
+        
+        $this->syncArticleCache(collect([$articleRecord]));
 
-        $articleRecord->makeHidden(['id'])
-            ->append('identity');
-
+        $articleRecord->makeHidden(['id'])->append('identity');
+        
         $articleRecord = $articleRecord->toArray();
-
         $articleRecord['thumbs'] = !empty($articleRecord['thumbs']);
-
-        // 获取点赞的数量
-        if ($cachedLiked = CacheModel::getArticleLiked($id)) {
-            $articleRecord['liked'] += $cachedLiked;
-        }
-
-        // 获取访问量
-        if ($cachedVisited = CacheModel::getArticleVisited($id)) {
-            $articleRecord['visited'] += $cachedVisited;
-        }
-
-        // 获取评论的数量
-        if ($cachedCommented = CacheModel::getArticleCommented($id)) {
-            $articleRecord['commented'] += $cachedCommented;
-        }
 
         $result = [
             'article' => $articleRecord,
@@ -121,7 +113,7 @@ class Article implements RepositoryArticle
      * 
      * @param Request $request
      * 
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \App\Http\Resources\CommonCollection
      */
     public function all(Request $request)
     {
@@ -131,6 +123,8 @@ class Article implements RepositoryArticle
         $articleQuery = $this->buildGetAllArticleQuery($request);
 
         $result = $articleQuery->paginate($request->input('perPage', 10));
+        
+        $this->syncArticleCache($result);
 
         $result->makeHidden(['id']);
 
@@ -148,9 +142,9 @@ class Article implements RepositoryArticle
     {
         $request->validate([
             'order_by' => 'sometimes|in:visit,commented,new,mixed',
-            'tag_id' => 'sometimes|integer|min:1',
+            'tag_id' => 'sometimes',
             'limit' => 'sometimes|required|numeric|max:20',
-            'keyword' => 'sometimes|required'
+            'keyword' => 'sometimes'
         ]);
     }
 
@@ -260,6 +254,31 @@ class Article implements RepositoryArticle
             ->first();
 
         return $result->count ?? 0;
+    }
+
+    /**
+     * 同步文章相关的缓存数据
+     *
+     * @return void
+     */
+    protected function syncArticleCache($articles)
+    {
+        $articles->each(function ($article) {
+            // 获取点赞的数量
+            if ($cachedLiked = CacheModel::getArticleLiked($article->id)) {
+                $article['liked'] += $cachedLiked;
+            }
+
+            // 获取访问量
+            if ($cachedVisited = CacheModel::getArticleVisited($article->id)) {
+                $article['visited'] += $cachedVisited;
+            }
+
+            // 获取评论的数量
+            if ($cachedCommented = CacheModel::getArticleCommented($article->id)) {
+                $article['commented'] += $cachedCommented;
+            }
+        });
     }
 
     /**

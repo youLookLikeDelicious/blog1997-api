@@ -108,7 +108,19 @@ class CommentObserver
                     break;
                 case 'comment':
                     // 删除评论的回复
-                    CacheModel::decrementCommentCommented($comment->deleteCommentedNum);
+                    CacheModel::decrementCommentCommented($comment->able_id, $comment->deleteCommentedNum);
+                    
+                    if ($comment->level == 3) {
+                        CacheModel::decrementCommentCommented($comment->root_id, $comment->deleteCommentedNum);
+                        $rootComment = Comment::withTrashed()->find($comment->root_id);
+
+                        if ($rootComment->able_type === 'article') {
+                            CacheModel::decrementArticleCommented($rootComment->able_id, $comment->deleteCommentedNum);
+                        } else {
+                            CacheModel::decrementLeaveMessageCommented($comment->deleteCommentedNum);
+                        }
+                    }
+
                     Comment::where('able_id', $comment->id)->delete();
                     break;
                 case 'Blog1997'::class:

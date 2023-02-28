@@ -11,14 +11,17 @@
 */
 
 // 登录登出接口
+
+use Mews\Captcha\CaptchaController;
+
 Route::group(['namespace' => 'Auth'], function () {
-    Route::post('/oauth/authorize', 'LoginController@loginByProvider');  // 登录
-    Route::post('/auth/login', 'LoginController@login');  // 登录
+    Route::post('/oauth/authorize', 'LoginController@loginByProvider')->middleware('web');  // 登录
+    Route::post('/auth/login', 'LoginController@login')->middleware('web');  // 登录
     Route::any('/oauth/currentUser', 'AuthorizeController@currentUser');
     Route::post('/oauth/logout', 'LoginController@logout');
     Route::put('/auth/manager/{manager}', 'ManagerRegisterController@update')->name('manager.inti.password');
     Route::post('/oauth/sign-up', 'SignUpController@store');
-    Route::get('/csrf', 'AuthorizeController@getCsrfToken');
+    Route::get('/csrf', 'AuthorizeController@getCsrfToken')->middleware('web');
 });
 
 /**
@@ -60,8 +63,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
             ->only(['index', 'store', 'destroy', 'update']);
             
         Route::get('/gallery/all', 'GalleryController@all');
-        Route::resource('gallery', 'GalleryController')
-            ->only(['index', 'store', 'destroy', 'show', 'update']);
+        Route::resource('gallery', 'GalleryController')->only(['index', 'store', 'destroy', 'show', 'update']);
+        Route::delete('/gallery', 'GalleryController@batchDelete');
 
 
         // 友链相关的操作
@@ -139,8 +142,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     });
 });
 
-// 用户里列表 以及相关的操作
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+// 用户列表 以及相关的操作
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:sanctum'], function () {
     // 获取全部用户
     Route::get('/user', 'UserController@index')->name('user.index');
     Route::put('/user/freeze/{user}', 'UserController@freeze')->name('user.freeze');
@@ -149,7 +152,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 });
 
 // 更新账号信息
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/user/update/{user}', 'UserController@update')
         ->name('user.update');
     Route::post('/user/bind', 'UserController@bind')
@@ -168,7 +171,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['namespace' => 'Home'], function () {
     // 需要用户权限的接口
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::resource('comment', 'CommentController')
             ->only(['destroy', 'store']);
 
@@ -195,12 +198,12 @@ Route::group(['namespace' => 'Home'], function () {
 
         // 获取评论
         // 评论相关操作
-        Route::get('/comment/reply/{rootId}/{offset}', 'CommentController@getReply')
-            ->where('offset', '[1-9]\d*');
+        Route::get('/comment/reply/{rootId}/{offset?}', 'CommentController@getReply')
+            ->where('offset', '\d*');
         Route::post('/article/comments/{articleId}', 'ArticleController@comments');
 
         // 获取文章列表
-        Route::match(['post', 'get'], '/article/search', 'ArticleController@all');
+        Route::match(['post', 'get'], '/article/search', 'ArticleController@index');
 
         // 文章详情
         Route::get('/article/{articleId}', 'ArticleController@find')
@@ -209,13 +212,15 @@ Route::group(['namespace' => 'Home'], function () {
         // 获取博客留言
         Route::get('/leave-message', 'LeaveMessageController@index')
             ->middleware('sitemap:0.8,weekly,1');
-        
         });
-    });
+
+        // 获取所有的标签
+        Route::get('/tag/all', 'IndexController@tags');
+});
+    
+Route::get('/topic/all', 'Admin\TopicController@all');
     
 Route::group(['middleware' => 'x-session'], function () {
     Route::get('/user/verify', 'Auth\SignUpController@verify')->name('user.verify');
-    Route::get('/captcha', function () {
-        return captcha();
-    });
 });
+Route::get('/captcha', [CaptchaController::class, 'getCaptchaApi']);

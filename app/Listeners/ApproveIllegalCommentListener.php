@@ -39,8 +39,9 @@ class ApproveIllegalCommentListener
         if ($mailbox->type === 'comment' && $this->repository->isEmpty($mailbox->reported_id)) {
 
             // 如果是违规的评论，将评论的内容替换
-            $comment = Comment::select(['id', 'content'])
-                ->findOrFail($mailbox->reported_id);
+            $comment = Comment::select(['id', 'content'])->find($mailbox->reported_id);
+
+            if (!$comment) return;
     
             // 备份违规的评论
             IllegalComment::create([

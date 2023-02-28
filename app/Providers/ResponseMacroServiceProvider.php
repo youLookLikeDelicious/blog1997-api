@@ -15,11 +15,12 @@ class ResponseMacroServiceProvider extends ServiceProvider
     public function boot()
     {
         // 成功的response
-        Response::macro('success', function ($data = '', $message = 'success') {
+        Response::macro('success', function ($data = '', $message = 'success', $meta = []) {
             return response([
                 'status'  => 'success',
                 'message' => $message,
-                'data'    => $data
+                'data'    => $data,
+                'meta'    => $meta
             ]);
         });
         // 失败的response

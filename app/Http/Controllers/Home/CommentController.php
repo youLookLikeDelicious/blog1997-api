@@ -39,12 +39,23 @@ class CommentController extends Controller
             
             $newComment['replies'] = [];
             $newComment['liked'] = 0;
+            $newComment['commented'] = 0;
 
             return $newComment;
         });
         
-        $newComment->load(['user:id,name,avatar', 'receiver:id,name,avatar']);
-        $newComment->makeHidden(['verified', 'article_id', 'able_type']);
+        $newComment->load([
+            'user:id,name,avatar',
+            'receiver:id,name,avatar'
+        ]);
+
+        if ($request->type === 'comment') {
+            $newComment->load([
+                'commentable' => fn ($q) => $q->with(['user:id,name,avatar', 'receiver:id,name,avatar'])
+            ]);
+        }
+        
+        $newComment->makeHidden(['verified', 'article_id']);
         
         return response()->success($newComment, '评论成功');
     }
@@ -63,9 +74,9 @@ class CommentController extends Controller
      */
     public function getReply (CommentRepository $comment, $rootId, int $offset = 0)
     {
-        $comment = $comment->getReply($rootId, $offset);
+        [$comment, $total] = $comment->getReply($rootId, $offset);
 
-        return response()->success($comment);
+        return response()->success($comment, 'success', ['total' => $total]);
     }
 
     /**
@@ -81,21 +92,8 @@ class CommentController extends Controller
      */
     public function destroy (Comment $comment)
     {
-        // 获取被删除的记录信息
-        // root_id 字段在observer中使用
-        $data = [];
+        DB::transaction(fn() => $comment->delete());
 
-        DB::transaction(function () use ($comment, &$data) {
-            
-            $comment->delete();
-
-            // 生成返回的数据
-            $data = [
-                'rows' => $comment->deleteCommentedNum
-            ];
-            
-        });
-
-        return response()->success($data, '删除评论成功');
+        return response()->success(['rows' => $comment->deleteCommentedNum], '删除评论成功');
     }
 }

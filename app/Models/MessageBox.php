@@ -10,6 +10,11 @@ class MessageBox extends Model
 {
     use SoftDeletes, HasFactory;
 
+    const TYPE_MAP = [
+        'article' => '文章',
+        'comment' => '评论'
+    ];
+
     protected $table = 'message_box';
     protected $dateFormat = 'U';
     protected $guarded = [];
@@ -89,5 +94,15 @@ class MessageBox extends Model
     public function getHaveReadNameAttribute()
     {
         return $this->have_read === 'yes' ? '已读' : '未读';
+    }
+
+    /**
+     * 获取类型文本
+     *
+     * @return string
+     */
+    public function getTypeTextAttribute()
+    {
+        return static::TYPE_MAP[$this->type] ?? '';
     }
 }

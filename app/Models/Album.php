@@ -34,6 +34,11 @@ class Album extends Model
         return $this->belongsToMany(Gallery::class, 'gallery_album', 'album_id', 'gallery_id');
     }
 
+    /**
+     * 即将弃用
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function gallery()
     {
         return $this->belongsTo(Gallery::class);

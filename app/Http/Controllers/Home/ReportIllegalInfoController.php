@@ -31,7 +31,6 @@ class ReportIllegalInfoController extends Controller
         // 验证提交的内容
         $data = $request->validated();
         
-        // type 2表示举报的是评论， 1表示举报的是文章
         if ($illegalInfo->hasBeenProcessed($data)) {
             return response()->success('', '该记录已被处理,感谢您的配合');
         }

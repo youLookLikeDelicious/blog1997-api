@@ -45,9 +45,7 @@ class XyLog extends Migration
                 ->default(0)
                 ->comment("请求耗时");
 
-            $table->string('user_agent', 200)
-                ->default('')
-                ->comment('用户代理');
+            $table->text('user_agent')->nullable()->comment('用户代理');
             
             $table->string('origin', 200)
                 ->default('')

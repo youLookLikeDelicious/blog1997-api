@@ -30,6 +30,7 @@ use App\Repository\User as RepositoryUser;
 use App\Http\Controllers\Auth\LoginManager;
 use App\Observers\SensitiveWordCategoryObserver;
 use App\Contract\Repository\User as UserContract;
+use App\Foundation\HighLightHtml;
 use App\Models\Catalog;
 use App\Observers\catalogObserver;
 use App\Repository\Admin\Gallery as AdminGallery;
@@ -49,11 +50,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
-        $this->app->singleton('Page', function () {
-            return new \App\Foundation\Page;
-        });
-
         $this->app->bind('Upload', function () {
             return new \App\Foundation\Upload;
         });
@@ -61,6 +57,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(Factory::class, function ($app) {
             return new LoginManager($app);
         });
+
+        $this->app->singleton('HighLightHtml', fn() => new HighLightHtml);
 
         $this->app->singleton('CacheModel', function () {
             return new \App\Foundation\CacheModel;
@@ -123,7 +121,8 @@ class AppServiceProvider extends ServiceProvider
         Relation::enforceMorphMap([
             'article' => Article::class,
             'comment' => Comment::class,
-            'thumbup' => ThumbUp::class
+            'thumbup' => ThumbUp::class,
+            'user'    => User::class
         ]);
 
         /*记录sql */

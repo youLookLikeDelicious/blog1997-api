@@ -29,6 +29,7 @@ class XyUser extends Migration
 
             $table->string('email', 120)
                 ->default('')
+                ->nullable()
                 ->comment('用户邮箱');
 
             $table->mediumInteger('article_sum')

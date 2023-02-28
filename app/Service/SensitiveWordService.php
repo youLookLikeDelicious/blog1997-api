@@ -94,11 +94,11 @@ class SensitiveWordService
                 // 该情况视为匹配失败，结束循环
                 ++$i;
 
-                if (!array_key_exists($strStack[$i], $tmpSensitiveWord)) {
+                if (empty($strStack[$i]) ||  !array_key_exists($strStack[$i], $tmpSensitiveWord)) {
                     break;
                 }
 
-                $tmpSensitiveWord  =$tmpSensitiveWord[$strStack[$i]];
+                $tmpSensitiveWord = $tmpSensitiveWord[$strStack[$i]];
             }
         }
 

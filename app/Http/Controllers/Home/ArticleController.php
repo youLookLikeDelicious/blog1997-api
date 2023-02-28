@@ -76,7 +76,7 @@ class ArticleController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function all (Request $request)
+    public function index (Request $request)
     {
         $resource = $this->article->all($request);
 

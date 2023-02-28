@@ -6,6 +6,7 @@ use App\Contract\Auth\Factory;
 use App\Contract\Repository\User as UserContract;
 use App\Http\Controllers\Auth\Provider\GithubProvider;
 use App\Http\Controllers\Auth\Provider\WechatProvider;
+use App\Http\Controllers\Auth\Provider\WeixinMiniProvider;
 use App\Repository\SocialAccount;
 
 class LoginManager extends Manager implements Factory
@@ -44,6 +45,18 @@ class LoginManager extends Manager implements Factory
         );
     }
 
+    protected function createWeixinMiniDriver()
+    {
+        $config = [
+            'APP_ID' => config('app.weixin_mini_app_id'),
+            'SECRET' => config('app.weixin_mini_secret'),
+        ];
+
+        return $this->buildProvider(
+            WeixinMiniProvider::class, $config
+        );
+    }
+
     /**
      * build provider instance
      *
@@ -52,9 +65,9 @@ class LoginManager extends Manager implements Factory
     protected function buildProvider ($provider, $config)
     {
         return new $provider(
-            $this->app->make(UserContract::class),
-            $this->app->make(SocialAccount::class),
-            $this->app->make('request'),
+            $this->container->make(UserContract::class),
+            $this->container->make(SocialAccount::class),
+            $this->container->make('request'),
             $config
         );
     }

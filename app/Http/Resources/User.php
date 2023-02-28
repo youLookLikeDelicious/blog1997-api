@@ -6,6 +6,20 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class User extends JsonResource
 {
+    protected $token;
+
+    /**
+     * Create a new resource instance.
+     *
+     * @param  mixed  $resource
+     * @return void
+     */
+    public function __construct($resource, $token = '')
+    {
+        $this->resource = $resource;
+        $this->token    = $token;
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -28,6 +42,10 @@ class User extends JsonResource
             'article_sum' => $this->article_sum,
             'created_at' => $this->created_at
         ];
+
+        if ($this->token) {
+            $result['token'] = $this->token;
+        }
 
         $this->load('roles:role.id,name');
         

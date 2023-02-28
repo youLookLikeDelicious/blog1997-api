@@ -116,7 +116,7 @@ abstract class ProviderAbstract
      */
     protected function isRequestToAdmin()
     {
-        return $this->request->redirect && $this->request->redirect === 'admin';
+        return $this->request->type === 'weixinMini' || $this->request->redirect && $this->request->redirect === 'admin';
     }
 
     /**
@@ -126,20 +126,19 @@ abstract class ProviderAbstract
      * @return void
      */
     public function sendLoginResponse(UserModel $user)
-    {
-        $this->request->session()->regenerate();
-        
+    {        
         $this->clearLoginAttempts($this->request);
         
-        $this->authorizeUser($user);
-        
+        $token = $this->authorizeUser($user);
+
         // 登陆前台界面
         if (! $this->isRequestToAdmin()) {
+            $user->token = $token;
             return response()->success($user);
         }
 
         // 登陆管理员界面
-        return response()->success(new UserResource($user), '用户登陆成功');
+        return response()->success(new UserResource($user, $token), '用户登陆成功');
     }
 
     /**
@@ -161,18 +160,15 @@ abstract class ProviderAbstract
      */
     public function retrieveUser()
     {
-        $user = $this->user();
+        $socialAccount = $this->user();
 
-        if ($user) {
-            $user->load('user:id,name,avatar,email,created_at,remember_token,password');
-            return $user->user;
+        if ($socialAccount) {
+            $socialAccount->load('user:id,name,avatar,email,created_at');
+            return $socialAccount->user;
         }
 
         // 通过第三方登陆，直接创建一个新的账号
-
-        if (! $this->isRequestToAdmin()) {
-            $user = $this->createNewAccount();
-        }
+        $user = $this->createNewAccount();
 
         return $user;
     }
@@ -250,8 +246,9 @@ abstract class ProviderAbstract
      */
     protected function authorizeUser(UserModel $user)
     {
-        Auth::login($user, true);
-        return $this;
+        $user->tokens()->where('name', $this->request->device_name ?: 'web')->delete();
+        $token = $user->createToken($this->request->device_name ?: 'web');
+        return $token->plainTextToken;
     }
 
     /**
