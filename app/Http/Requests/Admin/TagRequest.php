@@ -63,7 +63,7 @@ class TagRequest extends FormRequest
             'description' => 'present|max:450',
         ];
 
-        if (auth()->isMaster() && $this->coverIsFile()) {
+        if (auth()->user()->isMaster() && $this->coverIsFile()) {
             $rules['cover'] = 'required|image|max:10240';
         }
 

@@ -242,7 +242,7 @@ class MessageBox implements RepositoryMessageBox
     {
         $userId = auth()->id();
 
-        return auth()->isMaster()
+        return auth()->user()->isMaster()
             ? "(receiver = {$userId} or receiver = 0)"
             : 'receiver = ' . $userId;
     }

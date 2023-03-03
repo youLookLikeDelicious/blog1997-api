@@ -220,7 +220,7 @@ Route::group(['namespace' => 'Home'], function () {
     
 Route::get('/topic/all', 'Admin\TopicController@all');
     
-Route::group(['middleware' => 'x-session'], function () {
+Route::group(['middleware' => 'web'], function () {
     Route::get('/user/verify', 'Auth\SignUpController@verify')->name('user.verify');
 });
 Route::get('/captcha', [CaptchaController::class, 'getCaptchaApi']);

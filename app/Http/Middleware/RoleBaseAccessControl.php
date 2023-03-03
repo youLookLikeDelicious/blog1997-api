@@ -58,7 +58,7 @@ class RoleBaseAccessControl
                 ? null
                 : $user->roles;
 
-            if (!$roles->pluck('authorities')->collapse()->pluck('route_name')->contains($routeName)) {
+            if ( !$roles || !$roles->pluck('authorities')->collapse()->pluck('route_name')->contains($routeName)) {
                return false;
             }
         }

@@ -9,7 +9,7 @@ class VueController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('x-session');
+        $this->middleware('web');
         $this->middleware(['auth', 'rbac'])->only('index');
     }
     /**

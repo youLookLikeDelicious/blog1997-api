@@ -32,27 +32,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Auth::extend('x-session', function ($app, $name, array $config) {
-            $provider = new EloquentUserProvider($this->app['hash'], $app['config']['auth.providers.' . $config['provider'] . '.model']);
-
-            $guard = new SessionGuard($name, $provider, $this->app['session.store']);
-
-            // When using the remember me functionality of the authentication services we
-            // will need to be set the encryption instance of the guard, which allows
-            // secure, encrypted cookie values to get generated for those cookies.
-            if (method_exists($guard, 'setCookieJar')) {
-                $guard->setCookieJar($this->app['cookie']);
-            }
-
-            if (method_exists($guard, 'setDispatcher')) {
-                $guard->setDispatcher($this->app['events']);
-            }
-
-            if (method_exists($guard, 'setRequest')) {
-                $guard->setRequest($this->app->refresh('request', $guard, 'setRequest'));
-            }
-
-            return $guard;
-        });
     }
 }

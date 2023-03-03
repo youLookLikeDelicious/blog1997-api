@@ -57,7 +57,7 @@ class ThumbUpController extends Controller
             return response()->success('', '点赞成功');
         } catch (\Exception $e) {
             $this->rollBack();
-
+            throw $e;
             return response()->error('点赞失败');
         }
     }
