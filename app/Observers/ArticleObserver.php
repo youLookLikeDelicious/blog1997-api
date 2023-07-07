@@ -80,6 +80,8 @@ class ArticleObserver
             $message = '草稿发布成功';
             $this->deleteArticle($article);
             $newArticle = $article->toArray();
+            $newArticle['created_at'] = Carbon::parse($newArticle['created_at'])->getTimestamp();
+            $newArticle['updated_at'] = Carbon::parse($newArticle['updated_at'])->getTimestamp();
             Article::insert(array_merge($newArticle, ['id' => $article->article_id]));
             
             if ($article->id === $article->article_id + 0) {
